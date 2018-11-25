@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/override-3rd-party-style/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/problems-met-when-using-canvas/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/10/override-3rd-party-style/" itemprop="url">Override 3rd Party Style</a></h1>
+                <a class="post-title-link" href="/blog/2018/10/problems-met-when-using-canvas/" itemprop="url">Problems Met When Using canvas</a></h1>
         
 
         <div class="post-meta">
@@ -321,7 +321,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T16:26:56+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T19:21:32+08:00">
                 2018-10-05
               </time>
             
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/blog/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  169
+                  304
                 </span>
               
 
@@ -403,26 +403,30 @@
         
           
             <h2>Preface</h2>
-<p>It is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems.</p>
-<p>How can we override partial 3rd party style and avoid our style being overridden by 3rd party.</p>
-<p>Well, that's two question.</p>
+<p>Kind of weird when using <code>canvas</code>, but it's true. Let's take a look.</p>
 <h2>Main</h2>
-<h3>Override Partial 3rd Party Style</h3>
-<ul>
-<li><em>lib-override.css</em></li>
-</ul>
-<p>I think the first thing is to prepare a single file like <em>lib-override.css</em> to do this job whatever choice we make.</p>
-<ul>
-<li>override ways</li>
-</ul>
-<p>It's obvious that <code>!important</code> or <code>#id</code> can help us do this job. However, I wouldn't suggest you to do that. I would choose to use class selector with namespace to solve this kind of problem. For example,</p>
-<p>3rd party code is:</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.el-button--primary</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Then you can write:</p>
-<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="selector-class">.el-button--primary</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Code above also works to avoid our style being overridden by 3rd party. In some cases, if one class is not enough you may have to add more class as namespace.</p>
+<h3>canvas would lost accurate data when opacity isn't equal to 255</h3>
+<p>sample code:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"canvas"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>)</span><br><span class="line"><span class="keyword">let</span> cxt = canvas.getContext(<span class="string">'2d'</span>)</span><br><span class="line"><span class="keyword">let</span> imageData = cxt.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="keyword">let</span> data = imageData.data</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>] = <span class="number">200</span></span><br><span class="line">data[<span class="number">1</span>] = <span class="number">100</span></span><br><span class="line">data[<span class="number">2</span>] = <span class="number">50</span></span><br><span class="line">data[<span class="number">3</span>] = <span class="number">25</span></span><br><span class="line"><span class="built_in">console</span>.log(imageData.data) <span class="comment">//[200, 100, 50, 25]</span></span><br><span class="line">cxt.putImageData(imageData, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">let</span> debugImgData = cxt.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(debugImgData.data) <span class="comment">//[204, 102, 51, 25]</span></span><br></pre></td></tr></table></figure></p>
+<p><code>imageData.data</code> wouldn't be equal to <code>debugImgData.data</code> because opacity isn't equal to 255. If we set opacity to 255. They would be the same.</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data[<span class="number">3</span>] = <span class="number">255</span></span><br></pre></td></tr></table></figure></p>
+<h3>imageData.data is readonly</h3>
+<p>You can modify <code>data</code> but you can't reassign it like <code>imageData.data=[1,22,3,5]</code>. It will fail <strong>silently</strong>.</p>
+<h3>copy imageData</h3>
+<p>Because <code>imageData.data</code> is readonly. So, you can't copy it like code below:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newImgData = cxt.createImageData(debugImgData)</span><br><span class="line">newImgData.data = debugImgData.data</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'newImgData'</span>, newImgData.data) <span class="comment">//[0,0,0,0]</span></span><br></pre></td></tr></table></figure></p>
+<p>According to mdn, return value of <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createImageData" target="_blank" rel="noopener">createImageData</a> is</p>
+<p><em>A new ImageData object with the specified width and height. The new object is filled with transparent black pixels.</em></p>
+<p>which is <code>[0,0,0,0,,,,]</code>. And assignment of <code>newImgData.data = debugImgData.data</code> fail silently. So, if you want to copy <code>imageData</code> the right way is:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newImgData = cxt.createImageData(debugImgData)</span><br><span class="line">newImgData.data.set(debugImgData.data)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'newImgData'</span>, newImgData.data) <span class="comment">//[200, 100, 50, 255]</span></span><br></pre></td></tr></table></figure></p>
+<p>That is because <code>ImageData.data</code> is a <code>Uint8ClampedArray</code>. So we can find the API of
+<code>Uint8ClampedArray.prototype.set()</code> which stores multiple values in the typed array, reading input values from a specified array.</p>
 <h2>Ending</h2>
 <h2>Reference</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/36588722/html-canvas-putimagedata-with-transparency-causes-incorrect-rgb-to-be-saved#" target="_blank" rel="noopener">HTML Canvas putImageData with transparency causes incorrect RGB to be saved</a></li>
+</ul>
 
           
         
@@ -462,7 +466,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/blog/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/blog/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -514,7 +518,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -536,7 +540,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

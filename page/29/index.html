@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/05/how-to-debug-with-a-more-efficient-way/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/05/event-capturing-vs-event-bubbling/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/05/how-to-debug-with-a-more-efficient-way/" itemprop="url">How to Debug with a More Efficient Way</a></h1>
+                <a class="post-title-link" href="/blog/2018/05/event-capturing-vs-event-bubbling/" itemprop="url">Event Capturing Vs Event Bubbling</a></h1>
         
 
         <div class="post-meta">
@@ -321,7 +321,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T09:25:34+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T15:40:02+08:00">
                 2018-05-23
               </time>
             
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/debug/" itemprop="url" rel="index">
-                    <span itemprop="name">debug</span>
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  544
+                  246
                 </span>
               
 
@@ -403,34 +403,42 @@
         
           
             <h2>Preface</h2>
-<p>There is always sometimes when I ran into a problem and I was stuck in there. After problems solved, I watched back and thought maybe I can fix the problem alone or it shouldn't take me so much time to work it out. So, I decided to write something about how to debug with a more efficient way.</p>
-<h2>Steps</h2>
-<h3>Calm down first</h3>
-<p>Are you beginning to sweat now? Take a walk if you are and forget about the origin thought.</p>
-<h3>Try to figure out what the question you are facing</h3>
-<h4>Problems which are in a big project</h4>
-<p>Well, I hate this but I still meet this in some cases.</p>
-<p>At present, I am trying to extract the problem from the big project and reproduce it in a demo which is as minimal as possible. Then, I will try to figure out what the problem I am actually facing with. After all, it's easier to debug in a minimal demo than a big project. Then, fix the demo and fix the project.</p>
-<p>Sometimes the problems can't be or are not easy to be extracted. In that case, I would try to disable other functions which might complicate the problems to make the problems easier to fix.</p>
-<h4>Problems which are out of control</h4>
-<p>If the error is out of your control, for example, you are working with something you basically have no idea, you had better pay attention to the error information. Then find the document and search for something about the error information.</p>
-<p>It is quite common to encounter a new problem when we are using a frame which we don't know much about it. If that happens, the quickest way is to find the document and see if the way we use is not right.</p>
-<h4>Problems seem familiar</h4>
-<p>If you know something about your error, for example, you are running a demo which doesn't behave as you expected, maybe you should stop and ask yourself a few questions:</p>
+<p>When I am trying to delegate the <code>error</code> event of <code>img</code>, I find that those events won't bubble up to window. So,does that mean I have to bind so many events as many as images I have?</p>
+<h2>Main</h2>
+<p>After a while, I think of something about event capturing which maybe can solve this question. So, I tried code below:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"img"</span> <span class="attr">src</span>=<span class="string">"error.png"</span> <span class="attr">alt</span>=<span class="string">"error.png"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'error'</span>, windowErrorCb, &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;, <span class="literal">true</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">windowErrorCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> target = event.target</span><br><span class="line">  <span class="keyword">let</span> isImg = target.tagName.toLowerCase() === <span class="string">'img'</span></span><br><span class="line">  <span class="keyword">if</span> (isImg) &#123;</span><br><span class="line">    imgErrorCb()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">imgErrorCb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isImgErrorHandled = target.hasAttribute(<span class="string">'data-src-error'</span>)</span><br><span class="line">    <span class="keyword">if</span> (!isImgErrorHandled) &#123;</span><br><span class="line">      target.setAttribute(<span class="string">'data-src-error'</span>, <span class="string">'handled'</span>)</span><br><span class="line">      target.src = <span class="string">'backup.png'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Code above works normally. If we change the <code>capture</code> and the last argument to <code>false</code>, it doesn't work.</p>
+<p>In this case, we can find that event capturing seems have more applicable situations than event bubbling. Also it seems faster because I catch and handle the event earlier than event bubbling.
+So, I got these questions:</p>
 <ul>
 <li>
-<p>What is my expected output?</p>
+<p>Why would we use event bubbling not event capturing as default except for compatibility?</p>
 </li>
 <li>
-<p>Why should the demo behave like that?</p>
+<p>Does event capturing really faster than event bubbling as I thought?</p>
+</li>
+<li>
+<p>Does event capturing really have more applicable situations?</p>
 </li>
 </ul>
-<p>In this way, you might say that it should behave like that because the specs said that it should ..... It doesn't matter if you don't remember the details of the specs. In this case, you should go to check the part of the specs and read the specs carefully again to see if it really defines the behavior you expected. And I still suggest you reading the specs again even that you remember the details.</p>
-<p>Don't tell me you don't know where the specs is because this shouldn't happen. Or if it really happens, it is better for you to find the specs as soon as possible.</p>
-<p>Usually, you will find that you missed something in the specs or just misunderstand the specs or the specs just didn't define the specific behavior.</p>
-<p>However, sometimes you are totally right after reading the specs. In this case, I think it's time to ask in the community like <a href="https://stackoverflow.com" target="_blank" rel="noopener">Stackoverflow</a> or just ask the specs working group. Before asking, you had better know something about how to ask.</p>
+<p>The answers can be listed below:</p>
+<ul>
+<li>
+<p>Don't know yet.</p>
+</li>
+<li>
+<p>Yes, you can see the demo <a href="https://jsperf.com/delegating-capture-vs-bubble/2" target="_blank" rel="noopener">here</a></p>
+</li>
+<li>
+<p>Yes.</p>
+</li>
+</ul>
 <h2>Ending</h2>
-<p>Anyway, the last way is <a href="https://www.google.com" target="_blank" rel="noopener">google</a> and I will update when I figure out something new.</p>
+<p>After words above, I think we should use event capturing as default.</p>
+<h2>Reference</h2>
+<p><a href="https://stackoverflow.com/questions/2661199/event-capturing-vs-event-bubbling/10335117" target="_blank" rel="noopener">Event Capturing vs Event Bubbling</a></p>
+<p><a href="https://jsperf.com/delegating-capture-vs-bubble/2" target="_blank" rel="noopener">delegating-capture-vs-bubble</a></p>
 
           
         
@@ -470,7 +478,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/28/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/blog/page/30/">30</a><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/30/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/28/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/blog/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/30/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -522,7 +530,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -544,7 +552,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/05/event-capturing-vs-event-bubbling/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/when-and-how-to-use-frame/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/05/event-capturing-vs-event-bubbling/" itemprop="url">Event Capturing Vs Event Bubbling</a></h1>
+                <a class="post-title-link" href="/blog/2018/06/when-and-how-to-use-frame/" itemprop="url">When and How to Use Frame?</a></h1>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T15:40:02+08:00">
-                2018-05-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-08T15:14:02+08:00">
+                2018-06-08
               </time>
             
 
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
+                    <span itemprop="name">frame</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  246
+                  201
                 </span>
               
 
@@ -403,42 +403,31 @@
         
           
             <h2>Preface</h2>
-<p>When I am trying to delegate the <code>error</code> event of <code>img</code>, I find that those events won't bubble up to window. So,does that mean I have to bind so many events as many as images I have?</p>
+<p>There has been a long time that I don't know whether should I use frame like <code>jQuery</code> or still stick to pure js. So, I decided to summarize some principles for future reference.</p>
 <h2>Main</h2>
-<p>After a while, I think of something about event capturing which maybe can solve this question. So, I tried code below:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"img"</span> <span class="attr">src</span>=<span class="string">"error.png"</span> <span class="attr">alt</span>=<span class="string">"error.png"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'error'</span>, windowErrorCb, &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;, <span class="literal">true</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">windowErrorCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> target = event.target</span><br><span class="line">  <span class="keyword">let</span> isImg = target.tagName.toLowerCase() === <span class="string">'img'</span></span><br><span class="line">  <span class="keyword">if</span> (isImg) &#123;</span><br><span class="line">    imgErrorCb()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">imgErrorCb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isImgErrorHandled = target.hasAttribute(<span class="string">'data-src-error'</span>)</span><br><span class="line">    <span class="keyword">if</span> (!isImgErrorHandled) &#123;</span><br><span class="line">      target.setAttribute(<span class="string">'data-src-error'</span>, <span class="string">'handled'</span>)</span><br><span class="line">      target.src = <span class="string">'backup.png'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Code above works normally. If we change the <code>capture</code> and the last argument to <code>false</code>, it doesn't work.</p>
-<p>In this case, we can find that event capturing seems have more applicable situations than event bubbling. Also it seems faster because I catch and handle the event earlier than event bubbling.
-So, I got these questions:</p>
+<h4>Before using</h4>
+<ol>
+<li>Figure out the problem that the frame solved?</li>
+<li>Figure out what kind of situation the frame would be useful, similar with above.</li>
+<li>Why would so many people use this not other similar frames?</li>
+<li>How many parts in the frame?</li>
+<li>What is the relationship between those parts?</li>
+</ol>
+<h4>When should use</h4>
 <ul>
-<li>
-<p>Why would we use event bubbling not event capturing as default except for compatibility?</p>
-</li>
-<li>
-<p>Does event capturing really faster than event bubbling as I thought?</p>
-</li>
-<li>
-<p>Does event capturing really have more applicable situations?</p>
-</li>
+<li>Needed in work.</li>
+<li>Emancipate the productive forces based on the fact that you can solve this with ease by pure js.</li>
 </ul>
-<p>The answers can be listed below:</p>
+<h4>When shouldn't use</h4>
 <ul>
-<li>
-<p>Don't know yet.</p>
-</li>
-<li>
-<p>Yes, you can see the demo <a href="https://jsperf.com/delegating-capture-vs-bubble/2" target="_blank" rel="noopener">here</a></p>
-</li>
-<li>
-<p>Yes.</p>
-</li>
+<li>Don't need in work and you don't know how to implement it with pure js and use it just for laze.</li>
+<li>Need it in work and just use it without understanding the principle.</li>
 </ul>
-<h2>Ending</h2>
-<p>After words above, I think we should use event capturing as default.</p>
-<h2>Reference</h2>
-<p><a href="https://stackoverflow.com/questions/2661199/event-capturing-vs-event-bubbling/10335117" target="_blank" rel="noopener">Event Capturing vs Event Bubbling</a></p>
-<p><a href="https://jsperf.com/delegating-capture-vs-bubble/2" target="_blank" rel="noopener">delegating-capture-vs-bubble</a></p>
+<h2>Recommendation</h2>
+<ul>
+<li>You can implement it with pure js easily so that you want to use it to emancipate the productive forces.</li>
+<li>In need of other situation, you have to implement it immediately so you use it and figure out the principle as soon as possible in case of bugs.</li>
+</ul>
 
           
         
@@ -478,7 +467,7 @@ So, I got these questions:</p>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/27/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/blog/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/29/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/27/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/blog/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/29/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -530,7 +519,7 @@ So, I got these questions:</p>
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -552,7 +541,7 @@ So, I got these questions:</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

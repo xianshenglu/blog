@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/a-trap-when-using-letter-spacing-to-remove-the-extra-space-in-chrome66.0.3359.139/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/07/skills-on-mobile-development/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/06/a-trap-when-using-letter-spacing-to-remove-the-extra-space-in-chrome66.0.3359.139/" itemprop="url">A Trap When Using letter-spacing to Remove the Extra Space in chrome66.0.3359.139</a></h1>
+                <a class="post-title-link" href="/blog/2018/07/skills-on-mobile-development/" itemprop="url">Skills on Mobile Development</a></h1>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-18T15:47:27+08:00">
-                2018-06-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-01T10:18:27+08:00">
+                2018-07-01
               </time>
             
 
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/blog/categories/debug/" itemprop="url" rel="index">
+                    <span itemprop="name">debug</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  361
+                  192
                 </span>
               
 
@@ -402,36 +402,27 @@
       
         
           
-            <h2>Preface</h2>
-<p>As we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like <code>font-size:0</code>,<code>word-spacing</code>,<code>margin-left</code>,<code>letter-spacing</code> and so on.</p>
-<h2>Choice I Made</h2>
-<p>Normally I prefer using <code>letter-spacing</code> because</p>
-<ol>
-<li>it seems ok when we assign a value which is bigger than the width of extra space(e.g. <code>-1em</code>).</li>
-<li>However, it won't be okay with <code>word-spacing</code> and <code>margin-left</code> when we set bigger value like <code>-1em</code>.</li>
-<li>Using <code>font-size</code> is not convenient when we try to using <code>em</code> as <code>font-size</code> unit.</li>
-</ol>
-<p>So, <code>letter-spacing</code> seems to be the best choice.</p>
-<p>Well, I agree with that though I found a bug in chrome66.0.3359.139 today.</p>
-<h2>Bug I Found</h2>
-<p>Please run the code below:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav3<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  <span class="attribute">color</span>: inherit;</span><br><span class="line">  <span class="attribute">cursor</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">260px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: -<span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav__text</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">90px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>If you are using Chrome(test version 66.0.3359.139) or Opera(test version 53.0.2907.99), what you see might be:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180618184625.png" alt=""></p>
-<p>If you are using Firefox(60.0.2),IE10 or Edge, what you see might be:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180618184736.png" alt=""></p>
-<p>That's interesting. So, I checked the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a> and found this:</p>
-<blockquote>
-<p>&lt;length&gt;
-Specifies extra inter-character space in addition to the default space between characters. Values may be negative, but there may be implementation-specific limits. <strong>User agents may not further increase or decrease the inter-character space in order to justify text.</strong></p>
-</blockquote>
-<p>It seems that this is the reason.</p>
-<p>So, I tested and try to find the best value for <code>letter-spacing</code> and <strong>it turns out that <code>0.3em</code> or <code>0.31em</code> is the best value.</strong></p>
+            <h2>Main</h2>
+<h3>Access localhost on Mobile</h3>
+<p>As you know, If I am working with url like <code>http://localhost:8080</code> It doesn't work on mobile. So, I have to try another way. After some research, I find something related:</p>
+<ul>
+<li><code>localhost</code> is a hostname which points to <code>127.0.0.1</code> by default and also can be changed.</li>
+</ul>
+<p>Normally, <strong>we are using the same WIFI on our computer and mobile.</strong> So, in my case,</p>
+<ul>
+<li>I use command <code>ipconfig</code> and got the ip <code>192.168.x.x</code>.</li>
+<li>I add <code>--host 192.168.x.x</code> in my <em>package.json</em> scripts like this:</li>
+</ul>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"webpack-boilerplate"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"app.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"npm run lint &amp;&amp; webpack --config webpack.config.js -p"</span>,</span><br><span class="line">    <span class="string">"dev"</span>: <span class="string">"npm run lint &amp;&amp; webpack-dev-server --config webpack.dev.config.js --inline --host 192.168.x.x"</span>,</span><br><span class="line">    <span class="string">"lint"</span>: <span class="string">"./node_modules/.bin/eslint js"</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>If you aren't using <em>package.json</em>, you can directly replace <code>localhost</code> to <code>192.168.x.x</code> in the url.</li>
+<li>Then I open the url <code>http://192.168.x.x:8080</code> on my computer and mobile. Both work!</li>
+</ul>
 <h2>Ending</h2>
-<p>Anyway, <code>letter-spacing</code> is still the best solution though we have to be more careful.</p>
 <h2>Reference</h2>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a></p>
+<ul>
+<li><a href="http://yujiangshui.com/multidevice-frontend-debug/" target="_blank" rel="noopener">移动端前端开发调试</a></li>
+</ul>
 
           
         
@@ -471,7 +462,7 @@ Specifies extra inter-character space in addition to the default space between c
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/19/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/blog/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/21/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/19/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/blog/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/21/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -523,7 +514,7 @@ Specifies extra inter-character space in addition to the default space between c
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -545,7 +536,7 @@ Specifies extra inter-character space in addition to the default space between c
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

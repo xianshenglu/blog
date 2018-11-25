@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/05/build-blog-by-github-pages-and-hexo/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/05/how-to-debug-with-a-more-efficient-way/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/05/build-blog-by-github-pages-and-hexo/" itemprop="url">Build Blog by Github Pages and Hexo</a></h1>
+                <a class="post-title-link" href="/blog/2018/05/how-to-debug-with-a-more-efficient-way/" itemprop="url">How to Debug with a More Efficient Way</a></h1>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-20T00:00:00+08:00">
-                2018-05-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T09:25:34+08:00">
+                2018-05-23
               </time>
             
 
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/software/" itemprop="url" rel="index">
-                    <span itemprop="name">software</span>
+                  <a href="/blog/categories/debug/" itemprop="url" rel="index">
+                    <span itemprop="name">debug</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  766
+                  544
                 </span>
               
 
@@ -403,84 +403,34 @@
         
           
             <h2>Preface</h2>
-<p>There is a lot of tutorials teaching you build your own blog by github pages with url like <code>https://username.github.io</code>.</p>
-<p>Well, I am not going to do that. Why would I have to build blog on my main site rather than <code>https://username.github.io/blog</code>?</p>
-<p>That is what I'm going to do! Build a blog under main site so that it wouldn't take over the main site. Suppose that you have already known something about <code>npm</code> and <code>git</code> or <code>Github</code>.</p>
+<p>There is always sometimes when I ran into a problem and I was stuck in there. After problems solved, I watched back and thought maybe I can fix the problem alone or it shouldn't take me so much time to work it out. So, I decided to write something about how to debug with a more efficient way.</p>
 <h2>Steps</h2>
-<ul>
-<li>Install <code>hexo</code> and <code>hexo-cli</code></li>
-</ul>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>Create your blog folder with no file, and get into the folder(for example, my blog folder is <em>blog</em>).</li>
-</ul>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>Initialize hexo and install dependencies</li>
-</ul>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo init</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></p>
-<p>Normally, dependencies will be installed automatically</p>
-<ul>
-<li>Try to run it locally</li>
-</ul>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo s -g</span><br></pre></td></tr></table></figure></p>
-<p>Normally, you will see:</p>
-<p><img src="../images/20180520101721.png" alt="20180520101721.png"></p>
-<ul>
-<li>Open the browser with the url in the above screenshot:</li>
-</ul>
-<p><img src="../images/20180520102405.png" alt="20180520102405.png"></p>
-<p>You can change the theme if you don't like it. However that is not the point of this article. You can do it according to the docs in <a href="https://hexo.io/docs/" target="_blank" rel="noopener">hexo</a>.</p>
-<ul>
-<li>Also, if we want to deploy it on github, we have to install <code>hexo-deployer-git</code> according to <a href="https://hexo.io/docs/" target="_blank" rel="noopener">docs</a>.</li>
-</ul>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>Suppose that you already have a repository on github. For example, the name is <code>blog</code> and url is <code>https://github.com/username/blog</code>. Then find the <em>_config.yml</em> file in the folder. Open it update the <code>url</code> and <code>root</code> as follows:</li>
-</ul>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">url: https://github.com/username/blog</span><br><span class="line">root: /blog/</span><br></pre></td></tr></table></figure></p>
-<p>Also, update <code>deploy</code> like this:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/username/blog</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
-<p>Well, I have to warn you that
-and the space before word <code>type</code>, <code>repo</code> and <code>branch</code>should be <em>blank space</em> not <em>tab</em>. Otherwise, you will get error about your <code>indentation</code>.</p>
-<ul>
-<li>Now, try to deploy it on github:</li>
-</ul>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure></p>
-<p>Open your repository url like <code>https://github.com/username/blog</code> and you will find there is a few files and folders. Remember to clear cash with <code>ctrl+shift+delete</code> if you just pushed.</p>
-<ul>
-<li>Suppose that you already make the repository become a github page. Then, you can open your page url like: <code>https://username.github.io/blog/</code>. You will see what you see locally last time.</li>
-</ul>
-<h2>Default settings</h2>
-<p>some stuff should be done by default which hexo didn't:</p>
-<ul>
-<li>Generate <em>.deploy_git/categories</em> folder when deployed. This might be done by default.</li>
-</ul>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-category --save</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>Generate <em>index.md</em> under folder <em>source/categories</em> and <em>source/tags</em></li>
-</ul>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new page categories</span><br><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure></p>
-<p>Also, need to add <code>type: tags</code> and <code>type: categories</code> in the above corresponding file <em>index.md</em>. It will help you generate <em>index.html</em> under folder <em>.deploy_git/categories</em> and <em>.deploy_git/tags</em> when deployed.</p>
-<h2>Update</h2>
-<ul>
-<li>I just found that default <code>hexo-renderer-marked</code> didn't work with some markdown syntax like <em>.deploy_git/categories</em>. So, I change my markdown parser;</li>
-</ul>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked  --save</span><br><span class="line">npm install hexo-renderer-markdown-it  --save</span><br></pre></td></tr></table></figure></p>
+<h3>Calm down first</h3>
+<p>Are you beginning to sweat now? Take a walk if you are and forget about the origin thought.</p>
+<h3>Try to figure out what the question you are facing</h3>
+<h4>Problems which are in a big project</h4>
+<p>Well, I hate this but I still meet this in some cases.</p>
+<p>At present, I am trying to extract the problem from the big project and reproduce it in a demo which is as minimal as possible. Then, I will try to figure out what the problem I am actually facing with. After all, it's easier to debug in a minimal demo than a big project. Then, fix the demo and fix the project.</p>
+<p>Sometimes the problems can't be or are not easy to be extracted. In that case, I would try to disable other functions which might complicate the problems to make the problems easier to fix.</p>
+<h4>Problems which are out of control</h4>
+<p>If the error is out of your control, for example, you are working with something you basically have no idea, you had better pay attention to the error information. Then find the document and search for something about the error information.</p>
+<p>It is quite common to encounter a new problem when we are using a frame which we don't know much about it. If that happens, the quickest way is to find the document and see if the way we use is not right.</p>
+<h4>Problems seem familiar</h4>
+<p>If you know something about your error, for example, you are running a demo which doesn't behave as you expected, maybe you should stop and ask yourself a few questions:</p>
 <ul>
 <li>
-<p>Before deploying, you had better remove the <em>public</em> and <em>.deploy_git</em> folder because they won't be rewritten sometimes.</p>
+<p>What is my expected output?</p>
 </li>
 <li>
-<p>Above operation works well if there is no image in the markdown. However, if there is an image, for example:</p>
+<p>Why should the demo behave like that?</p>
 </li>
 </ul>
-<p><figure class="highlight md"><table><tr><td class="code"><pre><span class="line">![<span class="string">20180520102405.png</span>](<span class="link">../images/20180520102405.png</span>)</span><br></pre></td></tr></table></figure></p>
-<p>The path for the image will be resolved incorrectly. In consistent with above case, the correct path should be <code>https://username.github.io/blog/images/20180520102405.png</code> while what we got is like <code>https://username.github.io/blog/2018/05/20/images/20180520101721.png</code>.So, we need to modify <code>src</code> to get a new url.</p>
-<p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'error'</span>, windowErrorCb, &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;, <span class="literal">true</span>)</span><br><span class="line"><span class="built_in">document</span>.addEventListener(</span><br><span class="line">  <span class="string">'DOMContentLoaded'</span>,</span><br><span class="line">  refreshImgUrl,</span><br><span class="line">  &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">windowErrorCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> target = event.target</span><br><span class="line">  imgErrorCb()</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">imgErrorCb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isImgErrorHandled = target.hasAttribute(<span class="string">'data-src-error'</span>)</span><br><span class="line">    <span class="keyword">let</span> isImgPathMatch =</span><br><span class="line">      target.tagName.toLowerCase() === <span class="string">'img'</span> &amp;&amp;</span><br><span class="line">      target.src.match(<span class="regexp">/\/images\/[^/]*?\d&#123;10,20&#125;[^/]*$/</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isImgPathMatch &amp;&amp; !isImgErrorHandled) &#123;</span><br><span class="line">      target.src = <span class="string">'https://xianshenglu.github.io/blog'</span> + isImgPathMatch[<span class="number">0</span>]</span><br><span class="line">      target.setAttribute(<span class="string">'data-src-error'</span>, <span class="string">'handled'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">refreshImgUrl</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> isImgPathMatchReg = <span class="regexp">/\/images\/[^/]*?\d&#123;10,20&#125;[^/]*$/</span></span><br><span class="line">  $(<span class="string">'img'</span>)</span><br><span class="line">    .toArray()</span><br><span class="line">    .forEach(<span class="function"><span class="params">img</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (img.src.match(isImgPathMatchReg)) &#123;</span><br><span class="line">        img.src = img.src</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>To solve question above, you can put the code above in the bottom of the file <em>theme/next/source/js/src/motion.js</em> which should be changed according to your theme and image's path. Actually, you can put the code in any js file as long as you are sure that it will be loaded.</p>
+<p>In this way, you might say that it should behave like that because the specs said that it should ..... It doesn't matter if you don't remember the details of the specs. In this case, you should go to check the part of the specs and read the specs carefully again to see if it really defines the behavior you expected. And I still suggest you reading the specs again even that you remember the details.</p>
+<p>Don't tell me you don't know where the specs is because this shouldn't happen. Or if it really happens, it is better for you to find the specs as soon as possible.</p>
+<p>Usually, you will find that you missed something in the specs or just misunderstand the specs or the specs just didn't define the specific behavior.</p>
+<p>However, sometimes you are totally right after reading the specs. In this case, I think it's time to ask in the community like <a href="https://stackoverflow.com" target="_blank" rel="noopener">Stackoverflow</a> or just ask the specs working group. Before asking, you had better know something about how to ask.</p>
 <h2>Ending</h2>
-<p>Well, the main settings have already finished. And if you want to set the theme or other things, go check the <a href="https://hexo.io/docs/" target="_blank" rel="noopener">docs</a>.</p>
+<p>Anyway, the last way is <a href="https://www.google.com" target="_blank" rel="noopener">google</a> and I will update when I figure out something new.</p>
 
           
         
@@ -520,7 +470,7 @@ and the space before word <code>type</code>, <code>repo</code> and <code>branch<
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/29/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/31/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/29/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/blog/page/31/">31</a><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/31/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -572,7 +522,7 @@ and the space before word <code>type</code>, <code>repo</code> and <code>branch<
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -594,7 +544,7 @@ and the space before word <code>type</code>, <code>repo</code> and <code>branch<
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/better-way-to-use-orientationchange-event-on-mobile/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/vue-form-input-bindings-and-lifecycle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/10/better-way-to-use-orientationchange-event-on-mobile/" itemprop="url">Better Way to Use orientationchange Event on Mobile</a></h1>
+                <a class="post-title-link" href="/blog/2018/10/vue-form-input-bindings-and-lifecycle/" itemprop="url">Vue Form Input Bindings and Lifecycle</a></h1>
         
 
         <div class="post-meta">
@@ -321,7 +321,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T12:39:53+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T20:36:32+08:00">
                 2018-10-04
               </time>
             
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
+                    <span itemprop="name">frame</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  316
+                  592
                 </span>
               
 
@@ -403,31 +403,33 @@
         
           
             <h2>Preface</h2>
-<p>When I was using <code>orientationchange</code> event, I met a few bugs. So, I take it down.</p>
+<p>When I was using form validate in Vue, I found sometimes vue doesn't render data which was modified by me. I even thought it was a bug. Anyway, let's take a look.</p>
 <h2>Main</h2>
-<h4>compatibility problem</h4>
-<p>When I was testing my code on my android, it was ok. However, it doesn't work on my boss's iPhone6. So, i have to change the code.</p>
-<p>The origin code was like:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">id</span>=<span class="string">"box"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-class">.landscape</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> box = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>)</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'orientationchange'</span>, orientationChangeCb)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">orientationChangeCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> isLand = isLandscape()</span><br><span class="line">  <span class="keyword">if</span> (isLand) &#123;</span><br><span class="line">    box.classList.add(<span class="string">'landscape'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    box.classList.remove(<span class="string">'landscape'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isLandscape</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="string">'orientation'</span> <span class="keyword">in</span> <span class="built_in">window</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(<span class="built_in">window</span>.orientation) === <span class="number">90</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.innerWidth &gt; <span class="built_in">window</span>.innerHeight</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>To be compatible with iPhone6, I use <code>resize</code> event instead.</p>
-<p>However, the better way I think is :</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> eventForOrientationChange =</span><br><span class="line">  <span class="string">'onorientationchange'</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">'orientationchange'</span> : <span class="string">'resize'</span></span><br><span class="line"><span class="keyword">if</span> (isMobile()) &#123;</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(eventForOrientationChange, orientationChangeCb)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4>isMobile ?</h4>
-<p>Because <code>onorientationchange</code> is a mobile event, so if you try to run code below on your computer with chrome, you will get:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onorientationchange <span class="comment">//undefined</span></span><br><span class="line"><span class="string">'onorientationchange'</span> <span class="keyword">in</span> <span class="built_in">window</span> <span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
-<p>It seems a little weird but it's true until chrome 69. That's why I add <code>isMobile()</code> before I use <code>window.addEventListener</code>. In that case, we don't have to listen for the <code>resize</code> event on desktop.</p>
-<h4>window.orientation or screen.orientation</h4>
-<p>According to mdn, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/orientation#Specifications" target="_blank" rel="noopener">window.orientation</a> has been <strong>Deprecated</strong>. However, similar API <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation#Browser_compatibility" target="_blank" rel="noopener">screen.orientation</a> has a big problem for compatibility. Safari and QQ doesn't support. As of 2018.10.4, global support in <a href="https://caniuse.com/#search=orientation" target="_blank" rel="noopener">caniuse</a> is only 72.5%.</p>
-<h4>css only</h4>
-<p>If you just want to update style, you don't have to use code above. CSS media queries
-support code like:</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">media</span> (min-height: <span class="number">680px</span>), screen and (orientation: portrait) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> (min-height: <span class="number">680px</span>), screen and (orientation: landscape) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Here is a simple demo:</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"positive-num"</span> <span class="attr">:value.trim</span>=<span class="string">"positiveNum"</span> @<span class="attr">input</span>=<span class="string">"oldValidate"</span> <span class="attr">:placeholder</span>=<span class="string">"positiveNumTip"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;positiveNumResTip&#125;&#125;&#123;&#123;positiveNum&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>When I was pressing <em>dddddddddd</em>, what did I got?</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181004204524.png" alt="截图20181004204524.png"></p>
+<p>The first letter was replaced to 1 but the others not. And the most important is the result I got is always 1 which means <code>this.positiveNum</code> is 1 while the value in the <code>input</code> is not 1.</p>
+<p>Why?</p>
+<p>I even thought it was a bug until one day I met a similar problem which was solved in SO.</p>
+<p>The key is the Lifecycle. The guide mentions it before but I didn't understand it until now. Let's see the picture again:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181004205221.png" alt="截图20181004205221.png"></p>
+<p>See?</p>
+<p>The first time we change <code>positiveNum</code> to 1 and then we always change <code>positiveNum</code> to 1. So, vue wouldn't re-render because the data doesn't change. So, the connection between <code>input</code> and <code>positiveNum</code> was cut off until <code>positiveNum</code> isn't equal to 1.</p>
+<p>We can add <code>updated</code> to see how many times data has changed:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  updated() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'data updated'</span>) <span class="comment">//only triggered once</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>As explained before, you can only see <code>'data updated'</code> once.</p>
+<p>So, how can we solved this problem?</p>
+<p>The key is still the Lifecycle. Vue wouldn't re-render because data doesn't change. So, we can update data after data has been changed and rendered. Understood? See code below:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"positive-num"</span> <span class="attr">:value.trim</span>=<span class="string">"positiveNum"</span> @<span class="attr">input</span>=<span class="string">"newValidate"</span> <span class="attr">:placeholder</span>=<span class="string">"positiveNumTip"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;positiveNumResTip&#125;&#125;&#123;&#123;positiveNum&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    newValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.positiveNum.match(reg)) &#123;</span><br><span class="line">          <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(<span class="keyword">this</span>.positiveNum)</span><br><span class="line">          <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.positiveNum = <span class="string">''</span> <span class="comment">//for better use I changed the wrong value to ''</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  updated() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'data updated'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>See? I move the origin logic to the <code>this.$nextTick(callback)</code>. Every time you press the wrong button, it will pass the wrong value to <code>positiveNum</code> and will be corrected in <code>this.$nextTick(callback)</code> which will make the logic run correctly. Also, you can see the updated log at the console.</p>
 <h2>Ending</h2>
 <h2>Reference</h2>
 <ul>
-<li><a href="https://stackoverflow.com/questions/4917664/detect-viewport-orientation-if-orientation-is-portrait-display-alert-message-ad" target="_blank" rel="noopener">detect viewport orientation, if orientation is portrait display alert message advising user of instructions</a></li>
+<li><a href="https://stackoverflow.com/questions/49920790/change-child-component-checked-state-from-parent-component-synchronously-fail" target="_blank" rel="noopener">change child-component checked state from parent-component synchronously fail</a></li>
 </ul>
 
           
@@ -468,7 +470,7 @@ support code like:</p>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/blog/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/blog/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -520,7 +522,7 @@ support code like:</p>
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -542,7 +544,7 @@ support code like:</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

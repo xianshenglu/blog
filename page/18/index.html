@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/find-what-font-the-browser-is-actually-using/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/how-to-use-custom-font-in-web/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/08/find-what-font-the-browser-is-actually-using/" itemprop="url">Find What Font the Browser Is Actually Using</a></h1>
+                <a class="post-title-link" href="/blog/2018/08/how-to-use-custom-font-in-web/" itemprop="url">How to Use Custom Font in Web</a></h1>
         
 
         <div class="post-meta">
@@ -321,7 +321,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-04T18:16:59+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-04T18:39:01+08:00">
                 2018-08-04
               </time>
             
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  98
+                  469
                 </span>
               
 
@@ -403,17 +403,22 @@
         
           
             <h2>Preface</h2>
-<p>When the designer asked me what is the font of some text I told her to press F12 and check the <code>font-family</code> in Computed, like this:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180804182943.png" alt="截图20180804182943"></p>
+<p>CSS3 can set custom <code>font-family</code> with src pointing to specific font file. We can use it for some cool font or use it when there is no specific font in user's computer.</p>
+<p>However, when I try to use it I find something blocking my way.</p>
 <h2>Main</h2>
-<p>However, when I am using that <code>font-family</code> I find that I was totally wrong. The actual font the text used is this:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180804183017.png" alt="截图20180804183017"></p>
-<p>That is totally different from the <code>font-family</code> though I know that we can't be sure that the browser would use the <code>font-family</code> we set in css.</p>
-<h2>Ending</h2>
-<h2>Reference</h2>
-<ul>
-<li><a href="https://stackoverflow.com/questions/884177/how-can-i-determine-what-font-a-browser-is-actually-using-to-render-some-text" target="_blank" rel="noopener">how-can-i-determine-what-font-a-browser-is-actually-using-to-render-some-text</a></li>
-</ul>
+<p>Well, it's about language problem.</p>
+<p>As we all know, if I try to use some font for Non-English language the font file may not be small enough. For example, I am try to use some kind of chinese font and I find the font file. However, the file is more than 5M and I haven't handled the compatibility problem.</p>
+<p>So, I am trying to find a solution about this. And I find <a href="https://github.com/ecomfe/fontmin/">fontmin</a>!</p>
+<p><a href="https://github.com/ecomfe/fontmin/">fontmin</a> will extract the text you files used and generate the correspond font file which is much smaller than your original font file.</p>
+<p>For example:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Fontmin = <span class="built_in">require</span>(<span class="string">'fontmin'</span>);</span><br><span class="line"><span class="keyword">var</span> srcPath = <span class="string">'src/font/*.ttf'</span>;</span><br><span class="line"><span class="keyword">var</span> destPath = <span class="string">'asset/font'</span>;</span><br><span class="line"><span class="keyword">var</span> text = <span class="string">'我说你是人间的四月天；笑响点亮了四面风；轻灵在春的光艳中交舞着变。'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// initial</span></span><br><span class="line"><span class="keyword">var</span> fontmin = <span class="keyword">new</span> Fontmin()</span><br><span class="line">  .src(srcPath) <span class="comment">// font file you want to simplify</span></span><br><span class="line">  .use(</span><br><span class="line">    Fontmin.glyph(&#123;</span><br><span class="line">      <span class="comment">// extract glyph</span></span><br><span class="line">      text: text <span class="comment">// all the text you will use</span></span><br><span class="line">    &#125;)</span><br><span class="line">  )</span><br><span class="line">  .use(Fontmin.ttf2eot()) <span class="comment">// eot transform plugin</span></span><br><span class="line">  .use(Fontmin.ttf2woff()) <span class="comment">// woff transform plugin</span></span><br><span class="line">  .use(Fontmin.ttf2svg()) <span class="comment">// svg transform plugin</span></span><br><span class="line">  .use(Fontmin.css()) <span class="comment">// css generation plugin</span></span><br><span class="line">  .dest(destPath); <span class="comment">// output the simplified font file</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// run</span></span><br><span class="line">fontmin.run(<span class="function"><span class="keyword">function</span>(<span class="params">err, files, stream</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(err);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'done'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>In my case, I need to extract text from some file. So, I do it like this:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> text;</span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line">fs.readFile(<span class="string">'data.js'</span>, <span class="string">'utf8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">er, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (er) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">console</span>.log(er);</span><br><span class="line">  &#125;</span><br><span class="line">  text = data;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> Fontmin = <span class="built_in">require</span>(<span class="string">'fontmin'</span>);</span><br><span class="line">  <span class="keyword">var</span> srcPath = <span class="string">'font/*.ttf'</span>;</span><br><span class="line">  <span class="keyword">var</span> destPath = <span class="string">'font/'</span>;</span><br><span class="line">  <span class="comment">// initial</span></span><br><span class="line">  <span class="keyword">var</span> fontmin = <span class="keyword">new</span> Fontmin()</span><br><span class="line">    .src(srcPath) <span class="comment">// font file you want to simplify</span></span><br><span class="line">    .use(</span><br><span class="line">      Fontmin.glyph(&#123;</span><br><span class="line">        <span class="comment">// extract glyph</span></span><br><span class="line">        text: text <span class="comment">// all the text you will use</span></span><br><span class="line">      &#125;)</span><br><span class="line">    )</span><br><span class="line">    .use(Fontmin.ttf2eot()) <span class="comment">// eot transform plugin</span></span><br><span class="line">    .use(Fontmin.ttf2woff()) <span class="comment">// woff transform plugin</span></span><br><span class="line">    .use(Fontmin.ttf2svg()) <span class="comment">// svg transform plugin</span></span><br><span class="line">    .use(Fontmin.css()) <span class="comment">// css generation plugin</span></span><br><span class="line">    .dest(destPath); <span class="comment">// output the simplified font file</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// run</span></span><br><span class="line">  fontmin.run(<span class="function"><span class="keyword">function</span>(<span class="params">err, files, stream</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.error(err);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'done'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>And here is what I got:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20180804204452.png" alt="截图20180804204452.png"></p>
+<p>which is much smaller than origin Microsoft YaHei UI Light.ttf(<strong>11M</strong>).</p>
+<p>However, here is a little tip I want to give you.</p>
+<p>After you run the script above, the origin font file <em>*.ttf</em> has been replaced. So, you had better backup the origin font file before you run the script. Then if you need to run the script again, you should use the origin font file not the file which has been updated.</p>
 
           
         
@@ -453,7 +458,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/blog/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/19/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/blog/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/19/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -505,7 +510,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -527,7 +532,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

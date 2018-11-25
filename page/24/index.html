@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/about-smooth-scroll/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/label-can-t-be-focused-in-firefox-with-element.focus()/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/06/about-smooth-scroll/" itemprop="url">About Smooth Scroll</a></h1>
+                <a class="post-title-link" href="/blog/2018/06/label-can-t-be-focused-in-firefox-with-element.focus()/" itemprop="url">Label Can't Be Focused In Firefox With Element.focus()</a></h1>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-09T17:47:41+08:00">
-                2018-06-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-10T11:13:18+08:00">
+                2018-06-10
               </time>
             
 
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/blog/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  294
+                  120
                 </span>
               
 
@@ -403,32 +403,13 @@
         
           
             <h2>Preface</h2>
-<p>Recently, I need to make a smooth scroll. Of course, I think of <code>setTimeout</code>. However, I was thinking if there is a better way or API. So, here is the result of my research.</p>
+<p>As the title says, let's see the demo below:</p>
 <h2>Main</h2>
-<ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo" target="_blank" rel="noopener">scrollTo</a></li>
-</ul>
-<p>You can use it like:</p>
-<p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.scrollTo(&#123;</span><br><span class="line">  top: <span class="number">1000</span>,</span><br><span class="line">  behavior: <span class="string">'smooth'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>It works in Chrome and Firefox. However, <code>IE</code> and <code>Edge</code> doesn't support. Code above will run like</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.scrollTo(<span class="number">0</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
-<p>Similar API also exists like <code>scrollIntoView</code> or <code>scrollBy</code>. The compatibility is the key problem.</p>
-<ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame" target="_blank" rel="noopener">requestAnimationFrame</a></li>
-</ul>
-<p>I would suggest this API instead of <code>setTimeout</code>. However, the process of implementation is not so easy like an existing API. Well, a little more complicated than <code>setTimeout</code>. However, compared with <code>setTimeout</code>, <code>requestanimationframe</code> has higher performance. Want to know more? Check the reference and SO. Also, here is the demo:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> animationFrameId = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">smoothScoll</span>(<span class="params">targetScrollTop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> speed = <span class="number">0.1</span>;</span><br><span class="line">  <span class="keyword">let</span> startTime = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> timeLimit = <span class="number">2000</span>;</span><br><span class="line">  <span class="built_in">window</span>.cancelAnimationFrame(animationFrameId);</span><br><span class="line">  animationFrameId = <span class="built_in">window</span>.requestAnimationFrame(step);</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">step</span>(<span class="params">timestamp</span>) </span>&#123;</span><br><span class="line">    startTime = startTime || timestamp;</span><br><span class="line">    <span class="keyword">let</span> interval = timestamp - startTime;</span><br><span class="line">    <span class="keyword">let</span> distance = targetScrollTop - getWinScrollTop();</span><br><span class="line">    <span class="keyword">let</span> stepSize = speed * distance;</span><br><span class="line">    <span class="keyword">switch</span> (<span class="built_in">Math</span>.ceil(stepSize)) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        stepSize = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        stepSize = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (distance !== <span class="number">0</span> &amp;&amp; interval &lt; timeLimit) &#123;</span><br><span class="line">      <span class="built_in">window</span>.scrollTo(<span class="number">0</span>, getWinScrollTop() + stepSize);</span><br><span class="line">      animationFrameId = <span class="built_in">window</span>.requestAnimationFrame(step);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getWinScrollTop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.scrollY || <span class="built_in">window</span>.pageYOffset;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>The latest version can be found in my github <a href="https://github.com/xianshenglu/smoothScroll">smoothScroll</a>.</p>
-<p>However, the compatibility is not good enough because of <code>IE&lt;10</code> and <code>Opera Mini</code>.</p>
-<ul>
-<li>Other solution</li>
-</ul>
-<p>Code for <code>setTimeout</code> is similar with <code>requestAnimationFrame</code> but I won't talk about it. Except that, jQuery has provided an API like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="string">"a[href='#top']"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  $(<span class="string">'html, body'</span>).animate(&#123; <span class="attr">scrollTop</span>: <span class="number">0</span> &#125;, <span class="string">'slow'</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h2>Ending</h2>
-<p>Anyway, use <code>requestAnimationFrame</code> if possible. And if not, use <code>setTimeout</code> as shim.</p>
-<h2>Reference</h2>
-<p><a href="https://stackoverflow.com/questions/38709923/why-is-requestanimationframe-better-than-setinterval-or-settimeout" target="_blank" rel="noopener">Why is requestAnimationFrame better than setInterval or setTimeout</a></p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">id</span>=<span class="string">"cont"</span> <span class="attr">contentEditable</span>&gt;</span></span><br><span class="line">   label should be focused</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"focus"</span>&gt;</span>make label focus<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#cont</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="string">'#focus'</span>)[<span class="number">0</span>].onclick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  $(<span class="string">'#cont'</span>)[<span class="number">0</span>].focus()</span><br><span class="line">&#125;</span><br><span class="line">$(<span class="string">'#cont'</span>)[<span class="number">0</span>].onfocus = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event.type)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(selector))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Suppose that you are using chrome, after loaded please press <code>F12</code> and open the console and then click the button. <code>label#cont</code> should be focused after clicking the button.So, there will be word <code>focus</code> at the console.</p>
+<p>However, firefox wouldn't do that until you click the label. Anyway, I have posted a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1468049" target="_blank" rel="noopener">bug</a>. Let's see what will happen.</p>
 
           
         
@@ -468,7 +449,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/23/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/blog/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/25/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/23/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/blog/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/25/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -520,7 +501,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -542,7 +523,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

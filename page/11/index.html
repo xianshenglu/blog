@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/problems-met-when-using-qrcodejs/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/x-ua-compatible-and-ie-edge/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/10/problems-met-when-using-qrcodejs/" itemprop="url">使用 qrcodejs 生成二维码的几个问题</a></h1>
+                <a class="post-title-link" href="/blog/2018/10/x-ua-compatible-and-ie-edge/" itemprop="url">X-UA-Compatible and ie=edge</a></h1>
         
 
         <div class="post-meta">
@@ -321,7 +321,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-03T14:03:57+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-03T19:43:57+08:00">
                 2018-10-03
               </time>
             
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/blog/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1,418
+                  719
                 </span>
               
 
@@ -403,57 +403,35 @@
         
           
             <h2>Preface</h2>
-<p>产品希望我这边下载页面加个二维码，可以扫描下载 APP，并且希望二维码中有公司的 logo，很合理的需求，不过实现的时候依旧遇到了几个问题，在此记录下。</p>
+<p>平时会用 vue 写新项目，老项目就在原有基础上更新。对于 vue 这种框架，使用官方的脚手架通常就避免了很多问题，就像平时用模板创建新的单页一样。</p>
+<p>然而有时总是会遇到些不按模板走的代码，虽然跑起来也没有问题，但是放到有些浏览器上就有 bug 了，这个时候对既有模板的理解和掌握就很重要了。</p>
 <h2>Main</h2>
-<p>二维码的实现逻辑我当然没有这个时间去研究，直接用的 <a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a>。官方给的 demo 是最简单的版本，各种各样的需求都是在 issues 里找到的提示，似乎这个库已经很久没有人去维护了，虽然 star 是很多。</p>
-<h4>官网示例（改编）</h4>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"qrcode"</span> <span class="attr">class</span>=<span class="string">"qrcode"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.qrcode</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid green;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> qrcodeEl = <span class="built_in">document</span>.getElementById(<span class="string">'qrcode'</span>)</span><br><span class="line"><span class="keyword">let</span> qrcode = <span class="keyword">new</span> QRCode(qrcodeEl, &#123;</span><br><span class="line">  text: <span class="string">'https://avatars1.githubusercontent.com/u/23273077'</span>,</span><br><span class="line">  width: <span class="number">128</span>,</span><br><span class="line">  height: <span class="number">128</span>,</span><br><span class="line">  colorDark: <span class="string">'#000000'</span>,</span><br><span class="line">  colorLight: <span class="string">'#ffffff'</span>,</span><br><span class="line">  correctLevel: QRCode.CorrectLevel.H</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>效果如图：</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181003145142.png" alt="截图20181003145142.png"></p>
-<h4>尺寸控制</h4>
-<p>我给官网的示例加上了边框，二维码的尺寸和 js 里的尺寸不一样，这个缺点立马就暴露出来了。</p>
-<p>我很可能是想生成的二维码填满传入的 <code>qrcode</code> 元素的，但是这里的 <code>width</code> 不支持 100%，更不支持 <code>vw</code> 这种尺寸单位了。当然，我可以用 <code>qrcode.offsetWidth</code> 来解决这个问题，但是如果 <code>qrcode</code> 的尺寸后期会动态修改的话，那不还是会有问题么。</p>
-<p>经 SO 的提示，发现了一个好方案，</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.qrcode</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid green;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.qrcode</span> <span class="selector-tag">canvas</span> + <span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样就可以了，不过仍然有个不足，<strong>就是二维码有失真。经测试，只有传入的尺寸和 <code>qrcode</code> 的尺寸一样时，才不会失真，所以传入的尺寸还是需要动态计算。</strong></p>
-<h4>加 logo 的二维码</h4>
-<p><a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a> 并没有提供这个 API，issues 里有人给了 demo，其实就是在原有元素上覆盖一个 logo 就可以了，虽然遮盖了原有二维码的一部分，但是实测并不影响扫描。不过我没有进行大规模测试，<strong>可能会有一定的错误率。</strong></p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"qrcode"</span> <span class="attr">class</span>=<span class="string">"qrcode"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://avatars1.githubusercontent.com/u/23273077"</span> <span class="attr">class</span>=<span class="string">"qrcode__logo"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.qrcode</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid green;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.qrcode</span> <span class="selector-tag">canvas</span> + <span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.qrcode__logo</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">10%</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>效果如图：</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181003164515.png" alt="截图20181003164515.png"></p>
-<h4>检测二维码的生成</h4>
-<p>某些情况下，我需要重用二维码，在这种情况下，我发现，二维码的生成是异步的，譬如：</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> qrcodeEl = <span class="built_in">document</span>.getElementById(<span class="string">'qrcode'</span>)</span><br><span class="line"><span class="keyword">let</span> qrcode = <span class="keyword">new</span> QRCode(qrcodeEl, &#123;</span><br><span class="line">  text: <span class="string">'https://avatars1.githubusercontent.com/u/23273077'</span>,</span><br><span class="line">  width: <span class="number">200</span>,</span><br><span class="line">  height: <span class="number">200</span>,</span><br><span class="line">  colorDark: <span class="string">'#000000'</span>,</span><br><span class="line">  colorLight: <span class="string">'#ffffff'</span>,</span><br><span class="line">  correctLevel: QRCode.CorrectLevel.H</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">let</span> qrcodeImg = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.qrcode canvas+img'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'qrcodeImg.src'</span>, qrcodeImg.src)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'qrcodeImg.src'</span>, qrcodeImg.src)</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure></p>
-<p>第一个日志就是空白的，第二个才有 base64。搞笑的是，<a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a> 也没有给出回调或者通知告诉用户什么时候生成完毕。</p>
-<p>这个问题也是在 issues 里找到的提示，关键点在于 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver" target="_blank" rel="noopener">MutationObserver</a>。</p>
-<p>这个 API 很少在项目中用，因为不兼容性 ie11-，但是有时在几千行代码里 debug 时会用，尤其是我怀疑中间有代码改了某个元素的属性，确又找不到证据或者找不到哪段代码时，会用这个来监测下。在这里的用法如下：</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> qrcodeEl = <span class="built_in">document</span>.getElementById(<span class="string">'qrcode'</span>)</span><br><span class="line"><span class="keyword">let</span> qrcode = <span class="keyword">new</span> QRCode(qrcodeEl, &#123;</span><br><span class="line">  text: <span class="string">'https://avatars1.githubusercontent.com/u/23273077'</span>,</span><br><span class="line">  width: <span class="number">200</span>,</span><br><span class="line">  height: <span class="number">200</span>,</span><br><span class="line">  colorDark: <span class="string">'#000000'</span>,</span><br><span class="line">  colorLight: <span class="string">'#ffffff'</span>,</span><br><span class="line">  correctLevel: QRCode.CorrectLevel.H</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">let</span> qrcodeImg = <span class="built_in">document</span>.querySelector(<span class="string">'.qrcode canvas+img'</span>)</span><br><span class="line">listenQrcodeSrc()</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">listenQrcodeSrc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> observeConfig = &#123; <span class="attr">attributes</span>: <span class="literal">true</span> &#125;</span><br><span class="line">  <span class="keyword">var</span> observeCb = <span class="function"><span class="keyword">function</span>(<span class="params">mutationsList, observer</span>) </span>&#123;</span><br><span class="line">    mutationsList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">mutation</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        mutation.type.toLowerCase() === <span class="string">'attributes'</span> &amp;&amp;</span><br><span class="line">        mutation.attributeName.toLowerCase() === <span class="string">'src'</span></span><br><span class="line">      ) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'qrcodeImg src done!'</span>, mutation.target.src)</span><br><span class="line">        observer.disconnect()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> MutationObserver !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> observer = <span class="keyword">new</span> MutationObserver(observeCb)</span><br><span class="line">    observer.observe(qrcodeImg, observeConfig)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4>微信中多个二维码在一起识别错误</h4>
-<p>这个问题，我也遇到了，根据网友的提示，微信是截屏识别的，所以会出现这种问题。我测试的结果是，左右两个，永远识别的右边的那个。网上有好几种方案：</p>
+<p>当我用 html 模板创建一个新单页时，拿到的页面是这样的，vue 也是类似，至少三个 <code>meta</code> 标签基本都是一样的：</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>viewport</code> 是在兼容移动端时才了解的内容，费了不少功夫。而 <code>X-UA-Compatible</code> 则是在遇到非常规代码的时候才想起来的。有一回改个老项目，用了 <code>transform</code>，在 ie11 上测试，没有用，而且在它的工具栏里样式表里根本看不到我写的代码，这个时候我就好奇了，这是 ie11 啊，怎么会不支持 <code>transform</code> 呢？然后我瞄了一下开发者工具，大概是这样的：</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181003201618.png" alt="截图20181003201618.png"></p>
+<p>然后我就好奇了，为什么会是 ie7 模式呢？我明明装的是 ie11 浏览器啊，然后脑袋一闪，好像明白了什么，看了看 <code>html</code> ，果然没有:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>加上之后，再刷新，网页就正常了。</p>
+<p>在这件事之前，我知道这个东西，但是因为是用的模板，一直没有遇到过这个问题，而且通常来说，我会以为，我既然是在 ie11 里打开的，默认你也没有理由用 ie11- 的文档模式去渲染啊，结果就错了。后来看到 SO 上高票答主大概是这么解释 ie 的行为的：</p>
+<p><em>ie 会用它认为最好的方式去渲染页面，如果没有上面那行代码的话</em></p>
+<p>此外，ie11 已经开始废弃上面那个了，如果不兼容 ie 的话，其实上面的代码也可以不用写了，不过目前为止 html 模板和 vue 的模板都还是默认支持的。而上面的那行代码实际意思呢，就是：</p>
+<p><em>Edge：始终以最新的文档模式来渲染页面。忽略文档类型声明。对于 IE8，始终保持以 IE8 标准模式渲染页面。对于 IE9，则以 IE9 标准模式渲染页面。</em></p>
+<p>当然 ie 还可以等于其他值，不过其他值大多都是老版本，目前而言，都没有必要去纠结了，譬如：</p>
 <ul>
-<li>调透明度和层级</li>
+<li>&quot;IE=edge&quot;</li>
+<li>&quot;IE=11&quot;</li>
+<li>&quot;IE=EmulateIE11&quot;</li>
+<li>&quot;IE=10&quot;</li>
+<li>&quot;IE=EmulateIE10&quot;</li>
+<li>&quot;IE=9&quot;</li>
+<li>&quot;IE=EmulateIE9</li>
+<li>...</li>
 </ul>
-<p>最初尝试过，结果发现失败，等到成功的时候，透明度已经小于 0.5 了，视觉差异太明显，所以放弃了这个方案。</p>
-<ul>
-<li>替换二维码</li>
-</ul>
-<p>最终采取的是这个，这个也有问题，就是用户会看到二维码变化的过程，除非你把多个二维码做得很像。</p>
-<p>假设，我们要显示两个二维码，所谓替换二维码，其实也就是在多个 <code>img.src</code> 属性里切换，可以把实际的二维码保存在 <code>data-real-src</code> 属性里，然后在用户 <code>touchstart</code> 事件中，替换另一个 <code>img</code> 的 <code>src</code> 为当前按下的这个，然后在 <code>touchend</code> 事件中再改回来，因为原来的地址都保存在 <code>data-real-src</code> 属性里。</p>
-<p>这里就用到了前面提到的检测 <code>src</code> 属性来判断 <code>qrcode</code> 生成完毕，否则一开始直接把 <code>src</code> 属性赋给 <code>data-real-src</code> 属性，就是空白。</p>
-<p>示例代码（这里代码跟前面脱节了，dom 是另外的结构，仅作为示例代码）：</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//* pubMethods 是类似 jq 的一些 API 的汇总对象</span></span><br><span class="line"><span class="keyword">var</span> qrcodeImgs = pubMethods.$(<span class="string">'.download__qrcode-box canvas+img'</span>)</span><br><span class="line">listenQrcodeSrc()</span><br><span class="line"><span class="keyword">var</span> downloadBox = pubMethods.$(<span class="string">'.download'</span>)[<span class="number">0</span>]</span><br><span class="line">downloadBox.addEventListener(<span class="string">'touchstart'</span>, changeQrcodeSrcToOne)</span><br><span class="line">downloadBox.addEventListener(<span class="string">'touchend'</span>, changeQrcodeSrcBack)</span><br><span class="line">downloadBox.addEventListener(<span class="string">'touchcancel'</span>, changeQrcodeSrcBack)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">listenQrcodeSrc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> observeConfig = &#123; <span class="attr">attributes</span>: <span class="literal">true</span> &#125;</span><br><span class="line">  <span class="keyword">var</span> observeCb = <span class="function"><span class="keyword">function</span>(<span class="params">mutationsList, observer</span>) </span>&#123;</span><br><span class="line">    mutationsList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">mutation</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        mutation.type.toLowerCase() === <span class="string">'attributes'</span> &amp;&amp;</span><br><span class="line">        mutation.attributeName.toLowerCase() === <span class="string">'src'</span></span><br><span class="line">      ) &#123;</span><br><span class="line">        mutation.target.setAttribute(<span class="string">'data-real-src'</span>, mutation.target.src)</span><br><span class="line">        observer.disconnect()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  qrcodeImgs.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> MutationObserver !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> observer = <span class="keyword">new</span> MutationObserver(observeCb)</span><br><span class="line">      observer.observe(ele, observeConfig)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeQrcodeSrcToOne</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> target = event.target</span><br><span class="line">  <span class="keyword">var</span> getQrcodeBox = pubMethods.closest(</span><br><span class="line">    target,</span><br><span class="line">    <span class="string">'.download__qrcode-box'</span>,</span><br><span class="line">    downloadBox</span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">if</span> (getQrcodeBox) &#123;</span><br><span class="line">    <span class="keyword">var</span> targetImg = qrcodeImgs.filter(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> getQrcodeBox.contains(ele)</span><br><span class="line">    &#125;)[<span class="number">0</span>]</span><br><span class="line">    qrcodeImgs.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">      ele.src = targetImg.getAttribute(<span class="string">'data-real-src'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeQrcodeSrcBack</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  qrcodeImgs.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">    ele.src = ele.getAttribute(<span class="string">'data-real-src'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2>Ending</h2>
 <h2>Reference</h2>
 <ul>
-<li>
-<p><a href="https://stackoverflow.com/questions/34546241/make-qr-code-full-width" target="_blank" rel="noopener">Make qr code full width</a></p>
-</li>
-<li>
-<p><a href="https://www.zhihu.com/question/35246592" target="_blank" rel="noopener">微信中有两个挨着二维码长按识别的问题?</a></p>
-</li>
+<li><a href="https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do" target="_blank" rel="noopener">What does &lt;meta http-equiv=“X-UA-Compatible” content=“IE=edge”&gt; do?</a></li>
 </ul>
 
           
@@ -494,7 +472,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/blog/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/blog/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -546,7 +524,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -568,7 +546,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

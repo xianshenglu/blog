@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/split-file-and-upload-in-frontend/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/auto-zoom-in-when-form-elements-are-focused-in-ios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/08/split-file-and-upload-in-frontend/" itemprop="url">前端大文件分拆上传与上传池管理</a></h1>
+                <a class="post-title-link" href="/blog/2018/08/auto-zoom-in-when-form-elements-are-focused-in-ios/" itemprop="url">Auto Zoom in When Form Element Gains Focus in IOS</a></h1>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-05T20:43:03+08:00">
-                2018-08-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-18T14:49:09+08:00">
+                2018-08-18
               </time>
             
 
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/blog/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  135
+                  93
                 </span>
               
 
@@ -403,13 +403,12 @@
         
           
             <h2>Preface</h2>
-<p>后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。</p>
+<p>When I was testing my webpage on IOS, I find that the page would be zoomed out automatically if there is some form elements and some element gains focus. Sometimes it will be really weird.</p>
 <h2>Main</h2>
-<p>咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">```<span class="selector-tag">js</span></span><br></pre></td></tr></table></figure></p>
-<h2>Ending</h2>
+<p>After searching I found this <a href="https://stackoverflow.com/questions/4389932/how-do-you-disable-viewport-zooming-on-mobile-safari" target="_blank" rel="noopener">How do you disable viewport zooming on Mobile Safari?</a> and I add <code>user-scalable=0</code> in my <code>meta[name=viewport]</code>. It works.</p>
+<p>However, user can still zoom the webpage though it won't zoom out automatically when form element gains focused.</p>
 <h2>Reference</h2>
+<p><a href="https://stackoverflow.com/questions/4389932/how-do-you-disable-viewport-zooming-on-mobile-safari" target="_blank" rel="noopener">How do you disable viewport zooming on Mobile Safari?</a></p>
 
           
         
@@ -449,7 +448,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/blog/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/17/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/blog/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/17/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -501,7 +500,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -523,7 +522,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

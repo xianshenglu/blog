@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/07/skills-on-mobile-development/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/find-what-font-the-browser-is-actually-using/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/07/skills-on-mobile-development/" itemprop="url">Skills on Mobile Development</a></h1>
+                <a class="post-title-link" href="/blog/2018/08/find-what-font-the-browser-is-actually-using/" itemprop="url">Find What Font the Browser Is Actually Using</a></h1>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-01T10:18:27+08:00">
-                2018-07-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-04T18:16:59+08:00">
+                2018-08-04
               </time>
             
 
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/debug/" itemprop="url" rel="index">
-                    <span itemprop="name">debug</span>
+                  <a href="/blog/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  192
+                  98
                 </span>
               
 
@@ -402,26 +402,17 @@
       
         
           
-            <h2>Main</h2>
-<h3>Access localhost on Mobile</h3>
-<p>As you know, If I am working with url like <code>http://localhost:8080</code> It doesn't work on mobile. So, I have to try another way. After some research, I find something related:</p>
-<ul>
-<li><code>localhost</code> is a hostname which points to <code>127.0.0.1</code> by default and also can be changed.</li>
-</ul>
-<p>Normally, <strong>we are using the same WIFI on our computer and mobile.</strong> So, in my case,</p>
-<ul>
-<li>I use command <code>ipconfig</code> and got the ip <code>192.168.x.x</code>.</li>
-<li>I add <code>--host 192.168.x.x</code> in my <em>package.json</em> scripts like this:</li>
-</ul>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"webpack-boilerplate"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"app.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"npm run lint &amp;&amp; webpack --config webpack.config.js -p"</span>,</span><br><span class="line">    <span class="string">"dev"</span>: <span class="string">"npm run lint &amp;&amp; webpack-dev-server --config webpack.dev.config.js --inline --host 192.168.x.x"</span>,</span><br><span class="line">    <span class="string">"lint"</span>: <span class="string">"./node_modules/.bin/eslint js"</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>If you aren't using <em>package.json</em>, you can directly replace <code>localhost</code> to <code>192.168.x.x</code> in the url.</li>
-<li>Then I open the url <code>http://192.168.x.x:8080</code> on my computer and mobile. Both work!</li>
-</ul>
+            <h2>Preface</h2>
+<p>When the designer asked me what is the font of some text I told her to press F12 and check the <code>font-family</code> in Computed, like this:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20180804182943.png" alt="截图20180804182943"></p>
+<h2>Main</h2>
+<p>However, when I am using that <code>font-family</code> I find that I was totally wrong. The actual font the text used is this:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20180804183017.png" alt="截图20180804183017"></p>
+<p>That is totally different from the <code>font-family</code> though I know that we can't be sure that the browser would use the <code>font-family</code> we set in css.</p>
 <h2>Ending</h2>
 <h2>Reference</h2>
 <ul>
-<li><a href="http://yujiangshui.com/multidevice-frontend-debug/" target="_blank" rel="noopener">移动端前端开发调试</a></li>
+<li><a href="https://stackoverflow.com/questions/884177/how-can-i-determine-what-font-a-browser-is-actually-using-to-render-some-text" target="_blank" rel="noopener">how-can-i-determine-what-font-a-browser-is-actually-using-to-render-some-text</a></li>
 </ul>
 
           
@@ -462,7 +453,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/18/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/blog/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/20/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/18/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/blog/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/20/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -514,7 +505,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -536,7 +527,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

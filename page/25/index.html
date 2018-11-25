@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/use-text-align-last-except-when-i-have-only-one-line-of-text/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/about-smooth-scroll/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/06/use-text-align-last-except-when-i-have-only-one-line-of-text/" itemprop="url">Use Text Align Last Except When I Have Only One Line Of Text</a></h1>
+                <a class="post-title-link" href="/blog/2018/06/about-smooth-scroll/" itemprop="url">About Smooth Scroll</a></h1>
         
 
         <div class="post-meta">
@@ -321,7 +321,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-09T16:30:46+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-09T17:47:41+08:00">
                 2018-06-09
               </time>
             
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  253
+                  294
                 </span>
               
 
@@ -403,20 +403,32 @@
         
           
             <h2>Preface</h2>
-<p>As the title says, what I want is like image below:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180609163513.png" alt=""></p>
-<p>Is that Possible, ha?</p>
-<h2>Steps</h2>
-<p>At the first, I thought that was impossible with css only. But I find an answer in SO. Here is the code:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"par"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child child1"</span>&gt;</span>box box box box box <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child child2"</span>&gt;</span>box box<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child child3"</span>&gt;</span>box box box box<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child1</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child2</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: yellowgreen;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child3</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: orange;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>That is magic!</p>
-<p>Because inline-blocks is an inline-level element. So, it will be in the left of the container <code>.par</code> built because of <code>text-align:left</code>. The width of <code>inline-block</code> is determined by the content which is only one line. So, <code>text-align:center</code> on the <code>.child</code> doesn't work because the width of <code>.child</code> is equal to the width of one line content in the <code>.child</code>.</p>
-<p>Also, the <code>inline-block</code> is a block container. When there is more than one line, the width of <code>inline-block</code> will be equal to the width of <code>.par</code>. In this case, <code>text-align:center</code> will work on the last line because the width of last line is less than the width of the <code>inline-block</code>.</p>
+<p>Recently, I need to make a smooth scroll. Of course, I think of <code>setTimeout</code>. However, I was thinking if there is a better way or API. So, here is the result of my research.</p>
+<h2>Main</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo" target="_blank" rel="noopener">scrollTo</a></li>
+</ul>
+<p>You can use it like:</p>
+<p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.scrollTo(&#123;</span><br><span class="line">  top: <span class="number">1000</span>,</span><br><span class="line">  behavior: <span class="string">'smooth'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>It works in Chrome and Firefox. However, <code>IE</code> and <code>Edge</code> doesn't support. Code above will run like</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.scrollTo(<span class="number">0</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
+<p>Similar API also exists like <code>scrollIntoView</code> or <code>scrollBy</code>. The compatibility is the key problem.</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame" target="_blank" rel="noopener">requestAnimationFrame</a></li>
+</ul>
+<p>I would suggest this API instead of <code>setTimeout</code>. However, the process of implementation is not so easy like an existing API. Well, a little more complicated than <code>setTimeout</code>. However, compared with <code>setTimeout</code>, <code>requestanimationframe</code> has higher performance. Want to know more? Check the reference and SO. Also, here is the demo:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> animationFrameId = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">smoothScoll</span>(<span class="params">targetScrollTop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> speed = <span class="number">0.1</span>;</span><br><span class="line">  <span class="keyword">let</span> startTime = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> timeLimit = <span class="number">2000</span>;</span><br><span class="line">  <span class="built_in">window</span>.cancelAnimationFrame(animationFrameId);</span><br><span class="line">  animationFrameId = <span class="built_in">window</span>.requestAnimationFrame(step);</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">step</span>(<span class="params">timestamp</span>) </span>&#123;</span><br><span class="line">    startTime = startTime || timestamp;</span><br><span class="line">    <span class="keyword">let</span> interval = timestamp - startTime;</span><br><span class="line">    <span class="keyword">let</span> distance = targetScrollTop - getWinScrollTop();</span><br><span class="line">    <span class="keyword">let</span> stepSize = speed * distance;</span><br><span class="line">    <span class="keyword">switch</span> (<span class="built_in">Math</span>.ceil(stepSize)) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        stepSize = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        stepSize = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (distance !== <span class="number">0</span> &amp;&amp; interval &lt; timeLimit) &#123;</span><br><span class="line">      <span class="built_in">window</span>.scrollTo(<span class="number">0</span>, getWinScrollTop() + stepSize);</span><br><span class="line">      animationFrameId = <span class="built_in">window</span>.requestAnimationFrame(step);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getWinScrollTop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.scrollY || <span class="built_in">window</span>.pageYOffset;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The latest version can be found in my github <a href="https://github.com/xianshenglu/smoothScroll">smoothScroll</a>.</p>
+<p>However, the compatibility is not good enough because of <code>IE&lt;10</code> and <code>Opera Mini</code>.</p>
+<ul>
+<li>Other solution</li>
+</ul>
+<p>Code for <code>setTimeout</code> is similar with <code>requestAnimationFrame</code> but I won't talk about it. Except that, jQuery has provided an API like:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="string">"a[href='#top']"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  $(<span class="string">'html, body'</span>).animate(&#123; <span class="attr">scrollTop</span>: <span class="number">0</span> &#125;, <span class="string">'slow'</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <h2>Ending</h2>
-<p>Anyway, this solution is awesome. Thanks to the reference.</p>
+<p>Anyway, use <code>requestAnimationFrame</code> if possible. And if not, use <code>setTimeout</code> as shim.</p>
 <h2>Reference</h2>
-<p><a href="https://stackoverflow.com/questions/43556557/how-can-i-use-text-align-last-except-when-i-have-only-one-line-of-text/43556943#comment88476400_43556943" target="_blank" rel="noopener">how-can-i-use-text-align-last-except-when-i-have-only-one-line-of-text</a></p>
+<p><a href="https://stackoverflow.com/questions/38709923/why-is-requestanimationframe-better-than-setinterval-or-settimeout" target="_blank" rel="noopener">Why is requestAnimationFrame better than setInterval or setTimeout</a></p>
 
           
         
@@ -456,7 +468,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/24/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/blog/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/26/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/24/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/blog/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/26/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -508,7 +520,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -530,7 +542,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/auto-zoom-in-when-form-elements-are-focused-in-ios/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/access-lan-in-virtualbox/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/08/auto-zoom-in-when-form-elements-are-focused-in-ios/" itemprop="url">Auto Zoom in When Form Element Gains Focus in IOS</a></h1>
+                <a class="post-title-link" href="/blog/2018/08/access-lan-in-virtualbox/" itemprop="url">在 VirtualBox 中访问局域网</a></h1>
         
 
         <div class="post-meta">
@@ -321,7 +321,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-18T14:49:09+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-18T16:18:15+08:00">
                 2018-08-18
               </time>
             
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/html/" itemprop="url" rel="index">
-                    <span itemprop="name">html</span>
+                  <a href="/blog/categories/software/" itemprop="url" rel="index">
+                    <span itemprop="name">software</span>
                   </a>
                 </span>
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  93
+                  241
                 </span>
               
 
@@ -403,12 +403,18 @@
         
           
             <h2>Preface</h2>
-<p>When I was testing my webpage on IOS, I find that the page would be zoomed out automatically if there is some form elements and some element gains focus. Sometimes it will be really weird.</p>
+<p>工作需要，在 MAC 中开发，调试的时候，就装了 virtualBox 虚拟机来调试 IE，但是开发中经常调试的是局域网的网址，比如 <code>localhost:8080</code>，我可以用 <code>192.168.x.x:8080</code> 在局域网中另一台设备上访问，但是放到虚拟机中就不行了。</p>
 <h2>Main</h2>
-<p>After searching I found this <a href="https://stackoverflow.com/questions/4389932/how-do-you-disable-viewport-zooming-on-mobile-safari" target="_blank" rel="noopener">How do you disable viewport zooming on Mobile Safari?</a> and I add <code>user-scalable=0</code> in my <code>meta[name=viewport]</code>. It works.</p>
-<p>However, user can still zoom the webpage though it won't zoom out automatically when form element gains focused.</p>
+<p>经搜索，方案如下：</p>
+<p>在虚拟系统未打开的情况下,在设置》网络属性中设置两个网络连接：</p>
+<ul>
+<li>网络连接 1 设置成 NAT，</li>
+<li>网络连接 2 设置成 Bridged Adapter,名称是 eth0（这个我没找到，但是选的另一个）</li>
+</ul>
+<p>这样的话就可以联上互联网同时可以连上局域网。</p>
+<p>但是在这种情况下，在虚拟机中输入网址时，遇到 老版的 IE ，需要输入在局域网网址前加 http:// 否则，直接输 192.168.x.x 可能会变成自动搜索。</p>
 <h2>Reference</h2>
-<p><a href="https://stackoverflow.com/questions/4389932/how-do-you-disable-viewport-zooming-on-mobile-safari" target="_blank" rel="noopener">How do you disable viewport zooming on Mobile Safari?</a></p>
+<p><a href="https://blog.csdn.net/ppby2002/article/details/6455892" target="_blank" rel="noopener">设置 VirtualBox 虚拟机访问局域网</a></p>
 
           
         
@@ -448,7 +454,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/blog/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/31/">31</a><a class="extend next" rel="next" href="/blog/page/16/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/blog/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -500,7 +506,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -522,7 +528,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
