@@ -488,11 +488,412 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/image-load-error-handler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/11/image-load-error-handler/" itemprop="url">Image Load Error Handler</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T16:53:48+08:00">
+                2018-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  531
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>In the past, I posted an answer in SO about how to <a href="https://stackoverflow.com/questions/92720/jquery-javascript-to-replace-broken-images/50484874" target="_blank" rel="noopener">replace broken images</a>. And the code is</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'error'</span>,</span><br><span class="line">  windowErrorCb,</span><br><span class="line">  &#123;</span><br><span class="line">    capture: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">windowErrorCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> target = event.target</span><br><span class="line">  <span class="keyword">let</span> isImg = target.tagName.toLowerCase() === <span class="string">'img'</span></span><br><span class="line">  <span class="keyword">if</span> (isImg) &#123;</span><br><span class="line">    imgErrorCb()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">imgErrorCb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isImgErrorHandled = target.hasAttribute(<span class="string">'data-src-error'</span>)</span><br><span class="line">    <span class="keyword">if</span> (!isImgErrorHandled) &#123;</span><br><span class="line">      target.setAttribute(<span class="string">'data-src-error'</span>, <span class="string">'handled'</span>)</span><br><span class="line">      target.src = <span class="string">'backup.png'</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//anything you want to do</span></span><br><span class="line">      <span class="built_in">console</span>.log(target.alt, <span class="string">'both origin and backup image fail to load!'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>And the point is :</p>
+<ol>
+<li>
+<p>Put the code in the head and executed as the first inline script. So, it will listen the errors happen after the script.</p>
+</li>
+<li>
+<p>Use event capturing to catch the errors earlier, also for those events which don't bubble.</p>
+</li>
+<li>
+<p>Use event delegation which avoids binding events on each image.</p>
+</li>
+<li>
+<p>Give the error img element an attribute after giving them a backup.png to avoid error of the <em>backup.png</em> and subsequent infinite loop like below:</p>
+</li>
+</ol>
+<blockquote>
+<p>img error-&gt;backup.png-&gt;error-&gt;backup.png-&gt;error-&gt;,,,,,</p>
+</blockquote>
+<p>I thought the answer is almost perfect. But it turns out there is more scenes I don't know.</p>
+<h4>No Src?</h4>
+<p>Until Chrome 70.0.3538.102 in win7, code below wouldn't trigger error event.</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>But code below would trigger!</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span> /&gt;</span> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>That does make sense. However, <code>img</code> without <code>src</code> wouldn't hidden. They would have 1px border like:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181119171728.png" alt=""></p>
+<p>In this case, we may have to do something about that. For instance,</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>or a default <code>backgroundImage</code> which will work on <code>img</code> though 1px border is still there.</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, lightblue, pink); <span class="comment">/*or your logo*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4>BackgroundImage Error?</h4>
+<p>I still can't find a perfect solution for <code>backgroundImage</code>. The best answer in SO is like:</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app__bg_img_box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(./images/github.png), <span class="built_in">linear-gradient</span>(to right, lightblue, pink);</span><br><span class="line">  <span class="comment">/* you can also use default.png like code below */</span></span><br><span class="line">  <span class="comment">/* background-image: url(./images/github.png), url(./images/default.png); */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>And the cons is obvious.</p>
+<p><img src="../images/1542620382678.gif" alt=""></p>
+<ol>
+<li>You have to take care of the transparency problem of the target image.</li>
+<li>Users can see the toggle between target image and default image.</li>
+<li>A little flaw is that default image will always be downloaded.</li>
+</ol>
+<p>Another way I figured out is like code below. Here is the simplest code:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> backgroundDivs = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'.app__bg_img_box'</span>))</span><br><span class="line">backgroundDivs.forEach(<span class="function"><span class="params">div</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> imgUrl = <span class="built_in">window</span></span><br><span class="line">    .getComputedStyle(div)</span><br><span class="line">    .backgroundImage.match(<span class="regexp">/url\(["']?(.*)["']?\)/</span>)</span><br><span class="line">  <span class="keyword">if</span> (imgUrl) &#123;</span><br><span class="line">    <span class="keyword">let</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">    img.src = imgUrl[<span class="number">1</span>]</span><br><span class="line">    img.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">      div.style.backgroundImage = <span class="string">'url(./images/default.png)'</span></span><br><span class="line">      img.onerror = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>It will work well in most simple scenes but the cons is also obvious:</p>
+<ol>
+<li>Code will be more complicated if you want to deal with multiple backgroundImages.</li>
+<li>Each time you updated your dom structure, you may have to run the code above if you have add new divs with backgroundImage.</li>
+</ol>
+<h2>Ending</h2>
+<p>If lucky enough, we may have the new API in <a href="https://drafts.csswg.org/css-images-4/#image-set-notation" target="_blank" rel="noopener">Images</a> which would make code below work.</p>
+<p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">background: image('target.gif', 'fallback.gif');</span><br></pre></td></tr></table></figure></p>
+<h2>Reference</h2>
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/22287474/onerror-event-using-background-url" target="_blank" rel="noopener">onerror event using background: url()</a></p>
+</li>
+<li>
+<p><a href="https://drafts.csswg.org/css-images-4/#image-set-notation" target="_blank" rel="noopener">image-set-notation</a></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/build-multiple-choice-cascader-with-third-party-ui/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/11/build-multiple-choice-cascader-with-third-party-ui/" itemprop="url">Build Multiple Choice Cascader with Third Party ui</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-18T18:04:47+08:00">
+                2018-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
+                    <span itemprop="name">frame</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  573
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>I need to make a cascader which can support multiple choices. However, I didn't find any ui which supports that until 2018.11.18. That was a little pity.</p>
+<h2>Main</h2>
+<p>I check the <code>element-ui</code> and find multiple cascader was in toDoList while <code>ant-design</code> refuse to support that directly. Maybe because they have already implemented <a href="https://ant.design/components/tree-select/" target="_blank" rel="noopener">TreeSelect</a>. Here is what <code>TreeSelect</code> looks like:</p>
+<p><img src="../images/1542536446656.gif" alt=""></p>
+<p>Almost the result I want except the ui. It doesn't look like a cascader but a tree.</p>
+<p>Anyway, I built a multiple cascader component based on select and cascader in <code>ant-design-vue</code>. Here is the result:</p>
+<p><img src="../images/1542536827531.gif" alt=""></p>
+<p>The principle is easy. I use the <code>input</code> in <code>select</code> and hide the popup. And then I hide the <code>input</code> in <code>cascader</code> and show the popup. So, MultipleCascader is equal to <code>input</code> in <code>select</code> plus popup in <code>cascader</code> and use <code>transform</code> to let them stay together.</p>
+<p>Talking about the event, you have to listen and change the data to show correctly. That is a little troublesome.</p>
+<p>Anyway, here is the earliest <a href="https://codesandbox.io/s/8njr9xy212" target="_blank" rel="noopener">demo</a> in codesandbox. I am not sure if the demo would be always able to visit.</p>
+<p>The latest version is in <a href="https://github.com/xianshenglu/vue/tree/master/demo/multi-cascader-ant-design-vue">here</a>.
+So, here is the earliest code:</p>
+<p><em>App.vue</em></p>
+<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot; class=&quot;app&quot;&gt;&lt;MultipleCascader /&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import MultipleCascader from &apos;./components/MultipleCascader&apos;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;app&apos;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    MultipleCascader</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<p><em>MultipleCascader.vue</em></p>
+<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;multi_cascader&quot;&gt;</span><br><span class="line">    &lt;a-cascader</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">      class=&quot;multi_cascader__cascader&quot;</span><br><span class="line">      :popupVisible=&quot;cascaderPopupVisible&quot;</span><br><span class="line">      :popupClassName=&quot;&apos;multi_cascader__cascader_popup&apos; + timestamp&quot;</span><br><span class="line">      changeOnSelect</span><br><span class="line">      expandTrigger=&quot;hover&quot;</span><br><span class="line">      :options=&quot;cascaderOptions&quot;</span><br><span class="line">      :fieldNames=&quot;&#123; label: &apos;label&apos;, value: &apos;id&apos;, children: &apos;children&apos; &#125;&quot;</span><br><span class="line">      v-model=&quot;cascaderValues&quot;</span><br><span class="line">      ref=&quot;cascader&quot;</span><br><span class="line">      :showSearch=&quot;&#123; cascaderFilter &#125;&quot;</span><br><span class="line">      @change=&quot;cascaderChange&quot;</span><br><span class="line">    &gt;&lt;/a-cascader&gt;</span><br><span class="line">    &lt;a-select</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">      class=&quot;multi_cascader__select&quot;</span><br><span class="line">      dropdownClassName=&quot;hide&quot;</span><br><span class="line">      mode=&quot;multiple&quot;</span><br><span class="line">      :value=&quot;selectValues&quot;</span><br><span class="line">      allowClear</span><br><span class="line">      placeholder=&quot;Please select&quot;</span><br><span class="line">      :options=&quot;selectOptions&quot;</span><br><span class="line">      @focus=&quot;cascaderPopupVisible = true&quot;</span><br><span class="line">      @deselect=&quot;deleteOption&quot;</span><br><span class="line">      @change=&quot;selectChange&quot;</span><br><span class="line">      @search=&quot;selectSearch&quot;</span><br><span class="line">    &gt;&lt;/a-select&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;MultipleCascader&apos;,</span><br><span class="line">  data: function() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      timestamp: Date.now(),</span><br><span class="line">      selectOptions: [],</span><br><span class="line">      selectValues: [],</span><br><span class="line">      cascaderPopupVisible: false,</span><br><span class="line">      cascaderValues: [],</span><br><span class="line">      cascaderOptions: [</span><br><span class="line">        &#123;</span><br><span class="line">          id: 1,</span><br><span class="line">          value: &apos;1&apos;,</span><br><span class="line">          label: &apos;1&apos;,</span><br><span class="line">          children: [</span><br><span class="line">            &#123; id: 1.1, value: 1.1, label: &apos;1-1&apos; &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              id: 1.2,</span><br><span class="line">              value: 1.2,</span><br><span class="line">              label: &apos;1-2&apos;,</span><br><span class="line">              children: [</span><br><span class="line">                &#123; id: 1.21, value: 1.21, label: &apos;1-2-1&apos; &#125;,</span><br><span class="line">                &#123; id: 1.22, value: 1.22, label: &apos;1-2-2&apos; &#125;</span><br><span class="line">              ]</span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; id: 2, value: 2, label: &apos;2&apos; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    document.addEventListener(&apos;click&apos;, this.hideCascaderPopup)</span><br><span class="line">  &#125;,</span><br><span class="line">  destroyed() &#123;</span><br><span class="line">    document.removeEventListener(&apos;click&apos;, this.hideCascaderPopup)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    cascaderChange(values, options) &#123;</span><br><span class="line">      // you may have different logic with the selected option, here I just want the last one.</span><br><span class="line">      let targetValue = values.slice(-1).pop()</span><br><span class="line">      let targetOption = options.slice(-1).pop()</span><br><span class="line">      let selectedValIndex = this.selectValues.indexOf(targetValue)</span><br><span class="line">      if (selectedValIndex &gt;= 0) &#123;</span><br><span class="line">        this.selectValues.splice(selectedValIndex, 1)</span><br><span class="line">        this.selectOptions.splice(selectedValIndex, 1)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        this.selectValues.push(targetValue)</span><br><span class="line">        this.selectOptions.push(targetOption)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    deleteOption(value) &#123;</span><br><span class="line">      let selectedValIndex = this.selectValues.indexOf(value)</span><br><span class="line">      this.cascaderChange([value], [this.selectOptions[selectedValIndex]])</span><br><span class="line">    &#125;,</span><br><span class="line">    selectChange(values, vNodes) &#123;</span><br><span class="line">      if (values.length === 0) &#123;</span><br><span class="line">        this.selectValues = []</span><br><span class="line">        this.selectOptions = []</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    selectSearch(keyword) &#123;</span><br><span class="line">      let searchInput = this.$refs.cascader.$el.querySelector(&apos;input&apos;)</span><br><span class="line">      if (searchInput) &#123;</span><br><span class="line">        searchInput.value = keyword</span><br><span class="line">        searchInput.dispatchEvent(new Event(&apos;input&apos;))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    cascaderFilter(inputValue, path) &#123;</span><br><span class="line">      return path.some(</span><br><span class="line">        option =&gt;</span><br><span class="line">          option.label.toLowerCase().indexOf(inputValue.toLowerCase()) &gt; -1</span><br><span class="line">      )</span><br><span class="line">    &#125;,</span><br><span class="line">    hideCascaderPopup(event) &#123;</span><br><span class="line">      let cascaderPopup = document.querySelector(</span><br><span class="line">        &apos;.multi_cascader__cascader_popup&apos; + this.timestamp</span><br><span class="line">      )</span><br><span class="line">      let isClickCascaderPopup =</span><br><span class="line">        cascaderPopup &amp;&amp; cascaderPopup.contains(event.target)</span><br><span class="line">      if (isClickCascaderPopup) &#123;</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br><span class="line">      this.cascaderPopupVisible = false</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.multi_cascader &#123;</span><br><span class="line">  height: 100vh;</span><br><span class="line">  display: flex;</span><br><span class="line">  flex-flow: column;</span><br><span class="line">  justify-content: center;</span><br><span class="line">  align-items: center;</span><br><span class="line">&#125;</span><br><span class="line">.multi_cascader__select &#123;</span><br><span class="line">  width: 50%;</span><br><span class="line">  margin-top: 0;</span><br><span class="line">  margin-bottom: auto;</span><br><span class="line">  transform: translate(0, -100%);</span><br><span class="line">&#125;</span><br><span class="line">.multi_cascader__cascader &#123;</span><br><span class="line">  width: 50%;</span><br><span class="line">  margin-top: auto;</span><br><span class="line">  margin-bottom: 0;</span><br><span class="line">  opacity: 0;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">/* global style*/</span><br><span class="line">.hide &#123;</span><br><span class="line">  display: none;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/11/">11</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

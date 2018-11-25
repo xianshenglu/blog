@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/build-multiple-choice-cascader-with-third-party-ui/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/understand-sync-in-vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/11/build-multiple-choice-cascader-with-third-party-ui/" itemprop="url">Build Multiple Choice Cascader with Third Party ui</a></h1>
+                <a class="post-title-link" href="/blog/2018/10/understand-sync-in-vue/" itemprop="url">Understand .sync in Vue</a></h1>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-18T18:04:47+08:00">
-                2018-11-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T09:54:17+08:00">
+                2018-10-05
               </time>
             
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  573
+                  393
                 </span>
               
 
@@ -403,24 +403,383 @@
         
           
             <h2>Preface</h2>
-<p>I need to make a cascader which can support multiple choices. However, I didn't find any ui which supports that until 2018.11.18. That was a little pity.</p>
+<p>The first time I met <code>.sync</code> modifier, I didn't know it very well. So, I seldom use that. Today, I am going to get it.</p>
 <h2>Main</h2>
-<p>I check the <code>element-ui</code> and find multiple cascader was in toDoList while <code>ant-design</code> refuse to support that directly. Maybe because they have already implemented <a href="https://ant.design/components/tree-select/" target="_blank" rel="noopener">TreeSelect</a>. Here is what <code>TreeSelect</code> looks like:</p>
-<p><img src="../images/1542536446656.gif" alt=""></p>
-<p>Almost the result I want except the ui. It doesn't look like a cascader but a tree.</p>
-<p>Anyway, I built a multiple cascader component based on select and cascader in <code>ant-design-vue</code>. Here is the result:</p>
-<p><img src="../images/1542536827531.gif" alt=""></p>
-<p>The principle is easy. I use the <code>input</code> in <code>select</code> and hide the popup. And then I hide the <code>input</code> in <code>cascader</code> and show the popup. So, MultipleCascader is equal to <code>input</code> in <code>select</code> plus popup in <code>cascader</code> and use <code>transform</code> to let them stay together.</p>
-<p>Talking about the event, you have to listen and change the data to show correctly. That is a little troublesome.</p>
-<p>Anyway, here is the earliest <a href="https://codesandbox.io/s/8njr9xy212" target="_blank" rel="noopener">demo</a> in codesandbox. I am not sure if the demo would be always able to visit.</p>
-<p>The latest version is in <a href="https://github.com/xianshenglu/vue/tree/master/demo/multi-cascader-ant-design-vue">here</a>.
-So, here is the earliest code:</p>
-<p><em>App.vue</em></p>
-<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot; class=&quot;app&quot;&gt;&lt;MultipleCascader /&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import MultipleCascader from &apos;./components/MultipleCascader&apos;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;app&apos;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    MultipleCascader</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
-<p><em>MultipleCascader.vue</em></p>
-<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;multi_cascader&quot;&gt;</span><br><span class="line">    &lt;a-cascader</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">      class=&quot;multi_cascader__cascader&quot;</span><br><span class="line">      :popupVisible=&quot;cascaderPopupVisible&quot;</span><br><span class="line">      :popupClassName=&quot;&apos;multi_cascader__cascader_popup&apos; + timestamp&quot;</span><br><span class="line">      changeOnSelect</span><br><span class="line">      expandTrigger=&quot;hover&quot;</span><br><span class="line">      :options=&quot;cascaderOptions&quot;</span><br><span class="line">      :fieldNames=&quot;&#123; label: &apos;label&apos;, value: &apos;id&apos;, children: &apos;children&apos; &#125;&quot;</span><br><span class="line">      v-model=&quot;cascaderValues&quot;</span><br><span class="line">      ref=&quot;cascader&quot;</span><br><span class="line">      :showSearch=&quot;&#123; cascaderFilter &#125;&quot;</span><br><span class="line">      @change=&quot;cascaderChange&quot;</span><br><span class="line">    &gt;&lt;/a-cascader&gt;</span><br><span class="line">    &lt;a-select</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">      class=&quot;multi_cascader__select&quot;</span><br><span class="line">      dropdownClassName=&quot;hide&quot;</span><br><span class="line">      mode=&quot;multiple&quot;</span><br><span class="line">      :value=&quot;selectValues&quot;</span><br><span class="line">      allowClear</span><br><span class="line">      placeholder=&quot;Please select&quot;</span><br><span class="line">      :options=&quot;selectOptions&quot;</span><br><span class="line">      @focus=&quot;cascaderPopupVisible = true&quot;</span><br><span class="line">      @deselect=&quot;deleteOption&quot;</span><br><span class="line">      @change=&quot;selectChange&quot;</span><br><span class="line">      @search=&quot;selectSearch&quot;</span><br><span class="line">    &gt;&lt;/a-select&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;MultipleCascader&apos;,</span><br><span class="line">  data: function() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      timestamp: Date.now(),</span><br><span class="line">      selectOptions: [],</span><br><span class="line">      selectValues: [],</span><br><span class="line">      cascaderPopupVisible: false,</span><br><span class="line">      cascaderValues: [],</span><br><span class="line">      cascaderOptions: [</span><br><span class="line">        &#123;</span><br><span class="line">          id: 1,</span><br><span class="line">          value: &apos;1&apos;,</span><br><span class="line">          label: &apos;1&apos;,</span><br><span class="line">          children: [</span><br><span class="line">            &#123; id: 1.1, value: 1.1, label: &apos;1-1&apos; &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              id: 1.2,</span><br><span class="line">              value: 1.2,</span><br><span class="line">              label: &apos;1-2&apos;,</span><br><span class="line">              children: [</span><br><span class="line">                &#123; id: 1.21, value: 1.21, label: &apos;1-2-1&apos; &#125;,</span><br><span class="line">                &#123; id: 1.22, value: 1.22, label: &apos;1-2-2&apos; &#125;</span><br><span class="line">              ]</span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; id: 2, value: 2, label: &apos;2&apos; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    document.addEventListener(&apos;click&apos;, this.hideCascaderPopup)</span><br><span class="line">  &#125;,</span><br><span class="line">  destroyed() &#123;</span><br><span class="line">    document.removeEventListener(&apos;click&apos;, this.hideCascaderPopup)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    cascaderChange(values, options) &#123;</span><br><span class="line">      // you may have different logic with the selected option, here I just want the last one.</span><br><span class="line">      let targetValue = values.slice(-1).pop()</span><br><span class="line">      let targetOption = options.slice(-1).pop()</span><br><span class="line">      let selectedValIndex = this.selectValues.indexOf(targetValue)</span><br><span class="line">      if (selectedValIndex &gt;= 0) &#123;</span><br><span class="line">        this.selectValues.splice(selectedValIndex, 1)</span><br><span class="line">        this.selectOptions.splice(selectedValIndex, 1)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        this.selectValues.push(targetValue)</span><br><span class="line">        this.selectOptions.push(targetOption)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    deleteOption(value) &#123;</span><br><span class="line">      let selectedValIndex = this.selectValues.indexOf(value)</span><br><span class="line">      this.cascaderChange([value], [this.selectOptions[selectedValIndex]])</span><br><span class="line">    &#125;,</span><br><span class="line">    selectChange(values, vNodes) &#123;</span><br><span class="line">      if (values.length === 0) &#123;</span><br><span class="line">        this.selectValues = []</span><br><span class="line">        this.selectOptions = []</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    selectSearch(keyword) &#123;</span><br><span class="line">      let searchInput = this.$refs.cascader.$el.querySelector(&apos;input&apos;)</span><br><span class="line">      if (searchInput) &#123;</span><br><span class="line">        searchInput.value = keyword</span><br><span class="line">        searchInput.dispatchEvent(new Event(&apos;input&apos;))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    cascaderFilter(inputValue, path) &#123;</span><br><span class="line">      return path.some(</span><br><span class="line">        option =&gt;</span><br><span class="line">          option.label.toLowerCase().indexOf(inputValue.toLowerCase()) &gt; -1</span><br><span class="line">      )</span><br><span class="line">    &#125;,</span><br><span class="line">    hideCascaderPopup(event) &#123;</span><br><span class="line">      let cascaderPopup = document.querySelector(</span><br><span class="line">        &apos;.multi_cascader__cascader_popup&apos; + this.timestamp</span><br><span class="line">      )</span><br><span class="line">      let isClickCascaderPopup =</span><br><span class="line">        cascaderPopup &amp;&amp; cascaderPopup.contains(event.target)</span><br><span class="line">      if (isClickCascaderPopup) &#123;</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br><span class="line">      this.cascaderPopupVisible = false</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.multi_cascader &#123;</span><br><span class="line">  height: 100vh;</span><br><span class="line">  display: flex;</span><br><span class="line">  flex-flow: column;</span><br><span class="line">  justify-content: center;</span><br><span class="line">  align-items: center;</span><br><span class="line">&#125;</span><br><span class="line">.multi_cascader__select &#123;</span><br><span class="line">  width: 50%;</span><br><span class="line">  margin-top: 0;</span><br><span class="line">  margin-bottom: auto;</span><br><span class="line">  transform: translate(0, -100%);</span><br><span class="line">&#125;</span><br><span class="line">.multi_cascader__cascader &#123;</span><br><span class="line">  width: 50%;</span><br><span class="line">  margin-top: auto;</span><br><span class="line">  margin-bottom: 0;</span><br><span class="line">  opacity: 0;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">/* global style*/</span><br><span class="line">.hide &#123;</span><br><span class="line">  display: none;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<p>In the past, I use “two-way binding” like this:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">:child-count</span>=<span class="string">"parCount"</span> @<span class="attr">add</span>=<span class="string">"add"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>parent component &#123;&#123;parCount&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    parCount: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    add() &#123;</span><br><span class="line">      <span class="keyword">this</span>.parCount++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    <span class="string">'button-counter'</span>: &#123;</span><br><span class="line">      template:</span><br><span class="line">        <span class="string">'&lt;button @click="add"&gt;You clicked me &#123;&#123; childCount &#125;&#125; times.&lt;/button&gt;'</span>,</span><br><span class="line">      props: [<span class="string">'childCount'</span>],</span><br><span class="line">      methods: &#123;</span><br><span class="line">        add() &#123;</span><br><span class="line">          <span class="keyword">this</span>.$emit(<span class="string">'add'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>It was easy to understand except a little inconvenient. I need to listen and handle event in child and parent component. Also</p>
+<p><em>true two-way binding can create maintenance issues, because child components can mutate the parent without the source of that mutation being obvious in both the parent and the child.</em></p>
+<p>So, Vue recommends emitting events in the pattern of <code>update:myPropName</code>. For example:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:child-count</span>=<span class="string">"parCount"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">update:child-count</span>=<span class="string">"parCount=$event"</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>parent component &#123;&#123;parCount&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    parCount: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;&#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    <span class="string">'button-counter'</span>: &#123;</span><br><span class="line">      template:</span><br><span class="line">        <span class="string">'&lt;button @click="add"&gt;You clicked me &#123;&#123; childCount &#125;&#125; times.&lt;/button&gt;'</span>,</span><br><span class="line">      props: [<span class="string">'childCount'</span>],</span><br><span class="line">      methods: &#123;</span><br><span class="line">        add() &#123;</span><br><span class="line">          <span class="keyword">this</span>.$emit(<span class="string">'update:child-count'</span>, <span class="keyword">this</span>.childCount + <span class="number">1</span>) <span class="comment">// child-count is right while childCount won't work</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>See? In this case, we don't have to add event callback in parent component because vue have done that. And this is the principle of <code>.sync</code>. For convenience, Vue offers a shorthand for this pattern with the <code>.sync</code> modifier which would make the code above like:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">:child-count.sync</span>=<span class="string">"parCount"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>parent component &#123;&#123;parCount&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    parCount: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;&#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    <span class="string">'button-counter'</span>: &#123;</span><br><span class="line">      template:</span><br><span class="line">        <span class="string">'&lt;button @click="add"&gt;You clicked me &#123;&#123; childCount &#125;&#125; times.&lt;/button&gt;'</span>,</span><br><span class="line">      props: [<span class="string">'childCount'</span>],</span><br><span class="line">      methods: &#123;</span><br><span class="line">        add() &#123;</span><br><span class="line">          <span class="keyword">this</span>.$emit(<span class="string">'update:childCount'</span>, <span class="keyword">this</span>.childCount + <span class="number">1</span>) <span class="comment">// childCount is right while child-count won't work</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>Also,</p>
+<p><em>The .sync modifier can also be used with v-bind when using an object to set multiple props at once:</em></p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">text-document</span> <span class="attr">v-bind.sync</span>=<span class="string">"doc"</span>&gt;</span><span class="tag">&lt;/<span class="name">text-document</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><em>This passes each property in the <code>doc</code> object (e.g. <code>title</code>) as an individual prop, then adds <code>v-on</code> update listeners for each one.</em></p>
+<p>For more information, go <a href="https://vuejs.org/v2/guide/components-custom-events.html#sync-Modifier" target="_blank" rel="noopener">Vue.js</a></p>
 <h2>Ending</h2>
 <h2>Reference</h2>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/move-the-switch-of-console-to-urlsearchparams/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/move-the-switch-of-console-to-urlsearchparams/" itemprop="url">Move the Switch of Console to URLSearchParams</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T09:31:50+08:00">
+                2018-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/debug/" itemprop="url" rel="index">
+                    <span itemprop="name">debug</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  100
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>It is very common for us to use <code>console.log</code> When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server?</p>
+<p>In the past, I chose to delete those debug logs. However, I guess nobody likes doing that and in some place, I really want to keep that.</p>
+<h2>Main</h2>
+<p>One day, I find a better way to handle this. Before the main js code, I add code below:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> urlSearchParams = <span class="keyword">new</span> URLSearchParams(<span class="built_in">window</span>.location.search)</span><br><span class="line"><span class="keyword">let</span> isDebug = urlSearchParams.get(<span class="string">'debug'</span>) === <span class="string">'1'</span></span><br><span class="line"><span class="keyword">if</span> (!isDebug) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/vue-form-input-bindings-and-lifecycle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/vue-form-input-bindings-and-lifecycle/" itemprop="url">Vue Form Input Bindings and Lifecycle</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T20:36:32+08:00">
+                2018-10-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
+                    <span itemprop="name">frame</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  592
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>When I was using form validate in Vue, I found sometimes vue doesn't render data which was modified by me. I even thought it was a bug. Anyway, let's take a look.</p>
+<h2>Main</h2>
+<p>Here is a simple demo:</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"positive-num"</span> <span class="attr">:value.trim</span>=<span class="string">"positiveNum"</span> @<span class="attr">input</span>=<span class="string">"oldValidate"</span> <span class="attr">:placeholder</span>=<span class="string">"positiveNumTip"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;positiveNumResTip&#125;&#125;&#123;&#123;positiveNum&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>When I was pressing <em>dddddddddd</em>, what did I got?</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181004204524.png" alt="截图20181004204524.png"></p>
+<p>The first letter was replaced to 1 but the others not. And the most important is the result I got is always 1 which means <code>this.positiveNum</code> is 1 while the value in the <code>input</code> is not 1.</p>
+<p>Why?</p>
+<p>I even thought it was a bug until one day I met a similar problem which was solved in SO.</p>
+<p>The key is the Lifecycle. The guide mentions it before but I didn't understand it until now. Let's see the picture again:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181004205221.png" alt="截图20181004205221.png"></p>
+<p>See?</p>
+<p>The first time we change <code>positiveNum</code> to 1 and then we always change <code>positiveNum</code> to 1. So, vue wouldn't re-render because the data doesn't change. So, the connection between <code>input</code> and <code>positiveNum</code> was cut off until <code>positiveNum</code> isn't equal to 1.</p>
+<p>We can add <code>updated</code> to see how many times data has changed:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  updated() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'data updated'</span>) <span class="comment">//only triggered once</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>As explained before, you can only see <code>'data updated'</code> once.</p>
+<p>So, how can we solved this problem?</p>
+<p>The key is still the Lifecycle. Vue wouldn't re-render because data doesn't change. So, we can update data after data has been changed and rendered. Understood? See code below:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"positive-num"</span> <span class="attr">:value.trim</span>=<span class="string">"positiveNum"</span> @<span class="attr">input</span>=<span class="string">"newValidate"</span> <span class="attr">:placeholder</span>=<span class="string">"positiveNumTip"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;positiveNumResTip&#125;&#125;&#123;&#123;positiveNum&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    newValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.positiveNum.match(reg)) &#123;</span><br><span class="line">          <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(<span class="keyword">this</span>.positiveNum)</span><br><span class="line">          <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.positiveNum = <span class="string">''</span> <span class="comment">//for better use I changed the wrong value to ''</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  updated() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'data updated'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>See? I move the origin logic to the <code>this.$nextTick(callback)</code>. Every time you press the wrong button, it will pass the wrong value to <code>positiveNum</code> and will be corrected in <code>this.$nextTick(callback)</code> which will make the logic run correctly. Also, you can see the updated log at the console.</p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/49920790/change-child-component-checked-state-from-parent-component-synchronously-fail" target="_blank" rel="noopener">change child-component checked state from parent-component synchronously fail</a></li>
+</ul>
 
           
         
@@ -460,7 +819,7 @@ So, here is the earliest code:</p>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/11/">11</a><a class="extend next" rel="next" href="/blog/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

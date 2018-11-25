@@ -113,8 +113,8 @@
         <category>js</category>
       </categories>
       <tags>
-        <tag>orientationchange</tag>
         <tag>mobile</tag>
+        <tag>orientationchange</tag>
       </tags>
   </entry>
   <entry>
@@ -265,8 +265,8 @@
         <category>css</category>
       </categories>
       <tags>
-        <tag>orientationchange</tag>
         <tag>mobile</tag>
+        <tag>orientationchange</tag>
         <tag>flex</tag>
         <tag>rem</tag>
         <tag>initial-scale</tag>

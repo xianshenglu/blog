@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/usage-of-eslint/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/better-way-to-use-orientationchange-event-on-mobile/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2018/10/usage-of-eslint/" itemprop="url">Usage of ESLint</a></h1>
+                <a class="post-title-link" href="/blog/2018/10/better-way-to-use-orientationchange-event-on-mobile/" itemprop="url">Better Way to Use orientationchange Event on Mobile</a></h1>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-06T13:30:36+08:00">
-                2018-10-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T12:39:53+08:00">
+                2018-10-04
               </time>
             
 
@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1,092
+                  316
                 </span>
               
 
@@ -403,109 +403,435 @@
         
           
             <h2>Preface</h2>
-<p>I won't start with questions like what or why. I will start with how and why. Let's begin.</p>
+<p>When I was using <code>orientationchange</code> event, I met a few bugs. So, I take it down.</p>
 <h2>Main</h2>
-<h3>install eslint</h3>
-<p>Install global eslint package:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint@latest -g</span><br></pre></td></tr></table></figure></p>
-<p>Then setup a config file. For example:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /</span><br><span class="line"><span class="built_in">cd</span> d/nodemodules</span><br><span class="line">eslint --init</span><br></pre></td></tr></table></figure></p>
-<p>Then it will give you some choices.</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006154426.png" alt="截图20181006154426.png"></p>
-<p><strong>tips:</strong></p>
-<ol>
-<li><em>You may need to <code>npm init</code> first but you can remove it later.</em></li>
-<li><em>If you can't use arrow key, you may try use cmd.exe instead</em>.</li>
-</ol>
-<p>After that you will get a config file with some settings.</p>
-<p>According to tips on terminal, you will need to load some packages like me because of your previous choices. So, I need to:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-plugin-react@latest -g</span><br></pre></td></tr></table></figure></p>
-<p>Actually you can remove the <em>package.json</em> ( if you have ) now because we are making global eslint settings, not for a project.</p>
-<p>As far, I have a global eslint config file (<em>d:\nodemodules\.eslintrc.json</em>). And my test file is <em>test4.js</em>. Here is the origin code:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> name = &#123;</span><br><span class="line">  name: <span class="string">'test4.js'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">params</span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>So, how can I lint <em>test4.js</em> by <em>d:\nodemodules\.eslintrc.json</em>?</p>
-<h3>run eslint on terminal</h3>
-<p>Let's switch to the folder of <em>test4.js</em>. Then for me, I run code below:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure></p>
-<p>Result:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006161411.png" alt="截图20181006161411.png"></p>
-<p>Here it is. Well, of course we want to fix it when run lint. So, according to <a href="https://eslint.org/docs/user-guide/command-line-interface" target="_blank" rel="noopener">ESLint doc</a> we can try code below:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure></p>
-<p>Result:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006163246.png" alt="截图20181006163246.png"></p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006163413.png" alt="截图20181006163413.png"></p>
-<p>ESLint will fix some problems, mainly spaces. In the case above, <strong>no-unused-vars</strong> problems will not be fixed.</p>
-<h3>set custom rules</h3>
-<p>Futhermore, the expected indent is 4 spaces. But I want 2 spaces to be the default indent. So, we always set our own rules based on ESLint. In my case, I altered the <em>d:\nodemodules\.eslintrc.json</em> like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="comment">//other settings</span></span><br><span class="line">    <span class="string">"rules"</span>: &#123;</span><br><span class="line">        <span class="string">"indent"</span>: [</span><br><span class="line">            <span class="string">"error"</span>,</span><br><span class="line">            <span class="number">2</span></span><br><span class="line">            <span class="comment">//change to 2 not 4</span></span><br><span class="line">        ],</span><br><span class="line">      <span class="comment">//other rules</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Then, run the code above again:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure></p>
-<p>It works immediately. If you want to change other rules, you may have to know more about the existing rules in <a href="https://eslint.org/docs/rules/" target="_blank" rel="noopener">Eslint rules</a>.</p>
-<p>For me, For me, I usually set own rules based on <strong>standard</strong> not <strong>recommended rules</strong> and my custom rules is like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">//other settings</span></span><br><span class="line">  <span class="string">"extends"</span>: <span class="string">"standard"</span>,</span><br><span class="line">  <span class="comment">//other settings</span></span><br><span class="line">  <span class="string">"rules"</span>: &#123;</span><br><span class="line">    <span class="string">"indent"</span>: [<span class="string">"error"</span>, <span class="number">2</span>],</span><br><span class="line">    <span class="string">"linebreak-style"</span>: [<span class="string">"off"</span>, <span class="string">"unix"</span>],</span><br><span class="line">    <span class="string">"quotes"</span>: [<span class="string">"error"</span>, <span class="string">"single"</span>],</span><br><span class="line">    <span class="string">"semi"</span>: [<span class="string">"error"</span>, <span class="string">"never"</span>],</span><br><span class="line">    <span class="string">"no-multiple-empty-lines"</span>: [</span><br><span class="line">      <span class="string">"error"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"max"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">"maxEOF"</span>: <span class="number">0</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>In this case, we run again:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure></p>
-<p>Actually, I got error:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006165344.png" alt="截图20181006165344.png"></p>
-<p>So, I have to run</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-config-standard@latest -g</span><br></pre></td></tr></table></figure></p>
-<p>It turns out I got more warnings.</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006165741.png" alt="截图20181006165741.png"></p>
-<p>So, I keep installing:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-plugin-import@latest eslint-plugin-node@latest eslint-plugin-promise@latest eslint-plugin-standard@latest -g</span><br></pre></td></tr></table></figure></p>
-<p>After that, there is no <strong>correct</strong> warnings. So, I run</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure></p>
-<p>I got a little difference because of different rules:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006165945.png" alt="截图20181006165945.png"></p>
-<h3>script in .html</h3>
-<p>If you use code above to format js in .html, it will fail. For example:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- test4.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        html,</span></span><br><span class="line"><span class="undefined">        body &#123;</span></span><br><span class="line"><span class="undefined">            width: 100%;</span></span><br><span class="line"><span class="undefined">            height: 100%;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"canvas"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> name = &#123;</span></span><br><span class="line"><span class="javascript">            name: <span class="string">'test4.js'</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> obj = &#123;&#125;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">params</span>) </span>&#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.html</span><br></pre></td></tr></table></figure></p>
-<p>Result:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006172654.png" alt="截图20181006172654.png"></p>
-<p>See? Actually, we need plugins for non .js files. After search, I have to run code:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-plugin-html@latest -g</span><br></pre></td></tr></table></figure></p>
-<p>Also, we need to update <em>d:\nodeModules\.eslintrc.json</em> and it would be:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"env"</span>: &#123;</span><br><span class="line">    <span class="string">"browser"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"commonjs"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"es6"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"node"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"extends"</span>: <span class="string">"standard"</span>,</span><br><span class="line">  <span class="string">"parserOptions"</span>: &#123;</span><br><span class="line">    <span class="string">"ecmaFeatures"</span>: &#123;</span><br><span class="line">      <span class="string">"jsx"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"ecmaVersion"</span>: <span class="number">2018</span>,</span><br><span class="line">    <span class="string">"sourceType"</span>: <span class="string">"module"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"plugins"</span>: [<span class="string">"html"</span>],<span class="comment">//add this plugin</span></span><br><span class="line">  <span class="string">"rules"</span>: &#123;</span><br><span class="line">    <span class="string">"indent"</span>: [<span class="string">"error"</span>, <span class="number">2</span>],</span><br><span class="line">    <span class="string">"linebreak-style"</span>: [<span class="string">"off"</span>, <span class="string">"unix"</span>],</span><br><span class="line">    <span class="string">"quotes"</span>: [<span class="string">"error"</span>, <span class="string">"single"</span>],</span><br><span class="line">    <span class="string">"semi"</span>: [<span class="string">"error"</span>, <span class="string">"never"</span>],</span><br><span class="line">    <span class="string">"no-multiple-empty-lines"</span>: [</span><br><span class="line">      <span class="string">"error"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"max"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">"maxEOF"</span>: <span class="number">0</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>After that, you run the code and ESLint would work for .html files.</p>
-<h3>move --fix to editor</h3>
-<p>As far, it seems there is only one flaw left. Do we have to run the code every time we want to format?</p>
-<p>Actually, we don't have to. For me, using vscode, ESLint provides plugins to do these jobs. For other editor users, you may want to check the ESLint doc.</p>
-<p>Here is the operations for vscode.</p>
-<p>Install ESLint plugin. Then add some settings in your <em>User Settings.</em></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"eslint.options"</span>: &#123;</span><br><span class="line">    <span class="comment">//replace with your filename and path</span></span><br><span class="line">    <span class="string">"configFile"</span>: <span class="string">"D:/nodeModules/eslint/.eslintrc.json"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"eslint.alwaysShowStatus"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.autoFixOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.run"</span>: <span class="string">"onSave"</span>,</span><br><span class="line">  <span class="string">"eslint.validate"</span>: [</span><br><span class="line">    <span class="string">"javascript"</span>,</span><br><span class="line">    <span class="string">"javascriptreact"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>After restarting your editor, you will see</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006173812.png" alt="截图20181006173812.png"></p>
-<p>And</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006173913.png" alt="截图20181006173913.png"></p>
-<p>If your default settings of <code>formatOnSave:true</code>, then ESLint would format your code onSave.</p>
-<h3>make global and local config file independent</h3>
-<p>Until now, everything seems perfect with ESLint. But there is one thing I need to mention. Suppose that you create a new vue project using vue-cli.</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue create my-proj</span><br><span class="line"><span class="built_in">cd</span> my-proj</span><br></pre></td></tr></table></figure></p>
-<p>You may find that ESLinter error like below:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006180631.png" alt="截图20181006180631.png"></p>
-<p>You can see this because we set the <code>eslint.options</code> in the <code>User Settings</code>. <code>eslint.options</code> setting is like passing it on the command line in a terminal using the <code>--config</code>. If you do this ESLint respects this and will not use the one in the project folder.</p>
-<p>However, if we delete the <code>eslint.options</code> it won't be able to format other files. So, the compromise solution is :</p>
-<ol>
-<li>delete the <code>eslint.options</code></li>
-<li>move the global config file to the top.</li>
-</ol>
-<p>For example:</p>
-<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">home</span><br><span class="line">  .eslintrc</span><br><span class="line">  projects</span><br><span class="line">    projectOne</span><br><span class="line">      .eslintrc</span><br><span class="line">    projectTwo</span><br></pre></td></tr></table></figure></p>
-<p>If we move the <em>d:\nodeModules\.eslintrc.json</em> to home, then delete the <code>eslint.options</code>. The result would be:</p>
-<ul>
-<li>code in project one will be validated using the local .eslintrc file</li>
-<li>code in project two will be validated using the .eslintrc file in your home directory</li>
-</ul>
-<p>Got it? I learn this from <a href="https://github.com/Microsoft/vscode-eslint/issues/527">Override global eslintrc if one is found in current project</a>.</p>
-<p>At last, eslint in <code>User Settings</code> is:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="string">"eslint.options"</span>: &#123;</span><br><span class="line">    <span class="comment">// "configFile": "D:/nodeModules/eslint/.eslintrc.json",</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"eslint.alwaysShowStatus"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.autoFixOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.run"</span>: <span class="string">"onSave"</span>,</span><br><span class="line">  <span class="string">"eslint.validate"</span>: [</span><br><span class="line">    <span class="string">"javascript"</span>,</span><br><span class="line">    <span class="string">"javascriptreact"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>And in the folder of all projects, I have global eslint config file:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006210753.png" alt="截图20181006210753.png"></p>
+<h4>compatibility problem</h4>
+<p>When I was testing my code on my android, it was ok. However, it doesn't work on my boss's iPhone6. So, i have to change the code.</p>
+<p>The origin code was like:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">id</span>=<span class="string">"box"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-class">.landscape</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> box = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>)</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'orientationchange'</span>, orientationChangeCb)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">orientationChangeCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> isLand = isLandscape()</span><br><span class="line">  <span class="keyword">if</span> (isLand) &#123;</span><br><span class="line">    box.classList.add(<span class="string">'landscape'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    box.classList.remove(<span class="string">'landscape'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isLandscape</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="string">'orientation'</span> <span class="keyword">in</span> <span class="built_in">window</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(<span class="built_in">window</span>.orientation) === <span class="number">90</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.innerWidth &gt; <span class="built_in">window</span>.innerHeight</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>To be compatible with iPhone6, I use <code>resize</code> event instead.</p>
+<p>However, the better way I think is :</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> eventForOrientationChange =</span><br><span class="line">  <span class="string">'onorientationchange'</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">'orientationchange'</span> : <span class="string">'resize'</span></span><br><span class="line"><span class="keyword">if</span> (isMobile()) &#123;</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(eventForOrientationChange, orientationChangeCb)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4>isMobile ?</h4>
+<p>Because <code>onorientationchange</code> is a mobile event, so if you try to run code below on your computer with chrome, you will get:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onorientationchange <span class="comment">//undefined</span></span><br><span class="line"><span class="string">'onorientationchange'</span> <span class="keyword">in</span> <span class="built_in">window</span> <span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
+<p>It seems a little weird but it's true until chrome 69. That's why I add <code>isMobile()</code> before I use <code>window.addEventListener</code>. In that case, we don't have to listen for the <code>resize</code> event on desktop.</p>
+<h4>window.orientation or screen.orientation</h4>
+<p>According to mdn, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/orientation#Specifications" target="_blank" rel="noopener">window.orientation</a> has been <strong>Deprecated</strong>. However, similar API <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation#Browser_compatibility" target="_blank" rel="noopener">screen.orientation</a> has a big problem for compatibility. Safari and QQ doesn't support. As of 2018.10.4, global support in <a href="https://caniuse.com/#search=orientation" target="_blank" rel="noopener">caniuse</a> is only 72.5%.</p>
+<h4>css only</h4>
+<p>If you just want to update style, you don't have to use code above. CSS media queries
+support code like:</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">media</span> (min-height: <span class="number">680px</span>), screen and (orientation: portrait) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> (min-height: <span class="number">680px</span>), screen and (orientation: landscape) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2>Ending</h2>
 <h2>Reference</h2>
 <ul>
-<li><a href="https://github.com/Microsoft/vscode-eslint/issues/527">Override global eslintrc if one is found in current project</a></li>
+<li><a href="https://stackoverflow.com/questions/4917664/detect-viewport-orientation-if-orientation-is-portrait-display-alert-message-ad" target="_blank" rel="noopener">detect viewport orientation, if orientation is portrait display alert message advising user of instructions</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/x-ua-compatible-and-ie-edge/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/x-ua-compatible-and-ie-edge/" itemprop="url">X-UA-Compatible and ie=edge</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-03T19:43:57+08:00">
+                2018-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  719
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>平时会用 vue 写新项目，老项目就在原有基础上更新。对于 vue 这种框架，使用官方的脚手架通常就避免了很多问题，就像平时用模板创建新的单页一样。</p>
+<p>然而有时总是会遇到些不按模板走的代码，虽然跑起来也没有问题，但是放到有些浏览器上就有 bug 了，这个时候对既有模板的理解和掌握就很重要了。</p>
+<h2>Main</h2>
+<p>当我用 html 模板创建一个新单页时，拿到的页面是这样的，vue 也是类似，至少三个 <code>meta</code> 标签基本都是一样的：</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>viewport</code> 是在兼容移动端时才了解的内容，费了不少功夫。而 <code>X-UA-Compatible</code> 则是在遇到非常规代码的时候才想起来的。有一回改个老项目，用了 <code>transform</code>，在 ie11 上测试，没有用，而且在它的工具栏里样式表里根本看不到我写的代码，这个时候我就好奇了，这是 ie11 啊，怎么会不支持 <code>transform</code> 呢？然后我瞄了一下开发者工具，大概是这样的：</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181003201618.png" alt="截图20181003201618.png"></p>
+<p>然后我就好奇了，为什么会是 ie7 模式呢？我明明装的是 ie11 浏览器啊，然后脑袋一闪，好像明白了什么，看了看 <code>html</code> ，果然没有:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>加上之后，再刷新，网页就正常了。</p>
+<p>在这件事之前，我知道这个东西，但是因为是用的模板，一直没有遇到过这个问题，而且通常来说，我会以为，我既然是在 ie11 里打开的，默认你也没有理由用 ie11- 的文档模式去渲染啊，结果就错了。后来看到 SO 上高票答主大概是这么解释 ie 的行为的：</p>
+<p><em>ie 会用它认为最好的方式去渲染页面，如果没有上面那行代码的话</em></p>
+<p>此外，ie11 已经开始废弃上面那个了，如果不兼容 ie 的话，其实上面的代码也可以不用写了，不过目前为止 html 模板和 vue 的模板都还是默认支持的。而上面的那行代码实际意思呢，就是：</p>
+<p><em>Edge：始终以最新的文档模式来渲染页面。忽略文档类型声明。对于 IE8，始终保持以 IE8 标准模式渲染页面。对于 IE9，则以 IE9 标准模式渲染页面。</em></p>
+<p>当然 ie 还可以等于其他值，不过其他值大多都是老版本，目前而言，都没有必要去纠结了，譬如：</p>
+<ul>
+<li>&quot;IE=edge&quot;</li>
+<li>&quot;IE=11&quot;</li>
+<li>&quot;IE=EmulateIE11&quot;</li>
+<li>&quot;IE=10&quot;</li>
+<li>&quot;IE=EmulateIE10&quot;</li>
+<li>&quot;IE=9&quot;</li>
+<li>&quot;IE=EmulateIE9</li>
+<li>...</li>
+</ul>
+<h2>Ending</h2>
+<h2>Reference</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do" target="_blank" rel="noopener">What does &lt;meta http-equiv=“X-UA-Compatible” content=“IE=edge”&gt; do?</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/problems-met-when-using-qrcodejs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/problems-met-when-using-qrcodejs/" itemprop="url">使用 qrcodejs 生成二维码的几个问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-03T14:03:57+08:00">
+                2018-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1,418
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>产品希望我这边下载页面加个二维码，可以扫描下载 APP，并且希望二维码中有公司的 logo，很合理的需求，不过实现的时候依旧遇到了几个问题，在此记录下。</p>
+<h2>Main</h2>
+<p>二维码的实现逻辑我当然没有这个时间去研究，直接用的 <a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a>。官方给的 demo 是最简单的版本，各种各样的需求都是在 issues 里找到的提示，似乎这个库已经很久没有人去维护了，虽然 star 是很多。</p>
+<h4>官网示例（改编）</h4>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"qrcode"</span> <span class="attr">class</span>=<span class="string">"qrcode"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.qrcode</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid green;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> qrcodeEl = <span class="built_in">document</span>.getElementById(<span class="string">'qrcode'</span>)</span><br><span class="line"><span class="keyword">let</span> qrcode = <span class="keyword">new</span> QRCode(qrcodeEl, &#123;</span><br><span class="line">  text: <span class="string">'https://avatars1.githubusercontent.com/u/23273077'</span>,</span><br><span class="line">  width: <span class="number">128</span>,</span><br><span class="line">  height: <span class="number">128</span>,</span><br><span class="line">  colorDark: <span class="string">'#000000'</span>,</span><br><span class="line">  colorLight: <span class="string">'#ffffff'</span>,</span><br><span class="line">  correctLevel: QRCode.CorrectLevel.H</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>效果如图：</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181003145142.png" alt="截图20181003145142.png"></p>
+<h4>尺寸控制</h4>
+<p>我给官网的示例加上了边框，二维码的尺寸和 js 里的尺寸不一样，这个缺点立马就暴露出来了。</p>
+<p>我很可能是想生成的二维码填满传入的 <code>qrcode</code> 元素的，但是这里的 <code>width</code> 不支持 100%，更不支持 <code>vw</code> 这种尺寸单位了。当然，我可以用 <code>qrcode.offsetWidth</code> 来解决这个问题，但是如果 <code>qrcode</code> 的尺寸后期会动态修改的话，那不还是会有问题么。</p>
+<p>经 SO 的提示，发现了一个好方案，</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.qrcode</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid green;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.qrcode</span> <span class="selector-tag">canvas</span> + <span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以了，不过仍然有个不足，<strong>就是二维码有失真。经测试，只有传入的尺寸和 <code>qrcode</code> 的尺寸一样时，才不会失真，所以传入的尺寸还是需要动态计算。</strong></p>
+<h4>加 logo 的二维码</h4>
+<p><a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a> 并没有提供这个 API，issues 里有人给了 demo，其实就是在原有元素上覆盖一个 logo 就可以了，虽然遮盖了原有二维码的一部分，但是实测并不影响扫描。不过我没有进行大规模测试，<strong>可能会有一定的错误率。</strong></p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"qrcode"</span> <span class="attr">class</span>=<span class="string">"qrcode"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://avatars1.githubusercontent.com/u/23273077"</span> <span class="attr">class</span>=<span class="string">"qrcode__logo"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.qrcode</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid green;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.qrcode</span> <span class="selector-tag">canvas</span> + <span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.qrcode__logo</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">10%</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如图：</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181003164515.png" alt="截图20181003164515.png"></p>
+<h4>检测二维码的生成</h4>
+<p>某些情况下，我需要重用二维码，在这种情况下，我发现，二维码的生成是异步的，譬如：</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> qrcodeEl = <span class="built_in">document</span>.getElementById(<span class="string">'qrcode'</span>)</span><br><span class="line"><span class="keyword">let</span> qrcode = <span class="keyword">new</span> QRCode(qrcodeEl, &#123;</span><br><span class="line">  text: <span class="string">'https://avatars1.githubusercontent.com/u/23273077'</span>,</span><br><span class="line">  width: <span class="number">200</span>,</span><br><span class="line">  height: <span class="number">200</span>,</span><br><span class="line">  colorDark: <span class="string">'#000000'</span>,</span><br><span class="line">  colorLight: <span class="string">'#ffffff'</span>,</span><br><span class="line">  correctLevel: QRCode.CorrectLevel.H</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">let</span> qrcodeImg = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.qrcode canvas+img'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'qrcodeImg.src'</span>, qrcodeImg.src)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'qrcodeImg.src'</span>, qrcodeImg.src)</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure></p>
+<p>第一个日志就是空白的，第二个才有 base64。搞笑的是，<a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a> 也没有给出回调或者通知告诉用户什么时候生成完毕。</p>
+<p>这个问题也是在 issues 里找到的提示，关键点在于 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver" target="_blank" rel="noopener">MutationObserver</a>。</p>
+<p>这个 API 很少在项目中用，因为不兼容性 ie11-，但是有时在几千行代码里 debug 时会用，尤其是我怀疑中间有代码改了某个元素的属性，确又找不到证据或者找不到哪段代码时，会用这个来监测下。在这里的用法如下：</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> qrcodeEl = <span class="built_in">document</span>.getElementById(<span class="string">'qrcode'</span>)</span><br><span class="line"><span class="keyword">let</span> qrcode = <span class="keyword">new</span> QRCode(qrcodeEl, &#123;</span><br><span class="line">  text: <span class="string">'https://avatars1.githubusercontent.com/u/23273077'</span>,</span><br><span class="line">  width: <span class="number">200</span>,</span><br><span class="line">  height: <span class="number">200</span>,</span><br><span class="line">  colorDark: <span class="string">'#000000'</span>,</span><br><span class="line">  colorLight: <span class="string">'#ffffff'</span>,</span><br><span class="line">  correctLevel: QRCode.CorrectLevel.H</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">let</span> qrcodeImg = <span class="built_in">document</span>.querySelector(<span class="string">'.qrcode canvas+img'</span>)</span><br><span class="line">listenQrcodeSrc()</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">listenQrcodeSrc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> observeConfig = &#123; <span class="attr">attributes</span>: <span class="literal">true</span> &#125;</span><br><span class="line">  <span class="keyword">var</span> observeCb = <span class="function"><span class="keyword">function</span>(<span class="params">mutationsList, observer</span>) </span>&#123;</span><br><span class="line">    mutationsList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">mutation</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        mutation.type.toLowerCase() === <span class="string">'attributes'</span> &amp;&amp;</span><br><span class="line">        mutation.attributeName.toLowerCase() === <span class="string">'src'</span></span><br><span class="line">      ) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'qrcodeImg src done!'</span>, mutation.target.src)</span><br><span class="line">        observer.disconnect()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> MutationObserver !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> observer = <span class="keyword">new</span> MutationObserver(observeCb)</span><br><span class="line">    observer.observe(qrcodeImg, observeConfig)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4>微信中多个二维码在一起识别错误</h4>
+<p>这个问题，我也遇到了，根据网友的提示，微信是截屏识别的，所以会出现这种问题。我测试的结果是，左右两个，永远识别的右边的那个。网上有好几种方案：</p>
+<ul>
+<li>调透明度和层级</li>
+</ul>
+<p>最初尝试过，结果发现失败，等到成功的时候，透明度已经小于 0.5 了，视觉差异太明显，所以放弃了这个方案。</p>
+<ul>
+<li>替换二维码</li>
+</ul>
+<p>最终采取的是这个，这个也有问题，就是用户会看到二维码变化的过程，除非你把多个二维码做得很像。</p>
+<p>假设，我们要显示两个二维码，所谓替换二维码，其实也就是在多个 <code>img.src</code> 属性里切换，可以把实际的二维码保存在 <code>data-real-src</code> 属性里，然后在用户 <code>touchstart</code> 事件中，替换另一个 <code>img</code> 的 <code>src</code> 为当前按下的这个，然后在 <code>touchend</code> 事件中再改回来，因为原来的地址都保存在 <code>data-real-src</code> 属性里。</p>
+<p>这里就用到了前面提到的检测 <code>src</code> 属性来判断 <code>qrcode</code> 生成完毕，否则一开始直接把 <code>src</code> 属性赋给 <code>data-real-src</code> 属性，就是空白。</p>
+<p>示例代码（这里代码跟前面脱节了，dom 是另外的结构，仅作为示例代码）：</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//* pubMethods 是类似 jq 的一些 API 的汇总对象</span></span><br><span class="line"><span class="keyword">var</span> qrcodeImgs = pubMethods.$(<span class="string">'.download__qrcode-box canvas+img'</span>)</span><br><span class="line">listenQrcodeSrc()</span><br><span class="line"><span class="keyword">var</span> downloadBox = pubMethods.$(<span class="string">'.download'</span>)[<span class="number">0</span>]</span><br><span class="line">downloadBox.addEventListener(<span class="string">'touchstart'</span>, changeQrcodeSrcToOne)</span><br><span class="line">downloadBox.addEventListener(<span class="string">'touchend'</span>, changeQrcodeSrcBack)</span><br><span class="line">downloadBox.addEventListener(<span class="string">'touchcancel'</span>, changeQrcodeSrcBack)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">listenQrcodeSrc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> observeConfig = &#123; <span class="attr">attributes</span>: <span class="literal">true</span> &#125;</span><br><span class="line">  <span class="keyword">var</span> observeCb = <span class="function"><span class="keyword">function</span>(<span class="params">mutationsList, observer</span>) </span>&#123;</span><br><span class="line">    mutationsList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">mutation</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        mutation.type.toLowerCase() === <span class="string">'attributes'</span> &amp;&amp;</span><br><span class="line">        mutation.attributeName.toLowerCase() === <span class="string">'src'</span></span><br><span class="line">      ) &#123;</span><br><span class="line">        mutation.target.setAttribute(<span class="string">'data-real-src'</span>, mutation.target.src)</span><br><span class="line">        observer.disconnect()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  qrcodeImgs.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> MutationObserver !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> observer = <span class="keyword">new</span> MutationObserver(observeCb)</span><br><span class="line">      observer.observe(ele, observeConfig)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeQrcodeSrcToOne</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> target = event.target</span><br><span class="line">  <span class="keyword">var</span> getQrcodeBox = pubMethods.closest(</span><br><span class="line">    target,</span><br><span class="line">    <span class="string">'.download__qrcode-box'</span>,</span><br><span class="line">    downloadBox</span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">if</span> (getQrcodeBox) &#123;</span><br><span class="line">    <span class="keyword">var</span> targetImg = qrcodeImgs.filter(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> getQrcodeBox.contains(ele)</span><br><span class="line">    &#125;)[<span class="number">0</span>]</span><br><span class="line">    qrcodeImgs.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">      ele.src = targetImg.getAttribute(<span class="string">'data-real-src'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeQrcodeSrcBack</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  qrcodeImgs.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">    ele.src = ele.getAttribute(<span class="string">'data-real-src'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/34546241/make-qr-code-full-width" target="_blank" rel="noopener">Make qr code full width</a></p>
+</li>
+<li>
+<p><a href="https://www.zhihu.com/question/35246592" target="_blank" rel="noopener">微信中有两个挨着二维码长按识别的问题?</a></p>
+</li>
 </ul>
 
           
@@ -546,7 +872,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/blog/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/32/">32</a><a class="extend next" rel="next" href="/blog/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/blog/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/11/">11</a><a class="extend next" rel="next" href="/blog/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
