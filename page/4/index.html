@@ -290,6 +290,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/problems-met-when-using-canvas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/problems-met-when-using-canvas/" itemprop="url">Problems Met When Using canvas</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T19:21:32+08:00">
+                2018-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  304
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>Kind of weird when using <code>canvas</code>, but it's true. Let's take a look.</p>
+<h2>Main</h2>
+<h3>canvas would lost accurate data when opacity isn't equal to 255</h3>
+<p>sample code:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"canvas"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>)</span><br><span class="line"><span class="keyword">let</span> cxt = canvas.getContext(<span class="string">'2d'</span>)</span><br><span class="line"><span class="keyword">let</span> imageData = cxt.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="keyword">let</span> data = imageData.data</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>] = <span class="number">200</span></span><br><span class="line">data[<span class="number">1</span>] = <span class="number">100</span></span><br><span class="line">data[<span class="number">2</span>] = <span class="number">50</span></span><br><span class="line">data[<span class="number">3</span>] = <span class="number">25</span></span><br><span class="line"><span class="built_in">console</span>.log(imageData.data) <span class="comment">//[200, 100, 50, 25]</span></span><br><span class="line">cxt.putImageData(imageData, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">let</span> debugImgData = cxt.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(debugImgData.data) <span class="comment">//[204, 102, 51, 25]</span></span><br></pre></td></tr></table></figure></p>
+<p><code>imageData.data</code> wouldn't be equal to <code>debugImgData.data</code> because opacity isn't equal to 255. If we set opacity to 255. They would be the same.</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data[<span class="number">3</span>] = <span class="number">255</span></span><br></pre></td></tr></table></figure></p>
+<h3>imageData.data is readonly</h3>
+<p>You can modify <code>data</code> but you can't reassign it like <code>imageData.data=[1,22,3,5]</code>. It will fail <strong>silently</strong>.</p>
+<h3>copy imageData</h3>
+<p>Because <code>imageData.data</code> is readonly. So, you can't copy it like code below:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newImgData = cxt.createImageData(debugImgData)</span><br><span class="line">newImgData.data = debugImgData.data</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'newImgData'</span>, newImgData.data) <span class="comment">//[0,0,0,0]</span></span><br></pre></td></tr></table></figure></p>
+<p>According to mdn, return value of <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createImageData" target="_blank" rel="noopener">createImageData</a> is</p>
+<p><em>A new ImageData object with the specified width and height. The new object is filled with transparent black pixels.</em></p>
+<p>which is <code>[0,0,0,0,,,,]</code>. And assignment of <code>newImgData.data = debugImgData.data</code> fail silently. So, if you want to copy <code>imageData</code> the right way is:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newImgData = cxt.createImageData(debugImgData)</span><br><span class="line">newImgData.data.set(debugImgData.data)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'newImgData'</span>, newImgData.data) <span class="comment">//[200, 100, 50, 255]</span></span><br></pre></td></tr></table></figure></p>
+<p>That is because <code>ImageData.data</code> is a <code>Uint8ClampedArray</code>. So we can find the API of
+<code>Uint8ClampedArray.prototype.set()</code> which stores multiple values in the typed array, reading input values from a specified array.</p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/36588722/html-canvas-putimagedata-with-transparency-causes-incorrect-rgb-to-be-saved#" target="_blank" rel="noopener">HTML Canvas putImageData with transparency causes incorrect RGB to be saved</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/override-3rd-party-style/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -639,179 +824,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/move-the-switch-of-console-to-urlsearchparams/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/10/move-the-switch-of-console-to-urlsearchparams/" itemprop="url">Move the Switch of Console to URLSearchParams</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T09:31:50+08:00">
-                2018-10-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/debug/" itemprop="url" rel="index">
-                    <span itemprop="name">debug</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  100
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>It is very common for us to use <code>console.log</code> When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server?</p>
-<p>In the past, I chose to delete those debug logs. However, I guess nobody likes doing that and in some place, I really want to keep that.</p>
-<h2>Main</h2>
-<p>One day, I find a better way to handle this. Before the main js code, I add code below:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> urlSearchParams = <span class="keyword">new</span> URLSearchParams(<span class="built_in">window</span>.location.search)</span><br><span class="line"><span class="keyword">let</span> isDebug = urlSearchParams.get(<span class="string">'debug'</span>) === <span class="string">'1'</span></span><br><span class="line"><span class="keyword">if</span> (!isDebug) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2>Ending</h2>
-<h2>Reference</h2>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/blog/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/12/">12</a><a class="extend next" rel="next" href="/blog/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/blog/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/13/">13</a><a class="extend next" rel="next" href="/blog/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -863,7 +880,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -885,7 +902,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

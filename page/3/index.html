@@ -290,6 +290,228 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/image-load-error-handler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/11/image-load-error-handler/" itemprop="url">Image Load Error Handler</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T16:53:48+08:00">
+                2018-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  531
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>In the past, I posted an answer in SO about how to <a href="https://stackoverflow.com/questions/92720/jquery-javascript-to-replace-broken-images/50484874" target="_blank" rel="noopener">replace broken images</a>. And the code is</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'error'</span>,</span><br><span class="line">  windowErrorCb,</span><br><span class="line">  &#123;</span><br><span class="line">    capture: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">windowErrorCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> target = event.target</span><br><span class="line">  <span class="keyword">let</span> isImg = target.tagName.toLowerCase() === <span class="string">'img'</span></span><br><span class="line">  <span class="keyword">if</span> (isImg) &#123;</span><br><span class="line">    imgErrorCb()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">imgErrorCb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isImgErrorHandled = target.hasAttribute(<span class="string">'data-src-error'</span>)</span><br><span class="line">    <span class="keyword">if</span> (!isImgErrorHandled) &#123;</span><br><span class="line">      target.setAttribute(<span class="string">'data-src-error'</span>, <span class="string">'handled'</span>)</span><br><span class="line">      target.src = <span class="string">'backup.png'</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//anything you want to do</span></span><br><span class="line">      <span class="built_in">console</span>.log(target.alt, <span class="string">'both origin and backup image fail to load!'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>And the point is :</p>
+<ol>
+<li>
+<p>Put the code in the head and executed as the first inline script. So, it will listen the errors happen after the script.</p>
+</li>
+<li>
+<p>Use event capturing to catch the errors earlier, also for those events which don't bubble.</p>
+</li>
+<li>
+<p>Use event delegation which avoids binding events on each image.</p>
+</li>
+<li>
+<p>Give the error img element an attribute after giving them a backup.png to avoid error of the <em>backup.png</em> and subsequent infinite loop like below:</p>
+</li>
+</ol>
+<blockquote>
+<p>img error-&gt;backup.png-&gt;error-&gt;backup.png-&gt;error-&gt;,,,,,</p>
+</blockquote>
+<p>I thought the answer is almost perfect. But it turns out there is more scenes I don't know.</p>
+<h4>No Src?</h4>
+<p>Until Chrome 70.0.3538.102 in win7, code below wouldn't trigger error event.</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>But code below would trigger!</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span> /&gt;</span> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>That does make sense. However, <code>img</code> without <code>src</code> wouldn't hidden. They would have 1px border like:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181119171728.png" alt=""></p>
+<p>In this case, we may have to do something about that. For instance,</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>or a default <code>backgroundImage</code> which will work on <code>img</code> though 1px border is still there.</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, lightblue, pink); <span class="comment">/*or your logo*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4>BackgroundImage Error?</h4>
+<p>I still can't find a perfect solution for <code>backgroundImage</code>. The best answer in SO is like:</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app__bg_img_box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(./images/github.png), <span class="built_in">linear-gradient</span>(to right, lightblue, pink);</span><br><span class="line">  <span class="comment">/* you can also use default.png like code below */</span></span><br><span class="line">  <span class="comment">/* background-image: url(./images/github.png), url(./images/default.png); */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>And the cons is obvious.</p>
+<p><img src="../images/1542620382678.gif" alt=""></p>
+<ol>
+<li>You have to take care of the transparency problem of the target image.</li>
+<li>Users can see the toggle between target image and default image.</li>
+<li>A little flaw is that default image will always be downloaded.</li>
+</ol>
+<p>Another way I figured out is like code below. Here is the simplest code:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> backgroundDivs = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'.app__bg_img_box'</span>))</span><br><span class="line">backgroundDivs.forEach(<span class="function"><span class="params">div</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> imgUrl = <span class="built_in">window</span></span><br><span class="line">    .getComputedStyle(div)</span><br><span class="line">    .backgroundImage.match(<span class="regexp">/url\(["']?(.*)["']?\)/</span>)</span><br><span class="line">  <span class="keyword">if</span> (imgUrl) &#123;</span><br><span class="line">    <span class="keyword">let</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">    img.src = imgUrl[<span class="number">1</span>]</span><br><span class="line">    img.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">      div.style.backgroundImage = <span class="string">'url(./images/default.png)'</span></span><br><span class="line">      img.onerror = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>It will work well in most simple scenes but the cons is also obvious:</p>
+<ol>
+<li>Code will be more complicated if you want to deal with multiple backgroundImages.</li>
+<li>Each time you updated your dom structure, you may have to run the code above if you have add new divs with backgroundImage.</li>
+</ol>
+<h2>Ending</h2>
+<p>If lucky enough, we may have the new API in <a href="https://drafts.csswg.org/css-images-4/#image-set-notation" target="_blank" rel="noopener">Images</a> which would make code below work.</p>
+<p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">background: image('target.gif', 'fallback.gif');</span><br></pre></td></tr></table></figure></p>
+<h2>Reference</h2>
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/22287474/onerror-event-using-background-url" target="_blank" rel="noopener">onerror event using background: url()</a></p>
+</li>
+<li>
+<p><a href="https://drafts.csswg.org/css-images-4/#image-set-notation" target="_blank" rel="noopener">image-set-notation</a></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/build-multiple-choice-cascader-with-third-party-ui/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -721,196 +943,11 @@ So, here is the earliest code:</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/problems-met-when-using-canvas/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/10/problems-met-when-using-canvas/" itemprop="url">Problems Met When Using canvas</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T19:21:32+08:00">
-                2018-10-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/html/" itemprop="url" rel="index">
-                    <span itemprop="name">html</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  304
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>Kind of weird when using <code>canvas</code>, but it's true. Let's take a look.</p>
-<h2>Main</h2>
-<h3>canvas would lost accurate data when opacity isn't equal to 255</h3>
-<p>sample code:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"canvas"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>)</span><br><span class="line"><span class="keyword">let</span> cxt = canvas.getContext(<span class="string">'2d'</span>)</span><br><span class="line"><span class="keyword">let</span> imageData = cxt.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="keyword">let</span> data = imageData.data</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>] = <span class="number">200</span></span><br><span class="line">data[<span class="number">1</span>] = <span class="number">100</span></span><br><span class="line">data[<span class="number">2</span>] = <span class="number">50</span></span><br><span class="line">data[<span class="number">3</span>] = <span class="number">25</span></span><br><span class="line"><span class="built_in">console</span>.log(imageData.data) <span class="comment">//[200, 100, 50, 25]</span></span><br><span class="line">cxt.putImageData(imageData, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">let</span> debugImgData = cxt.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(debugImgData.data) <span class="comment">//[204, 102, 51, 25]</span></span><br></pre></td></tr></table></figure></p>
-<p><code>imageData.data</code> wouldn't be equal to <code>debugImgData.data</code> because opacity isn't equal to 255. If we set opacity to 255. They would be the same.</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data[<span class="number">3</span>] = <span class="number">255</span></span><br></pre></td></tr></table></figure></p>
-<h3>imageData.data is readonly</h3>
-<p>You can modify <code>data</code> but you can't reassign it like <code>imageData.data=[1,22,3,5]</code>. It will fail <strong>silently</strong>.</p>
-<h3>copy imageData</h3>
-<p>Because <code>imageData.data</code> is readonly. So, you can't copy it like code below:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newImgData = cxt.createImageData(debugImgData)</span><br><span class="line">newImgData.data = debugImgData.data</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'newImgData'</span>, newImgData.data) <span class="comment">//[0,0,0,0]</span></span><br></pre></td></tr></table></figure></p>
-<p>According to mdn, return value of <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createImageData" target="_blank" rel="noopener">createImageData</a> is</p>
-<p><em>A new ImageData object with the specified width and height. The new object is filled with transparent black pixels.</em></p>
-<p>which is <code>[0,0,0,0,,,,]</code>. And assignment of <code>newImgData.data = debugImgData.data</code> fail silently. So, if you want to copy <code>imageData</code> the right way is:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newImgData = cxt.createImageData(debugImgData)</span><br><span class="line">newImgData.data.set(debugImgData.data)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'newImgData'</span>, newImgData.data) <span class="comment">//[200, 100, 50, 255]</span></span><br></pre></td></tr></table></figure></p>
-<p>That is because <code>ImageData.data</code> is a <code>Uint8ClampedArray</code>. So we can find the API of
-<code>Uint8ClampedArray.prototype.set()</code> which stores multiple values in the typed array, reading input values from a specified array.</p>
-<h2>Ending</h2>
-<h2>Reference</h2>
-<ul>
-<li><a href="https://stackoverflow.com/questions/36588722/html-canvas-putimagedata-with-transparency-causes-incorrect-rgb-to-be-saved#" target="_blank" rel="noopener">HTML Canvas putImageData with transparency causes incorrect RGB to be saved</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/12/">12</a><a class="extend next" rel="next" href="/blog/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/13/">13</a><a class="extend next" rel="next" href="/blog/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -962,7 +999,7 @@ So, here is the earliest code:</p>
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -984,7 +1021,7 @@ So, here is the earliest code:</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
