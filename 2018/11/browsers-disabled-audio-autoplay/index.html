@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="vue," />
+  <meta name="keywords" content="audio,autoplay," />
 
 
 
@@ -86,21 +86,18 @@
 
 
 
-<meta name="description" content="Preface When I was using form validate in Vue, I found sometimes vue doesn&apos;t render data which was modified by me. I even thought it was a bug. Anyway, let&apos;s take a look. Main Here is a simple demo: h">
-<meta name="keywords" content="vue">
+<meta name="description" content="If you have used audio or video, I guess you probably know autoplay attribute. Sometimes, PM wants to use that. However, the browsers doesn&apos;t want that. When I was using autoplay on 2018.10, I find th">
+<meta name="keywords" content="audio,autoplay">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue Form Input Bindings and Lifecycle">
-<meta property="og:url" content="https://github.com/xianshenglu/blog/2018/10/vue-form-input-bindings-and-lifecycle/index.html">
+<meta property="og:title" content="Browsers Disabled Audio AutoPlay">
+<meta property="og:url" content="https://github.com/xianshenglu/blog/2018/11/browsers-disabled-audio-autoplay/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface When I was using form validate in Vue, I found sometimes vue doesn&apos;t render data which was modified by me. I even thought it was a bug. Anyway, let&apos;s take a look. Main Here is a simple demo: h">
+<meta property="og:description" content="If you have used audio or video, I guess you probably know autoplay attribute. Sometimes, PM wants to use that. However, the browsers doesn&apos;t want that. When I was using autoplay on 2018.10, I find th">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/10/images/%E6%88%AA%E5%9B%BE20181004204524.png">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/10/images/%E6%88%AA%E5%9B%BE20181004205221.png">
-<meta property="og:updated_time" content="2018-10-05T01:24:38.371Z">
+<meta property="og:updated_time" content="2018-12-07T14:09:16.470Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue Form Input Bindings and Lifecycle">
-<meta name="twitter:description" content="Preface When I was using form validate in Vue, I found sometimes vue doesn&apos;t render data which was modified by me. I even thought it was a bug. Anyway, let&apos;s take a look. Main Here is a simple demo: h">
-<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2018/10/images/%E6%88%AA%E5%9B%BE20181004204524.png">
+<meta name="twitter:title" content="Browsers Disabled Audio AutoPlay">
+<meta name="twitter:description" content="If you have used audio or video, I guess you probably know autoplay attribute. Sometimes, PM wants to use that. However, the browsers doesn&apos;t want that. When I was using autoplay on 2018.10, I find th">
 
 
 
@@ -130,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/xianshenglu/blog/2018/10/vue-form-input-bindings-and-lifecycle/"/>
+  <link rel="canonical" href="https://github.com/xianshenglu/blog/2018/11/browsers-disabled-audio-autoplay/"/>
 
 
 
 
 
-  <title>Vue Form Input Bindings and Lifecycle | Hey , you !</title>
+  <title>Browsers Disabled Audio AutoPlay | Hey , you !</title>
   
 
 
@@ -297,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/vue-form-input-bindings-and-lifecycle/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/browsers-disabled-audio-autoplay/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -314,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Vue Form Input Bindings and Lifecycle</h1>
+          <h1 class="post-title" itemprop="name headline">Browsers Disabled Audio AutoPlay</h1>
         
 
         <div class="post-meta">
@@ -326,8 +323,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T20:36:32+08:00">
-                2018-10-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-26T21:40:32+08:00">
+                2018-11-26
               </time>
             
 
@@ -349,8 +346,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
-                    <span itemprop="name">frame</span>
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
                   </a>
                 </span>
 
@@ -380,7 +377,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  592
+                  165
                 </span>
               
 
@@ -405,34 +402,16 @@
       
 
       
-        <h2>Preface</h2>
-<p>When I was using form validate in Vue, I found sometimes vue doesn't render data which was modified by me. I even thought it was a bug. Anyway, let's take a look.</p>
-<h2>Main</h2>
-<p>Here is a simple demo:</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"positive-num"</span> <span class="attr">:value.trim</span>=<span class="string">"positiveNum"</span> @<span class="attr">input</span>=<span class="string">"oldValidate"</span> <span class="attr">:placeholder</span>=<span class="string">"positiveNumTip"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;positiveNumResTip&#125;&#125;&#123;&#123;positiveNum&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>When I was pressing <em>dddddddddd</em>, what did I got?</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181004204524.png" alt="截图20181004204524.png"></p>
-<p>The first letter was replaced to 1 but the others not. And the most important is the result I got is always 1 which means <code>this.positiveNum</code> is 1 while the value in the <code>input</code> is not 1.</p>
-<p>Why?</p>
-<p>I even thought it was a bug until one day I met a similar problem which was solved in SO.</p>
-<p>The key is the Lifecycle. The guide mentions it before but I didn't understand it until now. Let's see the picture again:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181004205221.png" alt="截图20181004205221.png"></p>
-<p>See?</p>
-<p>The first time we change <code>positiveNum</code> to 1 and then we always change <code>positiveNum</code> to 1. So, vue wouldn't re-render because the data doesn't change. So, the connection between <code>input</code> and <code>positiveNum</code> was cut off until <code>positiveNum</code> isn't equal to 1.</p>
-<p>We can add <code>updated</code> to see how many times data has changed:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  updated() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'data updated'</span>) <span class="comment">//only triggered once</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>As explained before, you can only see <code>'data updated'</code> once.</p>
-<p>So, how can we solved this problem?</p>
-<p>The key is still the Lifecycle. Vue wouldn't re-render because data doesn't change. So, we can update data after data has been changed and rendered. Understood? See code below:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"positive-num"</span> <span class="attr">:value.trim</span>=<span class="string">"positiveNum"</span> @<span class="attr">input</span>=<span class="string">"newValidate"</span> <span class="attr">:placeholder</span>=<span class="string">"positiveNumTip"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;positiveNumResTip&#125;&#125;&#123;&#123;positiveNum&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    newValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.positiveNum.match(reg)) &#123;</span><br><span class="line">          <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(<span class="keyword">this</span>.positiveNum)</span><br><span class="line">          <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.positiveNum = <span class="string">''</span> <span class="comment">//for better use I changed the wrong value to ''</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  updated() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'data updated'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>See? I move the origin logic to the <code>this.$nextTick(callback)</code>. Every time you press the wrong button, it will pass the wrong value to <code>positiveNum</code> and will be corrected in <code>this.$nextTick(callback)</code> which will make the logic run correctly. Also, you can see the updated log at the console.</p>
-<h2>Ending</h2>
+        <p>If you have used <code>audio</code> or <code>video</code>, I guess you probably know <code>autoplay</code> attribute. Sometimes, PM wants to use that. However, the browsers doesn't want that.</p>
+<p>When I was using <code>autoplay</code> on 2018.10, I find that safari and chrome disabled <code>autoplay</code> when user haven't interacted with the page, especially on safari mobile. It's annoying.</p>
+<p>So, if you want to use <code>autoplay</code> it may fail. So, some guys choose to play the audio when user click or touch the page. But I think the better way is to detect whether the user's browser support <code>autoplay</code>. And the way is:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">audioEl</span><br><span class="line">  .play()</span><br><span class="line">  .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//not disabled</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="params">er</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//disabled</span></span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>However, <a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11998448/" target="_blank" rel="noopener">ie11 and edge before 2018.1 returns <code>undefined</code> when <code>audio.play()</code></a>. So, if you care about that, you may try:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> audioState = audioEl.play()</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> audioState !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">  audioState</span><br><span class="line">    .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//not disabled</span></span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">er</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//disabled</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//other logic? what are you gonna do?</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/xianshenglu/blog/issues/18"><strong>Original Post</strong></a></p>
 <h2>Reference</h2>
 <ul>
-<li><a href="https://stackoverflow.com/questions/49920790/change-child-component-checked-state-from-parent-component-synchronously-fail" target="_blank" rel="noopener">change child-component checked state from parent-component synchronously fail</a></li>
+<li><a href="https://blog.videojs.com/autoplay-best-practices-with-video-js/" target="_blank" rel="noopener">Autoplay Best Practices with Video.js</a></li>
 </ul>
 
       
@@ -451,7 +430,9 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/vue/" rel="tag"># vue</a>
+            <a href="/blog/tags/audio/" rel="tag"># audio</a>
+          
+            <a href="/blog/tags/autoplay/" rel="tag"># autoplay</a>
           
         </div>
       
@@ -476,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/10/better-way-to-use-orientationchange-event-on-mobile/" rel="next" title="Better Way to Use orientationchange Event on Mobile">
-                <i class="fa fa-chevron-left"></i> Better Way to Use orientationchange Event on Mobile
+              <a href="/blog/2018/11/chrome-vh-is-always-calculated-as-if-the-url-bar-is-hidden/" rel="next" title="Chrome, vh Is Always Calculated as If the Url Bar Is Hidden">
+                <i class="fa fa-chevron-left"></i> Chrome, vh Is Always Calculated as If the Url Bar Is Hidden
               </a>
             
           </div>
@@ -486,8 +467,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2018/10/move-the-switch-of-console-to-urlsearchparams/" rel="prev" title="Move the Switch of Console to URLSearchParams">
-                Move the Switch of Console to URLSearchParams <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2018/12/remnant-shadows-when-toggling-pictures-with-alpha-in-firefox-and-safari/" rel="prev" title="Remnant Shadows When Toggling Pictures with Alpha in Firefox and Safari">
+                Remnant Shadows When Toggling Pictures with Alpha in Firefox and Safari <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -651,7 +632,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

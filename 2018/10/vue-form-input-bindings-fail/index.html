@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="vh,CSS variables," />
+  <meta name="keywords" content="vue," />
 
 
 
@@ -86,21 +86,21 @@
 
 
 
-<meta name="description" content="The first time when I know vh I was very excited. Finally, we can do this by css instead of js. However, still too naive. As we all know, scroll bar would hide automatically on mobile. So, it wouldn&apos;t">
-<meta name="keywords" content="vh,CSS variables">
+<meta name="description" content="Preface When I was using form validate in Vue, I found sometimes vue doesn&apos;t render data which was modified by me. I even thought it was a bug. Anyway, let&apos;s take a look. Main Here is a simple demo: h">
+<meta name="keywords" content="vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vh on Mobile">
-<meta property="og:url" content="https://github.com/xianshenglu/blog/2018/11/vh-on-mobile/index.html">
+<meta property="og:title" content="Vue Form Input Bindings Fail?">
+<meta property="og:url" content="https://github.com/xianshenglu/blog/2018/10/vue-form-input-bindings-fail/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="The first time when I know vh I was very excited. Finally, we can do this by css instead of js. However, still too naive. As we all know, scroll bar would hide automatically on mobile. So, it wouldn&apos;t">
+<meta property="og:description" content="Preface When I was using form validate in Vue, I found sometimes vue doesn&apos;t render data which was modified by me. I even thought it was a bug. Anyway, let&apos;s take a look. Main Here is a simple demo: h">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/11/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213110.jpg">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/11/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213118.jpg">
-<meta property="og:updated_time" content="2018-12-01T09:21:57.574Z">
+<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/10/images/%E6%88%AA%E5%9B%BE20181004204524.png">
+<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/10/images/%E6%88%AA%E5%9B%BE20181004205221.png">
+<meta property="og:updated_time" content="2018-12-07T14:08:57.883Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vh on Mobile">
-<meta name="twitter:description" content="The first time when I know vh I was very excited. Finally, we can do this by css instead of js. However, still too naive. As we all know, scroll bar would hide automatically on mobile. So, it wouldn&apos;t">
-<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2018/11/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213110.jpg">
+<meta name="twitter:title" content="Vue Form Input Bindings Fail?">
+<meta name="twitter:description" content="Preface When I was using form validate in Vue, I found sometimes vue doesn&apos;t render data which was modified by me. I even thought it was a bug. Anyway, let&apos;s take a look. Main Here is a simple demo: h">
+<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2018/10/images/%E6%88%AA%E5%9B%BE20181004204524.png">
 
 
 
@@ -130,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/xianshenglu/blog/2018/11/vh-on-mobile/"/>
+  <link rel="canonical" href="https://github.com/xianshenglu/blog/2018/10/vue-form-input-bindings-fail/"/>
 
 
 
 
 
-  <title>vh on Mobile | Hey , you !</title>
+  <title>Vue Form Input Bindings Fail? | Hey , you !</title>
   
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/vh-on-mobile/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/vue-form-input-bindings-fail/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xianshenglu">
@@ -314,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">vh on Mobile</h1>
+          <h1 class="post-title" itemprop="name headline">Vue Form Input Bindings Fail?</h1>
         
 
         <div class="post-meta">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-25T20:36:38+08:00">
-                2018-11-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T20:36:32+08:00">
+                2018-10-04
               </time>
             
 
@@ -349,8 +349,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
+                    <span itemprop="name">frame</span>
                   </a>
                 </span>
 
@@ -380,7 +380,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  411
+                  592
                 </span>
               
 
@@ -405,29 +405,34 @@
       
 
       
-        <p>The first time when I know <code>vh</code> I was very excited. Finally, we can do this by <code>css</code> instead of <code>js</code>. However, still too naive.</p>
-<p>As we all know, scroll bar would hide automatically on mobile. So, it wouldn't affect the layout like on desktop.</p>
-<p>However, the address bar would also hide when scrolling. Like images below:</p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213110.jpg" alt=""></p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213118.jpg" alt=""></p>
-<p>And the code is:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      * &#123;</span></span><br><span class="line"><span class="undefined">        margin: 0;</span></span><br><span class="line"><span class="undefined">        padding: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">      html,</span></span><br><span class="line"><span class="undefined">      body,</span></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="comment">/* height: 100%; */</span></span></span><br><span class="line"><span class="undefined">        height: 100vh;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span> &#123;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        border: 10px solid orange;</span></span><br><span class="line"><span class="undefined">        box-sizing: border-box;</span></span><br><span class="line"><span class="undefined">        position: relative;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app__footer</span> &#123;</span></span><br><span class="line"><span class="undefined">        height: 100px;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        box-sizing: border-box;</span></span><br><span class="line"><span class="undefined">        border: 10px solid pink;</span></span><br><span class="line"><span class="undefined">        position: absolute;</span></span><br><span class="line"><span class="undefined">        bottom: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"app__header"</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">main</span> <span class="attr">class</span>=<span class="string">"app__main"</span>&gt;</span><span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"app__footer"</span>&gt;</span>app__footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>The viewport size changes when scrolling. In my Mi6X, the smaller is <code>659px</code> while the larger one is <code>715px</code> when the address bar is hidden.</p>
-<p>According to test on chrome 70, <code>height:100%</code> and <code>window.innerHeight</code> is always equal to the smaller one. I think it is correct. I also thought <code>100vh</code> would act like <code>100%</code>. However, it's not.</p>
-<p>According to <a href="https://developers.google.com/web/updates/2016/12/url-bar-resizing" target="_blank" rel="noopener">developers.google</a> the <code>vh</code> is always calculated as if the URL bar is hidden since Chrome version 56.</p>
-<p>So, <code>100vh</code> is equal to the larger one which is 715px on my phone. That's why images above would happen. In this case, if we use something like <code>bottom:0;</code> with <code>100vh</code> we would meet situation like image one. Part of <code>app__footer</code> was covered. Instead, if we use <code>height:100%</code>, it won't happen.</p>
-<p>However, as we all know it wouldn't be possible to use 100% when we were in nested css modules. So, in this case, how can we get the 100% in nested css modules?</p>
-<p>Of course, we can save the 100% to <code>rem</code> like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.documentElement.style.fontSize = <span class="built_in">window</span>.innerHeight * <span class="number">0.01</span> + <span class="string">'px'</span></span><br></pre></td></tr></table></figure></p>
-<p>But I think the better way is using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables" target="_blank" rel="noopener">CSS_variables</a>. For example:</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span>,</span><br><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="comment">/* height: 100%; */</span></span><br><span class="line">  <span class="comment">/* height: 100vh; */</span></span><br><span class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(var(--vh) * <span class="number">100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.documentElement.style.setProperty(</span><br><span class="line">  <span class="string">'--vh'</span>,</span><br><span class="line">  <span class="built_in">window</span>.innerHeight * <span class="number">0.01</span> + <span class="string">'px'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>Also, if you are worried about the compatibility. Here is the <a href="https://github.com/jhildenbiddle/css-vars-ponyfill">polyfill</a>.</p>
-<p><a href="https://github.com/xianshenglu/blog/issues/38"><strong>Original Post</strong></a></p>
+        <h2>Preface</h2>
+<p>When I was using form validate in Vue, I found sometimes vue doesn't render data which was modified by me. I even thought it was a bug. Anyway, let's take a look.</p>
+<h2>Main</h2>
+<p>Here is a simple demo:</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">"positive-num"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:value.trim</span>=<span class="string">"positiveNum"</span></span></span><br><span class="line"><span class="tag">      @<span class="attr">input</span>=<span class="string">"oldValidate"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:placeholder</span>=<span class="string">"positiveNumTip"</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;positiveNumResTip&#125;&#125;&#123;&#123;positiveNum&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>When I was pressing <em>dddddddddd</em>, what did I got?</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181004204524.png" alt="截图20181004204524.png"></p>
+<p>The first letter was replaced to 1 but the others not. And the most important is the result I got is always 1 which means <code>this.positiveNum</code> is 1 while the value in the <code>input</code> is not 1.</p>
+<p>Why?</p>
+<p>I even thought it was a bug until one day I met a similar problem which was solved in SO.</p>
+<p>The key is the Lifecycle. The guide mentions it before but I didn't understand it until now. Let's see the picture again:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181004205221.png" alt="截图20181004205221.png"></p>
+<p>See?</p>
+<p>The first time we change <code>positiveNum</code> to 1 and then we always change <code>positiveNum</code> to 1. So, vue wouldn't re-render because the data doesn't change. So, the connection between <code>input</code> and <code>positiveNum</code> was cut off until <code>positiveNum</code> isn't equal to 1.</p>
+<p>We can add <code>updated</code> to see how many times data has changed:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  updated() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'data updated'</span>) <span class="comment">//only triggered once</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>As explained before, you can only see <code>'data updated'</code> once.</p>
+<p>So, how can we solved this problem?</p>
+<p>The key is still the Lifecycle. Vue wouldn't re-render because data doesn't change. So, we can update data after data has been changed and rendered. Understood? See code below:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">"positive-num"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:value.trim</span>=<span class="string">"positiveNum"</span></span></span><br><span class="line"><span class="tag">      @<span class="attr">input</span>=<span class="string">"newValidate"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:placeholder</span>=<span class="string">"positiveNumTip"</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;positiveNumResTip&#125;&#125;&#123;&#123;positiveNum&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">'please enter a positive num'</span>,</span><br><span class="line">    positiveNum: <span class="string">''</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">'validated and modified result: '</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value)</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    newValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span></span><br><span class="line">      <span class="keyword">this</span>.positiveNum = value</span><br><span class="line">      <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.positiveNum.match(reg)) &#123;</span><br><span class="line">          <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(<span class="keyword">this</span>.positiveNum)</span><br><span class="line">          <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.positiveNum = newVal</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.positiveNum = <span class="string">''</span> <span class="comment">//for better use I changed the wrong value to ''</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  updated() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'data updated'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>See? I move the origin logic to the <code>this.$nextTick(callback)</code>. Every time you press the wrong button, it will pass the wrong value to <code>positiveNum</code> and will be corrected in <code>this.$nextTick(callback)</code> which will make the logic run correctly. Also, you can see the updated log at the console.</p>
+<h2>Ending</h2>
 <h2>Reference</h2>
 <ul>
-<li><a href="https://css-tricks.com/the-trick-to-viewport-units-on-mobile/" target="_blank" rel="noopener">the-trick-to-viewport-units-on-mobile</a></li>
-<li><a href="https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-browser" target="_blank" rel="noopener">CSS3 100vh not constant in mobile browser</a></li>
+<li><a href="https://stackoverflow.com/questions/49920790/change-child-component-checked-state-from-parent-component-synchronously-fail" target="_blank" rel="noopener">change child-component checked state from parent-component synchronously fail</a></li>
 </ul>
 
       
@@ -446,9 +451,7 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/vh/" rel="tag"># vh</a>
-          
-            <a href="/blog/tags/css-variables/" rel="tag"># CSS variables</a>
+            <a href="/blog/tags/vue/" rel="tag"># vue</a>
           
         </div>
       
@@ -473,8 +476,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/11/computed-and-recompute-in-vue/" rel="next" title="Computed and $recompute in Vue">
-                <i class="fa fa-chevron-left"></i> Computed and $recompute in Vue
+              <a href="/blog/2018/10/better-way-to-use-orientationchange-event-on-mobile/" rel="next" title="Better Way to Use orientationchange Event on Mobile">
+                <i class="fa fa-chevron-left"></i> Better Way to Use orientationchange Event on Mobile
               </a>
             
           </div>
@@ -483,8 +486,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2018/11/browser-disabled-audio-autoplay/" rel="prev" title="Browsers Disabled Audio AutoPlay">
-                Browsers Disabled Audio AutoPlay <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2018/10/move-the-switch-of-console-to-urlsearchparams/" rel="prev" title="Move the Switch of Console to URLSearchParams">
+                Move the Switch of Console to URLSearchParams <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -648,7 +651,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

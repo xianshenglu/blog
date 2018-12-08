@@ -375,7 +375,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  618
+                  571
                 </span>
               
 
@@ -404,12 +404,9 @@
           
             <p>The first time I know <code>apply</code> was when I met this code:</p>
 <p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max.apply(<span class="literal">null</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br></pre></td></tr></table></figure></p>
-<p>As the mdn said,</p>
+<p>As the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply" target="_blank" rel="noopener">mdn</a> shows, the syntax is:</p>
 <blockquote>
-<p>The apply() method calls a function with a given this value, and arguments provided as an array (or an array-like object).</p>
-</blockquote>
-<blockquote>
-<p>Note: While the syntax of this function is almost identical to that of call(), the fundamental difference is that call() accepts an argument list, while apply() accepts a single array of arguments.</p>
+<p>function.apply( thisArg , [argsArray] )</p>
 </blockquote>
 <p>Actually, in case above, thisArg has no influence which means code below also works:</p>
 <p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max.apply(<span class="literal">undefined</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br></pre></td></tr></table></figure></p>
@@ -423,7 +420,7 @@
 <p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.slice.call(&#123; <span class="attr">length</span>: <span class="number">2</span> &#125;)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>))</span><br><span class="line">&#125;</span><br><span class="line">fn(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>) <span class="comment">//[1,2,3,4]</span></span><br></pre></td></tr></table></figure></p>
 <p>Today, we don't need this either because of <code>Array.from</code>. But I still want to talk about it for explanation. In the case above, <code>call</code> was used because we want to do something like:</p>
 <p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">length</span>: <span class="number">2</span> &#125;</span><br><span class="line">obj.slice() <span class="comment">//Uncaught TypeError: obj.slice is not a function</span></span><br></pre></td></tr></table></figure></p>
-<p>It would cause error because slice was defined in <code>Array.prototype</code>. Only <code>Array</code> instance can call that method. <strong>But actually in the implementation of <code>slice</code>, it doesn't need to be called by <code>Array</code> instance</strong> and there is a lot of methods like this. So, in this case, <code>call</code> or <code>apply</code> would let non <code>Array</code> instance call these methods which means</p>
+<p>It would cause error because slice was defined in <code>Array.prototype</code>. Only <code>Array</code> instance can call that method. <strong>But actually in the <a href="http://es5.github.io/#x15.4.4.10" target="_blank" rel="noopener">implementation</a> of <code>slice</code>, it doesn't need to be called by <code>Array</code> instance</strong> and there is a lot of methods like this. So, in this case, <code>call</code> or <code>apply</code> would let non <code>Array</code> instance call these methods which means</p>
 <p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.slice.call(&#123; <span class="attr">length</span>: <span class="number">2</span> &#125;)</span><br><span class="line"><span class="comment">//help you do</span></span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">length</span>: <span class="number">2</span> &#125;</span><br><span class="line">obj.slice = <span class="built_in">Array</span>.prototype.slice</span><br><span class="line">obj.slice()</span><br></pre></td></tr></table></figure></p>
 <p><strong>And to help it easier to understand , you can remember it like:</strong></p>
 <p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">method.call(thisArg, ...args)</span><br><span class="line"><span class="comment">//works like in most cases</span></span><br><span class="line">thisArg.method = method</span><br><span class="line">thisArg.method(...args)</span><br><span class="line"><span class="comment">//for apply</span></span><br><span class="line">method.apply(thisArg, args)</span><br><span class="line"><span class="comment">//works like in most cases</span></span><br><span class="line">thisArg.method = method</span><br><span class="line">thisArg.method(...args)</span><br></pre></td></tr></table></figure></p>
