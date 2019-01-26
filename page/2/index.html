@@ -290,6 +290,374 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/12/serval-ways-to-re-render-in-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/12/serval-ways-to-re-render-in-vue/" itemprop="url">Serval Ways to Force Update in Vue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T14:13:45+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
+                    <span itemprop="name">frame</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  450
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>I have to mention this before we go on. As the <a href="https://vuejs.org/v2/guide/components-edge-cases.html#Forcing-an-Update" target="_blank" rel="noopener">doc-Forcing-an-Update</a> says:</p>
+<blockquote>
+<p>If you find yourself needing to force an update in Vue, in <strong>99.99%</strong> of cases, you’ve made a mistake somewhere.</p>
+</blockquote>
+<p>When I come back to write a blog, I find it's totally true. Well, let's begin. Here is the demo code based on <em>element-ui@2.4.11</em> and <em>vue@2.5.17</em>:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-for</span>=<span class="string">"item in items"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span>&#123;&#123; item.label &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">hr</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-tree</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:data</span>=<span class="string">"items"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">show-checkbox</span></span></span><br><span class="line"><span class="tag">    <span class="attr">node-key</span>=<span class="string">"id"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:default-expanded-keys</span>=<span class="string">"[2, 3]"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-if</span>=<span class="string">"isElTreeShow"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:key</span>=<span class="string">"elTreeVersion"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-tree</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="javascript">      isElTreeShow: <span class="literal">true</span>,</span></span><br><span class="line"><span class="undefined">      elTreeVersion: 100,</span></span><br><span class="line"><span class="undefined">      items: [</span></span><br><span class="line"><span class="undefined">        &#123;</span></span><br><span class="line"><span class="undefined">          id: 1,</span></span><br><span class="line"><span class="javascript">          label: <span class="string">'Level one 1'</span></span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        &#123;</span></span><br><span class="line"><span class="undefined">          id: 2,</span></span><br><span class="line"><span class="javascript">          label: <span class="string">'Level one 2'</span>,</span></span><br><span class="line"><span class="undefined">          children: [</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="undefined">              id: 21,</span></span><br><span class="line"><span class="javascript">              label: <span class="string">'Level two 2-1'</span></span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          ]</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        &#123;</span></span><br><span class="line"><span class="undefined">          id: 3,</span></span><br><span class="line"><span class="javascript">          label: <span class="string">'Level one 3'</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      ],</span></span><br><span class="line"><span class="undefined">      compare(a, b) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> a.id - b.id</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      compareReverse(a, b) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> -<span class="keyword">this</span>.compare(a, b)</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2>Auto Update with Vue's Reactivity System</h2>
+<p>Go check the doc.</p>
+<h2>$forceUpdate</h2>
+<p>For example, if someone made a mistake and wrote the code like</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> length = app.items.length</span><br><span class="line">app.items[length] = &#123; <span class="attr">id</span>: length + <span class="number">1</span>, <span class="attr">label</span>: <span class="string">`Level one <span class="subst">$&#123;length + <span class="number">1</span>&#125;</span>`</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>You will not see the data update because you just add an nonreactive attribute. In this case, you might need <code>app.$forceUpdate()</code>. However, better idea is using code like:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> length = app.items.length</span><br><span class="line">app.items.push(&#123; <span class="attr">id</span>: length + <span class="number">1</span>, <span class="attr">label</span>: <span class="string">`Level one <span class="subst">$&#123;length + <span class="number">1</span>&#125;</span>`</span> &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>or</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> length = app.items.length</span><br><span class="line"><span class="keyword">this</span>.$set(app.items, length, &#123;</span><br><span class="line">  id: length + <span class="number">1</span>,</span><br><span class="line">  label: <span class="string">`Level one <span class="subst">$&#123;length + <span class="number">1</span>&#125;</span>`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2>Reassign</h2>
+<p>However, it's common to use third party components. In this case, it may not be easy to modify the component if we find something not good. For example, if we sort the data using:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">app.items.reverse()</span><br></pre></td></tr></table></figure></p>
+<p>Here is the result:</p>
+<p><img src="../images/1543654707987.gif" alt=""></p>
+<p>The part above the <code>hr</code> works as expected while the <code>el-tree</code> doesn't change even you use <code>$forceUpdate</code>. So, in this case, what can we do?</p>
+<p>We can make it update by reassigning like:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">app.items = app.items.slice()</span><br></pre></td></tr></table></figure></p>
+<p>Until now, every thing about force update has been solved. I haven't met problems which can't be solved by ways above. However, there is some way stronger I have to mention.</p>
+<h2>v-if/key</h2>
+<p>In some cases, we do need to destroy and rebuild the component. But I didn't find any API about <code>rebuild</code> except <a href="https://github.com/vuejs/Discussion/issues/356">this issue</a>. Some guys said we can rebuild using <code>v-if=&quot;isElTreeShow&quot;</code>:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">app.isElTreeShow = !app.isElTreeShow</span><br><span class="line">app.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  app.isElTreeShow = !app.isElTreeShow</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>or a better idea use <code>:key=&quot;elTreeVersion&quot;</code></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">app.elTreeVersion++</span><br></pre></td></tr></table></figure></p>
+<p>See? That's pretty cool.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/47"><strong>Original Post</strong></a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/12/remnant-shadows-when-toggling-pictures-with-alpha-in-firefox-and-safari/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/12/remnant-shadows-when-toggling-pictures-with-alpha-in-firefox-and-safari/" itemprop="url">Remnant Shadows When Toggling HD Pictures with Alpha</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T10:10:51+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  264
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>See the demo:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./images/hd3.png"</span> <span class="attr">class</span>=<span class="string">"app__image"</span> <span class="attr">id</span>=<span class="string">"app__image"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"app__button"</span> <span class="attr">id</span>=<span class="string">"app__button"</span>&gt;</span>next image<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> app__button = <span class="built_in">document</span>.getElementById(<span class="string">'app__button'</span>)</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> app__image = <span class="built_in">document</span>.getElementById(<span class="string">'app__image'</span>)</span></span><br><span class="line"><span class="javascript">  app__button.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    app__image.style.visibility = <span class="string">'hidden'</span></span></span><br><span class="line"><span class="javascript">    app__image.src = <span class="string">'./images/hd4.png'</span></span></span><br><span class="line"><span class="javascript">    app__image.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      app__image.style.visibility = <span class="string">'visible'</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>The code is easy. But the images are special.</p>
+<ul>
+<li>Type is png.</li>
+<li>Size is more than 10M.</li>
+<li>Alpha channel has been modified.</li>
+<li>Both happen on my win7 and Mac 10.13.</li>
+</ul>
+<p>In this case, when we click the button above, the result in Firefox and Safari would be:</p>
+<p><img src="../images/1543630801931.gif" alt=""></p>
+<p>If you look at it carefully, you would see the remnant shadows of previous image. That is unexpected because I change the <code>src</code> in the <code>onload</code> callback. Also, the same thing would happen in Chrome, though the frequency is much lower. So, how do we solve this?</p>
+<h4>Solution</h4>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app__button = <span class="built_in">document</span>.getElementById(<span class="string">'app__button'</span>)</span><br><span class="line"><span class="keyword">let</span> app__image = <span class="built_in">document</span>.getElementById(<span class="string">'app__image'</span>)</span><br><span class="line">app__button.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  app__image.src = <span class="string">'../images/transparent.png'</span></span><br><span class="line">  <span class="keyword">let</span> tempImage = <span class="keyword">new</span> Image()</span><br><span class="line">  tempImage.src = <span class="string">'../images/hd4.png'</span></span><br><span class="line">  tempImage.onload = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// setTimeout(() =&gt; &#123;</span></span><br><span class="line">    <span class="comment">// if you are still worried, you can use setTimeout or requestAnimationFrame to delay</span></span><br><span class="line">    app__image.src = event.target.src</span><br><span class="line">    <span class="comment">// &#125;, 20)</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>See? We change the previous image with a transparent image. A little hack, but it works.</p>
+<p>Obviously, there is a little interval between images onload and browsers' ready to render the latest image, especially in Firefox and Safari. When the browsers' performance becomes better this problem may not happen again. Anyway, hope we lucky.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/22"><strong>Original Post</strong></a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/browsers-disabled-audio-autoplay/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -448,401 +816,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/chrome-vh-is-always-calculated-as-if-the-url-bar-is-hidden/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/11/chrome-vh-is-always-calculated-as-if-the-url-bar-is-hidden/" itemprop="url">Chrome, vh Is Always Calculated as If the Url Bar Is Hidden</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-25T20:36:38+08:00">
-                2018-11-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  411
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>The first time when I know <code>vh</code> I was very excited. Finally, we can do this by <code>css</code> instead of <code>js</code>. However, still too naive.</p>
-<p>As we all know, scroll bar would hide automatically on mobile. So, it wouldn't affect the layout like on desktop.</p>
-<p>However, the address bar would also hide when scrolling. Like images below:</p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213110.jpg" alt=""></p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213118.jpg" alt=""></p>
-<p>And the code is:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      * &#123;</span></span><br><span class="line"><span class="undefined">        margin: 0;</span></span><br><span class="line"><span class="undefined">        padding: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">      html,</span></span><br><span class="line"><span class="undefined">      body,</span></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="comment">/* height: 100%; */</span></span></span><br><span class="line"><span class="undefined">        height: 100vh;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span> &#123;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        border: 10px solid orange;</span></span><br><span class="line"><span class="undefined">        box-sizing: border-box;</span></span><br><span class="line"><span class="undefined">        position: relative;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app__footer</span> &#123;</span></span><br><span class="line"><span class="undefined">        height: 100px;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        box-sizing: border-box;</span></span><br><span class="line"><span class="undefined">        border: 10px solid pink;</span></span><br><span class="line"><span class="undefined">        position: absolute;</span></span><br><span class="line"><span class="undefined">        bottom: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"app__header"</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">main</span> <span class="attr">class</span>=<span class="string">"app__main"</span>&gt;</span><span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"app__footer"</span>&gt;</span>app__footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>The viewport size changes when scrolling. In my Mi6X, the smaller is <code>659px</code> while the larger one is <code>715px</code> when the address bar is hidden.</p>
-<p>According to test on chrome 70, <code>height:100%</code> and <code>window.innerHeight</code> is always equal to the smaller one. I think it is correct. I also thought <code>100vh</code> would act like <code>100%</code>. However, it's not.</p>
-<p>According to <a href="https://developers.google.com/web/updates/2016/12/url-bar-resizing" target="_blank" rel="noopener">developers.google</a> the <code>vh</code> is always calculated as if the URL bar is hidden since Chrome version 56.</p>
-<p>So, <code>100vh</code> is equal to the larger one which is 715px on my phone. That's why images above would happen. In this case, if we use something like <code>bottom:0;</code> with <code>100vh</code> we would meet situation like image one. Part of <code>app__footer</code> was covered. Instead, if we use <code>height:100%</code>, it won't happen.</p>
-<p>However, as we all know it wouldn't be possible to use 100% when we were in nested css modules. So, in this case, how can we get the 100% in nested css modules?</p>
-<p>Of course, we can save the 100% to <code>rem</code> like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.documentElement.style.fontSize = <span class="built_in">window</span>.innerHeight * <span class="number">0.01</span> + <span class="string">'px'</span></span><br></pre></td></tr></table></figure></p>
-<p>But I think the better way is using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables" target="_blank" rel="noopener">CSS_variables</a>. For example:</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span>,</span><br><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="comment">/* height: 100%; */</span></span><br><span class="line">  <span class="comment">/* height: 100vh; */</span></span><br><span class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(var(--vh) * <span class="number">100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.documentElement.style.setProperty(</span><br><span class="line">  <span class="string">'--vh'</span>,</span><br><span class="line">  <span class="built_in">window</span>.innerHeight * <span class="number">0.01</span> + <span class="string">'px'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>Also, if you are worried about the compatibility. Here is the <a href="https://github.com/jhildenbiddle/css-vars-ponyfill">polyfill</a>.</p>
-<p><a href="https://github.com/xianshenglu/blog/issues/38"><strong>Original Post</strong></a></p>
-<h2>Reference</h2>
-<ul>
-<li><a href="https://css-tricks.com/the-trick-to-viewport-units-on-mobile/" target="_blank" rel="noopener">the-trick-to-viewport-units-on-mobile</a></li>
-<li><a href="https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-browser" target="_blank" rel="noopener">CSS3 100vh not constant in mobile browser</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/traps-of-computed-in-vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/11/traps-of-computed-in-vue/" itemprop="url">Traps of Computed in Vue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-25T13:18:28+08:00">
-                2018-11-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
-                    <span itemprop="name">frame</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,339
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>If you have used <a href="https://vuejs.org/index.html" target="_blank" rel="noopener">vue</a> I guess you probably know or have used <code>computed</code>. It seems pretty convenient and easy to use. However, it may bring you some problems if you didn't understand it totally.</p>
-<h3>Trap in Computed</h3>
-<p>Let's see the demo below:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      html,</span></span><br><span class="line"><span class="undefined">      body &#123;</span></span><br><span class="line"><span class="undefined">        height: 100%;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span>,</span></span><br><span class="line"><span class="css">      <span class="selector-class">.app__product</span> &#123;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        height: 100%;</span></span><br><span class="line"><span class="undefined">        display: flex;</span></span><br><span class="line"><span class="undefined">        flex-flow: column;</span></span><br><span class="line"><span class="undefined">        justify-content: center;</span></span><br><span class="line"><span class="undefined">        align-items: center;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app__product</span>,</span></span><br><span class="line"><span class="css">      <span class="selector-class">.product</span> &#123;</span></span><br><span class="line"><span class="undefined">        justify-content: space-evenly;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.product</span> &#123;</span></span><br><span class="line"><span class="undefined">        width: 150px;</span></span><br><span class="line"><span class="undefined">        height: 150px;</span></span><br><span class="line"><span class="undefined">        margin: 20px;</span></span><br><span class="line"><span class="undefined">        text-align: center;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">outline</span>: <span class="selector-id">#111</span> 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span>;</span></span><br><span class="line"><span class="undefined">        display: flex;</span></span><br><span class="line"><span class="undefined">        flex-flow: column;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.product--active</span> &#123;</span></span><br><span class="line"><span class="undefined">        outline: orange 5px solid;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">product</span></span></span><br><span class="line"><span class="tag">        <span class="attr">class</span>=<span class="string">"app__product"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">:products</span>=<span class="string">"products"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">:selected-id.sync</span>=<span class="string">"selectedId"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">:current-product</span>=<span class="string">"currentProduct"</span></span></span><br><span class="line"><span class="tag">      &gt;</span><span class="tag">&lt;/<span class="name">product</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> product = Vue.component(<span class="string">'product'</span>, &#123;</span></span><br><span class="line"><span class="undefined">        template: `</span></span><br><span class="line"><span class="xml">                                        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="javascript">                                            &lt;div :<span class="class"><span class="keyword">class</span></span>=<span class="string">"item.id===selectedId?'product product--active':'product'"</span> v-<span class="keyword">for</span>=<span class="string">"(item,index) in products"</span> @click=<span class="string">"$emit('update:selectedId',item.id)"</span>&gt;</span></span><br><span class="line"><span class="javascript">                                                  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"product__name"</span>&gt;I am &#123;&#123;item.name&#125;&#125;&lt;<span class="regexp">/div&gt;</span></span></span><br><span class="line"><span class="javascript">                                                  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"product__name--selected"</span>&gt;selected: &#123;&#123;currentProduct.name&#125;&#125;&lt;<span class="regexp">/div&gt;</span></span></span><br><span class="line"><span class="xml">                                            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">                                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span><br><span class="line"><span class="javascript">        props: [<span class="string">'products'</span>, <span class="string">'selectedId'</span>, <span class="string">'currentProduct'</span>]</span></span><br><span class="line"><span class="undefined">      &#125;)</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">        components: &#123;</span></span><br><span class="line"><span class="undefined">          product</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        data: &#123;</span></span><br><span class="line"><span class="undefined">          products: [</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="undefined">              id: 0,</span></span><br><span class="line"><span class="javascript">              name: <span class="string">'0'</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="undefined">              id: 1,</span></span><br><span class="line"><span class="javascript">              name: <span class="string">'1'</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="undefined">              id: 2,</span></span><br><span class="line"><span class="javascript">              name: <span class="string">'2'</span></span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          ],</span></span><br><span class="line"><span class="undefined">          selectedId: 1</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        computed: &#123;</span></span><br><span class="line"><span class="undefined">          currentProduct() &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="keyword">this</span>.products.find(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> id === <span class="keyword">this</span>.selectedId)</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        mounted() &#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(</span></span><br><span class="line"><span class="javascript">            obj =&gt; obj.id === <span class="keyword">this</span>.selectedId</span></span><br><span class="line"><span class="undefined">          )</span></span><br><span class="line"><span class="javascript">          <span class="keyword">this</span>.products[selectIndex].name = <span class="string">'1-1'</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;)</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>And here is the result:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181125140044.png" alt=""></p>
-<p>Until now, nothing weird happens. However, if I changed the mounted hook to below:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(<span class="function"><span class="params">obj</span> =&gt;</span> obj.id === <span class="keyword">this</span>.selectedId)</span><br><span class="line"><span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">  name: <span class="string">'1-1'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>Any difference with the ui ? Yes, it has. The result would be:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181125140603.png" alt=""></p>
-<p>As you might thought, <code>currentProduct</code> is not right. Is that a bug?</p>
-<p>No! Let's look at the doc:</p>
-<blockquote>
-<p>However, the difference is that computed properties <strong>are cached based on their dependencies</strong>. A computed property will <strong>only re-evaluate when some of its dependencies have changed</strong>.</p>
-</blockquote>
-<p>That is how <code>computed</code> works.</p>
-<p>In case above, <code>currentProduct</code> only has two dependencies which are <code>products</code> and <code>selectedId</code>. When we use code below:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">  name: <span class="string">'1-1'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>We didn't actually change <code>products</code> or <code>selectedId</code>. We just change the attributes of <code>products</code> not <code>products</code> itself. Neither did code below:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.products[selectIndex].name = <span class="string">'1-1'</span></span><br></pre></td></tr></table></figure></p>
-<p>Code above works because we are changing the existing attributes of <code>currentProduct</code>. So, it works as expected.</p>
-<h3>Computed or Methods</h3>
-<p>If that bothers you, doc also gives you another choice:</p>
-<blockquote>
-<p>Instead of a computed property, we can define the same function as a method instead. For the end result, the two approaches are indeed exactly the same.</p>
-</blockquote>
-<p>But in this case, it needs to be a little complicated. The code would be:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> product = Vue.component(<span class="string">'product'</span>, &#123;</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div&gt;</span></span><br><span class="line"><span class="string">          &lt;div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name"&gt;I am &#123;&#123;item.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name--selected"&gt;selected: &#123;&#123;getCurProduct().name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;`</span>,</span><br><span class="line">  props: [<span class="string">'products'</span>, <span class="string">'selectedId'</span>],</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getCurProduct() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.products.find(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    product</span><br><span class="line">  &#125;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    products: [</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">0</span>,</span><br><span class="line">        name: <span class="string">'0'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        name: <span class="string">'1'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">2</span>,</span><br><span class="line">        name: <span class="string">'2'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    selectedId: <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(<span class="function"><span class="params">obj</span> =&gt;</span> obj.id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    <span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">      name: <span class="string">'1-1'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">this</span>.$children[<span class="number">0</span>].$forceUpdate()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>The point which needs to take care is</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$children[<span class="number">0</span>].$forceUpdate()</span><br></pre></td></tr></table></figure></p>
-<p>In this case, simply change <code>currentProduct</code> to <code>getCurProduct()</code> doesn't work because we have to let <code>product</code> invoke <code>getCurProduct()</code> to get the latest data.</p>
-<p>Also, you can use <code>getCurProduct</code> in the root:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">product</span></span></span><br><span class="line"><span class="tag">    <span class="attr">class</span>=<span class="string">"app__product"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:products</span>=<span class="string">"products"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:selected-id.sync</span>=<span class="string">"selectedId"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:current-product</span>=<span class="string">"getCurProduct()"</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">product</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> product = Vue.component(<span class="string">'product'</span>, &#123;</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div&gt;</span></span><br><span class="line"><span class="string">          &lt;div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name"&gt;I am &#123;&#123;item.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name--selected"&gt;selected: &#123;&#123;currentProduct.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;`</span>,</span><br><span class="line">  props: [<span class="string">'products'</span>, <span class="string">'selectedId'</span>, <span class="string">'currentProduct'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    product</span><br><span class="line">  &#125;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    products: [</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">0</span>,</span><br><span class="line">        name: <span class="string">'0'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        name: <span class="string">'1'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">2</span>,</span><br><span class="line">        name: <span class="string">'2'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    selectedId: <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(<span class="function"><span class="params">obj</span> =&gt;</span> obj.id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    <span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">      name: <span class="string">'1-1'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// this.$children[0].$forceUpdate()</span></span><br><span class="line">    <span class="keyword">this</span>.$forceUpdate()</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getCurProduct() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.products.find(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h3>Insist on Computed for Cache Control ?</h3>
-<p>Sometimes <code>methods</code> isn't be a better choice because we really need the cache control like the doc said:</p>
-<blockquote>
-<p>Why do we need caching? Imagine we have an expensive computed property <strong>A</strong>, which requires looping through a huge Array and doing a lot of computations. Then we may have other computed properties that in turn depend on <strong>A</strong>. Without caching, we would be executing <strong>A’s</strong> getter many more times than necessary!</p>
-</blockquote>
-<p>So, somebody proposed a feature request for <code>$recompute</code> in <a href="https://github.com/vuejs/vue/issues/214">vuejs/vue#214</a>. Also, some guys figured out some solutions.</p>
-<p>Take a look at the code below:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">product</span></span></span><br><span class="line"><span class="tag">    <span class="attr">class</span>=<span class="string">"app__product"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:products</span>=<span class="string">"products"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:selected-id.sync</span>=<span class="string">"selectedId"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:current-product</span>=<span class="string">"currentProduct"</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">product</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> product = Vue.component(<span class="string">'product'</span>, &#123;</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div&gt;</span></span><br><span class="line"><span class="string">          &lt;div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name"&gt;I am &#123;&#123;item.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name--selected"&gt;selected: &#123;&#123;currentProduct.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;`</span>,</span><br><span class="line">  props: [<span class="string">'products'</span>, <span class="string">'selectedId'</span>, <span class="string">'currentProduct'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    product</span><br><span class="line">  &#125;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    products: [</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">0</span>,</span><br><span class="line">        name: <span class="string">'0'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        name: <span class="string">'1'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">2</span>,</span><br><span class="line">        name: <span class="string">'2'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    selectedId: <span class="number">1</span>,</span><br><span class="line">    currentProductSwitch: <span class="literal">false</span></span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    currentProduct() &#123;</span><br><span class="line">      <span class="comment">// just let currentProductSwitch become a new dependency of currentProduct</span></span><br><span class="line">      <span class="keyword">this</span>.currentProductSwitch</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.products.find(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(<span class="function"><span class="params">obj</span> =&gt;</span> obj.id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    <span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">      name: <span class="string">'1-1'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// update currentProductSwitch to recompute currentProduct</span></span><br><span class="line">    <span class="keyword">this</span>.currentProductSwitch = !<span class="keyword">this</span>.currentProductSwitch</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>Do you understand the principle?</p>
-<p>I add <code>currentProductSwitch</code> in <code>currentProduct</code> getter to make <code>currentProductSwitch</code> become one dependency of <code>currentProduct</code>. So, we can make <code>currentProduct</code> recompute when we change the value of <code>currentProductSwitch</code>.</p>
-<p>Now, let's take a look at the solution <a href="https://github.com/posva">posva</a> gives:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> product = Vue.component(<span class="string">'product'</span>, &#123;</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div&gt;</span></span><br><span class="line"><span class="string">          &lt;div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name"&gt;I am &#123;&#123;item.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name--selected"&gt;selected: &#123;&#123;currentProduct.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;`</span>,</span><br><span class="line">  props: [<span class="string">'products'</span>, <span class="string">'selectedId'</span>, <span class="string">'currentProduct'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> recompute = Vue.mixin(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      __recomputed: <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="keyword">const</span> watchers = <span class="keyword">this</span>._computedWatchers</span><br><span class="line">    <span class="keyword">if</span> (!watchers) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.$recompute === <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.$recompute = <span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; __recomputed &#125; = <span class="keyword">this</span>.$data</span><br><span class="line">      <span class="keyword">this</span>.$set(__recomputed, key, !__recomputed[key])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Reflect</span>.ownKeys(watchers).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> watcher = watchers[key]</span><br><span class="line">      watcher.getter = (<span class="function"><span class="keyword">function</span>(<span class="params">getter</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="params">vm</span> =&gt;</span> &#123;</span><br><span class="line">          vm.$data.__recomputed[key]</span><br><span class="line">          <span class="keyword">return</span> getter.call(vm, vm)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)(watcher.getter)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    product</span><br><span class="line">  &#125;,</span><br><span class="line">  mixins: [recompute],</span><br><span class="line">  data: &#123;</span><br><span class="line">    products: [</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">0</span>,</span><br><span class="line">        name: <span class="string">'0'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        name: <span class="string">'1'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">2</span>,</span><br><span class="line">        name: <span class="string">'2'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    selectedId: <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    currentProduct() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.products.find(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(<span class="function"><span class="params">obj</span> =&gt;</span> obj.id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    <span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">      name: <span class="string">'1-1'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">this</span>.$recompute(<span class="string">'currentProduct'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>The core code is:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ....</span></span><br><span class="line"><span class="comment">//* each time called $recompute, reverse the new dependency to let getter recompute</span></span><br><span class="line"><span class="keyword">this</span>.$recompute = <span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; __recomputed &#125; = <span class="keyword">this</span>.$data</span><br><span class="line">  <span class="keyword">this</span>.$set(__recomputed, key, !__recomputed[key])</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//* let __recomputed[key] become a new dependency of key's getter</span></span><br><span class="line"><span class="built_in">Reflect</span>.ownKeys(watchers).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> watcher = watchers[key]</span><br><span class="line">  watcher.getter = (<span class="function"><span class="keyword">function</span>(<span class="params">getter</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">vm</span> =&gt;</span> &#123;</span><br><span class="line">      vm.$data.__recomputed[key]</span><br><span class="line">      <span class="keyword">return</span> getter.call(vm, vm)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)(watcher.getter)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// ....</span></span><br><span class="line"><span class="keyword">this</span>.$recompute(<span class="string">'currentProduct'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>Last tip, the same thing also happens on <code>getters</code> in <code>vuex</code>.</p>
-<p><a href="https://github.com/xianshenglu/blog/issues/35"><strong>Original Post</strong></a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -899,7 +872,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -921,7 +894,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -980,7 +953,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -290,6 +290,401 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/chrome-vh-is-always-calculated-as-if-the-url-bar-is-hidden/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/11/chrome-vh-is-always-calculated-as-if-the-url-bar-is-hidden/" itemprop="url">Chrome, vh Is Always Calculated as If the Url Bar Is Hidden</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-25T20:36:38+08:00">
+                2018-11-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  411
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>The first time when I know <code>vh</code> I was very excited. Finally, we can do this by <code>css</code> instead of <code>js</code>. However, still too naive.</p>
+<p>As we all know, scroll bar would hide automatically on mobile. So, it wouldn't affect the layout like on desktop.</p>
+<p>However, the address bar would also hide when scrolling. Like images below:</p>
+<p><img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213110.jpg" alt=""></p>
+<p><img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213118.jpg" alt=""></p>
+<p>And the code is:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      * &#123;</span></span><br><span class="line"><span class="undefined">        margin: 0;</span></span><br><span class="line"><span class="undefined">        padding: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">      html,</span></span><br><span class="line"><span class="undefined">      body,</span></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="comment">/* height: 100%; */</span></span></span><br><span class="line"><span class="undefined">        height: 100vh;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span> &#123;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        border: 10px solid orange;</span></span><br><span class="line"><span class="undefined">        box-sizing: border-box;</span></span><br><span class="line"><span class="undefined">        position: relative;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app__footer</span> &#123;</span></span><br><span class="line"><span class="undefined">        height: 100px;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        box-sizing: border-box;</span></span><br><span class="line"><span class="undefined">        border: 10px solid pink;</span></span><br><span class="line"><span class="undefined">        position: absolute;</span></span><br><span class="line"><span class="undefined">        bottom: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"app__header"</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">main</span> <span class="attr">class</span>=<span class="string">"app__main"</span>&gt;</span><span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"app__footer"</span>&gt;</span>app__footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>The viewport size changes when scrolling. In my Mi6X, the smaller is <code>659px</code> while the larger one is <code>715px</code> when the address bar is hidden.</p>
+<p>According to test on chrome 70, <code>height:100%</code> and <code>window.innerHeight</code> is always equal to the smaller one. I think it is correct. I also thought <code>100vh</code> would act like <code>100%</code>. However, it's not.</p>
+<p>According to <a href="https://developers.google.com/web/updates/2016/12/url-bar-resizing" target="_blank" rel="noopener">developers.google</a> the <code>vh</code> is always calculated as if the URL bar is hidden since Chrome version 56.</p>
+<p>So, <code>100vh</code> is equal to the larger one which is 715px on my phone. That's why images above would happen. In this case, if we use something like <code>bottom:0;</code> with <code>100vh</code> we would meet situation like image one. Part of <code>app__footer</code> was covered. Instead, if we use <code>height:100%</code>, it won't happen.</p>
+<p>However, as we all know it wouldn't be possible to use 100% when we were in nested css modules. So, in this case, how can we get the 100% in nested css modules?</p>
+<p>Of course, we can save the 100% to <code>rem</code> like:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.documentElement.style.fontSize = <span class="built_in">window</span>.innerHeight * <span class="number">0.01</span> + <span class="string">'px'</span></span><br></pre></td></tr></table></figure></p>
+<p>But I think the better way is using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables" target="_blank" rel="noopener">CSS_variables</a>. For example:</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span>,</span><br><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="comment">/* height: 100%; */</span></span><br><span class="line">  <span class="comment">/* height: 100vh; */</span></span><br><span class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(var(--vh) * <span class="number">100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.documentElement.style.setProperty(</span><br><span class="line">  <span class="string">'--vh'</span>,</span><br><span class="line">  <span class="built_in">window</span>.innerHeight * <span class="number">0.01</span> + <span class="string">'px'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>Also, if you are worried about the compatibility. Here is the <a href="https://github.com/jhildenbiddle/css-vars-ponyfill">polyfill</a>.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/38"><strong>Original Post</strong></a></p>
+<h2>Reference</h2>
+<ul>
+<li><a href="https://css-tricks.com/the-trick-to-viewport-units-on-mobile/" target="_blank" rel="noopener">the-trick-to-viewport-units-on-mobile</a></li>
+<li><a href="https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-browser" target="_blank" rel="noopener">CSS3 100vh not constant in mobile browser</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/traps-of-computed-in-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/11/traps-of-computed-in-vue/" itemprop="url">Traps of Computed in Vue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-25T13:18:28+08:00">
+                2018-11-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
+                    <span itemprop="name">frame</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1,339
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>If you have used <a href="https://vuejs.org/index.html" target="_blank" rel="noopener">vue</a> I guess you probably know or have used <code>computed</code>. It seems pretty convenient and easy to use. However, it may bring you some problems if you didn't understand it totally.</p>
+<h3>Trap in Computed</h3>
+<p>Let's see the demo below:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      html,</span></span><br><span class="line"><span class="undefined">      body &#123;</span></span><br><span class="line"><span class="undefined">        height: 100%;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span>,</span></span><br><span class="line"><span class="css">      <span class="selector-class">.app__product</span> &#123;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        height: 100%;</span></span><br><span class="line"><span class="undefined">        display: flex;</span></span><br><span class="line"><span class="undefined">        flex-flow: column;</span></span><br><span class="line"><span class="undefined">        justify-content: center;</span></span><br><span class="line"><span class="undefined">        align-items: center;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app__product</span>,</span></span><br><span class="line"><span class="css">      <span class="selector-class">.product</span> &#123;</span></span><br><span class="line"><span class="undefined">        justify-content: space-evenly;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.product</span> &#123;</span></span><br><span class="line"><span class="undefined">        width: 150px;</span></span><br><span class="line"><span class="undefined">        height: 150px;</span></span><br><span class="line"><span class="undefined">        margin: 20px;</span></span><br><span class="line"><span class="undefined">        text-align: center;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">outline</span>: <span class="selector-id">#111</span> 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span>;</span></span><br><span class="line"><span class="undefined">        display: flex;</span></span><br><span class="line"><span class="undefined">        flex-flow: column;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.product--active</span> &#123;</span></span><br><span class="line"><span class="undefined">        outline: orange 5px solid;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">product</span></span></span><br><span class="line"><span class="tag">        <span class="attr">class</span>=<span class="string">"app__product"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">:products</span>=<span class="string">"products"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">:selected-id.sync</span>=<span class="string">"selectedId"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">:current-product</span>=<span class="string">"currentProduct"</span></span></span><br><span class="line"><span class="tag">      &gt;</span><span class="tag">&lt;/<span class="name">product</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> product = Vue.component(<span class="string">'product'</span>, &#123;</span></span><br><span class="line"><span class="undefined">        template: `</span></span><br><span class="line"><span class="xml">                                        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="javascript">                                            &lt;div :<span class="class"><span class="keyword">class</span></span>=<span class="string">"item.id===selectedId?'product product--active':'product'"</span> v-<span class="keyword">for</span>=<span class="string">"(item,index) in products"</span> @click=<span class="string">"$emit('update:selectedId',item.id)"</span>&gt;</span></span><br><span class="line"><span class="javascript">                                                  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"product__name"</span>&gt;I am &#123;&#123;item.name&#125;&#125;&lt;<span class="regexp">/div&gt;</span></span></span><br><span class="line"><span class="javascript">                                                  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"product__name--selected"</span>&gt;selected: &#123;&#123;currentProduct.name&#125;&#125;&lt;<span class="regexp">/div&gt;</span></span></span><br><span class="line"><span class="xml">                                            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">                                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span><br><span class="line"><span class="javascript">        props: [<span class="string">'products'</span>, <span class="string">'selectedId'</span>, <span class="string">'currentProduct'</span>]</span></span><br><span class="line"><span class="undefined">      &#125;)</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">        components: &#123;</span></span><br><span class="line"><span class="undefined">          product</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        data: &#123;</span></span><br><span class="line"><span class="undefined">          products: [</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="undefined">              id: 0,</span></span><br><span class="line"><span class="javascript">              name: <span class="string">'0'</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="undefined">              id: 1,</span></span><br><span class="line"><span class="javascript">              name: <span class="string">'1'</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="undefined">              id: 2,</span></span><br><span class="line"><span class="javascript">              name: <span class="string">'2'</span></span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          ],</span></span><br><span class="line"><span class="undefined">          selectedId: 1</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        computed: &#123;</span></span><br><span class="line"><span class="undefined">          currentProduct() &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="keyword">this</span>.products.find(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> id === <span class="keyword">this</span>.selectedId)</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        mounted() &#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(</span></span><br><span class="line"><span class="javascript">            obj =&gt; obj.id === <span class="keyword">this</span>.selectedId</span></span><br><span class="line"><span class="undefined">          )</span></span><br><span class="line"><span class="javascript">          <span class="keyword">this</span>.products[selectIndex].name = <span class="string">'1-1'</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;)</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>And here is the result:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181125140044.png" alt=""></p>
+<p>Until now, nothing weird happens. However, if I changed the mounted hook to below:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(<span class="function"><span class="params">obj</span> =&gt;</span> obj.id === <span class="keyword">this</span>.selectedId)</span><br><span class="line"><span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">  name: <span class="string">'1-1'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>Any difference with the ui ? Yes, it has. The result would be:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181125140603.png" alt=""></p>
+<p>As you might thought, <code>currentProduct</code> is not right. Is that a bug?</p>
+<p>No! Let's look at the doc:</p>
+<blockquote>
+<p>However, the difference is that computed properties <strong>are cached based on their dependencies</strong>. A computed property will <strong>only re-evaluate when some of its dependencies have changed</strong>.</p>
+</blockquote>
+<p>That is how <code>computed</code> works.</p>
+<p>In case above, <code>currentProduct</code> only has two dependencies which are <code>products</code> and <code>selectedId</code>. When we use code below:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">  name: <span class="string">'1-1'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>We didn't actually change <code>products</code> or <code>selectedId</code>. We just change the attributes of <code>products</code> not <code>products</code> itself. Neither did code below:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.products[selectIndex].name = <span class="string">'1-1'</span></span><br></pre></td></tr></table></figure></p>
+<p>Code above works because we are changing the existing attributes of <code>currentProduct</code>. So, it works as expected.</p>
+<h3>Computed or Methods</h3>
+<p>If that bothers you, doc also gives you another choice:</p>
+<blockquote>
+<p>Instead of a computed property, we can define the same function as a method instead. For the end result, the two approaches are indeed exactly the same.</p>
+</blockquote>
+<p>But in this case, it needs to be a little complicated. The code would be:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> product = Vue.component(<span class="string">'product'</span>, &#123;</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div&gt;</span></span><br><span class="line"><span class="string">          &lt;div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name"&gt;I am &#123;&#123;item.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name--selected"&gt;selected: &#123;&#123;getCurProduct().name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;`</span>,</span><br><span class="line">  props: [<span class="string">'products'</span>, <span class="string">'selectedId'</span>],</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getCurProduct() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.products.find(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    product</span><br><span class="line">  &#125;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    products: [</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">0</span>,</span><br><span class="line">        name: <span class="string">'0'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        name: <span class="string">'1'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">2</span>,</span><br><span class="line">        name: <span class="string">'2'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    selectedId: <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(<span class="function"><span class="params">obj</span> =&gt;</span> obj.id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    <span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">      name: <span class="string">'1-1'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">this</span>.$children[<span class="number">0</span>].$forceUpdate()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>The point which needs to take care is</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$children[<span class="number">0</span>].$forceUpdate()</span><br></pre></td></tr></table></figure></p>
+<p>In this case, simply change <code>currentProduct</code> to <code>getCurProduct()</code> doesn't work because we have to let <code>product</code> invoke <code>getCurProduct()</code> to get the latest data.</p>
+<p>Also, you can use <code>getCurProduct</code> in the root:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">product</span></span></span><br><span class="line"><span class="tag">    <span class="attr">class</span>=<span class="string">"app__product"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:products</span>=<span class="string">"products"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:selected-id.sync</span>=<span class="string">"selectedId"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:current-product</span>=<span class="string">"getCurProduct()"</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">product</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> product = Vue.component(<span class="string">'product'</span>, &#123;</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div&gt;</span></span><br><span class="line"><span class="string">          &lt;div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name"&gt;I am &#123;&#123;item.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name--selected"&gt;selected: &#123;&#123;currentProduct.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;`</span>,</span><br><span class="line">  props: [<span class="string">'products'</span>, <span class="string">'selectedId'</span>, <span class="string">'currentProduct'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    product</span><br><span class="line">  &#125;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    products: [</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">0</span>,</span><br><span class="line">        name: <span class="string">'0'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        name: <span class="string">'1'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">2</span>,</span><br><span class="line">        name: <span class="string">'2'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    selectedId: <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(<span class="function"><span class="params">obj</span> =&gt;</span> obj.id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    <span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">      name: <span class="string">'1-1'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// this.$children[0].$forceUpdate()</span></span><br><span class="line">    <span class="keyword">this</span>.$forceUpdate()</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getCurProduct() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.products.find(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3>Insist on Computed for Cache Control ?</h3>
+<p>Sometimes <code>methods</code> isn't be a better choice because we really need the cache control like the doc said:</p>
+<blockquote>
+<p>Why do we need caching? Imagine we have an expensive computed property <strong>A</strong>, which requires looping through a huge Array and doing a lot of computations. Then we may have other computed properties that in turn depend on <strong>A</strong>. Without caching, we would be executing <strong>A’s</strong> getter many more times than necessary!</p>
+</blockquote>
+<p>So, somebody proposed a feature request for <code>$recompute</code> in <a href="https://github.com/vuejs/vue/issues/214">vuejs/vue#214</a>. Also, some guys figured out some solutions.</p>
+<p>Take a look at the code below:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">product</span></span></span><br><span class="line"><span class="tag">    <span class="attr">class</span>=<span class="string">"app__product"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:products</span>=<span class="string">"products"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:selected-id.sync</span>=<span class="string">"selectedId"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:current-product</span>=<span class="string">"currentProduct"</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">product</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> product = Vue.component(<span class="string">'product'</span>, &#123;</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div&gt;</span></span><br><span class="line"><span class="string">          &lt;div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name"&gt;I am &#123;&#123;item.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name--selected"&gt;selected: &#123;&#123;currentProduct.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;`</span>,</span><br><span class="line">  props: [<span class="string">'products'</span>, <span class="string">'selectedId'</span>, <span class="string">'currentProduct'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    product</span><br><span class="line">  &#125;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    products: [</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">0</span>,</span><br><span class="line">        name: <span class="string">'0'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        name: <span class="string">'1'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">2</span>,</span><br><span class="line">        name: <span class="string">'2'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    selectedId: <span class="number">1</span>,</span><br><span class="line">    currentProductSwitch: <span class="literal">false</span></span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    currentProduct() &#123;</span><br><span class="line">      <span class="comment">// just let currentProductSwitch become a new dependency of currentProduct</span></span><br><span class="line">      <span class="keyword">this</span>.currentProductSwitch</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.products.find(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(<span class="function"><span class="params">obj</span> =&gt;</span> obj.id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    <span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">      name: <span class="string">'1-1'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// update currentProductSwitch to recompute currentProduct</span></span><br><span class="line">    <span class="keyword">this</span>.currentProductSwitch = !<span class="keyword">this</span>.currentProductSwitch</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>Do you understand the principle?</p>
+<p>I add <code>currentProductSwitch</code> in <code>currentProduct</code> getter to make <code>currentProductSwitch</code> become one dependency of <code>currentProduct</code>. So, we can make <code>currentProduct</code> recompute when we change the value of <code>currentProductSwitch</code>.</p>
+<p>Now, let's take a look at the solution <a href="https://github.com/posva">posva</a> gives:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> product = Vue.component(<span class="string">'product'</span>, &#123;</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div&gt;</span></span><br><span class="line"><span class="string">          &lt;div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name"&gt;I am &#123;&#123;item.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="product__name--selected"&gt;selected: &#123;&#123;currentProduct.name&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;`</span>,</span><br><span class="line">  props: [<span class="string">'products'</span>, <span class="string">'selectedId'</span>, <span class="string">'currentProduct'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> recompute = Vue.mixin(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      __recomputed: <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="keyword">const</span> watchers = <span class="keyword">this</span>._computedWatchers</span><br><span class="line">    <span class="keyword">if</span> (!watchers) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.$recompute === <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.$recompute = <span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; __recomputed &#125; = <span class="keyword">this</span>.$data</span><br><span class="line">      <span class="keyword">this</span>.$set(__recomputed, key, !__recomputed[key])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Reflect</span>.ownKeys(watchers).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> watcher = watchers[key]</span><br><span class="line">      watcher.getter = (<span class="function"><span class="keyword">function</span>(<span class="params">getter</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="params">vm</span> =&gt;</span> &#123;</span><br><span class="line">          vm.$data.__recomputed[key]</span><br><span class="line">          <span class="keyword">return</span> getter.call(vm, vm)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)(watcher.getter)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    product</span><br><span class="line">  &#125;,</span><br><span class="line">  mixins: [recompute],</span><br><span class="line">  data: &#123;</span><br><span class="line">    products: [</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">0</span>,</span><br><span class="line">        name: <span class="string">'0'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        name: <span class="string">'1'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">2</span>,</span><br><span class="line">        name: <span class="string">'2'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    selectedId: <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    currentProduct() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.products.find(<span class="function">(<span class="params">&#123; id &#125;</span>) =&gt;</span> id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">let</span> selectIndex = <span class="keyword">this</span>.products.findIndex(<span class="function"><span class="params">obj</span> =&gt;</span> obj.id === <span class="keyword">this</span>.selectedId)</span><br><span class="line">    <span class="keyword">this</span>.products[selectIndex] = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.products[selectIndex], &#123;</span><br><span class="line">      name: <span class="string">'1-1'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">this</span>.$recompute(<span class="string">'currentProduct'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>The core code is:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ....</span></span><br><span class="line"><span class="comment">//* each time called $recompute, reverse the new dependency to let getter recompute</span></span><br><span class="line"><span class="keyword">this</span>.$recompute = <span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; __recomputed &#125; = <span class="keyword">this</span>.$data</span><br><span class="line">  <span class="keyword">this</span>.$set(__recomputed, key, !__recomputed[key])</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//* let __recomputed[key] become a new dependency of key's getter</span></span><br><span class="line"><span class="built_in">Reflect</span>.ownKeys(watchers).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> watcher = watchers[key]</span><br><span class="line">  watcher.getter = (<span class="function"><span class="keyword">function</span>(<span class="params">getter</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">vm</span> =&gt;</span> &#123;</span><br><span class="line">      vm.$data.__recomputed[key]</span><br><span class="line">      <span class="keyword">return</span> getter.call(vm, vm)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)(watcher.getter)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// ....</span></span><br><span class="line"><span class="keyword">this</span>.$recompute(<span class="string">'currentProduct'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Last tip, the same thing also happens on <code>getters</code> in <code>vuex</code>.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/35"><strong>Original Post</strong></a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/image-load-error-handler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -499,450 +894,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/build-multiple-choice-cascader-with-third-party-ui/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/11/build-multiple-choice-cascader-with-third-party-ui/" itemprop="url">Build Multiple Choice Cascader with Third Party ui</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-18T18:04:47+08:00">
-                2018-11-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
-                    <span itemprop="name">frame</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  573
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>I need to make a cascader which can support multiple choices. However, I didn't find any ui which supports that until 2018.11.18. That was a little pity.</p>
-<h2>Main</h2>
-<p>I check the <code>element-ui</code> and find multiple cascader was in toDoList while <code>ant-design</code> refuse to support that directly. Maybe because they have already implemented <a href="https://ant.design/components/tree-select/" target="_blank" rel="noopener">TreeSelect</a>. Here is what <code>TreeSelect</code> looks like:</p>
-<p><img src="../images/1542536446656.gif" alt=""></p>
-<p>Almost the result I want except the ui. It doesn't look like a cascader but a tree.</p>
-<p>Anyway, I built a multiple cascader component based on select and cascader in <code>ant-design-vue</code>. Here is the result:</p>
-<p><img src="../images/1542536827531.gif" alt=""></p>
-<p>The principle is easy. I use the <code>input</code> in <code>select</code> and hide the popup. And then I hide the <code>input</code> in <code>cascader</code> and show the popup. So, MultipleCascader is equal to <code>input</code> in <code>select</code> plus popup in <code>cascader</code> and use <code>transform</code> to let them stay together.</p>
-<p>Talking about the event, you have to listen and change the data to show correctly. That is a little troublesome.</p>
-<p>Anyway, here is the earliest <a href="https://codesandbox.io/s/8njr9xy212" target="_blank" rel="noopener">demo</a> in codesandbox. I am not sure if the demo would be always able to visit.</p>
-<p>The latest version is in <a href="https://github.com/xianshenglu/vue/tree/master/demo/multi-cascader-ant-design-vue">here</a>.
-So, here is the earliest code:</p>
-<p><em>App.vue</em></p>
-<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot; class=&quot;app&quot;&gt;&lt;MultipleCascader /&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import MultipleCascader from &apos;./components/MultipleCascader&apos;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;app&apos;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    MultipleCascader</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
-<p><em>MultipleCascader.vue</em></p>
-<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;multi_cascader&quot;&gt;</span><br><span class="line">    &lt;a-cascader</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">      class=&quot;multi_cascader__cascader&quot;</span><br><span class="line">      :popupVisible=&quot;cascaderPopupVisible&quot;</span><br><span class="line">      :popupClassName=&quot;&apos;multi_cascader__cascader_popup&apos; + timestamp&quot;</span><br><span class="line">      changeOnSelect</span><br><span class="line">      expandTrigger=&quot;hover&quot;</span><br><span class="line">      :options=&quot;cascaderOptions&quot;</span><br><span class="line">      :fieldNames=&quot;&#123; label: &apos;label&apos;, value: &apos;id&apos;, children: &apos;children&apos; &#125;&quot;</span><br><span class="line">      v-model=&quot;cascaderValues&quot;</span><br><span class="line">      ref=&quot;cascader&quot;</span><br><span class="line">      :showSearch=&quot;&#123; cascaderFilter &#125;&quot;</span><br><span class="line">      @change=&quot;cascaderChange&quot;</span><br><span class="line">    &gt;&lt;/a-cascader&gt;</span><br><span class="line">    &lt;a-select</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">      class=&quot;multi_cascader__select&quot;</span><br><span class="line">      dropdownClassName=&quot;hide&quot;</span><br><span class="line">      mode=&quot;multiple&quot;</span><br><span class="line">      :value=&quot;selectValues&quot;</span><br><span class="line">      allowClear</span><br><span class="line">      placeholder=&quot;Please select&quot;</span><br><span class="line">      :options=&quot;selectOptions&quot;</span><br><span class="line">      @focus=&quot;cascaderPopupVisible = true&quot;</span><br><span class="line">      @deselect=&quot;deleteOption&quot;</span><br><span class="line">      @change=&quot;selectChange&quot;</span><br><span class="line">      @search=&quot;selectSearch&quot;</span><br><span class="line">    &gt;&lt;/a-select&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;MultipleCascader&apos;,</span><br><span class="line">  data: function() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      timestamp: Date.now(),</span><br><span class="line">      selectOptions: [],</span><br><span class="line">      selectValues: [],</span><br><span class="line">      cascaderPopupVisible: false,</span><br><span class="line">      cascaderValues: [],</span><br><span class="line">      cascaderOptions: [</span><br><span class="line">        &#123;</span><br><span class="line">          id: 1,</span><br><span class="line">          value: &apos;1&apos;,</span><br><span class="line">          label: &apos;1&apos;,</span><br><span class="line">          children: [</span><br><span class="line">            &#123; id: 1.1, value: 1.1, label: &apos;1-1&apos; &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              id: 1.2,</span><br><span class="line">              value: 1.2,</span><br><span class="line">              label: &apos;1-2&apos;,</span><br><span class="line">              children: [</span><br><span class="line">                &#123; id: 1.21, value: 1.21, label: &apos;1-2-1&apos; &#125;,</span><br><span class="line">                &#123; id: 1.22, value: 1.22, label: &apos;1-2-2&apos; &#125;</span><br><span class="line">              ]</span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; id: 2, value: 2, label: &apos;2&apos; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    document.addEventListener(&apos;click&apos;, this.hideCascaderPopup)</span><br><span class="line">  &#125;,</span><br><span class="line">  destroyed() &#123;</span><br><span class="line">    document.removeEventListener(&apos;click&apos;, this.hideCascaderPopup)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    cascaderChange(values, options) &#123;</span><br><span class="line">      // you may have different logic with the selected option, here I just want the last one.</span><br><span class="line">      let targetValue = values.slice(-1).pop()</span><br><span class="line">      let targetOption = options.slice(-1).pop()</span><br><span class="line">      let selectedValIndex = this.selectValues.indexOf(targetValue)</span><br><span class="line">      if (selectedValIndex &gt;= 0) &#123;</span><br><span class="line">        this.selectValues.splice(selectedValIndex, 1)</span><br><span class="line">        this.selectOptions.splice(selectedValIndex, 1)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        this.selectValues.push(targetValue)</span><br><span class="line">        this.selectOptions.push(targetOption)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    deleteOption(value) &#123;</span><br><span class="line">      let selectedValIndex = this.selectValues.indexOf(value)</span><br><span class="line">      this.cascaderChange([value], [this.selectOptions[selectedValIndex]])</span><br><span class="line">    &#125;,</span><br><span class="line">    selectChange(values, vNodes) &#123;</span><br><span class="line">      if (values.length === 0) &#123;</span><br><span class="line">        this.selectValues = []</span><br><span class="line">        this.selectOptions = []</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    selectSearch(keyword) &#123;</span><br><span class="line">      let searchInput = this.$refs.cascader.$el.querySelector(&apos;input&apos;)</span><br><span class="line">      if (searchInput) &#123;</span><br><span class="line">        searchInput.value = keyword</span><br><span class="line">        searchInput.dispatchEvent(new Event(&apos;input&apos;))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    cascaderFilter(inputValue, path) &#123;</span><br><span class="line">      return path.some(</span><br><span class="line">        option =&gt;</span><br><span class="line">          option.label.toLowerCase().indexOf(inputValue.toLowerCase()) &gt; -1</span><br><span class="line">      )</span><br><span class="line">    &#125;,</span><br><span class="line">    hideCascaderPopup(event) &#123;</span><br><span class="line">      let cascaderPopup = document.querySelector(</span><br><span class="line">        &apos;.multi_cascader__cascader_popup&apos; + this.timestamp</span><br><span class="line">      )</span><br><span class="line">      let isClickCascaderPopup =</span><br><span class="line">        cascaderPopup &amp;&amp; cascaderPopup.contains(event.target)</span><br><span class="line">      if (isClickCascaderPopup) &#123;</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br><span class="line">      this.cascaderPopupVisible = false</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.multi_cascader &#123;</span><br><span class="line">  height: 100vh;</span><br><span class="line">  display: flex;</span><br><span class="line">  flex-flow: column;</span><br><span class="line">  justify-content: center;</span><br><span class="line">  align-items: center;</span><br><span class="line">&#125;</span><br><span class="line">.multi_cascader__select &#123;</span><br><span class="line">  width: 50%;</span><br><span class="line">  margin-top: 0;</span><br><span class="line">  margin-bottom: auto;</span><br><span class="line">  transform: translate(0, -100%);</span><br><span class="line">&#125;</span><br><span class="line">.multi_cascader__cascader &#123;</span><br><span class="line">  width: 50%;</span><br><span class="line">  margin-top: auto;</span><br><span class="line">  margin-bottom: 0;</span><br><span class="line">  opacity: 0;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">/* global style*/</span><br><span class="line">.hide &#123;</span><br><span class="line">  display: none;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
-<h2>Ending</h2>
-<h2>Reference</h2>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/usage-of-eslint/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/10/usage-of-eslint/" itemprop="url">Usage of ESLint</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-06T13:30:36+08:00">
-                2018-10-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,092
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>I won't start with questions like what or why. I will start with how and why. Let's begin.</p>
-<h2>Main</h2>
-<h3>install eslint</h3>
-<p>Install global eslint package:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint@latest -g</span><br></pre></td></tr></table></figure></p>
-<p>Then setup a config file. For example:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /</span><br><span class="line"><span class="built_in">cd</span> d/nodemodules</span><br><span class="line">eslint --init</span><br></pre></td></tr></table></figure></p>
-<p>Then it will give you some choices.</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006154426.png" alt="截图20181006154426.png"></p>
-<p><strong>tips:</strong></p>
-<ol>
-<li><em>You may need to <code>npm init</code> first but you can remove it later.</em></li>
-<li><em>If you can't use arrow key, you may try use cmd.exe instead</em>.</li>
-</ol>
-<p>After that you will get a config file with some settings.</p>
-<p>According to tips on terminal, you will need to load some packages like me because of your previous choices. So, I need to:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-plugin-react@latest -g</span><br></pre></td></tr></table></figure></p>
-<p>Actually you can remove the <em>package.json</em> ( if you have ) now because we are making global eslint settings, not for a project.</p>
-<p>As far, I have a global eslint config file (<em>d:\nodemodules\.eslintrc.json</em>). And my test file is <em>test4.js</em>. Here is the origin code:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> name = &#123;</span><br><span class="line">  name: <span class="string">'test4.js'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">params</span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>So, how can I lint <em>test4.js</em> by <em>d:\nodemodules\.eslintrc.json</em>?</p>
-<h3>run eslint on terminal</h3>
-<p>Let's switch to the folder of <em>test4.js</em>. Then for me, I run code below:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure></p>
-<p>Result:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006161411.png" alt="截图20181006161411.png"></p>
-<p>Here it is. Well, of course we want to fix it when run lint. So, according to <a href="https://eslint.org/docs/user-guide/command-line-interface" target="_blank" rel="noopener">ESLint doc</a> we can try code below:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure></p>
-<p>Result:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006163246.png" alt="截图20181006163246.png"></p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006163413.png" alt="截图20181006163413.png"></p>
-<p>ESLint will fix some problems, mainly spaces. In the case above, <strong>no-unused-vars</strong> problems will not be fixed.</p>
-<h3>set custom rules</h3>
-<p>Futhermore, the expected indent is 4 spaces. But I want 2 spaces to be the default indent. So, we always set our own rules based on ESLint. In my case, I altered the <em>d:\nodemodules\.eslintrc.json</em> like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="comment">//other settings</span></span><br><span class="line">    <span class="string">"rules"</span>: &#123;</span><br><span class="line">        <span class="string">"indent"</span>: [</span><br><span class="line">            <span class="string">"error"</span>,</span><br><span class="line">            <span class="number">2</span></span><br><span class="line">            <span class="comment">//change to 2 not 4</span></span><br><span class="line">        ],</span><br><span class="line">      <span class="comment">//other rules</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Then, run the code above again:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure></p>
-<p>It works immediately. If you want to change other rules, you may have to know more about the existing rules in <a href="https://eslint.org/docs/rules/" target="_blank" rel="noopener">Eslint rules</a>.</p>
-<p>For me, For me, I usually set own rules based on <strong>standard</strong> not <strong>recommended rules</strong> and my custom rules is like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">//other settings</span></span><br><span class="line">  <span class="string">"extends"</span>: <span class="string">"standard"</span>,</span><br><span class="line">  <span class="comment">//other settings</span></span><br><span class="line">  <span class="string">"rules"</span>: &#123;</span><br><span class="line">    <span class="string">"indent"</span>: [<span class="string">"error"</span>, <span class="number">2</span>],</span><br><span class="line">    <span class="string">"linebreak-style"</span>: [<span class="string">"off"</span>, <span class="string">"unix"</span>],</span><br><span class="line">    <span class="string">"quotes"</span>: [<span class="string">"error"</span>, <span class="string">"single"</span>],</span><br><span class="line">    <span class="string">"semi"</span>: [<span class="string">"error"</span>, <span class="string">"never"</span>],</span><br><span class="line">    <span class="string">"no-multiple-empty-lines"</span>: [</span><br><span class="line">      <span class="string">"error"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"max"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">"maxEOF"</span>: <span class="number">0</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>In this case, we run again:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure></p>
-<p>Actually, I got error:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006165344.png" alt="截图20181006165344.png"></p>
-<p>So, I have to run</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-config-standard@latest -g</span><br></pre></td></tr></table></figure></p>
-<p>It turns out I got more warnings.</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006165741.png" alt="截图20181006165741.png"></p>
-<p>So, I keep installing:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-plugin-import@latest eslint-plugin-node@latest eslint-plugin-promise@latest eslint-plugin-standard@latest -g</span><br></pre></td></tr></table></figure></p>
-<p>After that, there is no <strong>correct</strong> warnings. So, I run</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure></p>
-<p>I got a little difference because of different rules:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006165945.png" alt="截图20181006165945.png"></p>
-<h3>script in .html</h3>
-<p>If you use code above to format js in .html, it will fail. For example:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- test4.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        html,</span></span><br><span class="line"><span class="undefined">        body &#123;</span></span><br><span class="line"><span class="undefined">            width: 100%;</span></span><br><span class="line"><span class="undefined">            height: 100%;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"canvas"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> name = &#123;</span></span><br><span class="line"><span class="javascript">            name: <span class="string">'test4.js'</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> obj = &#123;&#125;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">params</span>) </span>&#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.html</span><br></pre></td></tr></table></figure></p>
-<p>Result:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006172654.png" alt="截图20181006172654.png"></p>
-<p>See? Actually, we need plugins for non .js files. After search, I have to run code:</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-plugin-html@latest -g</span><br></pre></td></tr></table></figure></p>
-<p>Also, we need to update <em>d:\nodeModules\.eslintrc.json</em> and it would be:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"env"</span>: &#123;</span><br><span class="line">    <span class="string">"browser"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"commonjs"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"es6"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"node"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"extends"</span>: <span class="string">"standard"</span>,</span><br><span class="line">  <span class="string">"parserOptions"</span>: &#123;</span><br><span class="line">    <span class="string">"ecmaFeatures"</span>: &#123;</span><br><span class="line">      <span class="string">"jsx"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"ecmaVersion"</span>: <span class="number">2018</span>,</span><br><span class="line">    <span class="string">"sourceType"</span>: <span class="string">"module"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"plugins"</span>: [<span class="string">"html"</span>],<span class="comment">//add this plugin</span></span><br><span class="line">  <span class="string">"rules"</span>: &#123;</span><br><span class="line">    <span class="string">"indent"</span>: [<span class="string">"error"</span>, <span class="number">2</span>],</span><br><span class="line">    <span class="string">"linebreak-style"</span>: [<span class="string">"off"</span>, <span class="string">"unix"</span>],</span><br><span class="line">    <span class="string">"quotes"</span>: [<span class="string">"error"</span>, <span class="string">"single"</span>],</span><br><span class="line">    <span class="string">"semi"</span>: [<span class="string">"error"</span>, <span class="string">"never"</span>],</span><br><span class="line">    <span class="string">"no-multiple-empty-lines"</span>: [</span><br><span class="line">      <span class="string">"error"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"max"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">"maxEOF"</span>: <span class="number">0</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>After that, you run the code and ESLint would work for .html files.</p>
-<h3>move --fix to editor</h3>
-<p>As far, it seems there is only one flaw left. Do we have to run the code every time we want to format?</p>
-<p>Actually, we don't have to. For me, using vscode, ESLint provides plugins to do these jobs. For other editor users, you may want to check the ESLint doc.</p>
-<p>Here is the operations for vscode.</p>
-<p>Install ESLint plugin. Then add some settings in your <em>User Settings.</em></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"eslint.options"</span>: &#123;</span><br><span class="line">    <span class="comment">//replace with your filename and path</span></span><br><span class="line">    <span class="string">"configFile"</span>: <span class="string">"D:/nodeModules/eslint/.eslintrc.json"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"eslint.alwaysShowStatus"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.autoFixOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.run"</span>: <span class="string">"onSave"</span>,</span><br><span class="line">  <span class="string">"eslint.validate"</span>: [</span><br><span class="line">    <span class="string">"javascript"</span>,</span><br><span class="line">    <span class="string">"javascriptreact"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>After restarting your editor, you will see</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006173812.png" alt="截图20181006173812.png"></p>
-<p>And</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006173913.png" alt="截图20181006173913.png"></p>
-<p>If your default settings of <code>formatOnSave:true</code>, then ESLint would format your code onSave.</p>
-<h3>make global and local config file independent</h3>
-<p>Until now, everything seems perfect with ESLint. But there is one thing I need to mention. Suppose that you create a new vue project using vue-cli.</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue create my-proj</span><br><span class="line"><span class="built_in">cd</span> my-proj</span><br></pre></td></tr></table></figure></p>
-<p>You may find that ESLinter error like below:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006180631.png" alt="截图20181006180631.png"></p>
-<p>You can see this because we set the <code>eslint.options</code> in the <code>User Settings</code>. <code>eslint.options</code> setting is like passing it on the command line in a terminal using the <code>--config</code>. If you do this ESLint respects this and will not use the one in the project folder.</p>
-<p>However, if we delete the <code>eslint.options</code> it won't be able to format other files. So, the compromise solution is :</p>
-<ol>
-<li>delete the <code>eslint.options</code></li>
-<li>move the global config file to the top.</li>
-</ol>
-<p>For example:</p>
-<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">home</span><br><span class="line">  .eslintrc</span><br><span class="line">  projects</span><br><span class="line">    projectOne</span><br><span class="line">      .eslintrc</span><br><span class="line">    projectTwo</span><br></pre></td></tr></table></figure></p>
-<p>If we move the <em>d:\nodeModules\.eslintrc.json</em> to home, then delete the <code>eslint.options</code>. The result would be:</p>
-<ul>
-<li>code in project one will be validated using the local .eslintrc file</li>
-<li>code in project two will be validated using the .eslintrc file in your home directory</li>
-</ul>
-<p>Got it? I learn this from <a href="https://github.com/Microsoft/vscode-eslint/issues/527">Override global eslintrc if one is found in current project</a>.</p>
-<p>At last, eslint in <code>User Settings</code> is:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="string">"eslint.options"</span>: &#123;</span><br><span class="line">    <span class="comment">// "configFile": "D:/nodeModules/eslint/.eslintrc.json",</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"eslint.alwaysShowStatus"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.autoFixOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.run"</span>: <span class="string">"onSave"</span>,</span><br><span class="line">  <span class="string">"eslint.validate"</span>: [</span><br><span class="line">    <span class="string">"javascript"</span>,</span><br><span class="line">    <span class="string">"javascriptreact"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>And in the folder of all projects, I have global eslint config file:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181006210753.png" alt="截图20181006210753.png"></p>
-<h2>Ending</h2>
-<h2>Reference</h2>
-<ul>
-<li><a href="https://github.com/Microsoft/vscode-eslint/issues/527">Override global eslintrc if one is found in current project</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -999,7 +950,7 @@ So, here is the earliest code:</p>
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1021,7 +972,7 @@ So, here is the earliest code:</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -1080,7 +1031,7 @@ So, here is the earliest code:</p>
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

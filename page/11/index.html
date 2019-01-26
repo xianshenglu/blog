@@ -290,6 +290,361 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/label-can-t-be-focused-in-firefox-with-element.focus()/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/06/label-can-t-be-focused-in-firefox-with-element.focus()/" itemprop="url">Label Can't Be Focused In Firefox With Element.focus()</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-10T11:13:18+08:00">
+                2018-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  120
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>As the title says, let's see the demo below:</p>
+<h2>Main</h2>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">id</span>=<span class="string">"cont"</span> <span class="attr">contentEditable</span>&gt;</span></span><br><span class="line">   label should be focused</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"focus"</span>&gt;</span>make label focus<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#cont</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="string">'#focus'</span>)[<span class="number">0</span>].onclick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  $(<span class="string">'#cont'</span>)[<span class="number">0</span>].focus()</span><br><span class="line">&#125;</span><br><span class="line">$(<span class="string">'#cont'</span>)[<span class="number">0</span>].onfocus = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event.type)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(selector))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Suppose that you are using chrome, after loaded please press <code>F12</code> and open the console and then click the button. <code>label#cont</code> should be focused after clicking the button.So, there will be word <code>focus</code> at the console.</p>
+<p>However, firefox wouldn't do that until you click the label. Anyway, I have posted a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1468049" target="_blank" rel="noopener">bug</a>. Let's see what will happen.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/about-smooth-scroll/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/06/about-smooth-scroll/" itemprop="url">About Smooth Scroll</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-09T17:47:41+08:00">
+                2018-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  294
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>Recently, I need to make a smooth scroll. Of course, I think of <code>setTimeout</code>. However, I was thinking if there is a better way or API. So, here is the result of my research.</p>
+<h2>Main</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo" target="_blank" rel="noopener">scrollTo</a></li>
+</ul>
+<p>You can use it like:</p>
+<p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.scrollTo(&#123;</span><br><span class="line">  top: <span class="number">1000</span>,</span><br><span class="line">  behavior: <span class="string">'smooth'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>It works in Chrome and Firefox. However, <code>IE</code> and <code>Edge</code> doesn't support. Code above will run like</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.scrollTo(<span class="number">0</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
+<p>Similar API also exists like <code>scrollIntoView</code> or <code>scrollBy</code>. The compatibility is the key problem.</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame" target="_blank" rel="noopener">requestAnimationFrame</a></li>
+</ul>
+<p>I would suggest this API instead of <code>setTimeout</code>. However, the process of implementation is not so easy like an existing API. Well, a little more complicated than <code>setTimeout</code>. However, compared with <code>setTimeout</code>, <code>requestanimationframe</code> has higher performance. Want to know more? Check the reference and SO. Also, here is the demo:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> animationFrameId = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">smoothScoll</span>(<span class="params">targetScrollTop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> speed = <span class="number">0.1</span>;</span><br><span class="line">  <span class="keyword">let</span> startTime = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> timeLimit = <span class="number">2000</span>;</span><br><span class="line">  <span class="built_in">window</span>.cancelAnimationFrame(animationFrameId);</span><br><span class="line">  animationFrameId = <span class="built_in">window</span>.requestAnimationFrame(step);</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">step</span>(<span class="params">timestamp</span>) </span>&#123;</span><br><span class="line">    startTime = startTime || timestamp;</span><br><span class="line">    <span class="keyword">let</span> interval = timestamp - startTime;</span><br><span class="line">    <span class="keyword">let</span> distance = targetScrollTop - getWinScrollTop();</span><br><span class="line">    <span class="keyword">let</span> stepSize = speed * distance;</span><br><span class="line">    <span class="keyword">switch</span> (<span class="built_in">Math</span>.ceil(stepSize)) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        stepSize = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        stepSize = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (distance !== <span class="number">0</span> &amp;&amp; interval &lt; timeLimit) &#123;</span><br><span class="line">      <span class="built_in">window</span>.scrollTo(<span class="number">0</span>, getWinScrollTop() + stepSize);</span><br><span class="line">      animationFrameId = <span class="built_in">window</span>.requestAnimationFrame(step);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getWinScrollTop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.scrollY || <span class="built_in">window</span>.pageYOffset;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The latest version can be found in my github <a href="https://github.com/xianshenglu/smoothScroll">smoothScroll</a>.</p>
+<p>However, the compatibility is not good enough because of <code>IE&lt;10</code> and <code>Opera Mini</code>.</p>
+<ul>
+<li>Other solution</li>
+</ul>
+<p>Code for <code>setTimeout</code> is similar with <code>requestAnimationFrame</code> but I won't talk about it. Except that, jQuery has provided an API like:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="string">"a[href='#top']"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  $(<span class="string">'html, body'</span>).animate(&#123; <span class="attr">scrollTop</span>: <span class="number">0</span> &#125;, <span class="string">'slow'</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2>Ending</h2>
+<p>Anyway, use <code>requestAnimationFrame</code> if possible. And if not, use <code>setTimeout</code> as shim.</p>
+<h2>Reference</h2>
+<p><a href="https://stackoverflow.com/questions/38709923/why-is-requestanimationframe-better-than-setinterval-or-settimeout" target="_blank" rel="noopener">Why is requestAnimationFrame better than setInterval or setTimeout</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/use-text-align-last-except-when-i-have-only-one-line-of-text/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -452,378 +807,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/ms-bug-in-flex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/06/ms-bug-in-flex/" itemprop="url">MS Bug In Flex</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-09T16:11:46+08:00">
-                2018-06-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  224
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>I met some bug with MS's flex box.</p>
-<h2>Main</h2>
-<ul>
-<li><code>min-height</code>
-See code below:</li>
-</ul>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"par"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child child1"</span>&gt;</span>child1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child child2"</span>&gt;</span>child2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child child3"</span>&gt;</span>child3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">min-height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">flex-flow</span>: column nowrap;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* _:-ms-lang(x),</span></span><br><span class="line"><span class="comment">.par &#123;</span></span><br><span class="line"><span class="comment">    height: 200px;</span></span><br><span class="line"><span class="comment">&#125; */</span></span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span> <span class="number">1</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child1</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child2</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child3</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: yellowgreen;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>I think the result is pretty clear. As the image below :</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180609161841.png" alt=""></p>
-<p>However, what I got in <code>IE10</code> and <code>Edge</code> is like :</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180609161934.png" alt=""></p>
-<p>The problem is quite clear. Property <code>flex</code> doesn't work in MS when there is only <code>min-height</code>. I think it is a bug so I just fix it by hack. And the hack is the comments in the code above.</p>
-<ul>
-<li>IE10 <code>flex</code> doesn't work if flex item is inline element</li>
-</ul>
-<p>For example:</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">60px</span> auto <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">justify-content</span>: space-between;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"box__link"</span>&gt;</span>box1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"box__link"</span>&gt;</span>box2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"box__link"</span>&gt;</span>box3<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>Code above is quite clear. However, in IE10, you will see:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180818144157.png" alt="截图20180818144157"></p>
-<p><code>justify-content:space-between</code> doesn't work. If you add</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box__link</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>It will work. See:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180818144338.png" alt="截图20180818144338"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/when-and-how-to-use-frame/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/06/when-and-how-to-use-frame/" itemprop="url">When and How to Use Frame?</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-08T15:14:02+08:00">
-                2018-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
-                    <span itemprop="name">frame</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  201
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>There has been a long time that I don't know whether should I use frame like <code>jQuery</code> or still stick to pure js. So, I decided to summarize some principles for future reference.</p>
-<h2>Main</h2>
-<h4>Before using</h4>
-<ol>
-<li>Figure out the problem that the frame solved?</li>
-<li>Figure out what kind of situation the frame would be useful, similar with above.</li>
-<li>Why would so many people use this not other similar frames?</li>
-<li>How many parts in the frame?</li>
-<li>What is the relationship between those parts?</li>
-</ol>
-<h4>When should use</h4>
-<ul>
-<li>Needed in work.</li>
-<li>Emancipate the productive forces based on the fact that you can solve this with ease by pure js.</li>
-</ul>
-<h4>When shouldn't use</h4>
-<ul>
-<li>Don't need in work and you don't know how to implement it with pure js and use it just for laze.</li>
-<li>Need it in work and just use it without understanding the principle.</li>
-</ul>
-<h2>Recommendation</h2>
-<ul>
-<li>You can implement it with pure js easily so that you want to use it to emancipate the productive forces.</li>
-<li>In need of other situation, you have to implement it immediately so you use it and figure out the principle as soon as possible in case of bugs.</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -880,7 +863,7 @@ See code below:</li>
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -902,7 +885,7 @@ See code below:</li>
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -961,7 +944,7 @@ See code below:</li>
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -290,6 +290,355 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/how-to-use-custom-font-in-web/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/08/how-to-use-custom-font-in-web/" itemprop="url">How to Use Custom Font in Web</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-04T18:39:01+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  469
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>CSS3 can set custom <code>font-family</code> with src pointing to specific font file. We can use it for some cool font or use it when there is no specific font in user's computer.</p>
+<p>However, when I try to use it I find something blocking my way.</p>
+<h2>Main</h2>
+<p>Well, it's about language problem.</p>
+<p>As we all know, if I try to use some font for Non-English language the font file may not be small enough. For example, I am try to use some kind of chinese font and I find the font file. However, the file is more than 5M and I haven't handled the compatibility problem.</p>
+<p>So, I am trying to find a solution about this. And I find <a href="https://github.com/ecomfe/fontmin/">fontmin</a>!</p>
+<p><a href="https://github.com/ecomfe/fontmin/">fontmin</a> will extract the text you files used and generate the correspond font file which is much smaller than your original font file.</p>
+<p>For example:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Fontmin = <span class="built_in">require</span>(<span class="string">'fontmin'</span>);</span><br><span class="line"><span class="keyword">var</span> srcPath = <span class="string">'src/font/*.ttf'</span>;</span><br><span class="line"><span class="keyword">var</span> destPath = <span class="string">'asset/font'</span>;</span><br><span class="line"><span class="keyword">var</span> text = <span class="string">'我说你是人间的四月天；笑响点亮了四面风；轻灵在春的光艳中交舞着变。'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// initial</span></span><br><span class="line"><span class="keyword">var</span> fontmin = <span class="keyword">new</span> Fontmin()</span><br><span class="line">  .src(srcPath) <span class="comment">// font file you want to simplify</span></span><br><span class="line">  .use(</span><br><span class="line">    Fontmin.glyph(&#123;</span><br><span class="line">      <span class="comment">// extract glyph</span></span><br><span class="line">      text: text <span class="comment">// all the text you will use</span></span><br><span class="line">    &#125;)</span><br><span class="line">  )</span><br><span class="line">  .use(Fontmin.ttf2eot()) <span class="comment">// eot transform plugin</span></span><br><span class="line">  .use(Fontmin.ttf2woff()) <span class="comment">// woff transform plugin</span></span><br><span class="line">  .use(Fontmin.ttf2svg()) <span class="comment">// svg transform plugin</span></span><br><span class="line">  .use(Fontmin.css()) <span class="comment">// css generation plugin</span></span><br><span class="line">  .dest(destPath); <span class="comment">// output the simplified font file</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// run</span></span><br><span class="line">fontmin.run(<span class="function"><span class="keyword">function</span>(<span class="params">err, files, stream</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(err);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'done'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>In my case, I need to extract text from some file. So, I do it like this:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> text;</span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line">fs.readFile(<span class="string">'data.js'</span>, <span class="string">'utf8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">er, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (er) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">console</span>.log(er);</span><br><span class="line">  &#125;</span><br><span class="line">  text = data;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> Fontmin = <span class="built_in">require</span>(<span class="string">'fontmin'</span>);</span><br><span class="line">  <span class="keyword">var</span> srcPath = <span class="string">'font/*.ttf'</span>;</span><br><span class="line">  <span class="keyword">var</span> destPath = <span class="string">'font/'</span>;</span><br><span class="line">  <span class="comment">// initial</span></span><br><span class="line">  <span class="keyword">var</span> fontmin = <span class="keyword">new</span> Fontmin()</span><br><span class="line">    .src(srcPath) <span class="comment">// font file you want to simplify</span></span><br><span class="line">    .use(</span><br><span class="line">      Fontmin.glyph(&#123;</span><br><span class="line">        <span class="comment">// extract glyph</span></span><br><span class="line">        text: text <span class="comment">// all the text you will use</span></span><br><span class="line">      &#125;)</span><br><span class="line">    )</span><br><span class="line">    .use(Fontmin.ttf2eot()) <span class="comment">// eot transform plugin</span></span><br><span class="line">    .use(Fontmin.ttf2woff()) <span class="comment">// woff transform plugin</span></span><br><span class="line">    .use(Fontmin.ttf2svg()) <span class="comment">// svg transform plugin</span></span><br><span class="line">    .use(Fontmin.css()) <span class="comment">// css generation plugin</span></span><br><span class="line">    .dest(destPath); <span class="comment">// output the simplified font file</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// run</span></span><br><span class="line">  fontmin.run(<span class="function"><span class="keyword">function</span>(<span class="params">err, files, stream</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.error(err);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'done'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>And here is what I got:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20180804204452.png" alt="截图20180804204452.png"></p>
+<p>which is much smaller than origin Microsoft YaHei UI Light.ttf(<strong>11M</strong>).</p>
+<p>However, here is a little tip I want to give you.</p>
+<p>After you run the script above, the origin font file <em>*.ttf</em> has been replaced. So, you had better backup the origin font file before you run the script. Then if you need to run the script again, you should use the origin font file not the file which has been updated.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/find-what-font-the-browser-is-actually-using/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/08/find-what-font-the-browser-is-actually-using/" itemprop="url">Find What Font the Browser Is Actually Using</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-04T18:16:59+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  98
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>When the designer asked me what is the font of some text I told her to press F12 and check the <code>font-family</code> in Computed, like this:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20180804182943.png" alt="截图20180804182943"></p>
+<h2>Main</h2>
+<p>However, when I am using that <code>font-family</code> I find that I was totally wrong. The actual font the text used is this:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20180804183017.png" alt="截图20180804183017"></p>
+<p>That is totally different from the <code>font-family</code> though I know that we can't be sure that the browser would use the <code>font-family</code> we set in css.</p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/884177/how-can-i-determine-what-font-a-browser-is-actually-using-to-render-some-text" target="_blank" rel="noopener">how-can-i-determine-what-font-a-browser-is-actually-using-to-render-some-text</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/07/skills-on-mobile-development/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -458,521 +807,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/a-trap-when-using-letter-spacing-to-remove-the-extra-space-in-chrome66.0.3359.139/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/06/a-trap-when-using-letter-spacing-to-remove-the-extra-space-in-chrome66.0.3359.139/" itemprop="url">A Trap When Using letter-spacing to Remove the Extra Space in chrome66.0.3359.139</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-18T15:47:27+08:00">
-                2018-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  361
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>As we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like <code>font-size:0</code>,<code>word-spacing</code>,<code>margin-left</code>,<code>letter-spacing</code> and so on.</p>
-<h2>Choice I Made</h2>
-<p>Normally I prefer using <code>letter-spacing</code> because</p>
-<ol>
-<li>it seems ok when we assign a value which is bigger than the width of extra space(e.g. <code>-1em</code>).</li>
-<li>However, it won't be okay with <code>word-spacing</code> and <code>margin-left</code> when we set bigger value like <code>-1em</code>.</li>
-<li>Using <code>font-size</code> is not convenient when we try to using <code>em</code> as <code>font-size</code> unit.</li>
-</ol>
-<p>So, <code>letter-spacing</code> seems to be the best choice.</p>
-<p>Well, I agree with that though I found a bug in chrome66.0.3359.139 today.</p>
-<h2>Bug I Found</h2>
-<p>Please run the code below:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav3<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  <span class="attribute">color</span>: inherit;</span><br><span class="line">  <span class="attribute">cursor</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">260px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: -<span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav__text</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">90px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>If you are using Chrome(test version 66.0.3359.139) or Opera(test version 53.0.2907.99), what you see might be:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180618184625.png" alt=""></p>
-<p>If you are using Firefox(60.0.2),IE10 or Edge, what you see might be:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180618184736.png" alt=""></p>
-<p>That's interesting. So, I checked the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a> and found this:</p>
-<blockquote>
-<p>&lt;length&gt;
-Specifies extra inter-character space in addition to the default space between characters. Values may be negative, but there may be implementation-specific limits. <strong>User agents may not further increase or decrease the inter-character space in order to justify text.</strong></p>
-</blockquote>
-<p>It seems that this is the reason.</p>
-<p>So, I tested and try to find the best value for <code>letter-spacing</code> and <strong>it turns out that <code>0.3em</code> or <code>0.31em</code> is the best value.</strong></p>
-<h2>Ending</h2>
-<p>Anyway, <code>letter-spacing</code> is still the best solution though we have to be more careful.</p>
-<h2>Reference</h2>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/layout-on-mobile/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/06/layout-on-mobile/" itemprop="url">Layout On Mobile</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-15T19:03:50+08:00">
-                2018-06-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,820
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>Based on <a href="../first-exploration-on-mobile/">first-exploration-on-mobile</a> we can develop adaptive pages on mobile. Now, let's do it.</p>
-<h2>Main</h2>
-<h3>Basic Code</h3>
-<p>Suppose that we got the PSD which is designed according to iPhone6. So, what do we have now?</p>
-<ul>
-<li>width:375*667</li>
-<li>DPR:2</li>
-</ul>
-<p>So, let's develop according to iPhone6 first. And this is the basic code:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=375,initial-scale=1,user-scalable=no"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="comment">/* reset.css */</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    * &#123;</span></span><br><span class="line"><span class="undefined">      margin: 0;</span></span><br><span class="line"><span class="undefined">      padding: 0;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    html,</span></span><br><span class="line"><span class="undefined">    body &#123;</span></span><br><span class="line"><span class="undefined">      height: 100%;</span></span><br><span class="line"><span class="undefined">      width: 100%;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    li &#123;</span></span><br><span class="line"><span class="undefined">      list-style: none;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    a &#123;</span></span><br><span class="line"><span class="undefined">      text-decoration: none;</span></span><br><span class="line"><span class="undefined">      color: inherit;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="comment">/* base.css */</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.nav</span>,</span></span><br><span class="line"><span class="css">    <span class="selector-class">.nav__list</span> &#123;</span></span><br><span class="line"><span class="undefined">      width: 100%;</span></span><br><span class="line"><span class="undefined">      height: 100%;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.nav__list</span> &#123;</span></span><br><span class="line"><span class="undefined">      background-color: pink;</span></span><br><span class="line"><span class="undefined">      overflow: hidden;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.nav__item</span> &#123;</span></span><br><span class="line"><span class="undefined">      width: 65px;</span></span><br><span class="line"><span class="undefined">      height: 40px;</span></span><br><span class="line"><span class="undefined">      line-height: 40px;</span></span><br><span class="line"><span class="undefined">      margin: 5px;</span></span><br><span class="line"><span class="undefined">      float: left;</span></span><br><span class="line"><span class="undefined">      background-color: yellowgreen;</span></span><br><span class="line"><span class="undefined">      color: white;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.nav__link</span> &#123;</span></span><br><span class="line"><span class="undefined">      display: block;</span></span><br><span class="line"><span class="undefined">      width: 100%;</span></span><br><span class="line"><span class="undefined">      height: 100%;</span></span><br><span class="line"><span class="undefined">      text-align: center;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav__list"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav__item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"nav__link"</span>&gt;</span>nav1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav__item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"nav__link"</span>&gt;</span>nav2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav__item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"nav__link"</span>&gt;</span>nav3<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav__item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"nav__link"</span>&gt;</span>nav4<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav__item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"nav__link"</span>&gt;</span>nav5<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>Well, I made a simple one just for test. Hope you don't mind. If we switch to iPhone6 device, it looks okay.</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180616161355.png" alt=""></p>
-<p>Of course it will be terrible if we switch to other devices. For example, iPhone6 Plus:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180616161446.png" alt=""></p>
-<p>We got extra space on the right because the width of iPhone6 Plus is 414px which is wider than 375px in iPhone6.</p>
-<p><strong>Please notice that we have used 65px, 40px and 5px in the css. Those values should be zoomed according to the device-width.</strong></p>
-<p>So, here is the way how we fix this:</p>
-<h3>Adaptive by rem and js</h3>
-<p>We need do some transform to use rem. On iPhone6 with 375px and DPR:2,</p>
-<ol>
-<li>We can use 65px, 40px, 5px with:</li>
-</ol>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=375,initial-scale=1,user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li>We can also use 130px, 80px, 10px with:</li>
-</ol>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=750,initial-scale=0.5"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<ol start="3">
-<li>Further on, if we calculate rem by (device-width*DPR)/10:</li>
-</ol>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--width=750=375*DPR,initial-scale=0.5=1/DPR--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=750,initial-scale=0.5"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="comment">/*75px = device-width * DPR / 10 */</span></span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">75px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="comment">/*32px = 16px * DPR */</span></span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">32px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Those numbers would be:</p>
-<ul>
-<li>65px =&gt; (65/375) * device-width =&gt; (65/375) * 10rem</li>
-<li>40px =&gt; (40/375) * device-width =&gt; (40/375) * 10rem</li>
-<li>5px =&gt; (5/375) * device-width =&gt; (5/375) * 10rem</li>
-</ul>
-<p>In fact, options above will get the same effect. But for option3, <strong>we make everything connected with DPR and device-width.</strong></p>
-<p>So, here is the basic logic to be adaptive:</p>
-<ol>
-<li>We use the device-width*DPR/10 to calculate <code>rem</code> and set it on <code>html</code>.</li>
-<li>We set (initial font-size * DPR) on <code>body</code>.</li>
-<li>For <code>font-size</code> set with px, we have to set different font-size for different DPR by <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/-webkit-device-pixel-ratio" target="_blank" rel="noopener">@media/-webkit-device-pixel-ratio</a> or plugins(e.g. less).</li>
-<li>We update <code>meta</code> by setting the <code>width</code> as device-width*DPR and <code>initial-scale</code> as 1/DPR which would make the page render in device-width*DPR and then scale to device-width.</li>
-</ol>
-<p>Well, you can just see the code:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.addEventListener(</span></span><br><span class="line"><span class="javascript">      <span class="string">'DOMContentLoaded'</span>,</span></span><br><span class="line"><span class="undefined">      () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> dpr = <span class="built_in">window</span>.devicePixelRatio</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> html = <span class="built_in">document</span>.documentElement</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> body = <span class="built_in">document</span>.body</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> deviceWidth = <span class="built_in">window</span>.innerWidth || html.clientWidth</span></span><br><span class="line"><span class="javascript">        html.style.fontSize = (deviceWidth * dpr) / <span class="number">10</span> + <span class="string">'px'</span></span></span><br><span class="line"><span class="javascript">        html.setAttribute(<span class="string">'data-dpr'</span>, dpr)</span></span><br><span class="line"><span class="javascript">        body.style.fontSize = <span class="string">'initial'</span></span></span><br><span class="line"><span class="javascript">        body.style.fontSize = <span class="built_in">parseInt</span>(getComputedStyle(body).fontSize) * dpr + <span class="string">'px'</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> metaViewport = <span class="built_in">document</span>.querySelector(<span class="string">'meta[name=viewport]'</span>)</span></span><br><span class="line"><span class="undefined">        metaViewport.setAttribute(</span></span><br><span class="line"><span class="javascript">          <span class="string">'content'</span>,</span></span><br><span class="line"><span class="javascript">          <span class="string">`width=<span class="subst">$&#123;dpr * deviceWidth&#125;</span>,initial-scale=<span class="subst">$&#123;<span class="number">1</span> <span class="regexp">/ dpr&#125;`</span></span></span></span></span><br><span class="line"><span class="undefined">        )</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="javascript">      &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;,</span></span><br><span class="line"><span class="javascript">      <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">    )</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet/less"</span> <span class="attr">href</span>=<span class="string">"./less.less"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdnjs.cloudflare.com/ajax/libs/less.js/3.0.2/less.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>base.css in <em>less.less</em></p>
-<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* base.css */</span></span><br><span class="line"><span class="selector-class">.px2px</span>(<span class="variable">@name</span>, <span class="variable">@px</span>) &#123;</span><br><span class="line">  <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span>) * <span class="number">1px</span>;</span><br><span class="line">  <span class="selector-attr">[data-dpr='2']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span>*<span class="number">2</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for mx3</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.5']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.5</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//for Pixel2</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.625']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.625</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for XiaoMi note</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.75']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.75</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-attr">[data-dpr='3']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">3</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//for Pixel2 XL</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='3.5']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">3.5</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for Samsung note4</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='4']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: <span class="variable">@px</span> * <span class="number">4px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="comment">//suggest use em not px otherwise have to set different font-size for different DPR</span></span><br><span class="line">  <span class="selector-class">.px2px</span>(font-size, <span class="number">16px</span>);</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__list</span> &#123;</span><br><span class="line">  <span class="comment">// width: 110%;</span></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="comment">// for inline-block</span></span><br><span class="line">  <span class="comment">// white-space: nowrap;</span></span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="comment">// letter-spacing: -0.3em;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__item</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="comment">// display: inline-block;</span></span><br><span class="line">  <span class="comment">// letter-spacing: normal;</span></span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">65</span>/<span class="number">375</span> * <span class="number">10rem</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">10rem</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">5</span>/<span class="number">375</span> * <span class="number">10rem</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">10rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__link</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Code above will work in Apple's product. However, when we switch to Pixel 2 we will find this:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180617130210.png" alt=""></p>
-<p>After a little calculation, I find that the total width of 5 <code>navs</code> is 1078.85 while width of <code>.nav__list</code> is 1078. Well, I think it is reasonable though I hate this.</p>
-<p>In this case, we have to do something else to fix this. For example:</p>
-<ul>
-<li>Set <code>margin-right:auto</code> on the last nav.</li>
-<li>Set wider <code>width</code> of <code>.nav__list</code> and set <code>overflow:hidden</code> on <code>.nav</code>.</li>
-<li>Use <code>width:20%</code> and <code>padding</code> instead of <code>margin</code>.</li>
-<li>Other css tricks.</li>
-</ul>
-<p>Anyway, this is the previous solution for adaptation on mobile before appearance of <code>vw</code>,<code>flex</code> and <code>grid</code> layout.</p>
-<p>Let's make a conclusion:</p>
-<ul>
-<li>principle</li>
-</ul>
-<ol>
-<li>Set different font-size for different DPR by less.</li>
-<li>Use viewport scale to solve the problem of 1px on border and font-size.</li>
-<li>Make the width and height of element connect with device-width by <code>rem</code>.</li>
-</ol>
-<ul>
-<li>pro</li>
-</ul>
-<ol>
-<li>Fix 1px problem on <code>border</code> because we set 1px on device*DPR.</li>
-</ol>
-<ul>
-<li>con</li>
-</ul>
-<ol>
-<li>We have to set lots of <code>font-size</code> based on DPR every time we want to set <code>font-size</code> with px. Though we can simplify our job by preprocessor(e.g. less). However, how we going to do with more and more DPR?</li>
-</ol>
-<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.px2px</span>(<span class="variable">@name</span>, <span class="variable">@px</span>) &#123;</span><br><span class="line">  <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span>) * <span class="number">1px</span>;</span><br><span class="line">  <span class="selector-attr">[data-dpr='2']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span>*<span class="number">2</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for mx3</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.5']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.5</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//for Pixel2</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.625']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.625</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for XiaoMi note</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.75']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.75</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-attr">[data-dpr='3']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">3</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//for Pixel2 XL</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='3.5']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">3.5</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for Samsung note4</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='4']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: <span class="variable">@px</span> * <span class="number">4px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Write more and more? That's not a good idea.</p>
-<p><strong>If we use <code>em</code> instead it will not be a problem because we already set the initial font-size * DPR on <code>body</code>.</strong></p>
-<ol start="2">
-<li>Decimals appear which may cause a little problem in layout.</li>
-</ol>
-<h3>Adaptive by vw</h3>
-<p>Before we start with <code>vw</code> let's take a look at the rem and js solution. So, do we have a <strong>better</strong> solution for:</p>
-<ol>
-<li>border 1px problem? I don't think so.</li>
-<li>make the width and height of element connect with device-width? Yes, we do have <code>vw</code>, <code>vh</code> even <code>vmin</code> and <code>vmax</code>.</li>
-</ol>
-<p>And for the con of the rem and js solution:</p>
-<ol>
-<li><strong>In this case, we can use <code>rem</code> instead of <code>em</code> because <code>rem</code> works more like <code>px</code> than <code>em</code></strong></li>
-<li>Can we avoid the decimals ? May be not with <code>vw</code> but won't be worse than <code>rem</code>.</li>
-</ol>
-<p>Anyway, here is the code:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.addEventListener(</span></span><br><span class="line"><span class="javascript">      <span class="string">'DOMContentLoaded'</span>,</span></span><br><span class="line"><span class="undefined">      () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> dpr = <span class="built_in">window</span>.devicePixelRatio</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> html = <span class="built_in">document</span>.documentElement</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> body = <span class="built_in">document</span>.body</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> deviceWidth = <span class="built_in">window</span>.innerWidth || html.clientWidth</span></span><br><span class="line"><span class="javascript">        html.setAttribute(<span class="string">'data-dpr'</span>, dpr)</span></span><br><span class="line"><span class="javascript">        html.style.fontSize = <span class="string">'initial'</span></span></span><br><span class="line"><span class="javascript">        html.style.fontSize = <span class="built_in">parseInt</span>(getComputedStyle(html).fontSize) * dpr + <span class="string">'px'</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> metaViewport = <span class="built_in">document</span>.querySelector(<span class="string">'meta[name=viewport]'</span>)</span></span><br><span class="line"><span class="undefined">        metaViewport.setAttribute(</span></span><br><span class="line"><span class="javascript">          <span class="string">'content'</span>,</span></span><br><span class="line"><span class="javascript">          <span class="string">`width=<span class="subst">$&#123;dpr * deviceWidth&#125;</span>,initial-scale=<span class="subst">$&#123;<span class="number">1</span> <span class="regexp">/ dpr&#125;`</span></span></span></span></span><br><span class="line"><span class="undefined">        )</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="javascript">      &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;,</span></span><br><span class="line"><span class="javascript">      <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">    )</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet/less"</span> <span class="attr">href</span>=<span class="string">"./less.less"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdnjs.cloudflare.com/ajax/libs/less.js/3.0.2/less.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>base.css in <em>less.less</em></p>
-<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* base.css */</span></span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1rem</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__list</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__item</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">65</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">5</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__link</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>I tested every device in chrome device-mode. They all work.</p>
-<p><strong>However, there are still decimals which might bite you someday.</strong></p>
-<p>Anyway, let's make a conclusion:</p>
-<ul>
-<li>principle</li>
-</ul>
-<ol>
-<li>Make the font-size connect with dpr by <code>rem</code>.</li>
-<li>Use viewport scale to solve the problem of 1px on border and font-size.</li>
-<li>Make the width and height of element connect with device-width by <code>vw</code>.</li>
-</ol>
-<ul>
-<li>pro</li>
-</ul>
-<ol>
-<li>Border 1px problem is solved as before.</li>
-<li>Decimals problem will be a litter better than rem and js solution.</li>
-</ol>
-<ul>
-<li>con</li>
-</ul>
-<ol>
-<li>Decimals still exist.</li>
-</ol>
-<h3>Adaptive by vw and flex</h3>
-<p>Solution with vw almost perfect except the decimals. So, how we are going to fix that? <code>Flex</code> gave us a choice.</p>
-<p><strong>We can leave the decimals to browser by <code>flex</code>.</strong></p>
-<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*part of css which has been modified*/</span></span><br><span class="line"><span class="selector-class">.nav__list</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">display</span>: flex; <span class="comment">/*new added*/</span></span><br><span class="line">  <span class="attribute">justify-content</span>: space-around; <span class="comment">/*new added*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__item</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">0</span> auto; <span class="comment">/*new added*/</span></span><br><span class="line"></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">65</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>If you don't know something about flex, please check MDN. Anyway, we can leave decimals to browser. That is the most exciting part.</p>
-<p>Well, let's make a conclusion:</p>
-<ul>
-<li>principle</li>
-</ul>
-<ol>
-<li>Make the font-size connect with dpr by <code>rem</code>.</li>
-<li>Use viewport scale to solve the problem of 1px on border and font-size.</li>
-<li>Make the width and height of element connect with device-width by <code>vw</code>.</li>
-<li>Leave margin to browser by <code>flex</code>.</li>
-</ol>
-<ul>
-<li>pro</li>
-</ul>
-<ol>
-<li>Border 1px problem is solved as before.</li>
-<li>Decimals problem will be better than <code>vw</code>.</li>
-</ol>
-<ul>
-<li>con</li>
-</ul>
-<ol>
-<li>Decimals still exist but only has a little influence.</li>
-</ol>
-<h2>Ending</h2>
-<p>Anyway, the decimals problem always exist because of different sizes of mobiles. But the more new API we have, the less influence it will have.</p>
-<p>Besides, js above is not perfect. Here is the <a href="https://github.com/xianshenglu/mobile/blob/master/layout/">current</a> version I am using.</p>
-<p>And the last thing is we didn't handle the problem with <code>img</code>. Maybe you should seek some help from <a href="https://github.com/strues/retinajs">retina.js</a>.</p>
-<h2>Reference</h2>
-<p><a href="../first-exploration-on-mobile/">first-exploration-on-mobile</a></p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/-webkit-device-pixel-ratio" target="_blank" rel="noopener">@media/-webkit-device-pixel-ratio</a></p>
-<p><a href="https://github.com/amfe/lib-flexible">lib-flexible</a></p>
-<p><a href="https://github.com/strues/retinajs">retina.js</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1029,7 +863,7 @@ Specifies extra inter-character space in addition to the default space between c
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1051,7 +885,7 @@ Specifies extra inter-character space in addition to the default space between c
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -1110,7 +944,7 @@ Specifies extra inter-character space in addition to the default space between c
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
