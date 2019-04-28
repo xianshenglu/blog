@@ -290,6 +290,355 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/understand-sync-in-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/understand-sync-in-vue/" itemprop="url">Understand .sync in Vue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T09:54:17+08:00">
+                2018-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
+                    <span itemprop="name">frame</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  393
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>The first time I met <code>.sync</code> modifier, I didn't know it very well. So, I seldom use that. Today, I am going to get it.</p>
+<h2>Main</h2>
+<p>In the past, I use “two-way binding” like this:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">:child-count</span>=<span class="string">"parCount"</span> @<span class="attr">add</span>=<span class="string">"add"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>parent component &#123;&#123;parCount&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    parCount: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    add() &#123;</span><br><span class="line">      <span class="keyword">this</span>.parCount++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    <span class="string">'button-counter'</span>: &#123;</span><br><span class="line">      template:</span><br><span class="line">        <span class="string">'&lt;button @click="add"&gt;You clicked me &#123;&#123; childCount &#125;&#125; times.&lt;/button&gt;'</span>,</span><br><span class="line">      props: [<span class="string">'childCount'</span>],</span><br><span class="line">      methods: &#123;</span><br><span class="line">        add() &#123;</span><br><span class="line">          <span class="keyword">this</span>.$emit(<span class="string">'add'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>It was easy to understand except a little inconvenient. I need to listen and handle event in child and parent component. Also</p>
+<p><em>true two-way binding can create maintenance issues, because child components can mutate the parent without the source of that mutation being obvious in both the parent and the child.</em></p>
+<p>So, Vue recommends emitting events in the pattern of <code>update:myPropName</code>. For example:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:child-count</span>=<span class="string">"parCount"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">update:child-count</span>=<span class="string">"parCount=$event"</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>parent component &#123;&#123;parCount&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    parCount: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;&#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    <span class="string">'button-counter'</span>: &#123;</span><br><span class="line">      template:</span><br><span class="line">        <span class="string">'&lt;button @click="add"&gt;You clicked me &#123;&#123; childCount &#125;&#125; times.&lt;/button&gt;'</span>,</span><br><span class="line">      props: [<span class="string">'childCount'</span>],</span><br><span class="line">      methods: &#123;</span><br><span class="line">        add() &#123;</span><br><span class="line">          <span class="keyword">this</span>.$emit(<span class="string">'update:child-count'</span>, <span class="keyword">this</span>.childCount + <span class="number">1</span>) <span class="comment">// child-count is right while childCount won't work</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>See? In this case, we don't have to add event callback in parent component because vue have done that. And this is the principle of <code>.sync</code>. For convenience, Vue offers a shorthand for this pattern with the <code>.sync</code> modifier which would make the code above like:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">:child-count.sync</span>=<span class="string">"parCount"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>parent component &#123;&#123;parCount&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    parCount: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;&#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    <span class="string">'button-counter'</span>: &#123;</span><br><span class="line">      template:</span><br><span class="line">        <span class="string">'&lt;button @click="add"&gt;You clicked me &#123;&#123; childCount &#125;&#125; times.&lt;/button&gt;'</span>,</span><br><span class="line">      props: [<span class="string">'childCount'</span>],</span><br><span class="line">      methods: &#123;</span><br><span class="line">        add() &#123;</span><br><span class="line">          <span class="keyword">this</span>.$emit(<span class="string">'update:childCount'</span>, <span class="keyword">this</span>.childCount + <span class="number">1</span>) <span class="comment">// childCount is right while child-count won't work</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>Also,</p>
+<p><em>The .sync modifier can also be used with v-bind when using an object to set multiple props at once:</em></p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">text-document</span> <span class="attr">v-bind.sync</span>=<span class="string">"doc"</span>&gt;</span><span class="tag">&lt;/<span class="name">text-document</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><em>This passes each property in the <code>doc</code> object (e.g. <code>title</code>) as an individual prop, then adds <code>v-on</code> update listeners for each one.</em></p>
+<p>For more information, go <a href="https://vuejs.org/v2/guide/components-custom-events.html#sync-Modifier" target="_blank" rel="noopener">Vue.js</a></p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/move-the-switch-of-console-to-urlsearchparams/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/move-the-switch-of-console-to-urlsearchparams/" itemprop="url">Move the Switch of Console to URLSearchParams</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T09:31:50+08:00">
+                2018-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/debug/" itemprop="url" rel="index">
+                    <span itemprop="name">debug</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  100
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>It is very common for us to use <code>console.log</code> When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server?</p>
+<p>In the past, I chose to delete those debug logs. However, I guess nobody likes doing that and in some place, I really want to keep that.</p>
+<h2>Main</h2>
+<p>One day, I find a better way to handle this. Before the main js code, I add code below:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> urlSearchParams = <span class="keyword">new</span> URLSearchParams(<span class="built_in">window</span>.location.search)</span><br><span class="line"><span class="keyword">let</span> isDebug = urlSearchParams.get(<span class="string">'debug'</span>) === <span class="string">'1'</span></span><br><span class="line"><span class="keyword">if</span> (!isDebug) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/vue-form-input-bindings-fail/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -466,389 +815,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/better-way-to-use-orientationchange-event-on-mobile/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/10/better-way-to-use-orientationchange-event-on-mobile/" itemprop="url">Better Way to Use orientationchange Event on Mobile</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T12:39:53+08:00">
-                2018-10-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  316
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>When I was using <code>orientationchange</code> event, I met a few bugs. So, I take it down.</p>
-<h2>Main</h2>
-<h4>compatibility problem</h4>
-<p>When I was testing my code on my android, it was ok. However, it doesn't work on my boss's iPhone6. So, i have to change the code.</p>
-<p>The origin code was like:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">id</span>=<span class="string">"box"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-class">.landscape</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> box = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>)</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'orientationchange'</span>, orientationChangeCb)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">orientationChangeCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> isLand = isLandscape()</span><br><span class="line">  <span class="keyword">if</span> (isLand) &#123;</span><br><span class="line">    box.classList.add(<span class="string">'landscape'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    box.classList.remove(<span class="string">'landscape'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isLandscape</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="string">'orientation'</span> <span class="keyword">in</span> <span class="built_in">window</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(<span class="built_in">window</span>.orientation) === <span class="number">90</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.innerWidth &gt; <span class="built_in">window</span>.innerHeight</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>To be compatible with iPhone6, I use <code>resize</code> event instead.</p>
-<p>However, the better way I think is :</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> eventForOrientationChange =</span><br><span class="line">  <span class="string">'onorientationchange'</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">'orientationchange'</span> : <span class="string">'resize'</span></span><br><span class="line"><span class="keyword">if</span> (isMobile()) &#123;</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(eventForOrientationChange, orientationChangeCb)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4>isMobile ?</h4>
-<p>Because <code>onorientationchange</code> is a mobile event, so if you try to run code below on your computer with chrome, you will get:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onorientationchange <span class="comment">//undefined</span></span><br><span class="line"><span class="string">'onorientationchange'</span> <span class="keyword">in</span> <span class="built_in">window</span> <span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
-<p>It seems a little weird but it's true until chrome 69. That's why I add <code>isMobile()</code> before I use <code>window.addEventListener</code>. In that case, we don't have to listen for the <code>resize</code> event on desktop.</p>
-<h4>window.orientation or screen.orientation</h4>
-<p>According to mdn, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/orientation#Specifications" target="_blank" rel="noopener">window.orientation</a> has been <strong>Deprecated</strong>. However, similar API <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation#Browser_compatibility" target="_blank" rel="noopener">screen.orientation</a> has a big problem for compatibility. Safari and QQ doesn't support. As of 2018.10.4, global support in <a href="https://caniuse.com/#search=orientation" target="_blank" rel="noopener">caniuse</a> is only 72.5%.</p>
-<h4>css only</h4>
-<p>If you just want to update style, you don't have to use code above. CSS media queries
-support code like:</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">media</span> (min-height: <span class="number">680px</span>), screen and (orientation: portrait) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> (min-height: <span class="number">680px</span>), screen and (orientation: landscape) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2>Ending</h2>
-<h2>Reference</h2>
-<ul>
-<li><a href="https://stackoverflow.com/questions/4917664/detect-viewport-orientation-if-orientation-is-portrait-display-alert-message-ad" target="_blank" rel="noopener">detect viewport orientation, if orientation is portrait display alert message advising user of instructions</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/x-ua-compatible-and-ie-edge/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/10/x-ua-compatible-and-ie-edge/" itemprop="url">X-UA-Compatible and ie=edge</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-03T19:43:57+08:00">
-                2018-10-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/html/" itemprop="url" rel="index">
-                    <span itemprop="name">html</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  719
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>平时会用 vue 写新项目，老项目就在原有基础上更新。对于 vue 这种框架，使用官方的脚手架通常就避免了很多问题，就像平时用模板创建新的单页一样。</p>
-<p>然而有时总是会遇到些不按模板走的代码，虽然跑起来也没有问题，但是放到有些浏览器上就有 bug 了，这个时候对既有模板的理解和掌握就很重要了。</p>
-<h2>Main</h2>
-<p>当我用 html 模板创建一个新单页时，拿到的页面是这样的，vue 也是类似，至少三个 <code>meta</code> 标签基本都是一样的：</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><code>viewport</code> 是在兼容移动端时才了解的内容，费了不少功夫。而 <code>X-UA-Compatible</code> 则是在遇到非常规代码的时候才想起来的。有一回改个老项目，用了 <code>transform</code>，在 ie11 上测试，没有用，而且在它的工具栏里样式表里根本看不到我写的代码，这个时候我就好奇了，这是 ie11 啊，怎么会不支持 <code>transform</code> 呢？然后我瞄了一下开发者工具，大概是这样的：</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181003201618.png" alt="截图20181003201618.png"></p>
-<p>然后我就好奇了，为什么会是 ie7 模式呢？我明明装的是 ie11 浏览器啊，然后脑袋一闪，好像明白了什么，看了看 <code>html</code> ，果然没有:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>加上之后，再刷新，网页就正常了。</p>
-<p>在这件事之前，我知道这个东西，但是因为是用的模板，一直没有遇到过这个问题，而且通常来说，我会以为，我既然是在 ie11 里打开的，默认你也没有理由用 ie11- 的文档模式去渲染啊，结果就错了。后来看到 SO 上高票答主大概是这么解释 ie 的行为的：</p>
-<p><em>ie 会用它认为最好的方式去渲染页面，如果没有上面那行代码的话</em></p>
-<p>此外，ie11 已经开始废弃上面那个了，如果不兼容 ie 的话，其实上面的代码也可以不用写了，不过目前为止 html 模板和 vue 的模板都还是默认支持的。而上面的那行代码实际意思呢，就是：</p>
-<p><em>Edge：始终以最新的文档模式来渲染页面。忽略文档类型声明。对于 IE8，始终保持以 IE8 标准模式渲染页面。对于 IE9，则以 IE9 标准模式渲染页面。</em></p>
-<p>当然 ie 还可以等于其他值，不过其他值大多都是老版本，目前而言，都没有必要去纠结了，譬如：</p>
-<ul>
-<li>&quot;IE=edge&quot;</li>
-<li>&quot;IE=11&quot;</li>
-<li>&quot;IE=EmulateIE11&quot;</li>
-<li>&quot;IE=10&quot;</li>
-<li>&quot;IE=EmulateIE10&quot;</li>
-<li>&quot;IE=9&quot;</li>
-<li>&quot;IE=EmulateIE9</li>
-<li>...</li>
-</ul>
-<h2>Ending</h2>
-<h2>Reference</h2>
-<ul>
-<li><a href="https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do" target="_blank" rel="noopener">What does &lt;meta http-equiv=“X-UA-Compatible” content=“IE=edge”&gt; do?</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/blog/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><a class="extend next" rel="next" href="/blog/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/blog/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/15/">15</a><a class="extend next" rel="next" href="/blog/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -900,7 +871,7 @@ support code like:</p>
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -911,7 +882,7 @@ support code like:</p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/blog/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -922,7 +893,7 @@ support code like:</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-count">111</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
