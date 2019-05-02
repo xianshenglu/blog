@@ -43,6 +43,10 @@ Generally, we can analyze from the following aspects.
 
     - may need the help of `CDN`.
 
+  - Send the content **simultaneously as many as possible** which
+
+    - need the help of `http/2.0` to breakthrough the 6 parallel TCP connections limit in http/1.1 and request the resources simultaneously instead of one by one.
+
   - Send **as little content as possible** which
 
     - needs `code compression`, `GZIP`, `code split`, `tree shake`, `image compression` and remove or replace the bigger resources with smaller ones if possible.
