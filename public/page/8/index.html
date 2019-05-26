@@ -290,6 +290,384 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/better-way-to-use-orientationchange-event-on-mobile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/better-way-to-use-orientationchange-event-on-mobile/" itemprop="url">Better Way to Use orientationchange Event on Mobile</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T12:39:53+08:00">
+                2018-10-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  316
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>When I was using <code>orientationchange</code> event, I met a few bugs. So, I take it down.</p>
+<h2>Main</h2>
+<h4>compatibility problem</h4>
+<p>When I was testing my code on my android, it was ok. However, it doesn't work on my boss's iPhone6. So, i have to change the code.</p>
+<p>The origin code was like:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">id</span>=<span class="string">"box"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-class">.landscape</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> box = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>)</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'orientationchange'</span>, orientationChangeCb)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">orientationChangeCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> isLand = isLandscape()</span><br><span class="line">  <span class="keyword">if</span> (isLand) &#123;</span><br><span class="line">    box.classList.add(<span class="string">'landscape'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    box.classList.remove(<span class="string">'landscape'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isLandscape</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="string">'orientation'</span> <span class="keyword">in</span> <span class="built_in">window</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(<span class="built_in">window</span>.orientation) === <span class="number">90</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.innerWidth &gt; <span class="built_in">window</span>.innerHeight</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>To be compatible with iPhone6, I use <code>resize</code> event instead.</p>
+<p>However, the better way I think is :</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> eventForOrientationChange =</span><br><span class="line">  <span class="string">'onorientationchange'</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">'orientationchange'</span> : <span class="string">'resize'</span></span><br><span class="line"><span class="keyword">if</span> (isMobile()) &#123;</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(eventForOrientationChange, orientationChangeCb)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4>isMobile ?</h4>
+<p>Because <code>onorientationchange</code> is a mobile event, so if you try to run code below on your computer with chrome, you will get:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onorientationchange <span class="comment">//undefined</span></span><br><span class="line"><span class="string">'onorientationchange'</span> <span class="keyword">in</span> <span class="built_in">window</span> <span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
+<p>It seems a little weird but it's true until chrome 69. That's why I add <code>isMobile()</code> before I use <code>window.addEventListener</code>. In that case, we don't have to listen for the <code>resize</code> event on desktop.</p>
+<h4>window.orientation or screen.orientation</h4>
+<p>According to mdn, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/orientation#Specifications" target="_blank" rel="noopener">window.orientation</a> has been <strong>Deprecated</strong>. However, similar API <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation#Browser_compatibility" target="_blank" rel="noopener">screen.orientation</a> has a big problem for compatibility. Safari and QQ doesn't support. As of 2018.10.4, global support in <a href="https://caniuse.com/#search=orientation" target="_blank" rel="noopener">caniuse</a> is only 72.5%.</p>
+<h4>css only</h4>
+<p>If you just want to update style, you don't have to use code above. CSS media queries
+support code like:</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">media</span> (min-height: <span class="number">680px</span>), screen and (orientation: portrait) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> (min-height: <span class="number">680px</span>), screen and (orientation: landscape) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/4917664/detect-viewport-orientation-if-orientation-is-portrait-display-alert-message-ad" target="_blank" rel="noopener">detect viewport orientation, if orientation is portrait display alert message advising user of instructions</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/x-ua-compatible-and-ie-edge/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/x-ua-compatible-and-ie-edge/" itemprop="url">X-UA-Compatible and ie=edge</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-03T19:43:57+08:00">
+                2018-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  719
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>平时会用 vue 写新项目，老项目就在原有基础上更新。对于 vue 这种框架，使用官方的脚手架通常就避免了很多问题，就像平时用模板创建新的单页一样。</p>
+<p>然而有时总是会遇到些不按模板走的代码，虽然跑起来也没有问题，但是放到有些浏览器上就有 bug 了，这个时候对既有模板的理解和掌握就很重要了。</p>
+<h2>Main</h2>
+<p>当我用 html 模板创建一个新单页时，拿到的页面是这样的，vue 也是类似，至少三个 <code>meta</code> 标签基本都是一样的：</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>viewport</code> 是在兼容移动端时才了解的内容，费了不少功夫。而 <code>X-UA-Compatible</code> 则是在遇到非常规代码的时候才想起来的。有一回改个老项目，用了 <code>transform</code>，在 ie11 上测试，没有用，而且在它的工具栏里样式表里根本看不到我写的代码，这个时候我就好奇了，这是 ie11 啊，怎么会不支持 <code>transform</code> 呢？然后我瞄了一下开发者工具，大概是这样的：</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181003201618.png" alt="截图20181003201618.png"></p>
+<p>然后我就好奇了，为什么会是 ie7 模式呢？我明明装的是 ie11 浏览器啊，然后脑袋一闪，好像明白了什么，看了看 <code>html</code> ，果然没有:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>加上之后，再刷新，网页就正常了。</p>
+<p>在这件事之前，我知道这个东西，但是因为是用的模板，一直没有遇到过这个问题，而且通常来说，我会以为，我既然是在 ie11 里打开的，默认你也没有理由用 ie11- 的文档模式去渲染啊，结果就错了。后来看到 SO 上高票答主大概是这么解释 ie 的行为的：</p>
+<p><em>ie 会用它认为最好的方式去渲染页面，如果没有上面那行代码的话</em></p>
+<p>此外，ie11 已经开始废弃上面那个了，如果不兼容 ie 的话，其实上面的代码也可以不用写了，不过目前为止 html 模板和 vue 的模板都还是默认支持的。而上面的那行代码实际意思呢，就是：</p>
+<p><em>Edge：始终以最新的文档模式来渲染页面。忽略文档类型声明。对于 IE8，始终保持以 IE8 标准模式渲染页面。对于 IE9，则以 IE9 标准模式渲染页面。</em></p>
+<p>当然 ie 还可以等于其他值，不过其他值大多都是老版本，目前而言，都没有必要去纠结了，譬如：</p>
+<ul>
+<li>&quot;IE=edge&quot;</li>
+<li>&quot;IE=11&quot;</li>
+<li>&quot;IE=EmulateIE11&quot;</li>
+<li>&quot;IE=10&quot;</li>
+<li>&quot;IE=EmulateIE10&quot;</li>
+<li>&quot;IE=9&quot;</li>
+<li>&quot;IE=EmulateIE9</li>
+<li>...</li>
+</ul>
+<h2>Ending</h2>
+<h2>Reference</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do" target="_blank" rel="noopener">What does &lt;meta http-equiv=“X-UA-Compatible” content=“IE=edge”&gt; do?</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/problems-met-when-using-qrcodejs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -492,453 +870,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/set-custom-style-of-share-in-wechat/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/10/set-custom-style-of-share-in-wechat/" itemprop="url">自定义微信分享样式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-02T17:42:57+08:00">
-                2018-10-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,458
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>产品希望我们在微信分享出去的链接，有自己的样式，而不是仅仅一个链接。用产品的话来说，你发给客户一个链接，客户敢点么？？？</p>
-<p>听着比较有意思，不过也不能说完全没有道理，毕竟各种各样的诈骗大家也是有所耳闻，经确认，产品想要：</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181002175453.png" alt="截图20181002175453.png"></p>
-<p>而我们当前分享是：</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181002175558.png" alt="截图20181002175558.png"></p>
-<h2>Main</h2>
-<p>总监给我提示说，微信有 js-sdk ，可以在 js 里设置这个样式。</p>
-<p>于是，我找到了<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421141115" target="_blank" rel="noopener">微信 JS-SDK 说明文档</a>，基本上就是根据文档走些配置，这个要和产品那边要些账号密码，改些东西之类，根据文档来，没什么好说的。</p>
-<p>大体流程如下：</p>
-<ol>
-<li>步骤一：绑定域名</li>
-<li>步骤二：引入 JS 文件</li>
-<li>步骤三：通过 config 接口注入权限验证配置</li>
-</ol>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">wx.config(&#123;&#125;) <span class="comment">//传入一些初始化参数</span></span><br></pre></td></tr></table></figure></p>
-<ol start="4">
-<li>步骤四：通过 ready 接口处理成功验证</li>
-</ol>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;) <span class="comment">//传入成功回调</span></span><br></pre></td></tr></table></figure></p>
-<ol start="5">
-<li>步骤五：通过 error 接口处理失败验证</li>
-</ol>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">wx.error(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;) <span class="comment">//传入失败回调</span></span><br></pre></td></tr></table></figure></p>
-<p>实际操作的时候，遇到了几点麻烦，这里需要提一下：</p>
-<h4>测试的时候，注意开启 debug 模式，方便定位问题。</h4>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">wx.config(&#123; <span class="attr">debug</span>: <span class="literal">true</span> <span class="comment">/*其他参数*/</span> &#125;)</span><br></pre></td></tr></table></figure></p>
-<h4>出于安全考虑，开发者必须在服务器端实现签名的逻辑。</h4>
-<p>这个是文档说的，反正就是给后台处理了，最终前端初始化需要的几个字段，除了 <code>debug</code> 和 <code>jsApiList</code> ，都是从后台拿的。</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">wx.config(&#123;</span><br><span class="line">    debug: <span class="literal">true</span>, <span class="comment">// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span></span><br><span class="line">    appId: <span class="string">''</span>, <span class="comment">// 必填，公众号的唯一标识</span></span><br><span class="line">    timestamp: , <span class="comment">// 必填，生成签名的时间戳</span></span><br><span class="line">    nonceStr: <span class="string">''</span>, <span class="comment">// 必填，生成签名的随机串</span></span><br><span class="line">    signature: <span class="string">''</span>,<span class="comment">// 必填，签名</span></span><br><span class="line">    jsApiList: [] <span class="comment">// 必填，需要使用的JS接口列表</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>后台在实现的时候，可能需要注意文档提示的两点：</p>
-<ol>
-<li>
-<p>access_token（有效期 7200 秒，开发者必须在自己的服务全局缓存 access_token）</p>
-</li>
-<li>
-<p>jsapi_ticket（有效期 7200 秒，开发者必须在自己的服务全局缓存 jsapi_ticket）</p>
-</li>
-</ol>
-<p>因为这会导致一开始生成的签名没错，但是两个小时后就失效了。</p>
-<h4>代码逻辑</h4>
-<p>通常的逻辑都是前端从后台拿到上面的几个字段，在前端完成初始化，然后添加初始化成功和失败的回调。</p>
-<p>示例：</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> link = location.href</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">  url: <span class="string">'your_url'</span>, <span class="comment">//后台给你提供的接口</span></span><br><span class="line">  type: <span class="string">'GET'</span>,</span><br><span class="line">  data: &#123; <span class="attr">url</span>: link &#125;,</span><br><span class="line">  <span class="keyword">async</span>: <span class="literal">true</span>,</span><br><span class="line">  dataType: <span class="string">'json'</span>,</span><br><span class="line">  success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    wx.config(&#123;</span><br><span class="line">      debug: <span class="literal">false</span>, <span class="comment">// 开启调试模式,调用的所有api的返回值会在客户端alert出来</span></span><br><span class="line">      appId: data.configMap.appId, <span class="comment">// 必填，公众号的唯一标识</span></span><br><span class="line">      timestamp: data.configMap.timestamp, <span class="comment">// 必填，生成签名的时间戳</span></span><br><span class="line">      nonceStr: data.configMap.nonceStr, <span class="comment">// 必填，生成签名的随机串</span></span><br><span class="line">      signature: data.configMap.signature, <span class="comment">// 必填，签名，见附录1</span></span><br><span class="line">      jsApiList: [<span class="string">'onMenuShareTimeline'</span>, <span class="string">'onMenuShareAppMessage'</span>] <span class="comment">// 必填，需要使用的JS接口列表，所有JS接口列表见附录2</span></span><br><span class="line">    &#125;)</span><br><span class="line">    wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">      wx.onMenuShareAppMessage(&#123;</span><br><span class="line">        title: <span class="built_in">document</span>.title,</span><br><span class="line">        desc: <span class="built_in">document</span>.title,</span><br><span class="line">        link: link,</span><br><span class="line">        imgUrl: Imgurl,</span><br><span class="line">        trigger: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;,</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;,</span><br><span class="line">        cancel: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;,</span><br><span class="line">        fail: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      wx.onMenuShareTimeline(&#123;</span><br><span class="line">        title: <span class="built_in">document</span>.title,</span><br><span class="line">        link: link,</span><br><span class="line">        imgUrl: Imgurl,</span><br><span class="line">        trigger: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;,</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;,</span><br><span class="line">        cancel: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;,</span><br><span class="line">        fail: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    wx.error(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">      alert(res)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  error: <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">    alert(error)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>我司稍微特殊些，直接把初始化的代码放在前面需要引入微信的 js 文件后面了，所以我直接引入这个文件就完成了初始化操作。不过，我还是需要在引入后监听初始化成功和失败的回调。</p>
-<p>我司代码：</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./js/shareInWeChat.js?debug=1"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 里面包含了 wx.config(&#123;&#125;) 的代码--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 通过 debug 参数来切换调试模式  --&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">setWeChatShareStyle(product, imgUrl)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setWeChatShareStyle</span>(<span class="params">product, imgUrl</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> success = <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">var</span> fail = <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">var</span> desc =</span><br><span class="line">    product.description &amp;&amp; product.description !== <span class="string">''</span></span><br><span class="line">      ? product.description</span><br><span class="line">      : <span class="string">'后备描述'</span></span><br><span class="line">  wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> eventConf = &#123;</span><br><span class="line">      title: product.name,</span><br><span class="line">      desc: desc,</span><br><span class="line">      imgUrl: imgUrl,</span><br><span class="line">      link: <span class="built_in">window</span>.location.href,</span><br><span class="line">      success: success</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (pubMethods.isAndroid()) &#123;</span><br><span class="line">      <span class="comment">// 安卓适用于老接口，新接口不行</span></span><br><span class="line">      wx.onMenuShareAppMessage(eventConf)</span><br><span class="line">      wx.onMenuShareTimeline(eventConf)</span><br><span class="line">      wx.onMenuShareQQ(eventConf)</span><br><span class="line">      wx.onMenuShareQZone(eventConf)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (pubMethods.isIOS()) &#123;</span><br><span class="line">      <span class="comment">// iOS 适用于新接口，老接口不行</span></span><br><span class="line">      wx.updateAppMessageShareData(eventConf, success)</span><br><span class="line">      wx.updateTimelineShareData(eventConf, success)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  wx.error(fail)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最初我担心，这样可能会监听不到 <code>wx.config</code> 初始化的结果，结果发现还是可以监听到的，说明 <code>wx.config</code> 里面的操作是个异步操作。</p>
-<h4>代码兼容性</h4>
-<ul>
-<li>统一传参</li>
-</ul>
-<p>如上面代码所示，虽然根据微信的文档，对于不同的接口，传的参数稍有区别，但是我为了方便，都放在 <code>eventConf</code> 里面了，事实证明也是可以的（不可以我就要吐槽了，毕竟传入的是对象）。</p>
-<ul>
-<li>接口更新的 bug</li>
-</ul>
-<p>虽然微信文档上有接口更新的说明：</p>
-<p><em>请注意，原有的 wx.onMenuShareTimeline、wx.onMenuShareAppMessage、wx.onMenuShareQQ、wx.onMenuShareQZone 接口，即将废弃。请尽快迁移使用客户端 6.7.2 及 JSSDK 1.4.0 以上版本支持的 wx.updateAppMessageShareData、updateTimelineShareData 接口。</em></p>
-<p>但我实际上测试的结果是，安卓不支持新接口，iOS 支持，但是我如果把新老接口全用上，有一端会失败，所以最终才有上面那个机型判断的结果，对于不同的机型采用了不同的接口。</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (pubMethods.isAndroid()) &#123;</span><br><span class="line">  <span class="comment">// 安卓适用于老接口，新接口不行</span></span><br><span class="line">  wx.onMenuShareAppMessage(eventConf)</span><br><span class="line">  wx.onMenuShareTimeline(eventConf)</span><br><span class="line">  wx.onMenuShareQQ(eventConf)</span><br><span class="line">  wx.onMenuShareQZone(eventConf)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (pubMethods.isIOS()) &#123;</span><br><span class="line">  <span class="comment">// iOS 适用于新接口，老接口不行</span></span><br><span class="line">  wx.updateAppMessageShareData(eventConf, success)</span><br><span class="line">  wx.updateTimelineShareData(eventConf, success)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>分享的图片不能是 base64</li>
-</ul>
-<p>由于我司需要对图片进行处理再去分享，所以当我用 <code>canvas</code> 导出 <code>base64</code> 作为 <code>imgUrl</code> 的时候，我发现是没有效果的。</p>
-<h2>Ending</h2>
-<h2>Reference</h2>
-<ul>
-<li>
-<p><a href="https://segmentfault.com/a/1190000013491531" target="_blank" rel="noopener">微信分享自定义样式</a></p>
-</li>
-<li>
-<p><a href="https://www.cnblogs.com/lxlin/p/6829893.html#undefined" target="_blank" rel="noopener">微信分享图标设置，以及 wx.config 配置</a></p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/09/settings-in-vscode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/23273077">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/09/settings-in-vscode/" itemprop="url">settings in vscode</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-23T10:09:06+08:00">
-                2018-09-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/software/" itemprop="url" rel="index">
-                    <span itemprop="name">software</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  421
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>配置</h2>
-<ol>
-<li>vscode 支持特定语言的设置，比如，为不同的语言设置不同的配置：</li>
-</ol>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"[html]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.tabSize"</span>: <span class="number">4</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"[css]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.tabSize"</span>: <span class="number">4</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"[javascript]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.insertSpaces"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"editor.tabSize"</span>: <span class="number">2</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"[typescript]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.tabSize"</span>: <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li>
-<p>个别插件的配置比较特殊，需要配置后才能正常使用，譬如 csscomb, eslint, Easy LESS 等，注意查看文档。</p>
-</li>
-<li>
-<p>我的配置文件，借助 Settings Sync VSCode 插件，不定期修改会同步到 https://gist.github.com/xianshenglu</p>
-</li>
-</ol>
-<h2>相关插件</h2>
-<h4>HTML：</h4>
-<p>Auto Rename Tag 修改 HTML 标签时，自动修改匹配的标签</p>
-<p>Open in Browser</p>
-<p>HTML CSS Class Completion: CSS class 提示</p>
-<p>HTMLHint: HTML 格式提示</p>
-<h4>CSS：</h4>
-<p>Can I Use: HTML5、CSS3、SVG 的浏览器兼容性检查</p>
-<p>Color Highlight: 颜色值在代码中高亮显示</p>
-<p>Color Picker: 拾色器</p>
-<p>csscomb: css 排序，格式化，支持 .vue，<strong>但对于嵌入式样式缩进有问题</strong></p>
-<p>HTML CSS Support: css 提示，支持 .vue</p>
-<h4>JS</h4>
-<p>ESLint: ESLint 语法校验，自动格式化，修改等</p>
-<p>Version Lens package.json: 文件显示模块当前版本和最新版本</p>
-<p>View Node Package: 快速打开选中模块的主页和代码仓库</p>
-<p>JavaScript (ES6) code snippets: ES6 语法代码段</p>
-<p>Version Lens: 在 package.json 里显示包最新版本号</p>
-<h4>HTML/CSS/JS</h4>
-<p>Emmet: html,css,js 提示</p>
-<h4>框架</h4>
-<p>vetur: 目前比较好的 Vue 语法高亮</p>
-<p>VueHelper: Vue2 代码段（包括 Vue2 api、vue-router2、vuex2）</p>
-<p>vue-peek: vue 文件内查找速览声明</p>
-<p>vue-format: vue 格式化插件</p>
-<h4>非语言类</h4>
-<p>Bracket Pair Colorizer: 不同层级括号上色</p>
-<p>Code Spelling Checker: 单词拼写检查</p>
-<p>Output Colorizer: 彩色输出信息</p>
-<p>Partial Diff: 对比两段代码或文件</p>
-<p>Path Autocomplete: 路径补全</p>
-<p>Path Intellisense: 路径提示</p>
-<p>Project Manager: 快速切换项目</p>
-<p>Settings Sync VSCode: 设置同步到 Gist</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/blog/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><a class="extend next" rel="next" href="/blog/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/blog/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/15/">15</a><a class="extend next" rel="next" href="/blog/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -990,7 +926,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1001,7 +937,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/blog/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1012,7 +948,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-count">111</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

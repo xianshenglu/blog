@@ -39,7 +39,7 @@ Math.max(...[1, 2, 3, 4])
 
 The reason that we still need `apply` and `call` is the thisArg. They can help us call some powerful methods.
 
-#### thisArg in apply and call
+### thisArg in apply and call
 
 I guess you might have seen this code:
 
@@ -62,7 +62,7 @@ It would cause error because slice was defined in `Array.prototype`. Only `Array
 
 ```js
 Array.prototype.slice.call({ length: 2 })
-//help you do something like this
+//works like something like this
 let obj = { length: 2 }
 obj.slice = Array.prototype.slice
 obj.slice()
@@ -100,7 +100,7 @@ And more cases:
 
 ```js
 Object.prototype.toString.call([]) //"[object Array]"
-//help you do this
+//works like this
 let thisArg = []
 thisArg.toString = Object.prototype.toString
 thisArg.toString() //"[object Array]"
@@ -112,11 +112,11 @@ Or
 
 ```js
 ;[' sd ', 1, 3].map(Function.prototype.call, String.prototype.trim) //['sd','1','3']
-//help you do
+//works like
 ;[' sd ', 1, 3].map(function(...args) {
   return String.prototype.trim.call(...args)
 })
-//help you do
+//works like
 ;[' sd ', 1, 3].map(function(...args) {
   let thisArg = args[0]
   thisArg.trim = String.prototype.trim
@@ -126,7 +126,7 @@ Or
 })
 ```
 
-#### More in apply
+### More in apply
 
 As `apply` can accept an array-like object. So, what would happen if coding like:
 
@@ -148,6 +148,46 @@ thisArg.Array = Array
 thisArg.Array(undefined, undefined)
 ```
 
+### `Function.prototype.call.apply`
+
+You might have seen code using `Function.prototype.call.apply` which seems a little weird. However, it still make sense, especially in ES5. For example,
+
+```js
+var arrayLike = { 0: 0, length: 1 }
+Function.prototype.call.apply([].push, [arrayLike, 1])
+console.log(arrayLike) //{0: 0, 1: 1, length: 2}
+```
+
+which works like
+
+```js
+let arrayLike = { 0: 0, length: 1 }
+let thisArg = [].push
+thisArg.call(arrayLike, 1)
+console.log(arrayLike) //{0: 0, 1: 1, length: 2}
+```
+
+also equal
+
+```js
+let arrayLike = { 0: 0, length: 1 }
+[].push.call(arrayLike,1)
+console.log(arrayLike) //{0: 0, 1: 1, length: 2}
+```
+
+which works like
+
+```js
+let arrayLike = { 0: 0, length: 1 }
+let thisArg = arrayLike
+thisArg.push = [].push
+thisArg.push(1)
+console.log(arrayLike) //{0: 0, 1: 1, length: 2}
+```
+
+```
+
 Hope it's easier to understand `apply` and `call`.
 
 [**Original Post**](https://github.com/xianshenglu/blog/issues/50)
+```
