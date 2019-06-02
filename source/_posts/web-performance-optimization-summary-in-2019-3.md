@@ -39,23 +39,29 @@ Generally, we can analyze from the following aspects.
 
 - For those content that we can't use the cache, we need to take other measures.
 
-  - Send the content **as closely as possible** which
-
-    - may need the help of `CDN`.
-
-  - Send the content **simultaneously as many as possible** which
-
-    - need the help of `http/2.0` to breakthrough the 6 parallel TCP connections limit in http/1.1 and request the resources simultaneously instead of one by one.
-
   - Send **as little content as possible** which
 
     - needs `code compression`, `GZIP`, `code split`, `tree shake`, `image compression` and remove or replace the bigger resources with smaller ones if possible.
+
+    - refactor component, export, import and file structure with `code split` or routes.
+      <!-- //todo test -->
+        <!-- Don't put data based on routes or splitter in one file which would let final bundles in _app.js_. -->
+
+  - Send the content **as closely as possible** which
+
+    - needs the help of `CDN`.
+
+  - Send the content **simultaneously as many as possible** which
+
+    - needs the help of `http/2.0` to breakthrough the 6 parallel TCP connections limit in http/1.1 and request the resources simultaneously instead of one by one.
 
   - Load the resource **in a more efficient way** which
 
     - needs to put `script` at the bottom of `body`
 
-    - or use the `async` according to the situation
+    - use the `async` or `defer` according to the situation
+
+    - use `prefetch`, `preconnect` or `dns-prefetch` according to the situation
 
 <!-- #### Rendering Performance -->
 
