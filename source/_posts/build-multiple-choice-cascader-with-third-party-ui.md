@@ -1,9 +1,9 @@
 ---
 title: Build Multiple Choice Cascader with Third Party ui
-categories: frame
+categories: vue
 tags:
   - ant-design-vue
-  - vue
+  - element-ui
   - multiple-choice-cascader
 comments: true
 date: 2018-11-18 18:04:47
@@ -42,13 +42,13 @@ _App.vue_
 </template>
 
 <script>
-import MultipleCascader from './components/MultipleCascader'
+import MultipleCascader from "./components/MultipleCascader";
 export default {
-  name: 'app',
+  name: "app",
   components: {
     MultipleCascader
   }
-}
+};
 </script>
 
 <style scoped></style>
@@ -92,7 +92,7 @@ _MultipleCascader.vue_
 
 <script>
 export default {
-  name: 'MultipleCascader',
+  name: "MultipleCascader",
   data: function() {
     return {
       timestamp: Date.now(),
@@ -103,81 +103,81 @@ export default {
       cascaderOptions: [
         {
           id: 1,
-          value: '1',
-          label: '1',
+          value: "1",
+          label: "1",
           children: [
-            { id: 1.1, value: 1.1, label: '1-1' },
+            { id: 1.1, value: 1.1, label: "1-1" },
             {
               id: 1.2,
               value: 1.2,
-              label: '1-2',
+              label: "1-2",
               children: [
-                { id: 1.21, value: 1.21, label: '1-2-1' },
-                { id: 1.22, value: 1.22, label: '1-2-2' }
+                { id: 1.21, value: 1.21, label: "1-2-1" },
+                { id: 1.22, value: 1.22, label: "1-2-2" }
               ]
             }
           ]
         },
-        { id: 2, value: 2, label: '2' }
+        { id: 2, value: 2, label: "2" }
       ]
-    }
+    };
   },
   mounted() {
-    document.addEventListener('click', this.hideCascaderPopup)
+    document.addEventListener("click", this.hideCascaderPopup);
   },
   destroyed() {
-    document.removeEventListener('click', this.hideCascaderPopup)
+    document.removeEventListener("click", this.hideCascaderPopup);
   },
   methods: {
     cascaderChange(values, options) {
       // you may have different logic with the selected option, here I just want the last one.
-      let targetValue = values.slice(-1).pop()
-      let targetOption = options.slice(-1).pop()
-      let selectedValIndex = this.selectValues.indexOf(targetValue)
+      let targetValue = values.slice(-1).pop();
+      let targetOption = options.slice(-1).pop();
+      let selectedValIndex = this.selectValues.indexOf(targetValue);
       if (selectedValIndex >= 0) {
-        this.selectValues.splice(selectedValIndex, 1)
-        this.selectOptions.splice(selectedValIndex, 1)
+        this.selectValues.splice(selectedValIndex, 1);
+        this.selectOptions.splice(selectedValIndex, 1);
       } else {
-        this.selectValues.push(targetValue)
-        this.selectOptions.push(targetOption)
+        this.selectValues.push(targetValue);
+        this.selectOptions.push(targetOption);
       }
     },
     deleteOption(value) {
-      let selectedValIndex = this.selectValues.indexOf(value)
-      this.cascaderChange([value], [this.selectOptions[selectedValIndex]])
+      let selectedValIndex = this.selectValues.indexOf(value);
+      this.cascaderChange([value], [this.selectOptions[selectedValIndex]]);
     },
     selectChange(values, vNodes) {
       if (values.length === 0) {
-        this.selectValues = []
-        this.selectOptions = []
+        this.selectValues = [];
+        this.selectOptions = [];
       }
     },
     selectSearch(keyword) {
-      let searchInput = this.$refs.cascader.$el.querySelector('input')
+      let searchInput = this.$refs.cascader.$el.querySelector("input");
       if (searchInput) {
-        searchInput.value = keyword
-        searchInput.dispatchEvent(new Event('input'))
+        searchInput.value = keyword;
+        searchInput.dispatchEvent(new Event("input"));
       }
     },
     cascaderFilter(inputValue, path) {
       return path.some(
         option =>
           option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
-      )
+      );
     },
     hideCascaderPopup(event) {
       let cascaderPopup = document.querySelector(
-        '.multi_cascader__cascader_popup' + this.timestamp
-      )
+        ".multi_cascader__cascader_popup" + this.timestamp
+      );
       let isClickCascaderPopup =
-        cascaderPopup && cascaderPopup.contains(event.target)
+        cascaderPopup && cascaderPopup.contains(event.target);
       if (isClickCascaderPopup) {
-        return
+        return;
       }
-      this.cascaderPopupVisible = false
+      this.cascaderPopupVisible = false;
     }
   }
-}
+};
 </script>
 
 <style scoped>

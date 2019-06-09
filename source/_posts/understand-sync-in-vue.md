@@ -1,9 +1,8 @@
 ---
 title: Understand .sync in Vue
-categories: frame
+categories: vue
 tags:
-  - vue
-  - sync
+  - .sync
 comments: true
 date: 2018-10-05 09:54:17
 ---
@@ -25,28 +24,28 @@ In the past, I use “two-way binding” like this:
 
 ```js
 let app = new Vue({
-  el: '#app',
+  el: "#app",
   data: {
     parCount: 0
   },
   methods: {
     add() {
-      this.parCount++
+      this.parCount++;
     }
   },
   components: {
-    'button-counter': {
+    "button-counter": {
       template:
         '<button @click="add">You clicked me {{ childCount }} times.</button>',
-      props: ['childCount'],
+      props: ["childCount"],
       methods: {
         add() {
-          this.$emit('add')
+          this.$emit("add");
         }
       }
     }
   }
-})
+});
 ```
 
 It was easy to understand except a little inconvenient. I need to listen and handle event in child and parent component. Also
@@ -67,24 +66,24 @@ So, Vue recommends emitting events in the pattern of `update:myPropName`. For ex
 
 ```js
 let app = new Vue({
-  el: '#app',
+  el: "#app",
   data: {
     parCount: 0
   },
   methods: {},
   components: {
-    'button-counter': {
+    "button-counter": {
       template:
         '<button @click="add">You clicked me {{ childCount }} times.</button>',
-      props: ['childCount'],
+      props: ["childCount"],
       methods: {
         add() {
-          this.$emit('update:child-count', this.childCount + 1) // child-count is right while childCount won't work
+          this.$emit("update:child-count", this.childCount + 1); // child-count is right while childCount won't work
         }
       }
     }
   }
-})
+});
 ```
 
 See? In this case, we don't have to add event callback in parent component because vue have done that. And this is the principle of `.sync`. For convenience, Vue offers a shorthand for this pattern with the `.sync` modifier which would make the code above like:
@@ -98,24 +97,24 @@ See? In this case, we don't have to add event callback in parent component becau
 
 ```js
 let app = new Vue({
-  el: '#app',
+  el: "#app",
   data: {
     parCount: 0
   },
   methods: {},
   components: {
-    'button-counter': {
+    "button-counter": {
       template:
         '<button @click="add">You clicked me {{ childCount }} times.</button>',
-      props: ['childCount'],
+      props: ["childCount"],
       methods: {
         add() {
-          this.$emit('update:childCount', this.childCount + 1) // childCount is right while child-count won't work
+          this.$emit("update:childCount", this.childCount + 1); // childCount is right while child-count won't work
         }
       }
     }
   }
-})
+});
 ```
 
 Also,

@@ -1,8 +1,7 @@
 ---
 title: Traps of Computed in Vue
-categories: frame
+categories: vue
 tags:
-  - vue
   - computed
   - $recomputed
 comments: true
@@ -71,7 +70,7 @@ Let's see the demo below:
       ></product>
     </div>
     <script>
-      const product = Vue.component('product', {
+      const product = Vue.component("product", {
         template: `
                                         <div>
                                             <div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)">
@@ -79,10 +78,10 @@ Let's see the demo below:
                                                   <div class="product__name--selected">selected: {{currentProduct.name}}</div>
                                             </div>
                                         </div>`,
-        props: ['products', 'selectedId', 'currentProduct']
-      })
+        props: ["products", "selectedId", "currentProduct"]
+      });
       const app = new Vue({
-        el: '#app',
+        el: "#app",
         components: {
           product
         },
@@ -90,31 +89,31 @@ Let's see the demo below:
           products: [
             {
               id: 0,
-              name: '0'
+              name: "0"
             },
             {
               id: 1,
-              name: '1'
+              name: "1"
             },
             {
               id: 2,
-              name: '2'
+              name: "2"
             }
           ],
           selectedId: 1
         },
         computed: {
           currentProduct() {
-            return this.products.find(({ id }) => id === this.selectedId)
+            return this.products.find(({ id }) => id === this.selectedId);
           }
         },
         mounted() {
           let selectIndex = this.products.findIndex(
             obj => obj.id === this.selectedId
-          )
-          this.products[selectIndex].name = '1-1'
+          );
+          this.products[selectIndex].name = "1-1";
         }
-      })
+      });
     </script>
   </body>
 </html>
@@ -127,10 +126,10 @@ And here is the result:
 Until now, nothing weird happens. However, if I changed the mounted hook to below:
 
 ```js
-let selectIndex = this.products.findIndex(obj => obj.id === this.selectedId)
+let selectIndex = this.products.findIndex(obj => obj.id === this.selectedId);
 this.products[selectIndex] = Object.assign({}, this.products[selectIndex], {
-  name: '1-1'
-})
+  name: "1-1"
+});
 ```
 
 Any difference with the ui ? Yes, it has. The result would be:
@@ -149,14 +148,14 @@ In case above, `currentProduct` only has two dependencies which are `products` a
 
 ```js
 this.products[selectIndex] = Object.assign({}, this.products[selectIndex], {
-  name: '1-1'
-})
+  name: "1-1"
+});
 ```
 
 We didn't actually change `products` or `selectedId`. We just change the attributes of `products` not `products` itself. Neither did code below:
 
 ```js
-this.products[selectIndex].name = '1-1'
+this.products[selectIndex].name = "1-1";
 ```
 
 Code above works because we are changing the existing attributes of `currentProduct`. So, it works as expected.
@@ -170,7 +169,7 @@ If that bothers you, doc also gives you another choice:
 But in this case, it needs to be a little complicated. The code would be:
 
 ```js
-const product = Vue.component('product', {
+const product = Vue.component("product", {
   template: `
       <div>
           <div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)">
@@ -178,15 +177,15 @@ const product = Vue.component('product', {
                 <div class="product__name--selected">selected: {{getCurProduct().name}}</div>
           </div>
       </div>`,
-  props: ['products', 'selectedId'],
+  props: ["products", "selectedId"],
   methods: {
     getCurProduct() {
-      return this.products.find(({ id }) => id === this.selectedId)
+      return this.products.find(({ id }) => id === this.selectedId);
     }
   }
-})
+});
 const app = new Vue({
-  el: '#app',
+  el: "#app",
   components: {
     product
   },
@@ -194,33 +193,35 @@ const app = new Vue({
     products: [
       {
         id: 0,
-        name: '0'
+        name: "0"
       },
       {
         id: 1,
-        name: '1'
+        name: "1"
       },
       {
         id: 2,
-        name: '2'
+        name: "2"
       }
     ],
     selectedId: 1
   },
   mounted() {
-    let selectIndex = this.products.findIndex(obj => obj.id === this.selectedId)
+    let selectIndex = this.products.findIndex(
+      obj => obj.id === this.selectedId
+    );
     this.products[selectIndex] = Object.assign({}, this.products[selectIndex], {
-      name: '1-1'
-    })
-    this.$children[0].$forceUpdate()
+      name: "1-1"
+    });
+    this.$children[0].$forceUpdate();
   }
-})
+});
 ```
 
 The point which needs to take care is
 
 ```js
-this.$children[0].$forceUpdate()
+this.$children[0].$forceUpdate();
 ```
 
 In this case, simply change `currentProduct` to `getCurProduct()` doesn't work because we have to let `product` invoke `getCurProduct()` to get the latest data.
@@ -239,7 +240,7 @@ Also, you can use `getCurProduct` in the root:
 ```
 
 ```js
-const product = Vue.component('product', {
+const product = Vue.component("product", {
   template: `
       <div>
           <div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)">
@@ -247,10 +248,10 @@ const product = Vue.component('product', {
                 <div class="product__name--selected">selected: {{currentProduct.name}}</div>
           </div>
       </div>`,
-  props: ['products', 'selectedId', 'currentProduct']
-})
+  props: ["products", "selectedId", "currentProduct"]
+});
 const app = new Vue({
-  el: '#app',
+  el: "#app",
   components: {
     product
   },
@@ -258,33 +259,35 @@ const app = new Vue({
     products: [
       {
         id: 0,
-        name: '0'
+        name: "0"
       },
       {
         id: 1,
-        name: '1'
+        name: "1"
       },
       {
         id: 2,
-        name: '2'
+        name: "2"
       }
     ],
     selectedId: 1
   },
   mounted() {
-    let selectIndex = this.products.findIndex(obj => obj.id === this.selectedId)
+    let selectIndex = this.products.findIndex(
+      obj => obj.id === this.selectedId
+    );
     this.products[selectIndex] = Object.assign({}, this.products[selectIndex], {
-      name: '1-1'
-    })
+      name: "1-1"
+    });
     // this.$children[0].$forceUpdate()
-    this.$forceUpdate()
+    this.$forceUpdate();
   },
   methods: {
     getCurProduct() {
-      return this.products.find(({ id }) => id === this.selectedId)
+      return this.products.find(({ id }) => id === this.selectedId);
     }
   }
-})
+});
 ```
 
 ### Insist on Computed for Cache Control ?
@@ -309,7 +312,7 @@ Take a look at the code below:
 ```
 
 ```js
-const product = Vue.component('product', {
+const product = Vue.component("product", {
   template: `
       <div>
           <div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)">
@@ -317,10 +320,10 @@ const product = Vue.component('product', {
                 <div class="product__name--selected">selected: {{currentProduct.name}}</div>
           </div>
       </div>`,
-  props: ['products', 'selectedId', 'currentProduct']
-})
+  props: ["products", "selectedId", "currentProduct"]
+});
 const app = new Vue({
-  el: '#app',
+  el: "#app",
   components: {
     product
   },
@@ -328,15 +331,15 @@ const app = new Vue({
     products: [
       {
         id: 0,
-        name: '0'
+        name: "0"
       },
       {
         id: 1,
-        name: '1'
+        name: "1"
       },
       {
         id: 2,
-        name: '2'
+        name: "2"
       }
     ],
     selectedId: 1,
@@ -345,19 +348,21 @@ const app = new Vue({
   computed: {
     currentProduct() {
       // just let currentProductSwitch become a new dependency of currentProduct
-      this.currentProductSwitch
-      return this.products.find(({ id }) => id === this.selectedId)
+      this.currentProductSwitch;
+      return this.products.find(({ id }) => id === this.selectedId);
     }
   },
   mounted() {
-    let selectIndex = this.products.findIndex(obj => obj.id === this.selectedId)
+    let selectIndex = this.products.findIndex(
+      obj => obj.id === this.selectedId
+    );
     this.products[selectIndex] = Object.assign({}, this.products[selectIndex], {
-      name: '1-1'
-    })
+      name: "1-1"
+    });
     // update currentProductSwitch to recompute currentProduct
-    this.currentProductSwitch = !this.currentProductSwitch
+    this.currentProductSwitch = !this.currentProductSwitch;
   }
-})
+});
 ```
 
 Do you understand the principle?
@@ -367,7 +372,7 @@ I add `currentProductSwitch` in `currentProduct` getter to make `currentProductS
 Now, let's take a look at the solution [posva](https://github.com/posva) gives:
 
 ```js
-const product = Vue.component('product', {
+const product = Vue.component("product", {
   template: `
       <div>
           <div :class="item.id===selectedId?'product product--active':'product'" v-for="(item,index) in products" @click="$emit('update:selectedId',item.id)">
@@ -375,39 +380,39 @@ const product = Vue.component('product', {
                 <div class="product__name--selected">selected: {{currentProduct.name}}</div>
           </div>
       </div>`,
-  props: ['products', 'selectedId', 'currentProduct']
-})
+  props: ["products", "selectedId", "currentProduct"]
+});
 const recompute = Vue.mixin({
   data() {
     return {
       __recomputed: Object.create(null)
-    }
+    };
   },
   created() {
-    const watchers = this._computedWatchers
+    const watchers = this._computedWatchers;
     if (!watchers) {
-      return
+      return;
     }
-    if (typeof this.$recompute === 'function') {
-      return
+    if (typeof this.$recompute === "function") {
+      return;
     }
     this.$recompute = key => {
-      const { __recomputed } = this.$data
-      this.$set(__recomputed, key, !__recomputed[key])
-    }
+      const { __recomputed } = this.$data;
+      this.$set(__recomputed, key, !__recomputed[key]);
+    };
     Reflect.ownKeys(watchers).forEach(key => {
-      const watcher = watchers[key]
+      const watcher = watchers[key];
       watcher.getter = (function(getter) {
         return vm => {
-          vm.$data.__recomputed[key]
-          return getter.call(vm, vm)
-        }
-      })(watcher.getter)
-    })
+          vm.$data.__recomputed[key];
+          return getter.call(vm, vm);
+        };
+      })(watcher.getter);
+    });
   }
-})
+});
 const app = new Vue({
-  el: '#app',
+  el: "#app",
   components: {
     product
   },
@@ -416,32 +421,34 @@ const app = new Vue({
     products: [
       {
         id: 0,
-        name: '0'
+        name: "0"
       },
       {
         id: 1,
-        name: '1'
+        name: "1"
       },
       {
         id: 2,
-        name: '2'
+        name: "2"
       }
     ],
     selectedId: 1
   },
   computed: {
     currentProduct() {
-      return this.products.find(({ id }) => id === this.selectedId)
+      return this.products.find(({ id }) => id === this.selectedId);
     }
   },
   mounted() {
-    let selectIndex = this.products.findIndex(obj => obj.id === this.selectedId)
+    let selectIndex = this.products.findIndex(
+      obj => obj.id === this.selectedId
+    );
     this.products[selectIndex] = Object.assign({}, this.products[selectIndex], {
-      name: '1-1'
-    })
-    this.$recompute('currentProduct')
+      name: "1-1"
+    });
+    this.$recompute("currentProduct");
   }
-})
+});
 ```
 
 The core code is:
@@ -450,21 +457,21 @@ The core code is:
 // ....
 //* each time called $recompute, reverse the new dependency to let getter recompute
 this.$recompute = key => {
-  const { __recomputed } = this.$data
-  this.$set(__recomputed, key, !__recomputed[key])
-}
+  const { __recomputed } = this.$data;
+  this.$set(__recomputed, key, !__recomputed[key]);
+};
 //* let __recomputed[key] become a new dependency of key's getter
 Reflect.ownKeys(watchers).forEach(key => {
-  const watcher = watchers[key]
+  const watcher = watchers[key];
   watcher.getter = (function(getter) {
     return vm => {
-      vm.$data.__recomputed[key]
-      return getter.call(vm, vm)
-    }
-  })(watcher.getter)
-})
+      vm.$data.__recomputed[key];
+      return getter.call(vm, vm);
+    };
+  })(watcher.getter);
+});
 // ....
-this.$recompute('currentProduct')
+this.$recompute("currentProduct");
 ```
 
 Last tip, the same thing also happens on `getters` in `vuex`.

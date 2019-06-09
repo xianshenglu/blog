@@ -1,8 +1,9 @@
 ---
 title: Usage of ESLint
-categories: js
+categories: code-quality
 tags:
   - ESLint
+  - vue
 comments: true
 date: 2018-10-06 13:30:36
 ---
@@ -52,9 +53,9 @@ As far, I have a global eslint config file (_d:\\nodemodules\\.eslintrc.json_). 
 
 ```js
 let name = {
-  name: 'test4.js'
-}
-let obj = {}
+  name: "test4.js"
+};
+let obj = {};
 function fn(params) {}
 ```
 
@@ -179,39 +180,35 @@ If you use code above to format js in .html, it will fail. For example:
 <!-- test4.html -->
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-        }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <canvas id="canvas"></canvas>
     <div>
-        <div>
-            <div></div>
-        </div>
+      <div>
+        <div></div>
+      </div>
     </div>
     <script>
-        let name = {
-            name: 'test4.js'
-        }
-        let obj = {}
-        function fn(params) {
-
-        }
+      let name = {
+        name: "test4.js"
+      };
+      let obj = {};
+      function fn(params) {}
     </script>
-</body>
-
+  </body>
 </html>
 ```
 

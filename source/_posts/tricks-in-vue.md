@@ -1,8 +1,9 @@
 ---
 title: Tricks in Vue
-categories: js
+categories: vue
 tags:
-  - vue
+  - $attrs
+  - $listeners
 comments: true
 date: 2019-01-25 19:12:07
 ---
@@ -22,13 +23,13 @@ Have you ever done something like this in lots of components?
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
       window: window
-    }
+    };
   }
-}
+};
 </script>
 ```
 
@@ -41,21 +42,21 @@ or
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
       bus: bus
-    }
+    };
   }
-}
+};
 </script>
 ```
 
 Actually, you don't have to, you can register `window` or `bus` in `Vue.prototype` like:
 
 ```js
-Vue.prototype.window = window
-Vue.prototype.bus = bus
+Vue.prototype.window = window;
+Vue.prototype.bus = bus;
 ```
 
 in the _main.js_ or the entry file. Then you can use `bus` or `window` in `template` directly. Also, this usage prevents Vue watching the attributes of `bus` or `window` which would bring a waste of performance.
@@ -92,11 +93,11 @@ I always use the `<style scoped>` tag in _.vue_ files. It is always good except 
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
   mounted() {
-    this.$refs.app.innerHTML = `<h1 class="App__title">App__title</h1>`
+    this.$refs.app.innerHTML = `<h1 class="App__title">App__title</h1>`;
   }
-}
+};
 </script>
 
 <style scoped>
@@ -177,7 +178,7 @@ I don't know if you have used `$attrs` and `$listeners` from `this`. However, I 
 </div>
 <script>
   let BaseInput = {
-    name: 'base-input',
+    name: "base-input",
     template: `
     <div>
     <input type="text" :value="value" :placeholder="placeholder"  :otherAttrs="otherAttrs" @input="$emit('input',$event)" @click="$emit('click',$event)" @focus="focusCb" />
@@ -192,34 +193,34 @@ I don't know if you have used `$attrs` and `$listeners` from `this`. However, I 
         const listeners = {
           ...this.$listeners,
           focus: this.focusCb
-        }
-        return listeners
+        };
+        return listeners;
       }
     },
     methods: {
       focusCb(event) {
-        console.log('child', event)
+        console.log("child", event);
       }
     }
-  }
+  };
   window.app = new Vue({
-    el: '#app',
+    el: "#app",
     components: {
       BaseInput
     },
     data: {
-      value: '',
-      parentPlaceholder: 'parentPlaceholder'
+      value: "",
+      parentPlaceholder: "parentPlaceholder"
     },
     methods: {
       inputCb(event) {
-        console.log(event)
+        console.log(event);
       },
       clickCb(event) {
-        console.log(event)
+        console.log(event);
       }
     }
-  })
+  });
 </script>
 ```
 
@@ -227,7 +228,7 @@ It's obviously tedious to bind every attribute and listener by hand. Actually, t
 
 ```js
 let BaseInput = {
-  name: 'base-input',
+  name: "base-input",
   template: `<div><input type="text" :value="value"  v-bind="$attrs" v-on="listeners" /></div>`,
   props: {
     value: {
@@ -240,16 +241,16 @@ let BaseInput = {
         ...this.$listeners,
         // move `focus` in to `listeners` instead of adding one more `focus` listener.
         focus: this.focusCb
-      }
-      return listeners
+      };
+      return listeners;
     }
   },
   methods: {
     focusCb(event) {
-      console.log('child', event)
+      console.log("child", event);
     }
   }
-}
+};
 ```
 
 ### Vue-Router
@@ -259,7 +260,7 @@ let BaseInput = {
 Have you ever wonder about the relationship between `$router` and `$route`? I give you a hint:
 
 ```js
-this.$router.currentRoute === this.$route //true
+this.$router.currentRoute === this.$route; //true
 ```
 
 ### Vuex
@@ -275,14 +276,14 @@ let store = new Vuex.Store({
   },
   mutations: {
     updateName(state, data) {
-      state.name = data
+      state.name = data;
     },
     updateChildrenCount(state, data) {
-      state.children.count = data
+      state.children.count = data;
     }
     // other similar mutations
   }
-})
+});
 ```
 
 We can write a public mutation to do this like:
@@ -294,44 +295,44 @@ let store = new Vuex.Store({
   },
   mutations: {
     replaceProperty(state, { path, data }) {
-      if (typeof path !== 'string') {
-        return
+      if (typeof path !== "string") {
+        return;
       }
-      path = path.split('.')
-      let targetObj = path.slice(0, -1).reduce((re, key) => re[key], state)
-      targetObj[path.pop()] = data
+      path = path.split(".");
+      let targetObj = path.slice(0, -1).reduce((re, key) => re[key], state);
+      targetObj[path.pop()] = data;
     }
   }
-})
+});
 ```
 
 Then we can mutate `state` in anywhere with only one mutation like:
 
 ```js
 commit(
-  'replaceProperty',
+  "replaceProperty",
   {
-    path: 'name',
+    path: "name",
     data: name
   },
   { root: true }
-)
+);
 commit(
-  'replaceProperty',
+  "replaceProperty",
   {
-    path: 'children.count',
+    path: "children.count",
     data: data
   },
   { root: true }
-)
+);
 commit(
-  'replaceProperty',
+  "replaceProperty",
   {
-    path: 'some.other.deep.path.in.state',
+    path: "some.other.deep.path.in.state",
     data: data
   },
   { root: true }
-)
+);
 ```
 
 It would also work for modules!

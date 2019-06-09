@@ -1,8 +1,8 @@
 ---
 title: Vue Form Input Bindings Fail?
-categories: frame
+categories: vue
 tags:
-  - vue
+  - $nextTick
 comments: true
 date: 2018-10-04 20:36:32
 ---
@@ -45,29 +45,29 @@ body {
 
 ```js
 let app = new Vue({
-  el: '#app',
+  el: "#app",
   data: {
-    positiveNumTip: 'please enter a positive num',
-    positiveNum: '',
-    positiveNumResTip: 'validated and modified result: '
+    positiveNumTip: "please enter a positive num",
+    positiveNum: "",
+    positiveNumResTip: "validated and modified result: "
   },
   methods: {
     oldValidate(event) {
-      let value = event.target.value
-      let reg = /^[\d]+[.]?[\d]*$/
-      let newVal = Number.parseFloat(value)
+      let value = event.target.value;
+      let reg = /^[\d]+[.]?[\d]*$/;
+      let newVal = Number.parseFloat(value);
       if (!value.match(reg)) {
         if (!isNaN(newVal) || newVal > 0) {
-          this.positiveNum = newVal
+          this.positiveNum = newVal;
         } else {
-          this.positiveNum = 1
+          this.positiveNum = 1;
         }
       } else {
-        this.positiveNum = value
+        this.positiveNum = value;
       }
     }
   }
-})
+});
 ```
 
 When I was pressing _dddddddddd_, what did I got?
@@ -92,32 +92,32 @@ We can add `updated` to see how many times data has changed:
 
 ```js
 let app = new Vue({
-  el: '#app',
+  el: "#app",
   data: {
-    positiveNumTip: 'please enter a positive num',
-    positiveNum: '',
-    positiveNumResTip: 'validated and modified result: '
+    positiveNumTip: "please enter a positive num",
+    positiveNum: "",
+    positiveNumResTip: "validated and modified result: "
   },
   methods: {
     oldValidate(event) {
-      let value = event.target.value
-      let reg = /^[\d]+[.]?[\d]*$/
-      let newVal = Number.parseFloat(value)
+      let value = event.target.value;
+      let reg = /^[\d]+[.]?[\d]*$/;
+      let newVal = Number.parseFloat(value);
       if (!value.match(reg)) {
         if (!isNaN(newVal) || newVal > 0) {
-          this.positiveNum = newVal
+          this.positiveNum = newVal;
         } else {
-          this.positiveNum = 1
+          this.positiveNum = 1;
         }
       } else {
-        this.positiveNum = value
+        this.positiveNum = value;
       }
     }
   },
   updated() {
-    console.log('data updated') //only triggered once
+    console.log("data updated"); //only triggered once
   }
-})
+});
 ```
 
 As explained before, you can only see `'data updated'` once.
@@ -143,47 +143,47 @@ The key is still the Lifecycle. Vue wouldn't re-render because data doesn't chan
 
 ```js
 let app = new Vue({
-  el: '#app',
+  el: "#app",
   data: {
-    positiveNumTip: 'please enter a positive num',
-    positiveNum: '',
-    positiveNumResTip: 'validated and modified result: '
+    positiveNumTip: "please enter a positive num",
+    positiveNum: "",
+    positiveNumResTip: "validated and modified result: "
   },
   methods: {
     oldValidate(event) {
-      let value = event.target.value
-      let reg = /^[\d]+[.]?[\d]*$/
-      let newVal = Number.parseFloat(value)
+      let value = event.target.value;
+      let reg = /^[\d]+[.]?[\d]*$/;
+      let newVal = Number.parseFloat(value);
       if (!value.match(reg)) {
         if (!isNaN(newVal) || newVal > 0) {
-          this.positiveNum = newVal
+          this.positiveNum = newVal;
         } else {
-          this.positiveNum = 1
+          this.positiveNum = 1;
         }
       } else {
-        this.positiveNum = value
+        this.positiveNum = value;
       }
     },
     newValidate(event) {
-      let value = event.target.value
-      let reg = /^[\d]+[.]?[\d]*$/
-      this.positiveNum = value
+      let value = event.target.value;
+      let reg = /^[\d]+[.]?[\d]*$/;
+      this.positiveNum = value;
       this.$nextTick(() => {
         if (!this.positiveNum.match(reg)) {
-          let newVal = Number.parseFloat(this.positiveNum)
+          let newVal = Number.parseFloat(this.positiveNum);
           if (!isNaN(newVal) || newVal > 0) {
-            this.positiveNum = newVal
+            this.positiveNum = newVal;
           } else {
-            this.positiveNum = '' //for better use I changed the wrong value to ''
+            this.positiveNum = ""; //for better use I changed the wrong value to ''
           }
         }
-      })
+      });
     }
   },
   updated() {
-    console.log('data updated')
+    console.log("data updated");
   }
-})
+});
 ```
 
 See? I move the origin logic to the `this.$nextTick(callback)`. Every time you press the wrong button, it will pass the wrong value to `positiveNum` and will be corrected in `this.$nextTick(callback)` which will make the logic run correctly. Also, you can see the updated log at the console.

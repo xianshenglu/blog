@@ -1,8 +1,8 @@
 ---
 title: Serval Ways to Force Update in Vue
-categories: frame
+categories: vue
 tags:
-  - vue
+  - key
 
 comments: true
 date: 2018-12-01 14:13:45
@@ -30,38 +30,38 @@ When I come back to write a blog, I find it's totally true. Well, let's begin. H
 </div>
 <script>
   window.app = new Vue({
-    el: '#app',
+    el: "#app",
     data: {
       isElTreeShow: true,
       elTreeVersion: 100,
       items: [
         {
           id: 1,
-          label: 'Level one 1'
+          label: "Level one 1"
         },
         {
           id: 2,
-          label: 'Level one 2',
+          label: "Level one 2",
           children: [
             {
               id: 21,
-              label: 'Level two 2-1'
+              label: "Level two 2-1"
             }
           ]
         },
         {
           id: 3,
-          label: 'Level one 3'
+          label: "Level one 3"
         }
       ],
       compare(a, b) {
-        return a.id - b.id
+        return a.id - b.id;
       },
       compareReverse(a, b) {
-        return -this.compare(a, b)
+        return -this.compare(a, b);
       }
     }
-  })
+  });
 </script>
 ```
 
@@ -74,25 +74,25 @@ Go check the doc.
 For example, if someone made a mistake and wrote the code like
 
 ```js
-let length = app.items.length
-app.items[length] = { id: length + 1, label: `Level one ${length + 1}` }
+let length = app.items.length;
+app.items[length] = { id: length + 1, label: `Level one ${length + 1}` };
 ```
 
 You will not see the data update because you just add an nonreactive attribute. In this case, you might need `app.$forceUpdate()`. However, better idea is using code like:
 
 ```js
-let length = app.items.length
-app.items.push({ id: length + 1, label: `Level one ${length + 1}` })
+let length = app.items.length;
+app.items.push({ id: length + 1, label: `Level one ${length + 1}` });
 ```
 
 or
 
 ```js
-let length = app.items.length
+let length = app.items.length;
 this.$set(app.items, length, {
   id: length + 1,
   label: `Level one ${length + 1}`
-})
+});
 ```
 
 ## Reassign
@@ -100,7 +100,7 @@ this.$set(app.items, length, {
 However, it's common to use third party components. In this case, it may not be easy to modify the component if we find something not good. For example, if we sort the data using:
 
 ```js
-app.items.reverse()
+app.items.reverse();
 ```
 
 Here is the result:
@@ -112,7 +112,7 @@ The part above the `hr` works as expected while the `el-tree` doesn't change eve
 We can make it update by reassigning like:
 
 ```js
-app.items = app.items.slice()
+app.items = app.items.slice();
 ```
 
 Until now, every thing about force update has been solved. I haven't met problems which can't be solved by ways above. However, there is some way stronger I have to mention.
@@ -122,16 +122,16 @@ Until now, every thing about force update has been solved. I haven't met problem
 In some cases, we do need to destroy and rebuild the component. But I didn't find any API about `rebuild` except [this issue](https://github.com/vuejs/Discussion/issues/356). Some guys said we can rebuild using `v-if="isElTreeShow"`:
 
 ```js
-app.isElTreeShow = !app.isElTreeShow
+app.isElTreeShow = !app.isElTreeShow;
 app.$nextTick(() => {
-  app.isElTreeShow = !app.isElTreeShow
-})
+  app.isElTreeShow = !app.isElTreeShow;
+});
 ```
 
 or a better idea use `:key="elTreeVersion"`
 
 ```js
-app.elTreeVersion++
+app.elTreeVersion++;
 ```
 
 See? That's pretty cool.
