@@ -20,7 +20,7 @@ comments: true
 date: 2019-05-26 16:33:24
 ---
 
-As far as I know, several formatters would run with several rules when I want to format .vue file in the vscode editor. I have been confused for a long time about these formatters and their specific rules, also the combined situations. Sometimes it makes me crazy. For example,
+As far as I know, several formatters would run with several rules when I want to format .vue file in the `vscode` editor. I have been confused for a long time about these formatters and their specific rules, also the combined situations. Sometimes it makes me crazy. For example,
 
 - For formatters, there are `ESLint`, `prettier`, `vscode internal formatter` and some other formatters which I don't know.
 - For rules, there are `.eslintrc.js`, `.prettierrc.js`, `user settings` and other plugins like `eslint-plugin-html`, `eslint-plugin-vue`, etc.
@@ -46,7 +46,7 @@ To be more specific, I want
 - [x] Format and lint `template` in .vue.
 - [ ] Format and lint `.html`.
 - [x] Format and lint before commit
-- [x] Can be unified on vscode at least, better if works on more editors.
+- [x] Can be unified on `vscode` at least, better if works on more editors.
 
 ## Can We Do This by One Plugin Like Prettier?
 
@@ -70,7 +70,7 @@ Therefore, we have to do it one by one.
 
 I found two ways:
 
-1. add config below to _settings.json_ which let vscode highlight it as html.
+1. add config below to _settings.json_ which let `vscode` highlight it as html.
 
 ```js
 "files.associations": { "*.vue": "html" },
@@ -80,7 +80,7 @@ I found two ways:
 
 **I would recommend `Vetur`** because
 
-- [Vue VSCode Snippets](https://marketplace.visualstudio.com/items?itemName=sdras.vue-vscode-snippets) and other plugins may depend on it.
+- [Vue `VSCode` Snippets](https://marketplace.visualstudio.com/items?itemName=sdras.vue-vscode-snippets) and other plugins may depend on it.
 - Highlight .vue as html won't get better highlighting effect than `Vetur`.
 - Other problems may appear...
 
@@ -529,7 +529,7 @@ Sometimes, we might need to avoid linting some lines. So, I made a disable list.
 
 - [`eslint`](https://eslint.org/docs/user-guide/command-line-interface#--no-inline-config)
 
-  vscode also provides convenience like below,
+  `vscode` also provides convenience like below,
 
   ![](../images/1560221484774.gif)
 
@@ -568,7 +568,7 @@ After installing these plugins in your editor, we have to combine them in a prop
 4. Enable `stylelint`, `eslint` and `htmlhint` validation.
 5. Enable internal `script` in .html validation because we didn't add validation for that.
 
-And in the user settings, take vscode for example
+And in the user settings, take `vscode` for example
 
 ```json
 {
@@ -674,6 +674,14 @@ And then start your fixing work from `npm run lint && npm run format`.
   - Consume more time on dev
   - Equals compulsory which is not friendly
 - Sometimes you need to restart editor after modifying the _.prettierrc.js_ or _.eslintrc.js_, especially when you modified options like `tabWidth` etc.
+- If you have enabled multiple formatters in `vscode`, you would see `Format Document with ...` choice when you right click your mouse.
+
+  ![](../images/{1D5A8060-0A1F-41C2-9BBA-5BF6739CFDAA}_20190616142237.jpg)
+
+  ![](../images/{3B680AB4-B268-4192-BD5A-0DEC72BDCD58}_20190616142502.jpg)
+
+  The `Format Document` choice is using your default formatter which is defined by `"editor.defaultFormatter"`. For example, `"editor.defaultFormatter": "esbenp.prettier-vscode"` is using `prettier` as default formatter.
+
 - This latest vue project format template can be found in my repository [vue-project-template](https://github.com/xianshenglu/vue-project-template).
 
 ## Reference
@@ -683,4 +691,4 @@ And then start your fixing work from `npm run lint && npm run format`.
 - [Poll Results: Popularity of CSS Preprocessors](https://css-tricks.com/poll-results-popularity-of-css-preprocessors/)
 - [A Survey on CSS Preprocessors](http://drops.dagstuhl.de/opus/volltexte/2017/7943/pdf/OASIcs-SLATE-2017-8.pdf)
 
-**[Source](https://github.com/xianshenglu/blog/issues/93)**
+**[Source](https://github.com/xianshenglu/blog/blob/master/source/_posts/make-your-own-vue-project-template-formatter-part.md)**
