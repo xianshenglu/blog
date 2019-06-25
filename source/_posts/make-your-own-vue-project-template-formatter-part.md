@@ -395,7 +395,6 @@ module.exports = {
     "require-await": "error",
     radix: "error",
     "prefer-promise-reject-errors": ["error", { allowEmptyReject: true }],
-    "prefer-named-capture-group": "error",
     "no-void": "error",
     "no-useless-concat": "error",
     "no-useless-catch": "error",
@@ -628,13 +627,16 @@ And I made this image for a better understanding.
 
 ### How to Handle History Files with Current Formatter and Linter?
 
-Actually, there are many choices and it is up to you. For example,
+Actually, there are many choices. For example,
 
-- We can fix all the stylistic errors at one time and add disable comments around the remaining linting errors. After that, each time we commit, it won't have too much effect in the code review.
+- We can fix all the stylistic errors at one time and add disable comments around the remaining linting errors. After that, each time we commit, it won't have any effects on the code review.
 - Or we can fix all the errors one by one though it will need lots of time.
+- Or you can just leave it there until one day you commit that file. In that case, you might need adding comments each time you commit which would have a little effects on our code review.
 - ...
 
-If you want to lint and format all the files now, you might need to add these script in your _package.json_.
+For me, I choose the first one. So,
+
+1. I add these scripts in my _package.json_.
 
 ```json
 {
@@ -644,18 +646,34 @@ If you want to lint and format all the files now, you might need to add these sc
     "lint:es": "eslint --ext .js,.vue ./ --fix --cache --debug",
     "lint:style": "stylelint \"**/*.{vue,htm,html,css,less,sass,scss,styl,stylus,md,js}\" --fix --cache",
     "lint:html": "htmlhint **/*.{htm,html} --ignore */build/**, */dist/**, */node_modules/**",
-    "lint": "npm run lint:es && npm run lint:style && npm run lint:html",
-    "format": "prettier --write \"**/*.*\""
+    "lint": "exitzero npm run lint:es && exitzero npm run lint:style && exitzero npm run lint:html",
+    "format": "prettier --write \"**/*.*\"",
+    "lint-format": "npm run lint && npm run format"
     // ...
   }
 }
 ```
 
-And then start your fixing work from `npm run lint && npm run format`.
+and install related packages by
+
+```bash
+npm i eslint@latest eslint-plugin-vue@latest eslint-config-prettier@latest eslint-plugin-standard@latest eslint-config-standard@latest eslint-loader@latest eslint-plugin-node@latest eslint-plugin-promise@latest eslint-plugin-json@latest -D
+
+npm i husky@latest lint-staged@latest prettier@latest htmlhint@latest stylelint@latest stylelint-config-prettier@latest stylelint-config-recommended@latest stylelint-config-sass-guidelines@latest stylelint-color-format@latest stylelint-no-indistinguishable-colors@latest exitzero@latest -D
+```
+
+2. Run `npm run lint-format`.
+3. Check all the formatted and linted files.
+
+   - Add the files which don't need formatting and linting to the _.stylelintignore_, _.prettierignore_ or _.eslintignore_.
+   - Fix the simple linting errors like `console`, etc.
+   - Add configuration comments to disable the errors which you can't fix. In this case, you might need `eslint-disable-snippets` and `Stylelint Disable Snippets` editor plugin.
+
+4. Commit the modified files by `git commit -m "init format and lint" --no-verify`.
 
 ### Remarks
 
-- `prettier` doesn't support `stylus` until 1.18.2 version.
+- `prettier` doesn't support `stylus` until v1.18.2.
 - `eslint` [would ignore files whose names start from dot](https://github.com/Microsoft/vscode-eslint/issues/550). For example,
 
   - _.postcssrc.js_
@@ -682,7 +700,10 @@ And then start your fixing work from `npm run lint && npm run format`.
 
   The `Format Document` choice is using your default formatter which is defined by `"editor.defaultFormatter"`. For example, `"editor.defaultFormatter": "esbenp.prettier-vscode"` is using `prettier` as default formatter.
 
+- `lint-staged` has problems with committing partially staged files currently. The related issues are [#62](https://github.com/okonet/lint-staged/issues/62), [#75](https://github.com/okonet/lint-staged/pull/75) and [article](https://hackernoon.com/announcing-lint-staged-with-support-for-partially-staged-files-abc24a40d3ff).
+- Prettier support vue at [v1.15](https://github.com/prettier/prettier/releases/tag/1.15.0). So to make sure that prettier will work for you, you might need to check if your prettier version is not earlier than `v1.15`.
 - This latest vue project format template can be found in my repository [vue-project-template](https://github.com/xianshenglu/vue-project-template).
+- Actually, this idea was not only for vue but also for other front end projects. Whatever lib we choose, we are always writing style, html and script. All we need to do is to choose different plugins for our project. In this case, we choose, `eslint-plugin-vue`. In other case, you might need `eslint-plugin-react`, `eslint-plugin-angular`, etc.
 
 ## Reference
 
