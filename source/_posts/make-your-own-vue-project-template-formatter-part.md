@@ -666,10 +666,9 @@ npm i husky@latest lint-staged@latest prettier@latest htmlhint@latest stylelint@
 3. Check all the formatted and linted files.
 
    - Add the files which don't need formatting and linting to the _.stylelintignore_, _.prettierignore_ or _.eslintignore_.
-   - Fix the simple linting errors like `console`, etc.
-   - Add configuration comments to disable the errors which you can't fix. In this case, you might need `eslint-disable-snippets` and `Stylelint Disable Snippets` editor plugin.
+   - Add configuration comments to disable the errors which the linters can't fix. In this case, you might need `eslint-disable-snippets` and `Stylelint Disable Snippets` editor plugin.
 
-4. Commit the modified files by `git commit -m "init format and lint" --no-verify`.
+4. Commit the modified files by `git commit -m "init format and lint"`.
 
 ### Remarks
 
