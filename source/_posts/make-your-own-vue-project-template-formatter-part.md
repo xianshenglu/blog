@@ -334,7 +334,8 @@ In the end, my _.prettierrc.js_
 ```js
 module.exports = {
   semi: false,
-  singleQuote: true
+  singleQuote: true,
+  tabWidth: 2
 };
 ```
 
