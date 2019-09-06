@@ -2,10 +2,10 @@
 title: What Is the background-color's Height of Inline Non-Replaced Element?
 date: 2018-05-18
 comments: true
-tags: 
-- background-color
-- inline non-replaced element
-- content area
+tags:
+  - background-color
+  - inline non-replaced element
+  - content area
 categories: css
 ---
 
@@ -43,25 +43,25 @@ html {
 
 So, here is the question,
 
-* Assume there is no `margin` and `padding`,how much is the size of the `background-color` area which is also the content area ?any rules?
+- Assume there is no `margin` and `padding`,how much is the size of the `background-color` area which is also the content area ?any rules?
 
 And here is the answer I figured out:
 
-* It depends.
+- It depends.
 
 Then we are going to talk a lot about how it depends.
 
 If we measured the direction as the screenshot above ,we can get some data below, called Case A :
 
-* font-size:40px
-* background-color's height : about 50px
-* top/bottom space : about 15px
+- font-size:40px
+- background-color's height : about 50px
+- top/bottom space : about 15px
 
 May be you thought that those data should be like these, called Case B :
 
-* font-size:40px
-* background-color's height : about 40px
-* top/bottom space : about 20px, equals to half-leading
+- font-size:40px
+- background-color's height : about 40px
+- top/bottom space : about 20px, equals to half-leading
 
 It seems Case B is more reasonable.
 
@@ -88,9 +88,7 @@ Then, I try to prove it with different fonts which will lead differently sized b
 For example, change `font-family`from `Microsoft YaHei`to`Georgia`:
 
 ```html
-<div class="inline">
-  inline non-replaced element <br>sss
-</div>
+<div class="inline">inline non-replaced element <br />sss</div>
 ```
 
 ```css
@@ -113,17 +111,17 @@ html {
 
 As you can see ,these data becomes:
 
-* font-size:40px
-* background-color's height : about 46px
-* top space : about 15px
-* bottom space: about 19px
+- font-size:40px
+- background-color's height : about 46px
+- top space : about 15px
+- bottom space: about 19px
 
 ## Conclusion
 
 So, precisely, assuming that there is no `margin` and `padding`,we can say that background-color's height of inline non-replaced element is
 
-* determined by `font-size`
-* and modified partially by `font-family` which depends on the rules UA takes.
+- determined by `font-size`
+- and modified partially by `font-family` which depends on the rules UA takes.
 
 And also the area outside of the `background-color` area isn't equal to half-leading.
 
@@ -133,3 +131,8 @@ Reference:
 
 [2]: https://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#inline-non-replaced
 [4]: https://stackoverflow.com/questions/28363186/inline-elements-and-line-height
+
+[Deep dive CSS: font metrics, line-height and vertical-align
+](https://iamvdo.me/en/blog/css-font-metrics-line-height-and-vertical-align)
+
+[这个 div 的 10px 是哪里来的能帮我看一下吗？](https://segmentfault.com/q/1010000020023014/a-1020000020036595)
