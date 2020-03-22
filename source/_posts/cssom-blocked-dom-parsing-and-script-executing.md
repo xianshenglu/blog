@@ -14,7 +14,7 @@ For a long time, I was thinking if the _.css_ files would block DOM parsing and 
 
 Let's begin.
 
-### Put _.css_ Files in the `<head>`.
+### Put _.css_ Files in the `<head>`
 
 Normally, we would put the _.css_ files in the head and put _.js_ files at the bottom of `<body>`. For example,
 
@@ -84,34 +84,34 @@ In my opinion, the results are desirable and everything worked as expected.
 </html>
 ``` -->
 
-### Put _.css_ Files in the `
+### Put _.css_ Files in the `<body>`
 
-<body>
-  `. It is not very common to see this usage. However, in this case, the
-  behavior in the browser is a little weird. For example, ```html
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Document</title>
-    </head>
-    <body>
-      <div>MyApp</div>
-      <link rel="stylesheet" href="./static/header.css" />
-      <header>
-        Header
-      </header>
-      <link rel="stylesheet" href="./static/main.css" />
-      <main>
-        Main
-      </main>
-      <footer>Footer</footer>
-      <script src="./static/app.js"></script>
-    </body>
-  </html>
-</body>
-````
+It is not very common to see this usage. However, in this case, the
+behavior in the browser is a little weird. For example,
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>MyApp</div>
+    <link rel="stylesheet" href="./static/header.css" />
+    <header>
+      Header
+    </header>
+    <link rel="stylesheet" href="./static/main.css" />
+    <main>
+      Main
+    </main>
+    <footer>Footer</footer>
+    <script src="./static/app.js"></script>
+  </body>
+</html>
+```
 
 Say I still block all the _.css_ files with fiddler. The results are in the gif below:
 
