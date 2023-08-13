@@ -2,8 +2,12 @@
   "name": "hexo-site",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "create-post": "hexo new \"post name\"",
+    "deploy": "hexo deploy"
+  },
   "hexo": {
-    "version": "3.8.0"
+    "version": "3.8.0"    
   },
   "dependencies": {
     "hexo": "^3.8.0",
