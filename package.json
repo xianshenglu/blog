@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "create-post": "hexo new \"post name\"",
-    "deploy": "hexo deploy"
+    "build": "hexo clean && hexo generate"
   },
   "hexo": {
-    "version": "3.8.0"    
+    "version": "3.8.0"
   },
   "dependencies": {
     "hexo": "^3.8.0",
@@ -21,6 +21,7 @@
     "hexo-renderer-markdown-it": "^3.4.1",
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.2.0",
+    "hexo-theme-next": "^8.18.0",
     "hexo-wordcount": "^3.0.2"
   }
 }
