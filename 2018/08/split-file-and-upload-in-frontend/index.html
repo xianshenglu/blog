@@ -1,13 +1,85 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+
+
 
   
-  <title>前端大文件分拆上传与上传池管理 | Hey , you !</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Preface 后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。 Main 咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：  ``````js Ending Reference">
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Blob,Chinese,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Preface 后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。 Main 咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：  ``````js Ending Reference">
 <meta name="keywords" content="Blob,Chinese">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端大文件分拆上传与上传池管理">
@@ -19,77 +91,236 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端大文件分拆上传与上传池管理">
 <meta name="twitter:description" content="Preface 后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。 Main 咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：  ``````js Ending Reference">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/xianshenglu/blog/2018/08/split-file-and-upload-in-frontend/">
+
+
+
+
+
+  <title>前端大文件分拆上传与上传池管理 | Hey , you !</title>
   
-    <link rel="alternate" href="/blog/atom.xml" title="Hey , you !" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/blog/css/style.css">
+
+
+
+
+
+
+
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">Hey , you !</a>
-      </h1>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hey , you !</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/blog/">Home</a>
-        
-          <a class="main-nav-link" href="/blog/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/xianshenglu/blog"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-split-file-and-upload-in-frontend" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018/08/split-file-and-upload-in-frontend/" class="article-date">
-  <time datetime="2018-08-05T12:43:03.000Z" itemprop="datePublished">2018-08-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/javascript/">js</a>
+        <p class="site-subtitle"></p>
+      
   </div>
 
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
   </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      前端大文件分拆上传与上传池管理
-    </h1>
+</div>
+
+<nav class="site-nav">
   
 
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/split-file-and-upload-in-frontend/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端大文件分拆上传与上传池管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-05T20:43:03+08:00">
+                2018-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
       
         <h2>Preface</h2>
 <p>后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。</p>
@@ -102,145 +333,383 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/xianshenglu/blog/2018/08/split-file-and-upload-in-frontend/" data-id="cllb0y5cp003o7wydrkaiyyh6" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/blob/">Blob</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/chinese/">Chinese</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/blob/" rel="tag"># Blob</a>
+          
+            <a href="/blog/tags/chinese/" rel="tag"># Chinese</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/08/use-custom-font-on-web/" rel="next" title="Use Custom Font on Web">
+                <i class="fa fa-chevron-left"></i> Use Custom Font on Web
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/08/auto-zoom-in-when-form-elements-are-focused-in-ios/" rel="prev" title="Auto Zoom in When Form Element Gains Focus in IOS">
+                Auto Zoom in When Form Element Gains Focus in IOS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
     </footer>
   </div>
   
-    
-<nav id="article-nav">
   
-    <a href="/blog/2018/08/auto-zoom-in-when-form-elements-are-focused-in-ios/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
         
-          Auto Zoom in When Form Element Gains Focus in IOS
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">xianshenglu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
         
       </div>
-    </a>
-  
-  
-    <a href="/blog/2018/08/use-custom-font-on-web/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Use Custom Font on Web</div>
-    </a>
-  
-</nav>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xianshenglu</span>
 
   
-</article>
+</div>
 
-</section>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
         
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web-performance-optimization/">Web Performance Optimization</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/browser/">browser</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/code-quality/">code-quality</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/frame/">frame</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/http/">http</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/software/">software</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/summary/">summary</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">vue</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/attrs/">$attrs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/listeners/">$listeners</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/nexttick/">$nextTick</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">--vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/sync/">.sync</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/192-168-x-x/">192.168.x.x</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blob/">Blob</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css-variables/">CSS variables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chinese/">Chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">Chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dom/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dommousescroll/">DOMMouseScroll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dpr/">DPR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint/">ESLint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/edge/">Edge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/excel/">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ie/">IE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ios/">IOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lan/">LAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lighthouse/">LightHouse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mutationobserver/">MutationObserver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tcp/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/urlsearchparams/">URLSearchParams</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/virtualbox/">VirtualBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wheelevent/">WheelEvent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/x-ua-compatible/">X-UA-Compatible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/xmlhttprequest/">XMLHttpRequest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ant-design-vue/">ant-design-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/apply/">apply</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/arraybuffer/">arrayBuffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/audio/">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/autoplay/">autoplay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/babel/">babel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/babel-eslint/">babel-eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/background-color/">background-color</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bug/">bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/call/">call</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chinese/">chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/codestyle/">codeStyle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/console-log/">console.log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/content/">content</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/content-area/">content area</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/contenteditable/">contentEditable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/contextmenu/">contextmenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css-pixel/">css pixel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/debug/">debug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/delta/">delta</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/device-pixel/">device pixel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/device-width/">device-width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/display/">display</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dotenv/">dotenv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/element-ui/">element-ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/env/">env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint-config-prettier/">eslint-config-prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint-plugin-vue/">eslint-plugin-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-bubbling/">event bubbling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-capturing/">event capturing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-delegate/">event delegate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fetch/">fetch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/firefox/">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/flex/">flex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/focus/">focus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/font/">font</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/font-family/">font-family</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fontmin/">fontmin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/form/">form</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/htmlhint/">htmlhint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-equiv/">http-equiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-1-1/">http/1.1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-2-0/">http/2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/husky/">husky</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ie-edge/">ie=edge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/image-load-error/">image load error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/img/">img</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/initial-scale/">initial-scale</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/inline-non-replaced-element/">inline non-replaced element</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/inline-block/">inline-block</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/key/">key</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/label/">label</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/layout-viewport/">layout viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/letter-spacing/">letter-spacing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lint-staged/">lint-staged</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/meta/">meta</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/min-height/">min-height</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mobile/">mobile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mouseup/">mouseup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mousewheel/">mousewheel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ms/">ms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/multiple-choice-cascader/">multiple-choice-cascader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/orientationchange/">orientationchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/override-css/">override.css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/performance/">performance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/preventdefault/">preventDefault</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/qq/">qq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/qrcodejs/">qrcodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/reduce/">reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/rem/">rem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/requestanimationframe/">requestAnimationFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/retina/">retina</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/scrollto/">scrollTo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/settimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/share/">share</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/smooth-scroll/">smooth-scroll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint/">stylelint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint-config-prettier/">stylelint-config-prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint-config-recommended/">stylelint-config-recommended</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/table/">table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/text-align/">text-align</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/text-align-last/">text-align-last</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/user-scalable/">user-scalable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vh/">vh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/viewport/">viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/visual-viewport/">visual viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vw/">vw</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wheel/">wheel</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/blog/tags/attrs/" style="font-size: 10px;">$attrs</a> <a href="/blog/tags/listeners/" style="font-size: 10px;">$listeners</a> <a href="/blog/tags/nexttick/" style="font-size: 10px;">$nextTick</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">--vscode</a> <a href="/blog/tags/sync/" style="font-size: 10px;">.sync</a> <a href="/blog/tags/192-168-x-x/" style="font-size: 10px;">192.168.x.x</a> <a href="/blog/tags/blob/" style="font-size: 13.33px;">Blob</a> <a href="/blog/tags/css-variables/" style="font-size: 10px;">CSS variables</a> <a href="/blog/tags/chinese/" style="font-size: 10px;">Chinese</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">Chrome</a> <a href="/blog/tags/dom/" style="font-size: 10px;">DOM</a> <a href="/blog/tags/dommousescroll/" style="font-size: 10px;">DOMMouseScroll</a> <a href="/blog/tags/dpr/" style="font-size: 13.33px;">DPR</a> <a href="/blog/tags/eslint/" style="font-size: 13.33px;">ESLint</a> <a href="/blog/tags/edge/" style="font-size: 10px;">Edge</a> <a href="/blog/tags/excel/" style="font-size: 10px;">Excel</a> <a href="/blog/tags/ie/" style="font-size: 10px;">IE</a> <a href="/blog/tags/ios/" style="font-size: 10px;">IOS</a> <a href="/blog/tags/lan/" style="font-size: 10px;">LAN</a> <a href="/blog/tags/lighthouse/" style="font-size: 10px;">LightHouse</a> <a href="/blog/tags/mutationobserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/tcp/" style="font-size: 10px;">TCP</a> <a href="/blog/tags/urlsearchparams/" style="font-size: 10px;">URLSearchParams</a> <a href="/blog/tags/virtualbox/" style="font-size: 10px;">VirtualBox</a> <a href="/blog/tags/wheelevent/" style="font-size: 10px;">WheelEvent</a> <a href="/blog/tags/x-ua-compatible/" style="font-size: 10px;">X-UA-Compatible</a> <a href="/blog/tags/xmlhttprequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/blog/tags/ant-design-vue/" style="font-size: 10px;">ant-design-vue</a> <a href="/blog/tags/apply/" style="font-size: 10px;">apply</a> <a href="/blog/tags/arraybuffer/" style="font-size: 10px;">arrayBuffer</a> <a href="/blog/tags/audio/" style="font-size: 10px;">audio</a> <a href="/blog/tags/autoplay/" style="font-size: 10px;">autoplay</a> <a href="/blog/tags/babel/" style="font-size: 10px;">babel</a> <a href="/blog/tags/babel-eslint/" style="font-size: 10px;">babel-eslint</a> <a href="/blog/tags/background-color/" style="font-size: 10px;">background-color</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/browser/" style="font-size: 10px;">browser</a> <a href="/blog/tags/bug/" style="font-size: 16.67px;">bug</a> <a href="/blog/tags/call/" style="font-size: 10px;">call</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chinese/" style="font-size: 10px;">chinese</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/blog/tags/codestyle/" style="font-size: 10px;">codeStyle</a> <a href="/blog/tags/console-log/" style="font-size: 10px;">console.log</a> <a href="/blog/tags/content/" style="font-size: 13.33px;">content</a> <a href="/blog/tags/content-area/" style="font-size: 10px;">content area</a> <a href="/blog/tags/contenteditable/" style="font-size: 10px;">contentEditable</a> <a href="/blog/tags/contextmenu/" style="font-size: 10px;">contextmenu</a> <a href="/blog/tags/css-pixel/" style="font-size: 10px;">css pixel</a> <a href="/blog/tags/debug/" style="font-size: 10px;">debug</a> <a href="/blog/tags/delta/" style="font-size: 10px;">delta</a> <a href="/blog/tags/device-pixel/" style="font-size: 10px;">device pixel</a> <a href="/blog/tags/device-width/" style="font-size: 13.33px;">device-width</a> <a href="/blog/tags/display/" style="font-size: 10px;">display</a> <a href="/blog/tags/dotenv/" style="font-size: 10px;">dotenv</a> <a href="/blog/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/blog/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/blog/tags/env/" style="font-size: 10px;">env</a> <a href="/blog/tags/eslint-config-prettier/" style="font-size: 10px;">eslint-config-prettier</a> <a href="/blog/tags/eslint-plugin-vue/" style="font-size: 10px;">eslint-plugin-vue</a> <a href="/blog/tags/event-bubbling/" style="font-size: 10px;">event bubbling</a> <a href="/blog/tags/event-capturing/" style="font-size: 10px;">event capturing</a> <a href="/blog/tags/event-delegate/" style="font-size: 10px;">event delegate</a> <a href="/blog/tags/fetch/" style="font-size: 10px;">fetch</a> <a href="/blog/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/blog/tags/flex/" style="font-size: 13.33px;">flex</a> <a href="/blog/tags/focus/" style="font-size: 13.33px;">focus</a> <a href="/blog/tags/font/" style="font-size: 10px;">font</a> <a href="/blog/tags/font-family/" style="font-size: 10px;">font-family</a> <a href="/blog/tags/fontmin/" style="font-size: 10px;">fontmin</a> <a href="/blog/tags/form/" style="font-size: 10px;">form</a> <a href="/blog/tags/github/" style="font-size: 10px;">github</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/htmlhint/" style="font-size: 10px;">htmlhint</a> <a href="/blog/tags/http-equiv/" style="font-size: 10px;">http-equiv</a> <a href="/blog/tags/http-1-1/" style="font-size: 10px;">http/1.1</a> <a href="/blog/tags/http-2-0/" style="font-size: 10px;">http/2.0</a> <a href="/blog/tags/husky/" style="font-size: 10px;">husky</a> <a href="/blog/tags/ie-edge/" style="font-size: 10px;">ie=edge</a> <a href="/blog/tags/image/" style="font-size: 10px;">image</a> <a href="/blog/tags/image-load-error/" style="font-size: 10px;">image load error</a> <a href="/blog/tags/img/" style="font-size: 10px;">img</a> <a href="/blog/tags/initial-scale/" style="font-size: 13.33px;">initial-scale</a> <a href="/blog/tags/inline-non-replaced-element/" style="font-size: 10px;">inline non-replaced element</a> <a href="/blog/tags/inline-block/" style="font-size: 10px;">inline-block</a> <a href="/blog/tags/key/" style="font-size: 10px;">key</a> <a href="/blog/tags/label/" style="font-size: 10px;">label</a> <a href="/blog/tags/layout/" style="font-size: 10px;">layout</a> <a href="/blog/tags/layout-viewport/" style="font-size: 10px;">layout viewport</a> <a href="/blog/tags/letter-spacing/" style="font-size: 10px;">letter-spacing</a> <a href="/blog/tags/lint-staged/" style="font-size: 10px;">lint-staged</a> <a href="/blog/tags/meta/" style="font-size: 13.33px;">meta</a> <a href="/blog/tags/min-height/" style="font-size: 10px;">min-height</a> <a href="/blog/tags/mobile/" style="font-size: 20px;">mobile</a> <a href="/blog/tags/mouseup/" style="font-size: 10px;">mouseup</a> <a href="/blog/tags/mousewheel/" style="font-size: 10px;">mousewheel</a> <a href="/blog/tags/ms/" style="font-size: 10px;">ms</a> <a href="/blog/tags/multiple-choice-cascader/" style="font-size: 10px;">multiple-choice-cascader</a> <a href="/blog/tags/orientationchange/" style="font-size: 13.33px;">orientationchange</a> <a href="/blog/tags/override-css/" style="font-size: 10px;">override.css</a> <a href="/blog/tags/performance/" style="font-size: 13.33px;">performance</a> <a href="/blog/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/blog/tags/preventdefault/" style="font-size: 10px;">preventDefault</a> <a href="/blog/tags/qq/" style="font-size: 10px;">qq</a> <a href="/blog/tags/qrcodejs/" style="font-size: 10px;">qrcodejs</a> <a href="/blog/tags/reduce/" style="font-size: 10px;">reduce</a> <a href="/blog/tags/rem/" style="font-size: 13.33px;">rem</a> <a href="/blog/tags/requestanimationframe/" style="font-size: 10px;">requestAnimationFrame</a> <a href="/blog/tags/retina/" style="font-size: 10px;">retina</a> <a href="/blog/tags/scrollto/" style="font-size: 10px;">scrollTo</a> <a href="/blog/tags/settimeout/" style="font-size: 10px;">setTimeout</a> <a href="/blog/tags/share/" style="font-size: 10px;">share</a> <a href="/blog/tags/smooth-scroll/" style="font-size: 10px;">smooth-scroll</a> <a href="/blog/tags/stylelint/" style="font-size: 10px;">stylelint</a> <a href="/blog/tags/stylelint-config-prettier/" style="font-size: 10px;">stylelint-config-prettier</a> <a href="/blog/tags/stylelint-config-recommended/" style="font-size: 10px;">stylelint-config-recommended</a> <a href="/blog/tags/table/" style="font-size: 10px;">table</a> <a href="/blog/tags/text-align/" style="font-size: 10px;">text-align</a> <a href="/blog/tags/text-align-last/" style="font-size: 10px;">text-align-last</a> <a href="/blog/tags/user-scalable/" style="font-size: 10px;">user-scalable</a> <a href="/blog/tags/vh/" style="font-size: 10px;">vh</a> <a href="/blog/tags/viewport/" style="font-size: 10px;">viewport</a> <a href="/blog/tags/visual-viewport/" style="font-size: 10px;">visual viewport</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vw/" style="font-size: 10px;">vw</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/wechat/" style="font-size: 13.33px;">wechat</a> <a href="/blog/tags/wheel/" style="font-size: 10px;">wheel</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/">Several Ways of Configuring Environment Variables in Web FrontEnd Project</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/">The Impact of Styles and Scripts Position in index.html</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019/09/arraybuffer-text-blob-transformation-in-ajax/">arrayBuffer, text, and Blob Transformation in Ajax</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019/08/associated-validation-in-vue/">Associated Validation in Vue</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019/08/how-to-prevent-collapse-of-empty-rows-in-html-table/">How to Prevent Collapse of Empty Rows in HTML table</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
         
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2023 xianshenglu<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/blog/" class="mobile-nav-link">Home</a>
-  
-    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
-  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/blog/js/script.js"></script>
-
-
+    
 
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
