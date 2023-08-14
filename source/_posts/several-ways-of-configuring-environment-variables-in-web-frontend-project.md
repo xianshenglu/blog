@@ -4,6 +4,7 @@ categories: js
 tags: 
 - env
 - dotenv
+- cross-env
 comments: true
 date: 2023-08-13 16:20:40
 ---
@@ -14,7 +15,7 @@ It's quite often that we need to define and use environment variables. May be in
 
 **Basically, we don't need to care about them, just follow the rules provided by the platform because the env variables are often set manually in the platform.** For example, in the [vercel](https://vercel.com/)
 
-<img width="573" alt="80205101438ebc669252f131b5b896a" src="https://github.com/xianshenglu/blog/assets/23273077/8b142955-c0b2-439b-9e47-f1d374b5b153">
+![](https://github.com/xianshenglu/blog/assets/23273077/8b142955-c0b2-439b-9e47-f1d374b5b153)
 
 So, they will not appear in our projects' code. 
 
