@@ -349,8 +349,8 @@
         <category>html</category>
       </categories>
       <tags>
-        <tag>content</tag>
         <tag>meta</tag>
+        <tag>content</tag>
         <tag>http-equiv</tag>
         <tag>X-UA-Compatible</tag>
         <tag>ie=edge</tag>
