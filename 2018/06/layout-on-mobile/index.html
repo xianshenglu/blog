@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Layout On Mobile | Hey , you !</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Preface Based on first-exploration-on-mobile we can develop adaptive pages on mobile. Now, let&apos;s do it. Main Basic Code Suppose that we got the PSD which is designed according to iPhone6. So, what do">
+<meta name="keywords" content="mobile,orientationchange,rem,DPR,device-width,initial-scale,vw,flex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Layout On Mobile">
+<meta property="og:url" content="https://github.com/xianshenglu/blog/2018/06/layout-on-mobile/index.html">
+<meta property="og:site_name" content="Hey , you !">
+<meta property="og:description" content="Preface Based on first-exploration-on-mobile we can develop adaptive pages on mobile. Now, let&apos;s do it. Main Basic Code Suppose that we got the PSD which is designed according to iPhone6. So, what do">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/06/images/%E6%88%AA%E5%9B%BE20180616161355.png">
+<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/06/images/%E6%88%AA%E5%9B%BE20180616161446.png">
+<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/06/images/%E6%88%AA%E5%9B%BE20180617130210.png">
+<meta property="og:updated_time" content="2023-08-12T15:34:48.281Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Layout On Mobile">
+<meta name="twitter:description" content="Preface Based on first-exploration-on-mobile we can develop adaptive pages on mobile. Now, let&apos;s do it. Main Basic Code Suppose that we got the PSD which is designed according to iPhone6. So, what do">
+<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2018/06/images/%E6%88%AA%E5%9B%BE20180616161355.png">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Hey , you !" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Hey , you !</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/xianshenglu/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-layout-on-mobile" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/06/layout-on-mobile/" class="article-date">
+  <time datetime="2018-06-15T11:03:50.000Z" itemprop="datePublished">2018-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/css/">css</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Layout On Mobile
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2>Preface</h2>
+<p>Based on <a href="../first-exploration-on-mobile/">first-exploration-on-mobile</a> we can develop adaptive pages on mobile. Now, let's do it.</p>
+<h2>Main</h2>
+<h3>Basic Code</h3>
+<p>Suppose that we got the PSD which is designed according to iPhone6. So, what do we have now?</p>
+<ul>
+<li>width:375*667</li>
+<li>DPR:2</li>
+</ul>
+<p>So, let's develop according to iPhone6 first. And this is the basic code:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=375,initial-scale=1,user-scalable=no"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="comment">/* reset.css */</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    * &#123;</span></span><br><span class="line"><span class="undefined">      margin: 0;</span></span><br><span class="line"><span class="undefined">      padding: 0;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    html,</span></span><br><span class="line"><span class="undefined">    body &#123;</span></span><br><span class="line"><span class="undefined">      height: 100%;</span></span><br><span class="line"><span class="undefined">      width: 100%;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    li &#123;</span></span><br><span class="line"><span class="undefined">      list-style: none;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    a &#123;</span></span><br><span class="line"><span class="undefined">      text-decoration: none;</span></span><br><span class="line"><span class="undefined">      color: inherit;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="comment">/* base.css */</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.nav</span>,</span></span><br><span class="line"><span class="css">    <span class="selector-class">.nav__list</span> &#123;</span></span><br><span class="line"><span class="undefined">      width: 100%;</span></span><br><span class="line"><span class="undefined">      height: 100%;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.nav__list</span> &#123;</span></span><br><span class="line"><span class="undefined">      background-color: pink;</span></span><br><span class="line"><span class="undefined">      overflow: hidden;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.nav__item</span> &#123;</span></span><br><span class="line"><span class="undefined">      width: 65px;</span></span><br><span class="line"><span class="undefined">      height: 40px;</span></span><br><span class="line"><span class="undefined">      line-height: 40px;</span></span><br><span class="line"><span class="undefined">      margin: 5px;</span></span><br><span class="line"><span class="undefined">      float: left;</span></span><br><span class="line"><span class="undefined">      background-color: yellowgreen;</span></span><br><span class="line"><span class="undefined">      color: white;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.nav__link</span> &#123;</span></span><br><span class="line"><span class="undefined">      display: block;</span></span><br><span class="line"><span class="undefined">      width: 100%;</span></span><br><span class="line"><span class="undefined">      height: 100%;</span></span><br><span class="line"><span class="undefined">      text-align: center;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav__list"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav__item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"nav__link"</span>&gt;</span>nav1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav__item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"nav__link"</span>&gt;</span>nav2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav__item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"nav__link"</span>&gt;</span>nav3<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav__item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"nav__link"</span>&gt;</span>nav4<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav__item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"nav__link"</span>&gt;</span>nav5<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Well, I made a simple one just for test. Hope you don't mind. If we switch to iPhone6 device, it looks okay.</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20180616161355.png" alt></p>
+<p>Of course it will be terrible if we switch to other devices. For example, iPhone6 Plus:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20180616161446.png" alt></p>
+<p>We got extra space on the right because the width of iPhone6 Plus is 414px which is wider than 375px in iPhone6.</p>
+<p><strong>Please notice that we have used 65px, 40px and 5px in the css. Those values should be zoomed according to the device-width.</strong></p>
+<p>So, here is the way how we fix this:</p>
+<h3>Adaptive by rem and js</h3>
+<p>We need do some transform to use rem. On iPhone6 with 375px and DPR:2,</p>
+<ol>
+<li>We can use 65px, 40px, 5px with:</li>
+</ol>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=375,initial-scale=1,user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>We can also use 130px, 80px, 10px with:</li>
+</ol>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=750,initial-scale=0.5"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>Further on, if we calculate rem by (device-width*DPR)/10:</li>
+</ol>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--width=750=375*DPR,initial-scale=0.5=1/DPR--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=750,initial-scale=0.5"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="comment">/*75px = device-width * DPR / 10 */</span></span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">75px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="comment">/*32px = 16px * DPR */</span></span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">32px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Those numbers would be:</p>
+<ul>
+<li>65px =&gt; (65/375) * device-width =&gt; (65/375) * 10rem</li>
+<li>40px =&gt; (40/375) * device-width =&gt; (40/375) * 10rem</li>
+<li>5px =&gt; (5/375) * device-width =&gt; (5/375) * 10rem</li>
+</ul>
+<p>In fact, options above will get the same effect. But for option3, <strong>we make everything connected with DPR and device-width.</strong></p>
+<p>So, here is the basic logic to be adaptive:</p>
+<ol>
+<li>We use the device-width*DPR/10 to calculate <code>rem</code> and set it on <code>html</code>.</li>
+<li>We set (initial font-size * DPR) on <code>body</code>.</li>
+<li>For <code>font-size</code> set with px, we have to set different font-size for different DPR by <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/-webkit-device-pixel-ratio" target="_blank" rel="noopener">@media/-webkit-device-pixel-ratio</a> or plugins(e.g. less).</li>
+<li>We update <code>meta</code> by setting the <code>width</code> as device-width*DPR and <code>initial-scale</code> as 1/DPR which would make the page render in device-width*DPR and then scale to device-width.</li>
+</ol>
+<p>Well, you can just see the code:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.addEventListener(</span></span><br><span class="line"><span class="javascript">      <span class="string">'DOMContentLoaded'</span>,</span></span><br><span class="line"><span class="undefined">      () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> dpr = <span class="built_in">window</span>.devicePixelRatio</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> html = <span class="built_in">document</span>.documentElement</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> body = <span class="built_in">document</span>.body</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> deviceWidth = <span class="built_in">window</span>.innerWidth || html.clientWidth</span></span><br><span class="line"><span class="javascript">        html.style.fontSize = (deviceWidth * dpr) / <span class="number">10</span> + <span class="string">'px'</span></span></span><br><span class="line"><span class="javascript">        html.setAttribute(<span class="string">'data-dpr'</span>, dpr)</span></span><br><span class="line"><span class="javascript">        body.style.fontSize = <span class="string">'initial'</span></span></span><br><span class="line"><span class="javascript">        body.style.fontSize = <span class="built_in">parseInt</span>(getComputedStyle(body).fontSize) * dpr + <span class="string">'px'</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> metaViewport = <span class="built_in">document</span>.querySelector(<span class="string">'meta[name=viewport]'</span>)</span></span><br><span class="line"><span class="undefined">        metaViewport.setAttribute(</span></span><br><span class="line"><span class="javascript">          <span class="string">'content'</span>,</span></span><br><span class="line"><span class="javascript">          <span class="string">`width=<span class="subst">$&#123;dpr * deviceWidth&#125;</span>,initial-scale=<span class="subst">$&#123;<span class="number">1</span> <span class="regexp">/ dpr&#125;`</span></span></span></span></span><br><span class="line"><span class="undefined">        )</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="javascript">      &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;,</span></span><br><span class="line"><span class="javascript">      <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">    )</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet/less"</span> <span class="attr">href</span>=<span class="string">"./less.less"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdnjs.cloudflare.com/ajax/libs/less.js/3.0.2/less.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>base.css in <em>less.less</em></p>
+<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* base.css */</span></span><br><span class="line"><span class="selector-class">.px2px</span>(<span class="variable">@name</span>, <span class="variable">@px</span>) &#123;</span><br><span class="line">  <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span>) * <span class="number">1px</span>;</span><br><span class="line">  <span class="selector-attr">[data-dpr='2']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span>*<span class="number">2</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for mx3</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.5']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.5</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//for Pixel2</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.625']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.625</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for XiaoMi note</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.75']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.75</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-attr">[data-dpr='3']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">3</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//for Pixel2 XL</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='3.5']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">3.5</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for Samsung note4</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='4']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: <span class="variable">@px</span> * <span class="number">4px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="comment">//suggest use em not px otherwise have to set different font-size for different DPR</span></span><br><span class="line">  <span class="selector-class">.px2px</span>(font-size, <span class="number">16px</span>);</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__list</span> &#123;</span><br><span class="line">  <span class="comment">// width: 110%;</span></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="comment">// for inline-block</span></span><br><span class="line">  <span class="comment">// white-space: nowrap;</span></span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="comment">// letter-spacing: -0.3em;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__item</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="comment">// display: inline-block;</span></span><br><span class="line">  <span class="comment">// letter-spacing: normal;</span></span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">65</span>/<span class="number">375</span> * <span class="number">10rem</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">10rem</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">5</span>/<span class="number">375</span> * <span class="number">10rem</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">10rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__link</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Code above will work in Apple's product. However, when we switch to Pixel 2 we will find this:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20180617130210.png" alt></p>
+<p>After a little calculation, I find that the total width of 5 <code>navs</code> is 1078.85 while width of <code>.nav__list</code> is 1078. Well, I think it is reasonable though I hate this.</p>
+<p>In this case, we have to do something else to fix this. For example:</p>
+<ul>
+<li>Set <code>margin-right:auto</code> on the last nav.</li>
+<li>Set wider <code>width</code> of <code>.nav__list</code> and set <code>overflow:hidden</code> on <code>.nav</code>.</li>
+<li>Use <code>width:20%</code> and <code>padding</code> instead of <code>margin</code>.</li>
+<li>Other css tricks.</li>
+</ul>
+<p>Anyway, this is the previous solution for adaptation on mobile before appearance of <code>vw</code>,<code>flex</code> and <code>grid</code> layout.</p>
+<p>Let's make a conclusion:</p>
+<ul>
+<li>principle</li>
+</ul>
+<ol>
+<li>Set different font-size for different DPR by less.</li>
+<li>Use viewport scale to solve the problem of 1px on border and font-size.</li>
+<li>Make the width and height of element connect with device-width by <code>rem</code>.</li>
+</ol>
+<ul>
+<li>pro</li>
+</ul>
+<ol>
+<li>Fix 1px problem on <code>border</code> because we set 1px on device*DPR.</li>
+</ol>
+<ul>
+<li>con</li>
+</ul>
+<ol>
+<li>We have to set lots of <code>font-size</code> based on DPR every time we want to set <code>font-size</code> with px. Though we can simplify our job by preprocessor(e.g. less). However, how we going to do with more and more DPR?</li>
+</ol>
+<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.px2px</span>(<span class="variable">@name</span>, <span class="variable">@px</span>) &#123;</span><br><span class="line">  <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span>) * <span class="number">1px</span>;</span><br><span class="line">  <span class="selector-attr">[data-dpr='2']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span>*<span class="number">2</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for mx3</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.5']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.5</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//for Pixel2</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.625']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.625</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for XiaoMi note</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='2.75']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">2.75</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-attr">[data-dpr='3']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">3</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//for Pixel2 XL</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='3.5']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: round(<span class="variable">@px</span> * <span class="number">3.5</span>) * <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for Samsung note4</span></span><br><span class="line">  <span class="selector-attr">[data-dpr='4']</span> <span class="selector-tag">&amp;</span> &#123;</span><br><span class="line">    <span class="attribute">@&#123;name&#125;</span>: <span class="variable">@px</span> * <span class="number">4px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Write more and more? That's not a good idea.</p>
+<p><strong>If we use <code>em</code> instead it will not be a problem because we already set the initial font-size * DPR on <code>body</code>.</strong></p>
+<ol start="2">
+<li>Decimals appear which may cause a little problem in layout.</li>
+</ol>
+<h3>Adaptive by vw</h3>
+<p>Before we start with <code>vw</code> let's take a look at the rem and js solution. So, do we have a <strong>better</strong> solution for:</p>
+<ol>
+<li>border 1px problem? I don't think so.</li>
+<li>make the width and height of element connect with device-width? Yes, we do have <code>vw</code>, <code>vh</code> even <code>vmin</code> and <code>vmax</code>.</li>
+</ol>
+<p>And for the con of the rem and js solution:</p>
+<ol>
+<li><strong>In this case, we can use <code>rem</code> instead of <code>em</code> because <code>rem</code> works more like <code>px</code> than <code>em</code></strong></li>
+<li>Can we avoid the decimals ? May be not with <code>vw</code> but won't be worse than <code>rem</code>.</li>
+</ol>
+<p>Anyway, here is the code:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.addEventListener(</span></span><br><span class="line"><span class="javascript">      <span class="string">'DOMContentLoaded'</span>,</span></span><br><span class="line"><span class="undefined">      () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> dpr = <span class="built_in">window</span>.devicePixelRatio</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> html = <span class="built_in">document</span>.documentElement</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> body = <span class="built_in">document</span>.body</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> deviceWidth = <span class="built_in">window</span>.innerWidth || html.clientWidth</span></span><br><span class="line"><span class="javascript">        html.setAttribute(<span class="string">'data-dpr'</span>, dpr)</span></span><br><span class="line"><span class="javascript">        html.style.fontSize = <span class="string">'initial'</span></span></span><br><span class="line"><span class="javascript">        html.style.fontSize = <span class="built_in">parseInt</span>(getComputedStyle(html).fontSize) * dpr + <span class="string">'px'</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> metaViewport = <span class="built_in">document</span>.querySelector(<span class="string">'meta[name=viewport]'</span>)</span></span><br><span class="line"><span class="undefined">        metaViewport.setAttribute(</span></span><br><span class="line"><span class="javascript">          <span class="string">'content'</span>,</span></span><br><span class="line"><span class="javascript">          <span class="string">`width=<span class="subst">$&#123;dpr * deviceWidth&#125;</span>,initial-scale=<span class="subst">$&#123;<span class="number">1</span> <span class="regexp">/ dpr&#125;`</span></span></span></span></span><br><span class="line"><span class="undefined">        )</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="javascript">      &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;,</span></span><br><span class="line"><span class="javascript">      <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">    )</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet/less"</span> <span class="attr">href</span>=<span class="string">"./less.less"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdnjs.cloudflare.com/ajax/libs/less.js/3.0.2/less.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>base.css in <em>less.less</em></p>
+<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* base.css */</span></span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1rem</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__list</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__item</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">65</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">5</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__link</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>I tested every device in chrome device-mode. They all work.</p>
+<p><strong>However, there are still decimals which might bite you someday.</strong></p>
+<p>Anyway, let's make a conclusion:</p>
+<ul>
+<li>principle</li>
+</ul>
+<ol>
+<li>Make the font-size connect with dpr by <code>rem</code>.</li>
+<li>Use viewport scale to solve the problem of 1px on border and font-size.</li>
+<li>Make the width and height of element connect with device-width by <code>vw</code>.</li>
+</ol>
+<ul>
+<li>pro</li>
+</ul>
+<ol>
+<li>Border 1px problem is solved as before.</li>
+<li>Decimals problem will be a litter better than rem and js solution.</li>
+</ol>
+<ul>
+<li>con</li>
+</ul>
+<ol>
+<li>Decimals still exist.</li>
+</ol>
+<h3>Adaptive by vw and flex</h3>
+<p>Solution with vw almost perfect except the decimals. So, how we are going to fix that? <code>Flex</code> gave us a choice.</p>
+<p><strong>We can leave the decimals to browser by <code>flex</code>.</strong></p>
+<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*part of css which has been modified*/</span></span><br><span class="line"><span class="selector-class">.nav__list</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">display</span>: flex; <span class="comment">/*new added*/</span></span><br><span class="line">  <span class="attribute">justify-content</span>: space-around; <span class="comment">/*new added*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav__item</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">0</span> auto; <span class="comment">/*new added*/</span></span><br><span class="line"></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">65</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40</span>/<span class="number">375</span> * <span class="number">100vw</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>If you don't know something about flex, please check MDN. Anyway, we can leave decimals to browser. That is the most exciting part.</p>
+<p>Well, let's make a conclusion:</p>
+<ul>
+<li>principle</li>
+</ul>
+<ol>
+<li>Make the font-size connect with dpr by <code>rem</code>.</li>
+<li>Use viewport scale to solve the problem of 1px on border and font-size.</li>
+<li>Make the width and height of element connect with device-width by <code>vw</code>.</li>
+<li>Leave margin to browser by <code>flex</code>.</li>
+</ol>
+<ul>
+<li>pro</li>
+</ul>
+<ol>
+<li>Border 1px problem is solved as before.</li>
+<li>Decimals problem will be better than <code>vw</code>.</li>
+</ol>
+<ul>
+<li>con</li>
+</ul>
+<ol>
+<li>Decimals still exist but only has a little influence.</li>
+</ol>
+<h2>Ending</h2>
+<p>Anyway, the decimals problem always exist because of different sizes of mobiles. But the more new API we have, the less influence it will have.</p>
+<p>Besides, js above is not perfect. Here is the <a href="https://github.com/xianshenglu/mobile/blob/master/layout/">current</a> version I am using.</p>
+<p>And the last thing is we didn't handle the problem with <code>img</code>. Maybe you should seek some help from <a href="https://github.com/strues/retinajs">retina.js</a>.</p>
+<h2>Reference</h2>
+<p><a href="../first-exploration-on-mobile/">first-exploration-on-mobile</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/-webkit-device-pixel-ratio" target="_blank" rel="noopener">@media/-webkit-device-pixel-ratio</a></p>
+<p><a href="https://github.com/amfe/lib-flexible">lib-flexible</a></p>
+<p><a href="https://github.com/strues/retinajs">retina.js</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/xianshenglu/blog/2018/06/layout-on-mobile/" data-id="cllb0y5c300297wyd885dd27x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/dpr/">DPR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/device-width/">device-width</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/flex/">flex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/initial-scale/">initial-scale</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/mobile/">mobile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/orientationchange/">orientationchange</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/rem/">rem</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vw/">vw</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2018/06/a-trap-when-using-letter-spacing-to-remove-the-extra-space-in-chrome66.0.3359.139/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          A Trap When Using letter-spacing to Remove the Extra Space in chrome66.0.3359.139
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2018/06/first-exploration-on-mobile/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">First Exploration on Mobile</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web-performance-optimization/">Web Performance Optimization</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/browser/">browser</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/code-quality/">code-quality</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/frame/">frame</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/http/">http</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/software/">software</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/summary/">summary</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/attrs/">$attrs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/listeners/">$listeners</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/nexttick/">$nextTick</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">--vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/sync/">.sync</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/192-168-x-x/">192.168.x.x</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blob/">Blob</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css-variables/">CSS variables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chinese/">Chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">Chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dom/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dommousescroll/">DOMMouseScroll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dpr/">DPR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint/">ESLint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/edge/">Edge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/excel/">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ie/">IE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ios/">IOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lan/">LAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lighthouse/">LightHouse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mutationobserver/">MutationObserver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tcp/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/urlsearchparams/">URLSearchParams</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/virtualbox/">VirtualBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wheelevent/">WheelEvent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/x-ua-compatible/">X-UA-Compatible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/xmlhttprequest/">XMLHttpRequest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ant-design-vue/">ant-design-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/apply/">apply</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/arraybuffer/">arrayBuffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/audio/">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/autoplay/">autoplay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/babel/">babel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/babel-eslint/">babel-eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/background-color/">background-color</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bug/">bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/call/">call</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chinese/">chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/codestyle/">codeStyle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/console-log/">console.log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/content/">content</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/content-area/">content area</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/contenteditable/">contentEditable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/contextmenu/">contextmenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css-pixel/">css pixel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/debug/">debug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/delta/">delta</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/device-pixel/">device pixel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/device-width/">device-width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/display/">display</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dotenv/">dotenv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/element-ui/">element-ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/env/">env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint-config-prettier/">eslint-config-prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint-plugin-vue/">eslint-plugin-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-bubbling/">event bubbling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-capturing/">event capturing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-delegate/">event delegate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fetch/">fetch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/firefox/">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/flex/">flex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/focus/">focus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/font/">font</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/font-family/">font-family</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fontmin/">fontmin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/form/">form</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/htmlhint/">htmlhint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-equiv/">http-equiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-1-1/">http/1.1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-2-0/">http/2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/husky/">husky</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ie-edge/">ie=edge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/image-load-error/">image load error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/img/">img</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/initial-scale/">initial-scale</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/inline-non-replaced-element/">inline non-replaced element</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/inline-block/">inline-block</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/key/">key</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/label/">label</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/layout-viewport/">layout viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/letter-spacing/">letter-spacing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lint-staged/">lint-staged</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/meta/">meta</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/min-height/">min-height</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mobile/">mobile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mouseup/">mouseup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mousewheel/">mousewheel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ms/">ms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/multiple-choice-cascader/">multiple-choice-cascader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/orientationchange/">orientationchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/override-css/">override.css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/performance/">performance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/preventdefault/">preventDefault</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/qq/">qq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/qrcodejs/">qrcodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/reduce/">reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/rem/">rem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/requestanimationframe/">requestAnimationFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/retina/">retina</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/scrollto/">scrollTo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/settimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/share/">share</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/smooth-scroll/">smooth-scroll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint/">stylelint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint-config-prettier/">stylelint-config-prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint-config-recommended/">stylelint-config-recommended</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/table/">table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/text-align/">text-align</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/text-align-last/">text-align-last</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/user-scalable/">user-scalable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vh/">vh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/viewport/">viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/visual-viewport/">visual viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vw/">vw</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wheel/">wheel</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/attrs/" style="font-size: 10px;">$attrs</a> <a href="/blog/tags/listeners/" style="font-size: 10px;">$listeners</a> <a href="/blog/tags/nexttick/" style="font-size: 10px;">$nextTick</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">--vscode</a> <a href="/blog/tags/sync/" style="font-size: 10px;">.sync</a> <a href="/blog/tags/192-168-x-x/" style="font-size: 10px;">192.168.x.x</a> <a href="/blog/tags/blob/" style="font-size: 13.33px;">Blob</a> <a href="/blog/tags/css-variables/" style="font-size: 10px;">CSS variables</a> <a href="/blog/tags/chinese/" style="font-size: 10px;">Chinese</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">Chrome</a> <a href="/blog/tags/dom/" style="font-size: 10px;">DOM</a> <a href="/blog/tags/dommousescroll/" style="font-size: 10px;">DOMMouseScroll</a> <a href="/blog/tags/dpr/" style="font-size: 13.33px;">DPR</a> <a href="/blog/tags/eslint/" style="font-size: 13.33px;">ESLint</a> <a href="/blog/tags/edge/" style="font-size: 10px;">Edge</a> <a href="/blog/tags/excel/" style="font-size: 10px;">Excel</a> <a href="/blog/tags/ie/" style="font-size: 10px;">IE</a> <a href="/blog/tags/ios/" style="font-size: 10px;">IOS</a> <a href="/blog/tags/lan/" style="font-size: 10px;">LAN</a> <a href="/blog/tags/lighthouse/" style="font-size: 10px;">LightHouse</a> <a href="/blog/tags/mutationobserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/tcp/" style="font-size: 10px;">TCP</a> <a href="/blog/tags/urlsearchparams/" style="font-size: 10px;">URLSearchParams</a> <a href="/blog/tags/virtualbox/" style="font-size: 10px;">VirtualBox</a> <a href="/blog/tags/wheelevent/" style="font-size: 10px;">WheelEvent</a> <a href="/blog/tags/x-ua-compatible/" style="font-size: 10px;">X-UA-Compatible</a> <a href="/blog/tags/xmlhttprequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/blog/tags/ant-design-vue/" style="font-size: 10px;">ant-design-vue</a> <a href="/blog/tags/apply/" style="font-size: 10px;">apply</a> <a href="/blog/tags/arraybuffer/" style="font-size: 10px;">arrayBuffer</a> <a href="/blog/tags/audio/" style="font-size: 10px;">audio</a> <a href="/blog/tags/autoplay/" style="font-size: 10px;">autoplay</a> <a href="/blog/tags/babel/" style="font-size: 10px;">babel</a> <a href="/blog/tags/babel-eslint/" style="font-size: 10px;">babel-eslint</a> <a href="/blog/tags/background-color/" style="font-size: 10px;">background-color</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/browser/" style="font-size: 10px;">browser</a> <a href="/blog/tags/bug/" style="font-size: 16.67px;">bug</a> <a href="/blog/tags/call/" style="font-size: 10px;">call</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chinese/" style="font-size: 10px;">chinese</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/blog/tags/codestyle/" style="font-size: 10px;">codeStyle</a> <a href="/blog/tags/console-log/" style="font-size: 10px;">console.log</a> <a href="/blog/tags/content/" style="font-size: 13.33px;">content</a> <a href="/blog/tags/content-area/" style="font-size: 10px;">content area</a> <a href="/blog/tags/contenteditable/" style="font-size: 10px;">contentEditable</a> <a href="/blog/tags/contextmenu/" style="font-size: 10px;">contextmenu</a> <a href="/blog/tags/css-pixel/" style="font-size: 10px;">css pixel</a> <a href="/blog/tags/debug/" style="font-size: 10px;">debug</a> <a href="/blog/tags/delta/" style="font-size: 10px;">delta</a> <a href="/blog/tags/device-pixel/" style="font-size: 10px;">device pixel</a> <a href="/blog/tags/device-width/" style="font-size: 13.33px;">device-width</a> <a href="/blog/tags/display/" style="font-size: 10px;">display</a> <a href="/blog/tags/dotenv/" style="font-size: 10px;">dotenv</a> <a href="/blog/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/blog/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/blog/tags/env/" style="font-size: 10px;">env</a> <a href="/blog/tags/eslint-config-prettier/" style="font-size: 10px;">eslint-config-prettier</a> <a href="/blog/tags/eslint-plugin-vue/" style="font-size: 10px;">eslint-plugin-vue</a> <a href="/blog/tags/event-bubbling/" style="font-size: 10px;">event bubbling</a> <a href="/blog/tags/event-capturing/" style="font-size: 10px;">event capturing</a> <a href="/blog/tags/event-delegate/" style="font-size: 10px;">event delegate</a> <a href="/blog/tags/fetch/" style="font-size: 10px;">fetch</a> <a href="/blog/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/blog/tags/flex/" style="font-size: 13.33px;">flex</a> <a href="/blog/tags/focus/" style="font-size: 13.33px;">focus</a> <a href="/blog/tags/font/" style="font-size: 10px;">font</a> <a href="/blog/tags/font-family/" style="font-size: 10px;">font-family</a> <a href="/blog/tags/fontmin/" style="font-size: 10px;">fontmin</a> <a href="/blog/tags/form/" style="font-size: 10px;">form</a> <a href="/blog/tags/github/" style="font-size: 10px;">github</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/htmlhint/" style="font-size: 10px;">htmlhint</a> <a href="/blog/tags/http-equiv/" style="font-size: 10px;">http-equiv</a> <a href="/blog/tags/http-1-1/" style="font-size: 10px;">http/1.1</a> <a href="/blog/tags/http-2-0/" style="font-size: 10px;">http/2.0</a> <a href="/blog/tags/husky/" style="font-size: 10px;">husky</a> <a href="/blog/tags/ie-edge/" style="font-size: 10px;">ie=edge</a> <a href="/blog/tags/image/" style="font-size: 10px;">image</a> <a href="/blog/tags/image-load-error/" style="font-size: 10px;">image load error</a> <a href="/blog/tags/img/" style="font-size: 10px;">img</a> <a href="/blog/tags/initial-scale/" style="font-size: 13.33px;">initial-scale</a> <a href="/blog/tags/inline-non-replaced-element/" style="font-size: 10px;">inline non-replaced element</a> <a href="/blog/tags/inline-block/" style="font-size: 10px;">inline-block</a> <a href="/blog/tags/key/" style="font-size: 10px;">key</a> <a href="/blog/tags/label/" style="font-size: 10px;">label</a> <a href="/blog/tags/layout/" style="font-size: 10px;">layout</a> <a href="/blog/tags/layout-viewport/" style="font-size: 10px;">layout viewport</a> <a href="/blog/tags/letter-spacing/" style="font-size: 10px;">letter-spacing</a> <a href="/blog/tags/lint-staged/" style="font-size: 10px;">lint-staged</a> <a href="/blog/tags/meta/" style="font-size: 13.33px;">meta</a> <a href="/blog/tags/min-height/" style="font-size: 10px;">min-height</a> <a href="/blog/tags/mobile/" style="font-size: 20px;">mobile</a> <a href="/blog/tags/mouseup/" style="font-size: 10px;">mouseup</a> <a href="/blog/tags/mousewheel/" style="font-size: 10px;">mousewheel</a> <a href="/blog/tags/ms/" style="font-size: 10px;">ms</a> <a href="/blog/tags/multiple-choice-cascader/" style="font-size: 10px;">multiple-choice-cascader</a> <a href="/blog/tags/orientationchange/" style="font-size: 13.33px;">orientationchange</a> <a href="/blog/tags/override-css/" style="font-size: 10px;">override.css</a> <a href="/blog/tags/performance/" style="font-size: 13.33px;">performance</a> <a href="/blog/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/blog/tags/preventdefault/" style="font-size: 10px;">preventDefault</a> <a href="/blog/tags/qq/" style="font-size: 10px;">qq</a> <a href="/blog/tags/qrcodejs/" style="font-size: 10px;">qrcodejs</a> <a href="/blog/tags/reduce/" style="font-size: 10px;">reduce</a> <a href="/blog/tags/rem/" style="font-size: 13.33px;">rem</a> <a href="/blog/tags/requestanimationframe/" style="font-size: 10px;">requestAnimationFrame</a> <a href="/blog/tags/retina/" style="font-size: 10px;">retina</a> <a href="/blog/tags/scrollto/" style="font-size: 10px;">scrollTo</a> <a href="/blog/tags/settimeout/" style="font-size: 10px;">setTimeout</a> <a href="/blog/tags/share/" style="font-size: 10px;">share</a> <a href="/blog/tags/smooth-scroll/" style="font-size: 10px;">smooth-scroll</a> <a href="/blog/tags/stylelint/" style="font-size: 10px;">stylelint</a> <a href="/blog/tags/stylelint-config-prettier/" style="font-size: 10px;">stylelint-config-prettier</a> <a href="/blog/tags/stylelint-config-recommended/" style="font-size: 10px;">stylelint-config-recommended</a> <a href="/blog/tags/table/" style="font-size: 10px;">table</a> <a href="/blog/tags/text-align/" style="font-size: 10px;">text-align</a> <a href="/blog/tags/text-align-last/" style="font-size: 10px;">text-align-last</a> <a href="/blog/tags/user-scalable/" style="font-size: 10px;">user-scalable</a> <a href="/blog/tags/vh/" style="font-size: 10px;">vh</a> <a href="/blog/tags/viewport/" style="font-size: 10px;">viewport</a> <a href="/blog/tags/visual-viewport/" style="font-size: 10px;">visual viewport</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vw/" style="font-size: 10px;">vw</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/wechat/" style="font-size: 13.33px;">wechat</a> <a href="/blog/tags/wheel/" style="font-size: 10px;">wheel</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/">Several Ways of Configuring Environment Variables in Web FrontEnd Project</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/">The Impact of Styles and Scripts Position in index.html</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/09/arraybuffer-text-blob-transformation-in-ajax/">arrayBuffer, text, and Blob Transformation in Ajax</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/08/associated-validation-in-vue/">Associated Validation in Vue</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/08/how-to-prevent-collapse-of-empty-rows-in-html-table/">How to Prevent Collapse of Empty Rows in HTML table</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 xianshenglu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

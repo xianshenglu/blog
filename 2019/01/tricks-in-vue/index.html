@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Tricks in Vue | Hey , you !</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="There are some tricks which can&apos;t be found easily in Vue.js homepage. So, for convenient, I summarized them here. Vue Access Global Variable in Template Have you ever done something like this in lots">
+<meta name="keywords" content="$attrs,$listeners">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tricks in Vue">
+<meta property="og:url" content="https://github.com/xianshenglu/blog/2019/01/tricks-in-vue/index.html">
+<meta property="og:site_name" content="Hey , you !">
+<meta property="og:description" content="There are some tricks which can&apos;t be found easily in Vue.js homepage. So, for convenient, I summarized them here. Vue Access Global Variable in Template Have you ever done something like this in lots">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/xianshenglu/blog/2019/01/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190126215103.png">
+<meta property="og:updated_time" content="2023-08-12T15:34:48.298Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tricks in Vue">
+<meta name="twitter:description" content="There are some tricks which can&apos;t be found easily in Vue.js homepage. So, for convenient, I summarized them here. Vue Access Global Variable in Template Have you ever done something like this in lots">
+<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2019/01/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190126215103.png">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Hey , you !" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Hey , you !</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/xianshenglu/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-tricks-in-vue" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2019/01/tricks-in-vue/" class="article-date">
+  <time datetime="2019-01-25T11:12:07.000Z" itemprop="datePublished">2019-01-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/vue/">vue</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Tricks in Vue
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>There are some tricks which can't be found easily in <a href="https://vuejs.org/index.html" target="_blank" rel="noopener">Vue.js homepage</a>. So, for convenient, I summarized them here.</p>
+<h3>Vue</h3>
+<h4>Access Global Variable in Template</h4>
+<p>Have you ever done something like this in lots of components?</p>
+<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;a @click=&quot;window.open(&apos;...&apos;)&quot;&gt;&lt;/a&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;App&quot;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      window: window</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>or</p>
+<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;a @click=&quot;bus.$emit(&apos;some-event&apos;)&quot;&gt;&lt;/a&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;App&quot;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      bus: bus</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Actually, you don't have to, you can register <code>window</code> or <code>bus</code> in <code>Vue.prototype</code> like:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Vue.prototype.window = <span class="built_in">window</span>;</span><br><span class="line">Vue.prototype.bus = bus;</span><br></pre></td></tr></table></figure></p>
+<p>in the <em>main.js</em> or the entry file. Then you can use <code>bus</code> or <code>window</code> in <code>template</code> directly. Also, this usage prevents Vue watching the attributes of <code>bus</code> or <code>window</code> which would bring a waste of performance.</p>
+<h4>Reactive or Not Reactive</h4>
+<p>Always, if we want a data reactive, we have to do something like this:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  newTodoText: <span class="string">''</span>,</span><br><span class="line">  visitCount: <span class="number">0</span>,</span><br><span class="line">  hideCompletedTodos: <span class="literal">false</span>,</span><br><span class="line">  todos: [],</span><br><span class="line">  error: <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Set some initial value to adds <strong>all the properties found in its data object</strong> to Vue's reactivity system.</p>
+<p>Things we need to take care about is:</p>
+<ul>
+<li>If we want to add reactive attributes dynamically, we have to use something like <code>Vue.set</code> or <code>this.$set</code>. Otherwise, they might not be reactive.</li>
+<li>If we definitely don't want some data to participate in Vue's reactivity system even we initialize it in <code>data</code>. We can use something like <code>Object.freeze()</code>. For example, freeze a <strong>huge</strong> array to improve <strong>performance</strong>.</li>
+</ul>
+<h4>Scoped Style Won't Work on Dynamically Inserted Elements</h4>
+<p>I always use the <code>&lt;style scoped&gt;</code> tag in <em>.vue</em> files. It is always good except when we want to insert elements dynamically. For example:</p>
+<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot; ref=&quot;app&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;App&quot;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    this.$refs.app.innerHTML = `&lt;h1 class=&quot;App__title&quot;&gt;App__title&lt;/h1&gt;`;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.App__title &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>color: red</code> won't work on <code>.App__title</code> because of <code>scoped</code>. The actual style is rendered with a unique attribute like:</p>
+<p><img src="../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190126215103.png" alt></p>
+<p>So, how do we solve this? <code>/deep/</code> or <code>&gt;&gt;&gt;</code>.</p>
+<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;style scoped&gt;</span><br><span class="line">/deep/ .App__title &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<p>They can be used to override child component style. Here is the <a href="https://vue-loader.vuejs.org/guide/scoped-css.html#deep-selectors" target="_blank" rel="noopener">doc</a>.</p>
+<h4>Smarter Watchers</h4>
+<p>Have you ever written code like this:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="keyword">this</span>.fetchPostList()</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    searchInputValue() &#123;</span><br><span class="line">      <span class="keyword">this</span>.fetchPostList()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Actually, you can simplify it by</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  watch: &#123;</span><br><span class="line">    searchInputValue:&#123;</span><br><span class="line">      handler: <span class="string">'fetchPostList'</span>,</span><br><span class="line">      immediate: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>As the <a href="https://vuejs.org/v2/api/#vm-watch" target="_blank" rel="noopener">doc</a> said:</p>
+<blockquote>
+<p>Passing in immediate: true in the option will trigger the callback immediately with the current value of the expression.</p>
+</blockquote>
+<h4>$attrs and $listeners</h4>
+<p>I don't know if you have used <code>$attrs</code> and <code>$listeners</code> from <code>this</code>. However, I never used those until I met this situation. For example:</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">base-input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:value</span>=<span class="string">"value"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">"parentPlaceholder"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">otherAttrs</span>=<span class="string">"otherAttrs"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">input</span>=<span class="string">"inputCb"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">click</span>=<span class="string">"clickCb"</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">base-input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> BaseInput = &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">"base-input"</span>,</span></span><br><span class="line"><span class="undefined">    template: `</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">:value</span>=<span class="string">"value"</span> <span class="attr">:placeholder</span>=<span class="string">"placeholder"</span>  <span class="attr">:otherAttrs</span>=<span class="string">"otherAttrs"</span> @<span class="attr">input</span>=<span class="string">"$emit('input',$event)"</span> @<span class="attr">click</span>=<span class="string">"$emit('click',$event)"</span> @<span class="attr">focus</span>=<span class="string">"focusCb"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span><br><span class="line"><span class="undefined">    props: &#123;</span></span><br><span class="line"><span class="undefined">      value: &#123;</span></span><br><span class="line"><span class="javascript">        type: <span class="built_in">String</span></span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    computed: &#123;</span></span><br><span class="line"><span class="undefined">      listeners() &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> listeners = &#123;</span></span><br><span class="line"><span class="undefined">          ...this.$listeners,</span></span><br><span class="line"><span class="javascript">          focus: <span class="keyword">this</span>.focusCb</span></span><br><span class="line"><span class="undefined">        &#125;;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> listeners;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">      focusCb(event) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"child"</span>, event);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">"#app"</span>,</span></span><br><span class="line"><span class="undefined">    components: &#123;</span></span><br><span class="line"><span class="undefined">      BaseInput</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="javascript">      value: <span class="string">""</span>,</span></span><br><span class="line"><span class="javascript">      parentPlaceholder: <span class="string">"parentPlaceholder"</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">      inputCb(event) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event);</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      clickCb(event) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>It's obviously tedious to bind every attribute and listener by hand. Actually, this is where <code>$attrs</code> and <code>$listeners</code> will help us. We can write the <code>BaseInput</code> <code>template</code> like:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> BaseInput = &#123;</span><br><span class="line">  name: <span class="string">"base-input"</span>,</span><br><span class="line">  template: <span class="string">`&lt;div&gt;&lt;input type="text" :value="value"  v-bind="$attrs" v-on="listeners" /&gt;&lt;/div&gt;`</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    value: &#123;</span><br><span class="line">      type: <span class="built_in">String</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    listeners() &#123;</span><br><span class="line">      <span class="keyword">const</span> listeners = &#123;</span><br><span class="line">        ...this.$listeners,</span><br><span class="line">        <span class="comment">// move `focus` in to `listeners` instead of adding one more `focus` listener.</span></span><br><span class="line">        focus: <span class="keyword">this</span>.focusCb</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="keyword">return</span> listeners;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    focusCb(event) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"child"</span>, event);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3>Vue-Router</h3>
+<h4>$router and $route</h4>
+<p>Have you ever wonder about the relationship between <code>$router</code> and <code>$route</code>? I give you a hint:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.currentRoute === <span class="keyword">this</span>.$route; <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<h3>Vuex</h3>
+<h4>Commit Data by One Mutation</h4>
+<p>We can't directly mutate <code>state</code> in Vuex. Instead, we have to <code>commit</code> a <code>mutation</code> to mutate the data. However, it would be tedious to write lots of similar mutations like this:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    updateName(state, data) &#123;</span><br><span class="line">      state.name = data;</span><br><span class="line">    &#125;,</span><br><span class="line">    updateChildrenCount(state, data) &#123;</span><br><span class="line">      state.children.count = data;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// other similar mutations</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>We can write a public mutation to do this like:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    replaceProperty(state, &#123; path, data &#125;) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> path !== <span class="string">"string"</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      path = path.split(<span class="string">"."</span>);</span><br><span class="line">      <span class="keyword">let</span> targetObj = path.slice(<span class="number">0</span>, <span class="number">-1</span>).reduce(<span class="function">(<span class="params">re, key</span>) =&gt;</span> re[key], state);</span><br><span class="line">      targetObj[path.pop()] = data;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>Then we can mutate <code>state</code> in anywhere with only one mutation like:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">commit(</span><br><span class="line">  <span class="string">"replaceProperty"</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"name"</span>,</span><br><span class="line">    data: name</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">root</span>: <span class="literal">true</span> &#125;</span><br><span class="line">);</span><br><span class="line">commit(</span><br><span class="line">  <span class="string">"replaceProperty"</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"children.count"</span>,</span><br><span class="line">    data: data</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">root</span>: <span class="literal">true</span> &#125;</span><br><span class="line">);</span><br><span class="line">commit(</span><br><span class="line">  <span class="string">"replaceProperty"</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"some.other.deep.path.in.state"</span>,</span><br><span class="line">    data: data</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">root</span>: <span class="literal">true</span> &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>It would also work for modules!</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/52"><strong>Original Post</strong></a></p>
+<h2>Reference</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=7lpemgMhi0k" target="_blank" rel="noopener">7 Secret Patterns Vue Consultants Don’t Want You to Know - Chris Fritz</a></li>
+<li><a href="https://github.com/vuejs/vue-loader/issues/749">vue-loader/issues/749</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/xianshenglu/blog/2019/01/tricks-in-vue/" data-id="cllb0y5cs003u7wyd26exp1a6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/attrs/">$attrs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/listeners/">$listeners</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2019/01/wheelevent-compatibility-and-delta-handler/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          WheelEvent Compatibility and Delta Handler
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2018/12/event.preventdefault()-in-contextmenu-would-trigger-mouseup-event/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">event.preventDefault() in contextmenu Would Trigger mouseup event</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web-performance-optimization/">Web Performance Optimization</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/browser/">browser</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/code-quality/">code-quality</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/frame/">frame</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/http/">http</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/software/">software</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/summary/">summary</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/attrs/">$attrs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/listeners/">$listeners</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/nexttick/">$nextTick</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">--vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/sync/">.sync</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/192-168-x-x/">192.168.x.x</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blob/">Blob</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css-variables/">CSS variables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chinese/">Chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">Chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dom/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dommousescroll/">DOMMouseScroll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dpr/">DPR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint/">ESLint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/edge/">Edge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/excel/">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ie/">IE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ios/">IOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lan/">LAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lighthouse/">LightHouse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mutationobserver/">MutationObserver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tcp/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/urlsearchparams/">URLSearchParams</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/virtualbox/">VirtualBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wheelevent/">WheelEvent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/x-ua-compatible/">X-UA-Compatible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/xmlhttprequest/">XMLHttpRequest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ant-design-vue/">ant-design-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/apply/">apply</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/arraybuffer/">arrayBuffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/audio/">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/autoplay/">autoplay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/babel/">babel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/babel-eslint/">babel-eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/background-color/">background-color</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bug/">bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/call/">call</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chinese/">chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/codestyle/">codeStyle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/console-log/">console.log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/content/">content</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/content-area/">content area</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/contenteditable/">contentEditable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/contextmenu/">contextmenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css-pixel/">css pixel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/debug/">debug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/delta/">delta</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/device-pixel/">device pixel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/device-width/">device-width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/display/">display</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dotenv/">dotenv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/element-ui/">element-ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/env/">env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint-config-prettier/">eslint-config-prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint-plugin-vue/">eslint-plugin-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-bubbling/">event bubbling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-capturing/">event capturing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-delegate/">event delegate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fetch/">fetch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/firefox/">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/flex/">flex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/focus/">focus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/font/">font</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/font-family/">font-family</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fontmin/">fontmin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/form/">form</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/htmlhint/">htmlhint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-equiv/">http-equiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-1-1/">http/1.1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-2-0/">http/2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/husky/">husky</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ie-edge/">ie=edge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/image-load-error/">image load error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/img/">img</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/initial-scale/">initial-scale</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/inline-non-replaced-element/">inline non-replaced element</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/inline-block/">inline-block</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/key/">key</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/label/">label</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/layout-viewport/">layout viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/letter-spacing/">letter-spacing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lint-staged/">lint-staged</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/meta/">meta</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/min-height/">min-height</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mobile/">mobile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mouseup/">mouseup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mousewheel/">mousewheel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ms/">ms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/multiple-choice-cascader/">multiple-choice-cascader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/orientationchange/">orientationchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/override-css/">override.css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/performance/">performance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/preventdefault/">preventDefault</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/qq/">qq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/qrcodejs/">qrcodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/reduce/">reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/rem/">rem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/requestanimationframe/">requestAnimationFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/retina/">retina</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/scrollto/">scrollTo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/settimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/share/">share</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/smooth-scroll/">smooth-scroll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint/">stylelint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint-config-prettier/">stylelint-config-prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint-config-recommended/">stylelint-config-recommended</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/table/">table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/text-align/">text-align</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/text-align-last/">text-align-last</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/user-scalable/">user-scalable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vh/">vh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/viewport/">viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/visual-viewport/">visual viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vw/">vw</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wheel/">wheel</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/attrs/" style="font-size: 10px;">$attrs</a> <a href="/blog/tags/listeners/" style="font-size: 10px;">$listeners</a> <a href="/blog/tags/nexttick/" style="font-size: 10px;">$nextTick</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">--vscode</a> <a href="/blog/tags/sync/" style="font-size: 10px;">.sync</a> <a href="/blog/tags/192-168-x-x/" style="font-size: 10px;">192.168.x.x</a> <a href="/blog/tags/blob/" style="font-size: 13.33px;">Blob</a> <a href="/blog/tags/css-variables/" style="font-size: 10px;">CSS variables</a> <a href="/blog/tags/chinese/" style="font-size: 10px;">Chinese</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">Chrome</a> <a href="/blog/tags/dom/" style="font-size: 10px;">DOM</a> <a href="/blog/tags/dommousescroll/" style="font-size: 10px;">DOMMouseScroll</a> <a href="/blog/tags/dpr/" style="font-size: 13.33px;">DPR</a> <a href="/blog/tags/eslint/" style="font-size: 13.33px;">ESLint</a> <a href="/blog/tags/edge/" style="font-size: 10px;">Edge</a> <a href="/blog/tags/excel/" style="font-size: 10px;">Excel</a> <a href="/blog/tags/ie/" style="font-size: 10px;">IE</a> <a href="/blog/tags/ios/" style="font-size: 10px;">IOS</a> <a href="/blog/tags/lan/" style="font-size: 10px;">LAN</a> <a href="/blog/tags/lighthouse/" style="font-size: 10px;">LightHouse</a> <a href="/blog/tags/mutationobserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/tcp/" style="font-size: 10px;">TCP</a> <a href="/blog/tags/urlsearchparams/" style="font-size: 10px;">URLSearchParams</a> <a href="/blog/tags/virtualbox/" style="font-size: 10px;">VirtualBox</a> <a href="/blog/tags/wheelevent/" style="font-size: 10px;">WheelEvent</a> <a href="/blog/tags/x-ua-compatible/" style="font-size: 10px;">X-UA-Compatible</a> <a href="/blog/tags/xmlhttprequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/blog/tags/ant-design-vue/" style="font-size: 10px;">ant-design-vue</a> <a href="/blog/tags/apply/" style="font-size: 10px;">apply</a> <a href="/blog/tags/arraybuffer/" style="font-size: 10px;">arrayBuffer</a> <a href="/blog/tags/audio/" style="font-size: 10px;">audio</a> <a href="/blog/tags/autoplay/" style="font-size: 10px;">autoplay</a> <a href="/blog/tags/babel/" style="font-size: 10px;">babel</a> <a href="/blog/tags/babel-eslint/" style="font-size: 10px;">babel-eslint</a> <a href="/blog/tags/background-color/" style="font-size: 10px;">background-color</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/browser/" style="font-size: 10px;">browser</a> <a href="/blog/tags/bug/" style="font-size: 16.67px;">bug</a> <a href="/blog/tags/call/" style="font-size: 10px;">call</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chinese/" style="font-size: 10px;">chinese</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/blog/tags/codestyle/" style="font-size: 10px;">codeStyle</a> <a href="/blog/tags/console-log/" style="font-size: 10px;">console.log</a> <a href="/blog/tags/content/" style="font-size: 13.33px;">content</a> <a href="/blog/tags/content-area/" style="font-size: 10px;">content area</a> <a href="/blog/tags/contenteditable/" style="font-size: 10px;">contentEditable</a> <a href="/blog/tags/contextmenu/" style="font-size: 10px;">contextmenu</a> <a href="/blog/tags/css-pixel/" style="font-size: 10px;">css pixel</a> <a href="/blog/tags/debug/" style="font-size: 10px;">debug</a> <a href="/blog/tags/delta/" style="font-size: 10px;">delta</a> <a href="/blog/tags/device-pixel/" style="font-size: 10px;">device pixel</a> <a href="/blog/tags/device-width/" style="font-size: 13.33px;">device-width</a> <a href="/blog/tags/display/" style="font-size: 10px;">display</a> <a href="/blog/tags/dotenv/" style="font-size: 10px;">dotenv</a> <a href="/blog/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/blog/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/blog/tags/env/" style="font-size: 10px;">env</a> <a href="/blog/tags/eslint-config-prettier/" style="font-size: 10px;">eslint-config-prettier</a> <a href="/blog/tags/eslint-plugin-vue/" style="font-size: 10px;">eslint-plugin-vue</a> <a href="/blog/tags/event-bubbling/" style="font-size: 10px;">event bubbling</a> <a href="/blog/tags/event-capturing/" style="font-size: 10px;">event capturing</a> <a href="/blog/tags/event-delegate/" style="font-size: 10px;">event delegate</a> <a href="/blog/tags/fetch/" style="font-size: 10px;">fetch</a> <a href="/blog/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/blog/tags/flex/" style="font-size: 13.33px;">flex</a> <a href="/blog/tags/focus/" style="font-size: 13.33px;">focus</a> <a href="/blog/tags/font/" style="font-size: 10px;">font</a> <a href="/blog/tags/font-family/" style="font-size: 10px;">font-family</a> <a href="/blog/tags/fontmin/" style="font-size: 10px;">fontmin</a> <a href="/blog/tags/form/" style="font-size: 10px;">form</a> <a href="/blog/tags/github/" style="font-size: 10px;">github</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/htmlhint/" style="font-size: 10px;">htmlhint</a> <a href="/blog/tags/http-equiv/" style="font-size: 10px;">http-equiv</a> <a href="/blog/tags/http-1-1/" style="font-size: 10px;">http/1.1</a> <a href="/blog/tags/http-2-0/" style="font-size: 10px;">http/2.0</a> <a href="/blog/tags/husky/" style="font-size: 10px;">husky</a> <a href="/blog/tags/ie-edge/" style="font-size: 10px;">ie=edge</a> <a href="/blog/tags/image/" style="font-size: 10px;">image</a> <a href="/blog/tags/image-load-error/" style="font-size: 10px;">image load error</a> <a href="/blog/tags/img/" style="font-size: 10px;">img</a> <a href="/blog/tags/initial-scale/" style="font-size: 13.33px;">initial-scale</a> <a href="/blog/tags/inline-non-replaced-element/" style="font-size: 10px;">inline non-replaced element</a> <a href="/blog/tags/inline-block/" style="font-size: 10px;">inline-block</a> <a href="/blog/tags/key/" style="font-size: 10px;">key</a> <a href="/blog/tags/label/" style="font-size: 10px;">label</a> <a href="/blog/tags/layout/" style="font-size: 10px;">layout</a> <a href="/blog/tags/layout-viewport/" style="font-size: 10px;">layout viewport</a> <a href="/blog/tags/letter-spacing/" style="font-size: 10px;">letter-spacing</a> <a href="/blog/tags/lint-staged/" style="font-size: 10px;">lint-staged</a> <a href="/blog/tags/meta/" style="font-size: 13.33px;">meta</a> <a href="/blog/tags/min-height/" style="font-size: 10px;">min-height</a> <a href="/blog/tags/mobile/" style="font-size: 20px;">mobile</a> <a href="/blog/tags/mouseup/" style="font-size: 10px;">mouseup</a> <a href="/blog/tags/mousewheel/" style="font-size: 10px;">mousewheel</a> <a href="/blog/tags/ms/" style="font-size: 10px;">ms</a> <a href="/blog/tags/multiple-choice-cascader/" style="font-size: 10px;">multiple-choice-cascader</a> <a href="/blog/tags/orientationchange/" style="font-size: 13.33px;">orientationchange</a> <a href="/blog/tags/override-css/" style="font-size: 10px;">override.css</a> <a href="/blog/tags/performance/" style="font-size: 13.33px;">performance</a> <a href="/blog/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/blog/tags/preventdefault/" style="font-size: 10px;">preventDefault</a> <a href="/blog/tags/qq/" style="font-size: 10px;">qq</a> <a href="/blog/tags/qrcodejs/" style="font-size: 10px;">qrcodejs</a> <a href="/blog/tags/reduce/" style="font-size: 10px;">reduce</a> <a href="/blog/tags/rem/" style="font-size: 13.33px;">rem</a> <a href="/blog/tags/requestanimationframe/" style="font-size: 10px;">requestAnimationFrame</a> <a href="/blog/tags/retina/" style="font-size: 10px;">retina</a> <a href="/blog/tags/scrollto/" style="font-size: 10px;">scrollTo</a> <a href="/blog/tags/settimeout/" style="font-size: 10px;">setTimeout</a> <a href="/blog/tags/share/" style="font-size: 10px;">share</a> <a href="/blog/tags/smooth-scroll/" style="font-size: 10px;">smooth-scroll</a> <a href="/blog/tags/stylelint/" style="font-size: 10px;">stylelint</a> <a href="/blog/tags/stylelint-config-prettier/" style="font-size: 10px;">stylelint-config-prettier</a> <a href="/blog/tags/stylelint-config-recommended/" style="font-size: 10px;">stylelint-config-recommended</a> <a href="/blog/tags/table/" style="font-size: 10px;">table</a> <a href="/blog/tags/text-align/" style="font-size: 10px;">text-align</a> <a href="/blog/tags/text-align-last/" style="font-size: 10px;">text-align-last</a> <a href="/blog/tags/user-scalable/" style="font-size: 10px;">user-scalable</a> <a href="/blog/tags/vh/" style="font-size: 10px;">vh</a> <a href="/blog/tags/viewport/" style="font-size: 10px;">viewport</a> <a href="/blog/tags/visual-viewport/" style="font-size: 10px;">visual viewport</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vw/" style="font-size: 10px;">vw</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/wechat/" style="font-size: 13.33px;">wechat</a> <a href="/blog/tags/wheel/" style="font-size: 10px;">wheel</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/">Several Ways of Configuring Environment Variables in Web FrontEnd Project</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/">The Impact of Styles and Scripts Position in index.html</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/09/arraybuffer-text-blob-transformation-in-ajax/">arrayBuffer, text, and Blob Transformation in Ajax</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/08/associated-validation-in-vue/">Associated Validation in Vue</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/08/how-to-prevent-collapse-of-empty-rows-in-html-table/">How to Prevent Collapse of Empty Rows in HTML table</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 xianshenglu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

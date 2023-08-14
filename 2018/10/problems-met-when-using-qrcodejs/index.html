@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>使用 qrcodejs 生成二维码的几个问题 | Hey , you !</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Preface 产品希望我这边下载页面加个二维码，可以扫描下载 APP，并且希望二维码中有公司的 logo，很合理的需求，不过实现的时候依旧遇到了几个问题，在此记录下。 Main 二维码的实现逻辑我当然没有这个时间去研究，直接用的 qrcodejs。官方给的 demo 是最简单的版本，各种各样的需求都是在 issues 里找到的提示，似乎这个库已经很久没有人去维护了，虽然 star 是很多。 官网">
+<meta name="keywords" content="qrcodejs,wechat,MutationObserver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 qrcodejs 生成二维码的几个问题">
+<meta property="og:url" content="https://github.com/xianshenglu/blog/2018/10/problems-met-when-using-qrcodejs/index.html">
+<meta property="og:site_name" content="Hey , you !">
+<meta property="og:description" content="Preface 产品希望我这边下载页面加个二维码，可以扫描下载 APP，并且希望二维码中有公司的 logo，很合理的需求，不过实现的时候依旧遇到了几个问题，在此记录下。 Main 二维码的实现逻辑我当然没有这个时间去研究，直接用的 qrcodejs。官方给的 demo 是最简单的版本，各种各样的需求都是在 issues 里找到的提示，似乎这个库已经很久没有人去维护了，虽然 star 是很多。 官网">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/10/images/%E6%88%AA%E5%9B%BE20181003145142.png">
+<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/10/images/%E6%88%AA%E5%9B%BE20181003164515.png">
+<meta property="og:updated_time" content="2023-08-12T15:34:48.298Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 qrcodejs 生成二维码的几个问题">
+<meta name="twitter:description" content="Preface 产品希望我这边下载页面加个二维码，可以扫描下载 APP，并且希望二维码中有公司的 logo，很合理的需求，不过实现的时候依旧遇到了几个问题，在此记录下。 Main 二维码的实现逻辑我当然没有这个时间去研究，直接用的 qrcodejs。官方给的 demo 是最简单的版本，各种各样的需求都是在 issues 里找到的提示，似乎这个库已经很久没有人去维护了，虽然 star 是很多。 官网">
+<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2018/10/images/%E6%88%AA%E5%9B%BE20181003145142.png">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Hey , you !" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Hey , you !</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/xianshenglu/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-problems-met-when-using-qrcodejs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/10/problems-met-when-using-qrcodejs/" class="article-date">
+  <time datetime="2018-10-03T06:03:57.000Z" itemprop="datePublished">2018-10-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/javascript/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用 qrcodejs 生成二维码的几个问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2>Preface</h2>
+<p>产品希望我这边下载页面加个二维码，可以扫描下载 APP，并且希望二维码中有公司的 logo，很合理的需求，不过实现的时候依旧遇到了几个问题，在此记录下。</p>
+<h2>Main</h2>
+<p>二维码的实现逻辑我当然没有这个时间去研究，直接用的 <a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a>。官方给的 demo 是最简单的版本，各种各样的需求都是在 issues 里找到的提示，似乎这个库已经很久没有人去维护了，虽然 star 是很多。</p>
+<h4>官网示例（改编）</h4>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"qrcode"</span> <span class="attr">class</span>=<span class="string">"qrcode"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.qrcode</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid green;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> qrcodeEl = <span class="built_in">document</span>.getElementById(<span class="string">'qrcode'</span>)</span><br><span class="line"><span class="keyword">let</span> qrcode = <span class="keyword">new</span> QRCode(qrcodeEl, &#123;</span><br><span class="line">  text: <span class="string">'https://avatars1.githubusercontent.com/u/23273077'</span>,</span><br><span class="line">  width: <span class="number">128</span>,</span><br><span class="line">  height: <span class="number">128</span>,</span><br><span class="line">  colorDark: <span class="string">'#000000'</span>,</span><br><span class="line">  colorLight: <span class="string">'#ffffff'</span>,</span><br><span class="line">  correctLevel: QRCode.CorrectLevel.H</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>效果如图：</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181003145142.png" alt="截图20181003145142.png"></p>
+<h4>尺寸控制</h4>
+<p>我给官网的示例加上了边框，二维码的尺寸和 js 里的尺寸不一样，这个缺点立马就暴露出来了。</p>
+<p>我很可能是想生成的二维码填满传入的 <code>qrcode</code> 元素的，但是这里的 <code>width</code> 不支持 100%，更不支持 <code>vw</code> 这种尺寸单位了。当然，我可以用 <code>qrcode.offsetWidth</code> 来解决这个问题，但是如果 <code>qrcode</code> 的尺寸后期会动态修改的话，那不还是会有问题么。</p>
+<p>经 SO 的提示，发现了一个好方案，</p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.qrcode</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid green;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.qrcode</span> <span class="selector-tag">canvas</span> + <span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以了，不过仍然有个不足，**就是二维码有失真。经测试，只有传入的尺寸和 <code>qrcode</code> 的尺寸一样时，才不会失真，所以传入的尺寸还是需要动态计算。**不过，可以试试 svg 的 qrcode 库，svg 不会出现这个问题。</p>
+<h4>加 logo 的二维码</h4>
+<p><a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a> 并没有提供这个 API，issues 里有人给了 demo，其实就是在原有元素上覆盖一个 logo 就可以了，虽然遮盖了原有二维码的一部分，但是实测并不影响扫描。不过我没有进行大规模测试，<strong>可能会有一定的错误率。</strong></p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"qrcode"</span> <span class="attr">class</span>=<span class="string">"qrcode"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">    <span class="attr">src</span>=<span class="string">"https://avatars1.githubusercontent.com/u/23273077"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">class</span>=<span class="string">"qrcode__logo"</span></span></span><br><span class="line"><span class="tag">  /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.qrcode</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid green;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.qrcode</span> <span class="selector-tag">canvas</span> + <span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.qrcode__logo</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">10%</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如图：</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20181003164515.png" alt="截图20181003164515.png"></p>
+<h4>检测二维码的生成</h4>
+<p>某些情况下，我需要重用二维码，在这种情况下，我发现，二维码的生成是异步的，譬如：</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> qrcodeEl = <span class="built_in">document</span>.getElementById(<span class="string">'qrcode'</span>)</span><br><span class="line"><span class="keyword">let</span> qrcode = <span class="keyword">new</span> QRCode(qrcodeEl, &#123;</span><br><span class="line">  text: <span class="string">'https://avatars1.githubusercontent.com/u/23273077'</span>,</span><br><span class="line">  width: <span class="number">200</span>,</span><br><span class="line">  height: <span class="number">200</span>,</span><br><span class="line">  colorDark: <span class="string">'#000000'</span>,</span><br><span class="line">  colorLight: <span class="string">'#ffffff'</span>,</span><br><span class="line">  correctLevel: QRCode.CorrectLevel.H</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">let</span> qrcodeImg = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.qrcode canvas+img'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'qrcodeImg.src'</span>, qrcodeImg.src)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'qrcodeImg.src'</span>, qrcodeImg.src)</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure></p>
+<p>第一个日志就是空白的，第二个才有 base64。搞笑的是，<a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a> 也没有给出回调或者通知告诉用户什么时候生成完毕。</p>
+<p>这个问题也是在 issues 里找到的提示，关键点在于 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver" target="_blank" rel="noopener">MutationObserver</a>。</p>
+<p>这个 API 很少在项目中用，因为不兼容性 ie11-，但是有时在几千行代码里 debug 时会用，尤其是我怀疑中间有代码改了某个元素的属性，确又找不到证据或者找不到哪段代码时，会用这个来监测下。在这里的用法如下：</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> qrcodeEl = <span class="built_in">document</span>.getElementById(<span class="string">'qrcode'</span>)</span><br><span class="line"><span class="keyword">let</span> qrcode = <span class="keyword">new</span> QRCode(qrcodeEl, &#123;</span><br><span class="line">  text: <span class="string">'https://avatars1.githubusercontent.com/u/23273077'</span>,</span><br><span class="line">  width: <span class="number">200</span>,</span><br><span class="line">  height: <span class="number">200</span>,</span><br><span class="line">  colorDark: <span class="string">'#000000'</span>,</span><br><span class="line">  colorLight: <span class="string">'#ffffff'</span>,</span><br><span class="line">  correctLevel: QRCode.CorrectLevel.H</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">let</span> qrcodeImg = <span class="built_in">document</span>.querySelector(<span class="string">'.qrcode canvas+img'</span>)</span><br><span class="line">listenQrcodeSrc()</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">listenQrcodeSrc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> observeConfig = &#123; <span class="attr">attributes</span>: <span class="literal">true</span> &#125;</span><br><span class="line">  <span class="keyword">var</span> observeCb = <span class="function"><span class="keyword">function</span>(<span class="params">mutationsList, observer</span>) </span>&#123;</span><br><span class="line">    mutationsList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">mutation</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        mutation.type.toLowerCase() === <span class="string">'attributes'</span> &amp;&amp;</span><br><span class="line">        mutation.attributeName.toLowerCase() === <span class="string">'src'</span></span><br><span class="line">      ) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'qrcodeImg src done!'</span>, mutation.target.src)</span><br><span class="line">        observer.disconnect()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> MutationObserver !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> observer = <span class="keyword">new</span> MutationObserver(observeCb)</span><br><span class="line">    observer.observe(qrcodeImg, observeConfig)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4>微信中二维码要放在 <code>img</code> 中，不能放在 <code>background-image</code></h4>
+<p>2019.1.31 ，微信 7.0.0 亲测</p>
+<h4>微信中多个二维码在一起识别错误</h4>
+<p>这个问题，我也遇到了，根据网友的提示，微信是截屏识别的，所以会出现这种问题。我测试的结果是，左右两个，永远识别的右边的那个。网上有好几种方案：</p>
+<ul>
+<li>调透明度和层级</li>
+</ul>
+<p>最初尝试过，结果发现失败，等到成功的时候，透明度已经小于 0.5 了，视觉差异太明显，所以放弃了这个方案。</p>
+<ul>
+<li>替换二维码</li>
+</ul>
+<p>最终采取的是这个，这个也有问题，就是用户会看到二维码变化的过程，除非你把多个二维码做得很像。</p>
+<p>假设，我们要显示两个二维码，所谓替换二维码，其实也就是在多个 <code>img.src</code> 属性里切换，可以把实际的二维码保存在 <code>data-real-src</code> 属性里，然后在用户 <code>touchstart</code> 事件中，替换另一个 <code>img</code> 的 <code>src</code> 为当前按下的这个，然后在 <code>touchend</code> 事件中再改回来，因为原来的地址都保存在 <code>data-real-src</code> 属性里。</p>
+<p>这里就用到了前面提到的检测 <code>src</code> 属性来判断 <code>qrcode</code> 生成完毕，否则一开始直接把 <code>src</code> 属性赋给 <code>data-real-src</code> 属性，就是空白。</p>
+<p>示例代码（这里代码跟前面脱节了，dom 是另外的结构，仅作为示例代码）：</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//* pubMethods 是类似 jq 的一些 API 的汇总对象</span></span><br><span class="line"><span class="keyword">var</span> qrcodeImgs = pubMethods.$(<span class="string">'.download__qrcode-box canvas+img'</span>)</span><br><span class="line">listenQrcodeSrc()</span><br><span class="line"><span class="keyword">var</span> downloadBox = pubMethods.$(<span class="string">'.download'</span>)[<span class="number">0</span>]</span><br><span class="line">downloadBox.addEventListener(<span class="string">'touchstart'</span>, changeQrcodeSrcToOne)</span><br><span class="line">downloadBox.addEventListener(<span class="string">'touchend'</span>, changeQrcodeSrcBack)</span><br><span class="line">downloadBox.addEventListener(<span class="string">'touchcancel'</span>, changeQrcodeSrcBack)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">listenQrcodeSrc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> observeConfig = &#123; <span class="attr">attributes</span>: <span class="literal">true</span> &#125;</span><br><span class="line">  <span class="keyword">var</span> observeCb = <span class="function"><span class="keyword">function</span>(<span class="params">mutationsList, observer</span>) </span>&#123;</span><br><span class="line">    mutationsList.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">mutation</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        mutation.type.toLowerCase() === <span class="string">'attributes'</span> &amp;&amp;</span><br><span class="line">        mutation.attributeName.toLowerCase() === <span class="string">'src'</span></span><br><span class="line">      ) &#123;</span><br><span class="line">        mutation.target.setAttribute(<span class="string">'data-real-src'</span>, mutation.target.src)</span><br><span class="line">        observer.disconnect()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  qrcodeImgs.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> MutationObserver !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> observer = <span class="keyword">new</span> MutationObserver(observeCb)</span><br><span class="line">      observer.observe(ele, observeConfig)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeQrcodeSrcToOne</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> target = event.target</span><br><span class="line">  <span class="keyword">var</span> getQrcodeBox = pubMethods.closest(</span><br><span class="line">    target,</span><br><span class="line">    <span class="string">'.download__qrcode-box'</span>,</span><br><span class="line">    downloadBox</span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">if</span> (getQrcodeBox) &#123;</span><br><span class="line">    <span class="keyword">var</span> targetImg = qrcodeImgs.filter(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> getQrcodeBox.contains(ele)</span><br><span class="line">    &#125;)[<span class="number">0</span>]</span><br><span class="line">    qrcodeImgs.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">      ele.src = targetImg.getAttribute(<span class="string">'data-real-src'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeQrcodeSrcBack</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  qrcodeImgs.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">    ele.src = ele.getAttribute(<span class="string">'data-real-src'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/34546241/make-qr-code-full-width" target="_blank" rel="noopener">Make qr code full width</a></p>
+</li>
+<li>
+<p><a href="https://www.zhihu.com/question/35246592" target="_blank" rel="noopener">微信中有两个挨着二维码长按识别的问题?</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/xianshenglu/blog/2018/10/problems-met-when-using-qrcodejs/" data-id="cllb0y5cf00307wydp3kq7bnf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/mutationobserver/">MutationObserver</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/qrcodejs/">qrcodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/wechat/">wechat</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2018/10/x-ua-compatible-and-ie-edge/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          X-UA-Compatible and ie=edge
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2018/10/set-custom-style-of-share-in-wechat/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">自定义微信分享样式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web-performance-optimization/">Web Performance Optimization</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/browser/">browser</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/code-quality/">code-quality</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/frame/">frame</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/http/">http</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/software/">software</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/summary/">summary</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/attrs/">$attrs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/listeners/">$listeners</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/nexttick/">$nextTick</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">--vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/sync/">.sync</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/192-168-x-x/">192.168.x.x</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blob/">Blob</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css-variables/">CSS variables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chinese/">Chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">Chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dom/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dommousescroll/">DOMMouseScroll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dpr/">DPR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint/">ESLint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/edge/">Edge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/excel/">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ie/">IE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ios/">IOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lan/">LAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lighthouse/">LightHouse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mutationobserver/">MutationObserver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tcp/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/urlsearchparams/">URLSearchParams</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/virtualbox/">VirtualBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wheelevent/">WheelEvent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/x-ua-compatible/">X-UA-Compatible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/xmlhttprequest/">XMLHttpRequest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ant-design-vue/">ant-design-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/apply/">apply</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/arraybuffer/">arrayBuffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/audio/">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/autoplay/">autoplay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/babel/">babel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/babel-eslint/">babel-eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/background-color/">background-color</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bug/">bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/call/">call</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chinese/">chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/codestyle/">codeStyle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/console-log/">console.log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/content/">content</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/content-area/">content area</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/contenteditable/">contentEditable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/contextmenu/">contextmenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css-pixel/">css pixel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/debug/">debug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/delta/">delta</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/device-pixel/">device pixel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/device-width/">device-width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/display/">display</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dotenv/">dotenv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/element-ui/">element-ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/env/">env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint-config-prettier/">eslint-config-prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint-plugin-vue/">eslint-plugin-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-bubbling/">event bubbling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-capturing/">event capturing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-delegate/">event delegate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fetch/">fetch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/firefox/">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/flex/">flex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/focus/">focus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/font/">font</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/font-family/">font-family</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fontmin/">fontmin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/form/">form</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/htmlhint/">htmlhint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-equiv/">http-equiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-1-1/">http/1.1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-2-0/">http/2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/husky/">husky</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ie-edge/">ie=edge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/image-load-error/">image load error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/img/">img</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/initial-scale/">initial-scale</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/inline-non-replaced-element/">inline non-replaced element</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/inline-block/">inline-block</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/key/">key</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/label/">label</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/layout-viewport/">layout viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/letter-spacing/">letter-spacing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lint-staged/">lint-staged</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/meta/">meta</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/min-height/">min-height</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mobile/">mobile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mouseup/">mouseup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mousewheel/">mousewheel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ms/">ms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/multiple-choice-cascader/">multiple-choice-cascader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/orientationchange/">orientationchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/override-css/">override.css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/performance/">performance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/preventdefault/">preventDefault</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/qq/">qq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/qrcodejs/">qrcodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/reduce/">reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/rem/">rem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/requestanimationframe/">requestAnimationFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/retina/">retina</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/scrollto/">scrollTo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/settimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/share/">share</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/smooth-scroll/">smooth-scroll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint/">stylelint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint-config-prettier/">stylelint-config-prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint-config-recommended/">stylelint-config-recommended</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/table/">table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/text-align/">text-align</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/text-align-last/">text-align-last</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/user-scalable/">user-scalable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vh/">vh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/viewport/">viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/visual-viewport/">visual viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vw/">vw</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wheel/">wheel</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/attrs/" style="font-size: 10px;">$attrs</a> <a href="/blog/tags/listeners/" style="font-size: 10px;">$listeners</a> <a href="/blog/tags/nexttick/" style="font-size: 10px;">$nextTick</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">--vscode</a> <a href="/blog/tags/sync/" style="font-size: 10px;">.sync</a> <a href="/blog/tags/192-168-x-x/" style="font-size: 10px;">192.168.x.x</a> <a href="/blog/tags/blob/" style="font-size: 13.33px;">Blob</a> <a href="/blog/tags/css-variables/" style="font-size: 10px;">CSS variables</a> <a href="/blog/tags/chinese/" style="font-size: 10px;">Chinese</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">Chrome</a> <a href="/blog/tags/dom/" style="font-size: 10px;">DOM</a> <a href="/blog/tags/dommousescroll/" style="font-size: 10px;">DOMMouseScroll</a> <a href="/blog/tags/dpr/" style="font-size: 13.33px;">DPR</a> <a href="/blog/tags/eslint/" style="font-size: 13.33px;">ESLint</a> <a href="/blog/tags/edge/" style="font-size: 10px;">Edge</a> <a href="/blog/tags/excel/" style="font-size: 10px;">Excel</a> <a href="/blog/tags/ie/" style="font-size: 10px;">IE</a> <a href="/blog/tags/ios/" style="font-size: 10px;">IOS</a> <a href="/blog/tags/lan/" style="font-size: 10px;">LAN</a> <a href="/blog/tags/lighthouse/" style="font-size: 10px;">LightHouse</a> <a href="/blog/tags/mutationobserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/tcp/" style="font-size: 10px;">TCP</a> <a href="/blog/tags/urlsearchparams/" style="font-size: 10px;">URLSearchParams</a> <a href="/blog/tags/virtualbox/" style="font-size: 10px;">VirtualBox</a> <a href="/blog/tags/wheelevent/" style="font-size: 10px;">WheelEvent</a> <a href="/blog/tags/x-ua-compatible/" style="font-size: 10px;">X-UA-Compatible</a> <a href="/blog/tags/xmlhttprequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/blog/tags/ant-design-vue/" style="font-size: 10px;">ant-design-vue</a> <a href="/blog/tags/apply/" style="font-size: 10px;">apply</a> <a href="/blog/tags/arraybuffer/" style="font-size: 10px;">arrayBuffer</a> <a href="/blog/tags/audio/" style="font-size: 10px;">audio</a> <a href="/blog/tags/autoplay/" style="font-size: 10px;">autoplay</a> <a href="/blog/tags/babel/" style="font-size: 10px;">babel</a> <a href="/blog/tags/babel-eslint/" style="font-size: 10px;">babel-eslint</a> <a href="/blog/tags/background-color/" style="font-size: 10px;">background-color</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/browser/" style="font-size: 10px;">browser</a> <a href="/blog/tags/bug/" style="font-size: 16.67px;">bug</a> <a href="/blog/tags/call/" style="font-size: 10px;">call</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chinese/" style="font-size: 10px;">chinese</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/blog/tags/codestyle/" style="font-size: 10px;">codeStyle</a> <a href="/blog/tags/console-log/" style="font-size: 10px;">console.log</a> <a href="/blog/tags/content/" style="font-size: 13.33px;">content</a> <a href="/blog/tags/content-area/" style="font-size: 10px;">content area</a> <a href="/blog/tags/contenteditable/" style="font-size: 10px;">contentEditable</a> <a href="/blog/tags/contextmenu/" style="font-size: 10px;">contextmenu</a> <a href="/blog/tags/css-pixel/" style="font-size: 10px;">css pixel</a> <a href="/blog/tags/debug/" style="font-size: 10px;">debug</a> <a href="/blog/tags/delta/" style="font-size: 10px;">delta</a> <a href="/blog/tags/device-pixel/" style="font-size: 10px;">device pixel</a> <a href="/blog/tags/device-width/" style="font-size: 13.33px;">device-width</a> <a href="/blog/tags/display/" style="font-size: 10px;">display</a> <a href="/blog/tags/dotenv/" style="font-size: 10px;">dotenv</a> <a href="/blog/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/blog/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/blog/tags/env/" style="font-size: 10px;">env</a> <a href="/blog/tags/eslint-config-prettier/" style="font-size: 10px;">eslint-config-prettier</a> <a href="/blog/tags/eslint-plugin-vue/" style="font-size: 10px;">eslint-plugin-vue</a> <a href="/blog/tags/event-bubbling/" style="font-size: 10px;">event bubbling</a> <a href="/blog/tags/event-capturing/" style="font-size: 10px;">event capturing</a> <a href="/blog/tags/event-delegate/" style="font-size: 10px;">event delegate</a> <a href="/blog/tags/fetch/" style="font-size: 10px;">fetch</a> <a href="/blog/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/blog/tags/flex/" style="font-size: 13.33px;">flex</a> <a href="/blog/tags/focus/" style="font-size: 13.33px;">focus</a> <a href="/blog/tags/font/" style="font-size: 10px;">font</a> <a href="/blog/tags/font-family/" style="font-size: 10px;">font-family</a> <a href="/blog/tags/fontmin/" style="font-size: 10px;">fontmin</a> <a href="/blog/tags/form/" style="font-size: 10px;">form</a> <a href="/blog/tags/github/" style="font-size: 10px;">github</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/htmlhint/" style="font-size: 10px;">htmlhint</a> <a href="/blog/tags/http-equiv/" style="font-size: 10px;">http-equiv</a> <a href="/blog/tags/http-1-1/" style="font-size: 10px;">http/1.1</a> <a href="/blog/tags/http-2-0/" style="font-size: 10px;">http/2.0</a> <a href="/blog/tags/husky/" style="font-size: 10px;">husky</a> <a href="/blog/tags/ie-edge/" style="font-size: 10px;">ie=edge</a> <a href="/blog/tags/image/" style="font-size: 10px;">image</a> <a href="/blog/tags/image-load-error/" style="font-size: 10px;">image load error</a> <a href="/blog/tags/img/" style="font-size: 10px;">img</a> <a href="/blog/tags/initial-scale/" style="font-size: 13.33px;">initial-scale</a> <a href="/blog/tags/inline-non-replaced-element/" style="font-size: 10px;">inline non-replaced element</a> <a href="/blog/tags/inline-block/" style="font-size: 10px;">inline-block</a> <a href="/blog/tags/key/" style="font-size: 10px;">key</a> <a href="/blog/tags/label/" style="font-size: 10px;">label</a> <a href="/blog/tags/layout/" style="font-size: 10px;">layout</a> <a href="/blog/tags/layout-viewport/" style="font-size: 10px;">layout viewport</a> <a href="/blog/tags/letter-spacing/" style="font-size: 10px;">letter-spacing</a> <a href="/blog/tags/lint-staged/" style="font-size: 10px;">lint-staged</a> <a href="/blog/tags/meta/" style="font-size: 13.33px;">meta</a> <a href="/blog/tags/min-height/" style="font-size: 10px;">min-height</a> <a href="/blog/tags/mobile/" style="font-size: 20px;">mobile</a> <a href="/blog/tags/mouseup/" style="font-size: 10px;">mouseup</a> <a href="/blog/tags/mousewheel/" style="font-size: 10px;">mousewheel</a> <a href="/blog/tags/ms/" style="font-size: 10px;">ms</a> <a href="/blog/tags/multiple-choice-cascader/" style="font-size: 10px;">multiple-choice-cascader</a> <a href="/blog/tags/orientationchange/" style="font-size: 13.33px;">orientationchange</a> <a href="/blog/tags/override-css/" style="font-size: 10px;">override.css</a> <a href="/blog/tags/performance/" style="font-size: 13.33px;">performance</a> <a href="/blog/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/blog/tags/preventdefault/" style="font-size: 10px;">preventDefault</a> <a href="/blog/tags/qq/" style="font-size: 10px;">qq</a> <a href="/blog/tags/qrcodejs/" style="font-size: 10px;">qrcodejs</a> <a href="/blog/tags/reduce/" style="font-size: 10px;">reduce</a> <a href="/blog/tags/rem/" style="font-size: 13.33px;">rem</a> <a href="/blog/tags/requestanimationframe/" style="font-size: 10px;">requestAnimationFrame</a> <a href="/blog/tags/retina/" style="font-size: 10px;">retina</a> <a href="/blog/tags/scrollto/" style="font-size: 10px;">scrollTo</a> <a href="/blog/tags/settimeout/" style="font-size: 10px;">setTimeout</a> <a href="/blog/tags/share/" style="font-size: 10px;">share</a> <a href="/blog/tags/smooth-scroll/" style="font-size: 10px;">smooth-scroll</a> <a href="/blog/tags/stylelint/" style="font-size: 10px;">stylelint</a> <a href="/blog/tags/stylelint-config-prettier/" style="font-size: 10px;">stylelint-config-prettier</a> <a href="/blog/tags/stylelint-config-recommended/" style="font-size: 10px;">stylelint-config-recommended</a> <a href="/blog/tags/table/" style="font-size: 10px;">table</a> <a href="/blog/tags/text-align/" style="font-size: 10px;">text-align</a> <a href="/blog/tags/text-align-last/" style="font-size: 10px;">text-align-last</a> <a href="/blog/tags/user-scalable/" style="font-size: 10px;">user-scalable</a> <a href="/blog/tags/vh/" style="font-size: 10px;">vh</a> <a href="/blog/tags/viewport/" style="font-size: 10px;">viewport</a> <a href="/blog/tags/visual-viewport/" style="font-size: 10px;">visual viewport</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vw/" style="font-size: 10px;">vw</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/wechat/" style="font-size: 13.33px;">wechat</a> <a href="/blog/tags/wheel/" style="font-size: 10px;">wheel</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/">Several Ways of Configuring Environment Variables in Web FrontEnd Project</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/">The Impact of Styles and Scripts Position in index.html</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/09/arraybuffer-text-blob-transformation-in-ajax/">arrayBuffer, text, and Blob Transformation in Ajax</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/08/associated-validation-in-vue/">Associated Validation in Vue</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/08/how-to-prevent-collapse-of-empty-rows-in-html-table/">How to Prevent Collapse of Empty Rows in HTML table</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 xianshenglu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

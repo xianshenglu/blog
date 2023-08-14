@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hey , you !</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hey , you !">
+<meta property="og:url" content="https://github.com/xianshenglu/blog/index.html">
+<meta property="og:site_name" content="Hey , you !">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hey , you !">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Hey , you !" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Hey , you !</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/xianshenglu/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-several-ways-of-configuring-environment-variables-in-web-frontend-project" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/" class="article-date">
+  <time datetime="2023-08-13T08:20:40.000Z" itemprop="datePublished">2023-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/javascript/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/">Several Ways of Configuring Environment Variables in Web FrontEnd Project</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>It's quite often that we need to define and use environment variables. May be in building process or runtime. There're many solutions, I'll show some of them.</p>
+<h2>Production / CI build phase</h2>
+<p><strong>Basically, we don't need to care about them, just follow the rules provided by the platform because the env variables are often set manually in the platform.</strong> For example, in the <a href="https://vercel.com/" target="_blank" rel="noopener">vercel</a></p>
+<p>&lt;img width=&quot;573&quot; alt=&quot;80205101438ebc669252f131b5b896a&quot; src=&quot;https://github.com/xianshenglu/blog/assets/23273077/8b142955-c0b2-439b-9e47-f1d374b5b153&quot;&gt;</p>
+<p>So, they will not appear in our projects' code.</p>
+<h2>Development phase</h2>
+<p><strong>If the framework you're currently using has provided such configurations, normally we don't need to care also, just follow the rules provided by the platform.</strong></p>
+<p>If not, we can consider some available solutions in the market.</p>
+<h4><a href="https://github.com/motdotla/dotenv">dotnet</a></h4>
+<p>Just put <code>.env</code> file in the root of your project:</p>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">S3_BUCKET=<span class="string">"my bucket"</span></span><br><span class="line">SECRET_KEY=<span class="string">"my secret key"</span></span><br></pre></td></tr></table></figure></p>
+<p>Then as early as possible in your application, import and configure <code>dotenv</code>:</p>
+<p><figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'dotenv'</span>).config()</span><br><span class="line"><span class="built_in">console</span>.log(process.env) <span class="comment">// remove this after you've confirmed it is working</span></span><br></pre></td></tr></table></figure></p>
+<p>If you don't want to add the <code>require</code> code to the source code, you can</p>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">node -r dotenv/config your_script.js</span><br></pre></td></tr></table></figure></p>
+<p>It works now.</p>
+<p>Also, for the reason of security or interruptions between team members' different configurations, I recommend putting <code>.env</code> file in the <code>.gitignore</code>.</p>
+<p>For better instruction for the new developers, you can add another <code>.env.example</code> file not in the <code>.gitignore</code> with content like</p>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># You need to create a .env file in the root with the below env variables to run this project.</span></span><br><span class="line">S3_BUCKET=<span class="string">"your bucket"</span></span><br><span class="line">SECRET_KEY=<span class="string">"your secret key"</span></span><br></pre></td></tr></table></figure></p>
+<h4><a href="https://github.com/kentcdodds/cross-env">cross-env</a></h4>
+<p>In the past, we had another popular package <code>cross-env</code>. But now, it has been archived.</p>
+<p>I think it's really straightforward for new users.</p>
+<p><figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"cross-env S3_BUCKET=\"my bucket\" npm run start"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Just with some issues:</p>
+<ul>
+<li>It'll become unfriendly if I have many env variables.</li>
+<li>I need to remove the variables before committing if I don't want to share them with others.</li>
+</ul>
+<h3>Conclusion</h3>
+<p>For me, I would prefer <code>dotenv</code> at this moment.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/148"><strong>Issue</strong></a></p>
+<p><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/.md"><strong>Source</strong></a></p>
+<h2>Reference</h2>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/xianshenglu/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/" data-id="cllb0y5ci003a7wyd1bjc13iy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/dotenv/">dotenv</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/env/">env</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-the-impact-of-styles-and-scripts-position-in-index.html" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/" class="article-date">
+  <time datetime="2020-03-17T13:42:02.000Z" itemprop="datePublished">2020-03-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/browser/">browser</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/">The Impact of Styles and Scripts Position in index.html</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2>Preface</h2>
+<p>For a long time, I was thinking if the <em>.css</em> files would block DOM parsing and rendering. It seems I got different results sometimes. So, I decided to test and summarize the behaviors carefully with chrome.</p>
+<p>Let's begin.</p>
+<h3>Put <em>.css</em> Files in the <code>&lt;head&gt;</code></h3>
+<p>Normally, we would put the <em>.css</em> files in the head and <em>.js</em> files at the bottom of <code>&lt;body&gt;</code>. For example,</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>MyApp<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./static/app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Say we blocked the <em>.css</em> files request by fiddler. And here are the questions,</p>
+<ul>
+<li>Would <em>header.css</em> block DOM parsing and rendering?</li>
+<li>Would <em>header.css</em> block <em>main.css</em>, <em>app.js</em> and other resources fetching?</li>
+</ul>
+<p>And here are the results.</p>
+<p><img src="../images/1584456970837.gif" alt></p>
+<ol>
+<li><em>header.css</em> won't block DOM parsing.</li>
+<li><em>header.css</em>, <em>main.css</em> all blocked rendering which means <strong>the page would be always blank until all the <em>.css</em> files request in the <code>&lt;head&gt;</code> finished.</strong></li>
+<li><em>header.css</em> won't block <em>main.css</em>, <em>app.js</em> and other resources fetching. Though the codes in the resources won't be executed in advance!</li>
+<li>After <em>header.css</em>, <em>main.css</em> loaded and parsed, we will get the first paint.</li>
+<li>Then <em>app.js</em> was fetched, parsed and executed with DOM parsing and rendering blocked.</li>
+<li>After <em>app.js</em> was executed, DOM parsing and rendering keep working.</li>
+<li>DOM parsing complete.</li>
+<li>Rendering complete.</li>
+</ol>
+<h3>Put <em>.css</em> Files in the <code>&lt;body&gt;</code></h3>
+<p>It is not very common to see this usage recently. However, test is still needed if we want to know more. Consider the following code,</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>MyApp<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./static/app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Say I still block all the <em>.css</em> files with fiddler. What would the results be?</p>
+<p><img src="../images/1584452497349.gif" alt></p>
+<p>As you can see,</p>
+<ol>
+<li>
+<p><strong>The DOM parsing and rendering would work before they met <em>header.css</em> in the <code>&lt;body&gt;</code> which would get an earlier first paint</strong>. User can see something(usually there is a loading bar) before the styles in <code>&lt;body&gt;</code> loaded.</p>
+</li>
+<li>
+<p><em>header.css</em> <strong>blocked DOM parsing</strong>, hence blocked rendering.</p>
+</li>
+<li>
+<p><em>header.css</em> didn't block other files fetching and <em>app.js</em> is still not executed in advance!</p>
+</li>
+<li>
+<p>After <em>header.css</em> was loaded, <strong>the DOM parsing and rendering keeps working</strong>. Then blocked by <em>main.css</em> again. However, user can see the header now!</p>
+</li>
+<li>
+<p>After <em>main.css</em> was loaded, <em>app.js</em> is executed!</p>
+</li>
+<li>
+<p>DOM parsing complete</p>
+</li>
+<li>
+<p>Rendering complete.</p>
+</li>
+</ol>
+<p>Compared with the first example, we can find the difference is that</p>
+<ul>
+<li><em>.css</em> files in the <code>&lt;body&gt;</code> would block DOM parsing while <em>.css</em> files in the <code>&lt;head&gt;</code> wouldn't though they both blocked rendering.</li>
+</ul>
+<p>Hence, if we put the styles in the <code>&lt;head&gt;</code>, we can make use of the time of styles downloading and parsing to parse more DOM.</p>
+<p>However, <em>.css</em> files in the <code>&lt;body&gt;</code> would get a faster first paint and is closer to a progressive loading webpage . That's because it doesn't need to load all the styles in the <code>&lt;head&gt;</code> and allow content above the <code>&lt;link&gt;</code> to render.</p>
+<p>Assuming that the requests of the styles need 1 second, let's see the following demo.</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- demo1 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/app.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/footer.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- demo2 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/app.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/footer.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Demo2 would render the page after all the styles loaded while demo1 would load and render step by step. Assuming that there is a 1 second delay in <em>main.css</em>, the results would be:</p>
+<p><em>styles in head</em></p>
+<p><img src="../images/%7B65466B88-0183-435E-AA55-0682FCE52CA5%7D_20200328210103.jpg" alt="styles in head"></p>
+<p><em>styles in body</em></p>
+<p><img src="../images/70C9BEB6-EEB8-4795-A265-FE71D7605ED4.png" alt="styles in body"></p>
+<p>As you can see, the result of <em>styles in body</em> might be more acceptable and expected. However, with that way we might need more code because we haven't taken consideration of <code>script</code>. Things can be more complicated in production.</p>
+<h3>Put <em>.js</em> Files in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code></h3>
+<p>Actually, it works like styles in <code>&lt;body&gt;</code> where we put it in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code>. The script without <code>async</code> and <code>deferred</code> would block DOM parsing and rendering. Actually, it is specified in W3C specifications.</p>
+<blockquote>
+<p>For classic scripts, if the async attribute is present, then the classic script will be fetched in parallel to parsing and evaluated as soon as it is available (potentially before parsing completes).
+If the async attribute is not present but the defer attribute is present, then the classic script will be fetched in parallel and evaluated when the page has finished parsing.
+If neither attribute is present, then the script is fetched and evaluated immediately, blocking parsing until these are both complete.</p>
+</blockquote>
+<p>Hence for better experience we can add a loading before the script. So it's common to put the scripts at the bottom of <code>&lt;body&gt;</code> to let the loading dom be parsed and rendering first.</p>
+<h3>Inline Scripts Blocks Rendering</h3>
+<p>It's also worth mentioning that if we put an inline script at the bottom of the <code>&lt;body&gt;</code> the nearest or even all DOM and styles rendering before the script would be blocked until the script was executed. You can use code below to test</p>
+<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/app.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/footer.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> startTime = <span class="built_in">Date</span>.now();</span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> interval = <span class="number">0</span>;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">while</span> ((interval = <span class="built_in">Date</span>.now() - startTime) &lt; <span class="number">10000</span>) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (interval % <span class="number">1000</span> === <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(interval / <span class="number">1000</span> + <span class="string">" second passed"</span>);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>In that case, users might not see the loading bar. So take care of the inline scripts.</p>
+<h2>End</h2>
+<p>The above tests are tested in windows7 Chrome 80.0.3987.106.</p>
+<h2>References</h2>
+<p><a href="https://jakearchibald.com/2016/link-in-body/" target="_blank" rel="noopener">The future of loading CSS</a></p>
+<p><a href="https://github.com/xianshenglu/blog/issues/103"><strong>Source</strong></a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/xianshenglu/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/" data-id="cllb0y5cm003i7wydvlbuzo5j" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/chrome/">Chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/dom/">DOM</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-arraybuffer-text-blob-transformation-in-ajax" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2019/09/arraybuffer-text-blob-transformation-in-ajax/" class="article-date">
+  <time datetime="2019-09-04T02:43:12.000Z" itemprop="datePublished">2019-09-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/javascript/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/09/arraybuffer-text-blob-transformation-in-ajax/">arrayBuffer, text, and Blob Transformation in Ajax</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>In some cases, we might need to fetch and handle some unusual data from a server, for example, Excel file, arrayBuffer, etc. If the backend has a united error handler things can be more complicated. In that case, the response got from backend can be a json, arrayBuffer or other types. For example,</p>
+<ul>
+<li>Normally the frontend would get a Excel file</li>
+<li>If some error happens in the backend or formData is not valid or the session expired, the backend would return a json like</li>
+</ul>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  message: <span class="string">"unknown error!"</span>,</span><br><span class="line">  status: <span class="number">500</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>So, how can we handle the unknown response type in ajax?</p>
+<h3><code>fetch</code></h3>
+<p>If we are using <code>fetch</code>, the code can be like</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; saveAs &#125; <span class="keyword">from</span> <span class="string">"file-saver"</span>;</span><br><span class="line"></span><br><span class="line">fetch(<span class="string">"http://www.your-api.com/getExcel"</span>, &#123;</span><br><span class="line">  credentials: <span class="string">"include"</span>,</span><br><span class="line">  headers: &#123;</span><br><span class="line">    accept: <span class="string">"application/json, text/plain, */*"</span>,</span><br><span class="line">    <span class="string">"content-type"</span>: <span class="string">"application/json;charset=UTF-8"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  referrer: <span class="string">""</span>,</span><br><span class="line">  referrerPolicy: <span class="string">"no-referrer-when-downgrade"</span>,</span><br><span class="line">  body: <span class="string">"&#123;&#125;"</span>,</span><br><span class="line">  method: <span class="string">"POST"</span>,</span><br><span class="line">  mode: <span class="string">"cors"</span></span><br><span class="line">&#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line">      .clone()</span><br><span class="line">      .json()</span><br><span class="line">      .catch(<span class="function"><span class="params">er</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> response.blob();</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (&#123;&#125;.toString.call(response) !== <span class="string">"[object Blob]"</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> alert(response.message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> saveAs(</span><br><span class="line">      <span class="keyword">new</span> Blob([response], &#123;</span><br><span class="line">        type:</span><br><span class="line">          <span class="string">"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"</span></span><br><span class="line">      &#125;),</span><br><span class="line">      <span class="string">"file.xls"</span></span><br><span class="line">    );</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>The key is the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response" target="_blank" rel="noopener">Response</a> api which can help us transform unknown data to json or blob or other types. However, you might need to take care of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response/clone" target="_blank" rel="noopener"><code>clone</code></a> api if you want to use the <code>Response</code> more than once.</p>
+<h3><code>XMLHttpRequest</code></h3>
+<p>If you are using <code>xhr</code>(i.e. <code>XMLHttpRequest</code>), you have to set the response type before sending the request. For example,</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">"POST"</span>, <span class="string">"http://www.your-api.com/getExcel"</span>);</span><br><span class="line">xhr.responseType = <span class="string">"blob"</span>;</span><br><span class="line">xhr.withCredentials = <span class="literal">true</span>;</span><br><span class="line">xhr.setRequestHeader(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>);</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(xhr.response);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.send(<span class="string">'&#123;"truck_team_id":[]&#125;'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>And the type of <code>xhr.response</code> is decided by <code>xhr.responseType</code> which means we will get a blob object with <code>xhr.responseType = &quot;blob&quot;</code> even if the server returns json. In this case, we might need to know some ways to transform data between blob, text, arrayBuffer, etc.</p>
+<p>Luckily, the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob#Methods" target="_blank" rel="noopener">Blob</a> api gives us many choices. The transformation between arrayBuffer, blob and text can be</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// arrayBuffer =&gt; text;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Blob([arrayBuffer]).text(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">//text</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// text =&gt; arrayBuffer;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Blob([text]).arrayBuffer(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">// arrayBuffer</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>And if not using <code>Blob</code>, we can still use <code>TextDecoder</code> and <code>TextEncoder</code> to do the transformation job between arrayBuffer and text.</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// arrayBuffer to text</span></span><br><span class="line"><span class="keyword">new</span> TextDecoder().decode(arrayBuffer);</span><br><span class="line"><span class="comment">//  text to arrayBuffer</span></span><br><span class="line"><span class="keyword">new</span> TextEncoder().encode(text);</span><br></pre></td></tr></table></figure></p>
+<h3>Universality</h3>
+<p>Considering the universality, the transformation between arrayBuffer, blob and text can be useful in many scenarios. Worthy of attention!</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/101"><strong>Issue</strong></a></p>
+<p><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/arraybuffer-text-blob-transformation-in-ajax.md"><strong>Source</strong></a></p>
+<h2>Reference</h2>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/xianshenglu/blog/2019/09/arraybuffer-text-blob-transformation-in-ajax/" data-id="cllb0y5b8000u7wydctgl9dcu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/blob/">Blob</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/excel/">Excel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/xmlhttprequest/">XMLHttpRequest</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/arraybuffer/">arrayBuffer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/fetch/">fetch</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/17/">17</a><a class="extend next" rel="next" href="/blog/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web-performance-optimization/">Web Performance Optimization</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/browser/">browser</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/code-quality/">code-quality</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/frame/">frame</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/http/">http</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/software/">software</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/summary/">summary</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/attrs/">$attrs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/listeners/">$listeners</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/nexttick/">$nextTick</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">--vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/sync/">.sync</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/192-168-x-x/">192.168.x.x</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blob/">Blob</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css-variables/">CSS variables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chinese/">Chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">Chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dom/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dommousescroll/">DOMMouseScroll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dpr/">DPR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint/">ESLint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/edge/">Edge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/excel/">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ie/">IE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ios/">IOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lan/">LAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lighthouse/">LightHouse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mutationobserver/">MutationObserver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tcp/">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/urlsearchparams/">URLSearchParams</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/virtualbox/">VirtualBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wheelevent/">WheelEvent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/x-ua-compatible/">X-UA-Compatible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/xmlhttprequest/">XMLHttpRequest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ant-design-vue/">ant-design-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/apply/">apply</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/arraybuffer/">arrayBuffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/audio/">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/autoplay/">autoplay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/babel/">babel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/babel-eslint/">babel-eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/background-color/">background-color</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bug/">bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/call/">call</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chinese/">chinese</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/codestyle/">codeStyle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/console-log/">console.log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/content/">content</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/content-area/">content area</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/contenteditable/">contentEditable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/contextmenu/">contextmenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css-pixel/">css pixel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/debug/">debug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/delta/">delta</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/device-pixel/">device pixel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/device-width/">device-width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/display/">display</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/dotenv/">dotenv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/efficiency/">efficiency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/element-ui/">element-ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/env/">env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint-config-prettier/">eslint-config-prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/eslint-plugin-vue/">eslint-plugin-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-bubbling/">event bubbling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-capturing/">event capturing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/event-delegate/">event delegate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fetch/">fetch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/firefox/">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/flex/">flex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/focus/">focus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/font/">font</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/font-family/">font-family</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fontmin/">fontmin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/form/">form</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/htmlhint/">htmlhint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-equiv/">http-equiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-1-1/">http/1.1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/http-2-0/">http/2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/husky/">husky</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ie-edge/">ie=edge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/image-load-error/">image load error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/img/">img</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/initial-scale/">initial-scale</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/inline-non-replaced-element/">inline non-replaced element</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/inline-block/">inline-block</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/key/">key</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/label/">label</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/layout-viewport/">layout viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/letter-spacing/">letter-spacing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lint-staged/">lint-staged</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/meta/">meta</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/min-height/">min-height</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mobile/">mobile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mouseup/">mouseup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mousewheel/">mousewheel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ms/">ms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/multiple-choice-cascader/">multiple-choice-cascader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/orientationchange/">orientationchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/override-css/">override.css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/performance/">performance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/preventdefault/">preventDefault</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/qq/">qq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/qrcodejs/">qrcodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/reduce/">reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/rem/">rem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/requestanimationframe/">requestAnimationFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/retina/">retina</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/scrollto/">scrollTo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/settimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/share/">share</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/smooth-scroll/">smooth-scroll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint/">stylelint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint-config-prettier/">stylelint-config-prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/stylelint-config-recommended/">stylelint-config-recommended</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/table/">table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/text-align/">text-align</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/text-align-last/">text-align-last</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/user-scalable/">user-scalable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vh/">vh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/viewport/">viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/visual-viewport/">visual viewport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vw/">vw</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wheel/">wheel</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/attrs/" style="font-size: 10px;">$attrs</a> <a href="/blog/tags/listeners/" style="font-size: 10px;">$listeners</a> <a href="/blog/tags/nexttick/" style="font-size: 10px;">$nextTick</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">--vscode</a> <a href="/blog/tags/sync/" style="font-size: 10px;">.sync</a> <a href="/blog/tags/192-168-x-x/" style="font-size: 10px;">192.168.x.x</a> <a href="/blog/tags/blob/" style="font-size: 13.33px;">Blob</a> <a href="/blog/tags/css-variables/" style="font-size: 10px;">CSS variables</a> <a href="/blog/tags/chinese/" style="font-size: 10px;">Chinese</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">Chrome</a> <a href="/blog/tags/dom/" style="font-size: 10px;">DOM</a> <a href="/blog/tags/dommousescroll/" style="font-size: 10px;">DOMMouseScroll</a> <a href="/blog/tags/dpr/" style="font-size: 13.33px;">DPR</a> <a href="/blog/tags/eslint/" style="font-size: 13.33px;">ESLint</a> <a href="/blog/tags/edge/" style="font-size: 10px;">Edge</a> <a href="/blog/tags/excel/" style="font-size: 10px;">Excel</a> <a href="/blog/tags/ie/" style="font-size: 10px;">IE</a> <a href="/blog/tags/ios/" style="font-size: 10px;">IOS</a> <a href="/blog/tags/lan/" style="font-size: 10px;">LAN</a> <a href="/blog/tags/lighthouse/" style="font-size: 10px;">LightHouse</a> <a href="/blog/tags/mutationobserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/tcp/" style="font-size: 10px;">TCP</a> <a href="/blog/tags/urlsearchparams/" style="font-size: 10px;">URLSearchParams</a> <a href="/blog/tags/virtualbox/" style="font-size: 10px;">VirtualBox</a> <a href="/blog/tags/wheelevent/" style="font-size: 10px;">WheelEvent</a> <a href="/blog/tags/x-ua-compatible/" style="font-size: 10px;">X-UA-Compatible</a> <a href="/blog/tags/xmlhttprequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/blog/tags/ant-design-vue/" style="font-size: 10px;">ant-design-vue</a> <a href="/blog/tags/apply/" style="font-size: 10px;">apply</a> <a href="/blog/tags/arraybuffer/" style="font-size: 10px;">arrayBuffer</a> <a href="/blog/tags/audio/" style="font-size: 10px;">audio</a> <a href="/blog/tags/autoplay/" style="font-size: 10px;">autoplay</a> <a href="/blog/tags/babel/" style="font-size: 10px;">babel</a> <a href="/blog/tags/babel-eslint/" style="font-size: 10px;">babel-eslint</a> <a href="/blog/tags/background-color/" style="font-size: 10px;">background-color</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/browser/" style="font-size: 10px;">browser</a> <a href="/blog/tags/bug/" style="font-size: 16.67px;">bug</a> <a href="/blog/tags/call/" style="font-size: 10px;">call</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chinese/" style="font-size: 10px;">chinese</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/blog/tags/codestyle/" style="font-size: 10px;">codeStyle</a> <a href="/blog/tags/console-log/" style="font-size: 10px;">console.log</a> <a href="/blog/tags/content/" style="font-size: 13.33px;">content</a> <a href="/blog/tags/content-area/" style="font-size: 10px;">content area</a> <a href="/blog/tags/contenteditable/" style="font-size: 10px;">contentEditable</a> <a href="/blog/tags/contextmenu/" style="font-size: 10px;">contextmenu</a> <a href="/blog/tags/css-pixel/" style="font-size: 10px;">css pixel</a> <a href="/blog/tags/debug/" style="font-size: 10px;">debug</a> <a href="/blog/tags/delta/" style="font-size: 10px;">delta</a> <a href="/blog/tags/device-pixel/" style="font-size: 10px;">device pixel</a> <a href="/blog/tags/device-width/" style="font-size: 13.33px;">device-width</a> <a href="/blog/tags/display/" style="font-size: 10px;">display</a> <a href="/blog/tags/dotenv/" style="font-size: 10px;">dotenv</a> <a href="/blog/tags/efficiency/" style="font-size: 10px;">efficiency</a> <a href="/blog/tags/element-ui/" style="font-size: 10px;">element-ui</a> <a href="/blog/tags/env/" style="font-size: 10px;">env</a> <a href="/blog/tags/eslint-config-prettier/" style="font-size: 10px;">eslint-config-prettier</a> <a href="/blog/tags/eslint-plugin-vue/" style="font-size: 10px;">eslint-plugin-vue</a> <a href="/blog/tags/event-bubbling/" style="font-size: 10px;">event bubbling</a> <a href="/blog/tags/event-capturing/" style="font-size: 10px;">event capturing</a> <a href="/blog/tags/event-delegate/" style="font-size: 10px;">event delegate</a> <a href="/blog/tags/fetch/" style="font-size: 10px;">fetch</a> <a href="/blog/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/blog/tags/flex/" style="font-size: 13.33px;">flex</a> <a href="/blog/tags/focus/" style="font-size: 13.33px;">focus</a> <a href="/blog/tags/font/" style="font-size: 10px;">font</a> <a href="/blog/tags/font-family/" style="font-size: 10px;">font-family</a> <a href="/blog/tags/fontmin/" style="font-size: 10px;">fontmin</a> <a href="/blog/tags/form/" style="font-size: 10px;">form</a> <a href="/blog/tags/github/" style="font-size: 10px;">github</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/htmlhint/" style="font-size: 10px;">htmlhint</a> <a href="/blog/tags/http-equiv/" style="font-size: 10px;">http-equiv</a> <a href="/blog/tags/http-1-1/" style="font-size: 10px;">http/1.1</a> <a href="/blog/tags/http-2-0/" style="font-size: 10px;">http/2.0</a> <a href="/blog/tags/husky/" style="font-size: 10px;">husky</a> <a href="/blog/tags/ie-edge/" style="font-size: 10px;">ie=edge</a> <a href="/blog/tags/image/" style="font-size: 10px;">image</a> <a href="/blog/tags/image-load-error/" style="font-size: 10px;">image load error</a> <a href="/blog/tags/img/" style="font-size: 10px;">img</a> <a href="/blog/tags/initial-scale/" style="font-size: 13.33px;">initial-scale</a> <a href="/blog/tags/inline-non-replaced-element/" style="font-size: 10px;">inline non-replaced element</a> <a href="/blog/tags/inline-block/" style="font-size: 10px;">inline-block</a> <a href="/blog/tags/key/" style="font-size: 10px;">key</a> <a href="/blog/tags/label/" style="font-size: 10px;">label</a> <a href="/blog/tags/layout/" style="font-size: 10px;">layout</a> <a href="/blog/tags/layout-viewport/" style="font-size: 10px;">layout viewport</a> <a href="/blog/tags/letter-spacing/" style="font-size: 10px;">letter-spacing</a> <a href="/blog/tags/lint-staged/" style="font-size: 10px;">lint-staged</a> <a href="/blog/tags/meta/" style="font-size: 13.33px;">meta</a> <a href="/blog/tags/min-height/" style="font-size: 10px;">min-height</a> <a href="/blog/tags/mobile/" style="font-size: 20px;">mobile</a> <a href="/blog/tags/mouseup/" style="font-size: 10px;">mouseup</a> <a href="/blog/tags/mousewheel/" style="font-size: 10px;">mousewheel</a> <a href="/blog/tags/ms/" style="font-size: 10px;">ms</a> <a href="/blog/tags/multiple-choice-cascader/" style="font-size: 10px;">multiple-choice-cascader</a> <a href="/blog/tags/orientationchange/" style="font-size: 13.33px;">orientationchange</a> <a href="/blog/tags/override-css/" style="font-size: 10px;">override.css</a> <a href="/blog/tags/performance/" style="font-size: 13.33px;">performance</a> <a href="/blog/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/blog/tags/preventdefault/" style="font-size: 10px;">preventDefault</a> <a href="/blog/tags/qq/" style="font-size: 10px;">qq</a> <a href="/blog/tags/qrcodejs/" style="font-size: 10px;">qrcodejs</a> <a href="/blog/tags/reduce/" style="font-size: 10px;">reduce</a> <a href="/blog/tags/rem/" style="font-size: 13.33px;">rem</a> <a href="/blog/tags/requestanimationframe/" style="font-size: 10px;">requestAnimationFrame</a> <a href="/blog/tags/retina/" style="font-size: 10px;">retina</a> <a href="/blog/tags/scrollto/" style="font-size: 10px;">scrollTo</a> <a href="/blog/tags/settimeout/" style="font-size: 10px;">setTimeout</a> <a href="/blog/tags/share/" style="font-size: 10px;">share</a> <a href="/blog/tags/smooth-scroll/" style="font-size: 10px;">smooth-scroll</a> <a href="/blog/tags/stylelint/" style="font-size: 10px;">stylelint</a> <a href="/blog/tags/stylelint-config-prettier/" style="font-size: 10px;">stylelint-config-prettier</a> <a href="/blog/tags/stylelint-config-recommended/" style="font-size: 10px;">stylelint-config-recommended</a> <a href="/blog/tags/table/" style="font-size: 10px;">table</a> <a href="/blog/tags/text-align/" style="font-size: 10px;">text-align</a> <a href="/blog/tags/text-align-last/" style="font-size: 10px;">text-align-last</a> <a href="/blog/tags/user-scalable/" style="font-size: 10px;">user-scalable</a> <a href="/blog/tags/vh/" style="font-size: 10px;">vh</a> <a href="/blog/tags/viewport/" style="font-size: 10px;">viewport</a> <a href="/blog/tags/visual-viewport/" style="font-size: 10px;">visual viewport</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vw/" style="font-size: 10px;">vw</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/wechat/" style="font-size: 13.33px;">wechat</a> <a href="/blog/tags/wheel/" style="font-size: 10px;">wheel</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/">Several Ways of Configuring Environment Variables in Web FrontEnd Project</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/">The Impact of Styles and Scripts Position in index.html</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/09/arraybuffer-text-blob-transformation-in-ajax/">arrayBuffer, text, and Blob Transformation in Ajax</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/08/associated-validation-in-vue/">Associated Validation in Vue</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019/08/how-to-prevent-collapse-of-empty-rows-in-html-table/">How to Prevent Collapse of Empty Rows in HTML table</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 xianshenglu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
