@@ -229,6 +229,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/access-lan-in-virtualbox/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/08/access-lan-in-virtualbox/" itemprop="url">在 VirtualBox 中访问局域网</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-18T16:18:15+00:00">
+                2018-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/software/" itemprop="url" rel="index">
+                    <span itemprop="name">software</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>工作需要，在 MAC 中开发，调试的时候，就装了 virtualBox 虚拟机来调试 IE，但是开发中经常调试的是局域网的网址，比如 <code>localhost:8080</code>，我可以用 <code>192.168.x.x:8080</code> 在局域网中另一台设备上访问，但是放到虚拟机中就不行了。</p>
+<h2>Main</h2>
+<p>经搜索，方案如下：</p>
+<p>在虚拟系统未打开的情况下,在设置》网络属性中设置两个网络连接：</p>
+<ul>
+<li>网络连接 1 设置成 NAT，</li>
+<li>网络连接 2 设置成 Bridged Adapter,名称是 eth0（这个我没找到，但是选的另一个）</li>
+</ul>
+<p>这样的话就可以联上互联网同时可以连上局域网。</p>
+<p>但是在这种情况下，在虚拟机中输入网址时，遇到 老版的 IE ，需要输入在局域网网址前加 http:// 否则，直接输 192.168.x.x 可能会变成自动搜索。</p>
+<h2>Reference</h2>
+<p><a href="https://blog.csdn.net/ppby2002/article/details/6455892" target="_blank" rel="noopener">设置 VirtualBox 虚拟机访问局域网</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/auto-zoom-in-when-form-elements-are-focused-in-ios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -513,164 +667,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/use-custom-font-on-web/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/08/use-custom-font-on-web/" itemprop="url">Use Custom Font on Web</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-04T18:39:01+00:00">
-                2018-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>CSS3 can set custom <code>font-family</code> with src pointing to the specific font file. We can use it for some cool font or use it when there is no specific font on the user's computer.</p>
-<p>However, when I try to use it I find something blocking my way.</p>
-<h2>Main</h2>
-<p>Well, it's about the language problem.</p>
-<p>As we all know, if I try to use some font for Non-English language the font file may not be small enough. For example, I am trying to use some kind of Chinese font and I find the font file. However, the file is more than 5M and I haven't handled the compatibility problem.</p>
-<p>So, I am trying to find a solution about this. And I find <a href="https://github.com/ecomfe/fontmin/">fontmin</a>!</p>
-<p><a href="https://github.com/ecomfe/fontmin/">fontmin</a> will extract the text you files used and generate the corresponding font file which is much smaller than your original font file.</p>
-<p>For example:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Fontmin = <span class="built_in">require</span>(<span class="string">'fontmin'</span>)</span><br><span class="line"><span class="keyword">var</span> srcPath = <span class="string">'src/font/*.ttf'</span></span><br><span class="line"><span class="keyword">var</span> destPath = <span class="string">'asset/font'</span></span><br><span class="line"><span class="keyword">var</span> text = <span class="string">'我说你是人间的四月天；笑响点亮了四面风；轻灵在春的光艳中交舞着变。'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// initial</span></span><br><span class="line"><span class="keyword">var</span> fontmin = <span class="keyword">new</span> Fontmin()</span><br><span class="line">  .src(srcPath) <span class="comment">// font file you want to simplify</span></span><br><span class="line">  .use(</span><br><span class="line">    Fontmin.glyph(&#123;</span><br><span class="line">      <span class="comment">// extract glyph</span></span><br><span class="line">      text: text <span class="comment">// all the text you will use</span></span><br><span class="line">    &#125;)</span><br><span class="line">  )</span><br><span class="line">  .use(Fontmin.ttf2eot()) <span class="comment">// eot transform plugin</span></span><br><span class="line">  .use(Fontmin.ttf2woff()) <span class="comment">// woff transform plugin</span></span><br><span class="line">  .use(Fontmin.ttf2svg()) <span class="comment">// svg transform plugin</span></span><br><span class="line">  .use(Fontmin.css()) <span class="comment">// css generation plugin</span></span><br><span class="line">  .dest(destPath) <span class="comment">// output the simplified font file</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// run</span></span><br><span class="line">fontmin.run(<span class="function"><span class="keyword">function</span>(<span class="params">err, files, stream</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(err)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'done'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>In my case, I need to extract text from some file. So, I do it like this:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> text</span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line">fs.readFile(<span class="string">'data.js'</span>, <span class="string">'utf8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">er, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (er) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">console</span>.log(er)</span><br><span class="line">  &#125;</span><br><span class="line">  text = data</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> Fontmin = <span class="built_in">require</span>(<span class="string">'fontmin'</span>)</span><br><span class="line">  <span class="keyword">var</span> srcPath = <span class="string">'font/*.ttf'</span></span><br><span class="line">  <span class="keyword">var</span> destPath = <span class="string">'font/'</span></span><br><span class="line">  <span class="comment">// initial</span></span><br><span class="line">  <span class="keyword">var</span> fontmin = <span class="keyword">new</span> Fontmin()</span><br><span class="line">    .src(srcPath) <span class="comment">// font file you want to simplify</span></span><br><span class="line">    .use(</span><br><span class="line">      Fontmin.glyph(&#123;</span><br><span class="line">        <span class="comment">// extract glyph</span></span><br><span class="line">        text: text <span class="comment">// all the text you will use</span></span><br><span class="line">      &#125;)</span><br><span class="line">    )</span><br><span class="line">    .use(Fontmin.ttf2eot()) <span class="comment">// eot transform plugin</span></span><br><span class="line">    .use(Fontmin.ttf2woff()) <span class="comment">// woff transform plugin</span></span><br><span class="line">    .use(Fontmin.ttf2svg()) <span class="comment">// svg transform plugin</span></span><br><span class="line">    .use(Fontmin.css()) <span class="comment">// css generation plugin</span></span><br><span class="line">    .dest(destPath) <span class="comment">// output the simplified font file</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// run</span></span><br><span class="line">  fontmin.run(<span class="function"><span class="keyword">function</span>(<span class="params">err, files, stream</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.error(err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'done'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>And here is what I got:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180804204452.png" alt="截图20180804204452.png"></p>
-<p>which is much smaller than origin Microsoft YaHei UI Light.ttf(<strong>11M</strong>).</p>
-<p>However, here is a little tip I want to give you.</p>
-<p>After you run the script above, <strong>the original font file <em>*.ttf</em> has been replaced.</strong> So, you had better back up the original font file before you run the script. Then if you need to run the script again, you should use the original font file, not the file which has been updated.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -721,7 +717,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -743,7 +739,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">139</span>
+                  <span class="site-state-item-count">141</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -229,6 +229,166 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/build-multiple-choice-cascader-with-third-party-ui/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/11/build-multiple-choice-cascader-with-third-party-ui/" itemprop="url">Build Multiple Choice Cascader with Third Party ui</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-18T18:04:47+00:00">
+                2018-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>I need to make a cascader which can support multiple choices. However, I didn't find any ui which supports that until 2018.11.18. That was a little pity.</p>
+<h2>Main</h2>
+<p>I check the <code>element-ui</code> and find multiple cascader was in toDoList while <code>ant-design</code> refuse to support that directly. Maybe because they have already implemented <a href="https://ant.design/components/tree-select/" target="_blank" rel="noopener">TreeSelect</a>. Here is what <code>TreeSelect</code> looks like:</p>
+<p><img src="../images/1542536446656.gif" alt></p>
+<p>Almost the result I want except the ui. It doesn't look like a cascader but a tree.</p>
+<p>Anyway, I built a multiple cascader component based on select and cascader in <code>ant-design-vue</code>. Here is the result:</p>
+<p><img src="../images/1542536827531.gif" alt></p>
+<p>The principle is easy. I use the <code>input</code> in <code>select</code> and hide the popup. And then I hide the <code>input</code> in <code>cascader</code> and show the popup. So, MultipleCascader is equal to <code>input</code> in <code>select</code> plus popup in <code>cascader</code> and use <code>transform</code> to let them stay together.</p>
+<p>Talking about the event, you have to listen and change the data to show correctly. That is a little troublesome.</p>
+<p>Anyway, here is the earliest <a href="https://codesandbox.io/s/8njr9xy212" target="_blank" rel="noopener">demo</a> in codesandbox. I am not sure if the demo would be always able to visit.</p>
+<p>The latest version is in <a href="https://github.com/xianshenglu/vue/tree/master/demo/multi-cascader-ant-design-vue">here</a>.
+So, here is the earliest code:</p>
+<p><em>App.vue</em></p>
+<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot; class=&quot;app&quot;&gt;&lt;MultipleCascader /&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import MultipleCascader from &quot;./components/MultipleCascader&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;app&quot;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    MultipleCascader</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<p><em>MultipleCascader.vue</em></p>
+<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;multi_cascader&quot;&gt;</span><br><span class="line">    &lt;a-cascader</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">      class=&quot;multi_cascader__cascader&quot;</span><br><span class="line">      :popupVisible=&quot;cascaderPopupVisible&quot;</span><br><span class="line">      :popupClassName=&quot;&apos;multi_cascader__cascader_popup&apos; + timestamp&quot;</span><br><span class="line">      changeOnSelect</span><br><span class="line">      expandTrigger=&quot;hover&quot;</span><br><span class="line">      :options=&quot;cascaderOptions&quot;</span><br><span class="line">      :fieldNames=&quot;&#123; label: &apos;label&apos;, value: &apos;id&apos;, children: &apos;children&apos; &#125;&quot;</span><br><span class="line">      v-model=&quot;cascaderValues&quot;</span><br><span class="line">      ref=&quot;cascader&quot;</span><br><span class="line">      :showSearch=&quot;&#123; cascaderFilter &#125;&quot;</span><br><span class="line">      @change=&quot;cascaderChange&quot;</span><br><span class="line">    &gt;&lt;/a-cascader&gt;</span><br><span class="line">    &lt;a-select</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">      class=&quot;multi_cascader__select&quot;</span><br><span class="line">      dropdownClassName=&quot;hide&quot;</span><br><span class="line">      mode=&quot;multiple&quot;</span><br><span class="line">      :value=&quot;selectValues&quot;</span><br><span class="line">      allowClear</span><br><span class="line">      placeholder=&quot;Please select&quot;</span><br><span class="line">      :options=&quot;selectOptions&quot;</span><br><span class="line">      @focus=&quot;cascaderPopupVisible = true&quot;</span><br><span class="line">      @deselect=&quot;deleteOption&quot;</span><br><span class="line">      @change=&quot;selectChange&quot;</span><br><span class="line">      @search=&quot;selectSearch&quot;</span><br><span class="line">    &gt;&lt;/a-select&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;MultipleCascader&quot;,</span><br><span class="line">  data: function() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      timestamp: Date.now(),</span><br><span class="line">      selectOptions: [],</span><br><span class="line">      selectValues: [],</span><br><span class="line">      cascaderPopupVisible: false,</span><br><span class="line">      cascaderValues: [],</span><br><span class="line">      cascaderOptions: [</span><br><span class="line">        &#123;</span><br><span class="line">          id: 1,</span><br><span class="line">          value: &quot;1&quot;,</span><br><span class="line">          label: &quot;1&quot;,</span><br><span class="line">          children: [</span><br><span class="line">            &#123; id: 1.1, value: 1.1, label: &quot;1-1&quot; &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              id: 1.2,</span><br><span class="line">              value: 1.2,</span><br><span class="line">              label: &quot;1-2&quot;,</span><br><span class="line">              children: [</span><br><span class="line">                &#123; id: 1.21, value: 1.21, label: &quot;1-2-1&quot; &#125;,</span><br><span class="line">                &#123; id: 1.22, value: 1.22, label: &quot;1-2-2&quot; &#125;</span><br><span class="line">              ]</span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; id: 2, value: 2, label: &quot;2&quot; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    document.addEventListener(&quot;click&quot;, this.hideCascaderPopup);</span><br><span class="line">  &#125;,</span><br><span class="line">  destroyed() &#123;</span><br><span class="line">    document.removeEventListener(&quot;click&quot;, this.hideCascaderPopup);</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    cascaderChange(values, options) &#123;</span><br><span class="line">      // you may have different logic with the selected option, here I just want the last one.</span><br><span class="line">      let targetValue = values.slice(-1).pop();</span><br><span class="line">      let targetOption = options.slice(-1).pop();</span><br><span class="line">      let selectedValIndex = this.selectValues.indexOf(targetValue);</span><br><span class="line">      if (selectedValIndex &gt;= 0) &#123;</span><br><span class="line">        this.selectValues.splice(selectedValIndex, 1);</span><br><span class="line">        this.selectOptions.splice(selectedValIndex, 1);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        this.selectValues.push(targetValue);</span><br><span class="line">        this.selectOptions.push(targetOption);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    deleteOption(value) &#123;</span><br><span class="line">      let selectedValIndex = this.selectValues.indexOf(value);</span><br><span class="line">      this.cascaderChange([value], [this.selectOptions[selectedValIndex]]);</span><br><span class="line">    &#125;,</span><br><span class="line">    selectChange(values, vNodes) &#123;</span><br><span class="line">      if (values.length === 0) &#123;</span><br><span class="line">        this.selectValues = [];</span><br><span class="line">        this.selectOptions = [];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    selectSearch(keyword) &#123;</span><br><span class="line">      let searchInput = this.$refs.cascader.$el.querySelector(&quot;input&quot;);</span><br><span class="line">      if (searchInput) &#123;</span><br><span class="line">        searchInput.value = keyword;</span><br><span class="line">        searchInput.dispatchEvent(new Event(&quot;input&quot;));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    cascaderFilter(inputValue, path) &#123;</span><br><span class="line">      return path.some(</span><br><span class="line">        option =&gt;</span><br><span class="line">          option.label.toLowerCase().indexOf(inputValue.toLowerCase()) &gt; -1</span><br><span class="line">      );</span><br><span class="line">    &#125;,</span><br><span class="line">    hideCascaderPopup(event) &#123;</span><br><span class="line">      let cascaderPopup = document.querySelector(</span><br><span class="line">        &quot;.multi_cascader__cascader_popup&quot; + this.timestamp</span><br><span class="line">      );</span><br><span class="line">      let isClickCascaderPopup =</span><br><span class="line">        cascaderPopup &amp;&amp; cascaderPopup.contains(event.target);</span><br><span class="line">      if (isClickCascaderPopup) &#123;</span><br><span class="line">        return;</span><br><span class="line">      &#125;</span><br><span class="line">      this.cascaderPopupVisible = false;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.multi_cascader &#123;</span><br><span class="line">  height: 100vh;</span><br><span class="line">  display: flex;</span><br><span class="line">  flex-flow: column;</span><br><span class="line">  justify-content: center;</span><br><span class="line">  align-items: center;</span><br><span class="line">&#125;</span><br><span class="line">.multi_cascader__select &#123;</span><br><span class="line">  width: 50%;</span><br><span class="line">  margin-top: 0;</span><br><span class="line">  margin-bottom: auto;</span><br><span class="line">  transform: translate(0, -100%);</span><br><span class="line">&#125;</span><br><span class="line">.multi_cascader__cascader &#123;</span><br><span class="line">  width: 50%;</span><br><span class="line">  margin-top: auto;</span><br><span class="line">  margin-bottom: 0;</span><br><span class="line">  opacity: 0;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">/* global style*/</span><br><span class="line">.hide &#123;</span><br><span class="line">  display: none;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<h2>Ending</h2>
+<h2>Reference</h2>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/usage-of-eslint/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -628,168 +788,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/override-3rd-party-style/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/10/override-3rd-party-style/" itemprop="url">Override 3rd Party Style</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T16:26:56+00:00">
-                2018-10-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>It is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems.</p>
-<p>How can we override partial 3rd party style and avoid our style being overridden by 3rd party.</p>
-<p>Well, that's two question.</p>
-<h2>Main</h2>
-<h3>Override Partial 3rd Party Style</h3>
-<ul>
-<li><em>lib-override.css</em></li>
-</ul>
-<p>I think the first thing is to prepare a single file like <em>lib-override.css</em> to do this job whatever choice we make.</p>
-<ul>
-<li>override ways</li>
-</ul>
-<p>It's obvious that <code>!important</code> or <code>#id</code> can help us do this job. However, I wouldn't suggest you to do that. I would choose to use class selector with namespace to solve this kind of problem. For example,</p>
-<p>3rd party code is:</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.el-button--primary</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Then you can write:</p>
-<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="selector-class">.el-button--primary</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Code above also works to avoid our style being overridden by 3rd party. In some cases, if one class is not enough you may have to add more class as namespace.</p>
-<h2>Ending</h2>
-<h2>Reference</h2>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -840,7 +838,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -862,7 +860,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">139</span>
+                  <span class="site-state-item-count">141</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -229,6 +229,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/01/wheelevent-compatibility-and-delta-handler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2019/01/wheelevent-compatibility-and-delta-handler/" itemprop="url">WheelEvent Compatibility and Delta Handler</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-27T19:47:39+00:00">
+                2019-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>I have seen many times people talking about the compatibility problems of wheelEvent, something about <code>wheel</code>, <code>DOMMouseScroll</code>, <code>mousewheel</code> etc. But now, it seems we don't need to care about those compatibility problems anymore.</p>
+<p>As <a href="https://developer.mozilla.org/en-US/docs/Web/Events/wheel#Browser_compatibility" target="_blank" rel="noopener">mdn</a> shows, <strong>IE9 support <code>wheel</code> event in <code>addEventListener</code> and <code>DOMMouseScroll</code> is only needed for Firefox 17-</strong>. And for other major browsers, they all support <code>wheel</code> event.</p>
+<p>But, there are other problems still need to take care.</p>
+<h3><code>delta</code></h3>
+<p><code>event.delta</code> returns different numbers in the major browsers. For instance, if you run the code below at your console in some page,</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'wheel'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event.deltaY)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>then moving your mouse wheel, you will see the <code>deltaY</code> numbers.</p>
+<table>
+<thead>
+<tr>
+<th>browsers/win7</th>
+<th>deltaY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chrome 70</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Firefox 64</td>
+<td>3</td>
+</tr>
+<tr>
+<td>IE 11</td>
+<td>88.19</td>
+</tr>
+</tbody>
+</table>
+<p>Well, you can find a solution to unify the <code>deltaY</code>. But I think the easier way is to give up unifying and only do the accumulation job. For example, try the code below:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> wheelSize = <span class="number">0</span></span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'wheel'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  wheelSize += event.deltaY &gt; <span class="number">0</span> ? <span class="number">0.025</span> : <span class="number">-0.025</span></span><br><span class="line">  <span class="built_in">console</span>.log(wheelSize, event.deltaY)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>In this way, we will get the unified <code>wheelSize</code>.</p>
+<h3>More Situations Need to Watch Out</h3>
+<p>When used in projects, there are more things we need to watch out. For example,</p>
+<ul>
+<li>We might have <code>wheelSize</code> limit.</li>
+<li>We might want to prevent calculating <code>wheelSize</code> when the page has been scrolled to the top or the bottom.</li>
+<li>...</li>
+</ul>
+<p>And the code would become more complicated. For instance,</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> targetNode = <span class="built_in">document</span>.body</span><br><span class="line"><span class="keyword">let</span> curWheelSize = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> minWheelSize = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> maxWheelSize = <span class="number">10</span></span><br><span class="line"><span class="keyword">let</span> minScrollTop = <span class="number">0</span></span><br><span class="line"><span class="keyword">let</span> maxScrollTop =</span><br><span class="line">  targetNode.parentNode.scrollHeight - targetNode.parentNode.offsetHeight</span><br><span class="line">targetNode.addEventListener(<span class="string">'wheel'</span>, wheelCb)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wheelCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> isDeltaYPositive = event.deltaY &gt; <span class="number">0</span></span><br><span class="line">  <span class="keyword">let</span> scrollTop = targetNode.parentNode.scrollTop</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    (scrollTop &lt;= minScrollTop &amp;&amp; !isDeltaYPositive) ||</span><br><span class="line">    (scrollTop &gt;= maxScrollTop &amp;&amp; isDeltaYPositive)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> stepSize = isDeltaYPositive ? <span class="number">0.025</span> : <span class="number">-0.025</span></span><br><span class="line">  <span class="keyword">let</span> targetWheelSize = curWheelSize + stepSize</span><br><span class="line">  targetWheelSize = <span class="built_in">Math</span>.max(targetWheelSize, minWheelSize)</span><br><span class="line">  targetWheelSize = <span class="built_in">Math</span>.min(targetWheelSize, maxWheelSize)</span><br><span class="line">  curWheelSize = targetWheelSize</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/xianshenglu/blog/issues/58"><strong>Original Post</strong></a></p>
+<h2>Reference</h2>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/01/tricks-in-vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -592,193 +776,6 @@ get triggered.</li>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/12/easier-way-to-understand-apply-and-call-in-js/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/12/easier-way-to-understand-apply-and-call-in-js/" itemprop="url">Easier Way to Understand apply and call in JS</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-04T20:18:18+00:00">
-                2018-12-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>The first time I know <code>apply</code> was when I met this code:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max.apply(<span class="literal">null</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br></pre></td></tr></table></figure></p>
-<p>As the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply" target="_blank" rel="noopener">mdn</a> shows, the syntax is:</p>
-<blockquote>
-<p>function.apply( thisArg , [argsArray] )</p>
-</blockquote>
-<p>Actually, in case above, thisArg has no influence which means code below also works:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max.apply(<span class="literal">undefined</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br></pre></td></tr></table></figure></p>
-<p>The only effect of <code>apply</code> in the code above is that it can pass the values in array to the function <code>max</code>. So, code above equal</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br></pre></td></tr></table></figure></p>
-<p>Why would I mention this? Because we don't need this anymore because we already have <code>...</code> which works like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max(...[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br></pre></td></tr></table></figure></p>
-<p>The reason that we still need <code>apply</code> and <code>call</code> is the thisArg. They can help us call some powerful methods.</p>
-<h3>thisArg in apply and call</h3>
-<p>I guess you might have seen this code:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.slice.call(&#123; <span class="attr">length</span>: <span class="number">2</span> &#125;)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>))</span><br><span class="line">&#125;</span><br><span class="line">fn(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>) <span class="comment">//[1,2,3,4]</span></span><br></pre></td></tr></table></figure></p>
-<p>Today, we don't need this either because of <code>Array.from</code>. But I still want to talk about it for explanation. In the case above, <code>call</code> was used because we want to do something like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">length</span>: <span class="number">2</span> &#125;</span><br><span class="line">obj.slice() <span class="comment">//Uncaught TypeError: obj.slice is not a function</span></span><br></pre></td></tr></table></figure></p>
-<p>It would cause error because slice was defined in <code>Array.prototype</code>. Only <code>Array</code> instance can call that method. <strong>But actually in the <a href="http://es5.github.io/#x15.4.4.10" target="_blank" rel="noopener">implementation</a> of <code>slice</code>, it doesn't need to be called by <code>Array</code> instance</strong> and there is a lot of methods like this. So, in this case, <code>call</code> or <code>apply</code> would let non <code>Array</code> instance call these methods which means</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.slice.call(&#123; <span class="attr">length</span>: <span class="number">2</span> &#125;)</span><br><span class="line"><span class="comment">//works like something like this</span></span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">length</span>: <span class="number">2</span> &#125;</span><br><span class="line">obj.slice = <span class="built_in">Array</span>.prototype.slice</span><br><span class="line">obj.slice()</span><br></pre></td></tr></table></figure></p>
-<p><strong>And to help it easier to understand , you can remember it like:</strong></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">method.call(thisArg, ...args)</span><br><span class="line"><span class="comment">//works like in most cases</span></span><br><span class="line">thisArg.method = method</span><br><span class="line"><span class="comment">// or this way, if thisArg is a primitive value</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(thisArg).method = method</span><br><span class="line">thisArg.method(...args)</span><br><span class="line"><span class="comment">//for apply</span></span><br><span class="line">method.apply(thisArg, args)</span><br><span class="line"><span class="comment">//works like in most cases</span></span><br><span class="line">thisArg.method = method</span><br><span class="line"><span class="comment">// or this way</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(thisArg).method = method</span><br><span class="line">thisArg.method(...args)</span><br></pre></td></tr></table></figure></p>
-<p>Wasn't that easy ?</p>
-<p>So, let get back to <code>Math.max.apply({}, [1, 2, 3, 4])</code>. You can remember it like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> thisArg = &#123;&#125;</span><br><span class="line">thisArg.max = <span class="built_in">Math</span>.max</span><br><span class="line">thisArg.max(...[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br></pre></td></tr></table></figure></p>
-<p>And more cases:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call([]) <span class="comment">//"[object Array]"</span></span><br><span class="line"><span class="comment">//works like this</span></span><br><span class="line"><span class="keyword">let</span> thisArg = []</span><br><span class="line">thisArg.toString = <span class="built_in">Object</span>.prototype.toString</span><br><span class="line">thisArg.toString() <span class="comment">//"[object Array]"</span></span><br><span class="line"><span class="comment">//while</span></span><br><span class="line">[].toString()<span class="comment">//""</span></span><br></pre></td></tr></table></figure></p>
-<p>Or</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;[<span class="string">' sd '</span>, <span class="number">1</span>, <span class="number">3</span>].map(<span class="built_in">Function</span>.prototype.call, <span class="built_in">String</span>.prototype.trim) <span class="comment">//['sd','1','3']</span></span><br><span class="line"><span class="comment">//works like</span></span><br><span class="line">;[<span class="string">' sd '</span>, <span class="number">1</span>, <span class="number">3</span>].map(<span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">String</span>.prototype.trim.call(...args)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//works like</span></span><br><span class="line">;[<span class="string">' sd '</span>, <span class="number">1</span>, <span class="number">3</span>].map(<span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> thisArg = args[<span class="number">0</span>]</span><br><span class="line">  thisArg.trim = <span class="built_in">String</span>.prototype.trim</span><br><span class="line">  <span class="comment">// way above wouldn't work because thisArg is a Primitive value, so we use way below instead.</span></span><br><span class="line">  <span class="built_in">Object</span>.getPrototypeOf(thisArg).trim = <span class="built_in">String</span>.prototype.trim</span><br><span class="line">  <span class="keyword">return</span> thisArg.trim(...args.slice(<span class="number">1</span>))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h3>More in apply</h3>
-<p>As <code>apply</code> can accept an array-like object. So, what would happen if coding like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.apply(<span class="literal">null</span>, &#123; <span class="attr">length</span>: <span class="number">2</span> &#125;)</span><br></pre></td></tr></table></figure></p>
-<p>Actually, it equals</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.apply(<span class="literal">null</span>, [<span class="literal">undefined</span>, <span class="literal">undefined</span>])</span><br></pre></td></tr></table></figure></p>
-<p>So, you can understand it like:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> thisArg = &#123;&#125; <span class="comment">//set null would get error in code below, also thisArg in above case is not important</span></span><br><span class="line">thisArg.Array = <span class="built_in">Array</span></span><br><span class="line">thisArg.Array(<span class="literal">undefined</span>, <span class="literal">undefined</span>)</span><br></pre></td></tr></table></figure></p>
-<h3><code>Function.prototype.call.apply</code></h3>
-<p>You might have seen code using <code>Function.prototype.call.apply</code> which seems a little weird. However, it still make sense, especially in ES5. For example,</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arrayLike = &#123; <span class="number">0</span>: <span class="number">0</span>, <span class="attr">length</span>: <span class="number">1</span> &#125;</span><br><span class="line"><span class="built_in">Function</span>.prototype.call.apply([].push, [arrayLike, <span class="number">1</span>])</span><br><span class="line"><span class="built_in">console</span>.log(arrayLike) <span class="comment">//&#123;0: 0, 1: 1, length: 2&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>which works like</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrayLike = &#123; <span class="number">0</span>: <span class="number">0</span>, <span class="attr">length</span>: <span class="number">1</span> &#125;</span><br><span class="line"><span class="keyword">let</span> thisArg = [].push</span><br><span class="line">thisArg.call(arrayLike, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(arrayLike) <span class="comment">//&#123;0: 0, 1: 1, length: 2&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>also equal</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrayLike = &#123; <span class="number">0</span>: <span class="number">0</span>, <span class="attr">length</span>: <span class="number">1</span> &#125;</span><br><span class="line">[].push.call(arrayLike,<span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(arrayLike) <span class="comment">//&#123;0: 0, 1: 1, length: 2&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>which works like</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrayLike = &#123; <span class="number">0</span>: <span class="number">0</span>, <span class="attr">length</span>: <span class="number">1</span> &#125;</span><br><span class="line"><span class="keyword">let</span> thisArg = arrayLike</span><br><span class="line">thisArg.push = [].push</span><br><span class="line">thisArg.push(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(arrayLike) <span class="comment">//&#123;0: 0, 1: 1, length: 2&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Hope it&apos;s easier to understand `apply` and `call`.</span><br><span class="line"></span><br><span class="line">[**Original Post**](https://github.com/xianshenglu/blog/issues/50)</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -829,7 +826,7 @@ get triggered.</li>
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -851,7 +848,7 @@ get triggered.</li>
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">139</span>
+                  <span class="site-state-item-count">141</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

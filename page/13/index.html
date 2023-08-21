@@ -229,6 +229,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/use-custom-font-on-web/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/08/use-custom-font-on-web/" itemprop="url">Use Custom Font on Web</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-04T18:39:01+00:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Preface</h2>
+<p>CSS3 can set custom <code>font-family</code> with src pointing to the specific font file. We can use it for some cool font or use it when there is no specific font on the user's computer.</p>
+<p>However, when I try to use it I find something blocking my way.</p>
+<h2>Main</h2>
+<p>Well, it's about the language problem.</p>
+<p>As we all know, if I try to use some font for Non-English language the font file may not be small enough. For example, I am trying to use some kind of Chinese font and I find the font file. However, the file is more than 5M and I haven't handled the compatibility problem.</p>
+<p>So, I am trying to find a solution about this. And I find <a href="https://github.com/ecomfe/fontmin/">fontmin</a>!</p>
+<p><a href="https://github.com/ecomfe/fontmin/">fontmin</a> will extract the text you files used and generate the corresponding font file which is much smaller than your original font file.</p>
+<p>For example:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Fontmin = <span class="built_in">require</span>(<span class="string">'fontmin'</span>)</span><br><span class="line"><span class="keyword">var</span> srcPath = <span class="string">'src/font/*.ttf'</span></span><br><span class="line"><span class="keyword">var</span> destPath = <span class="string">'asset/font'</span></span><br><span class="line"><span class="keyword">var</span> text = <span class="string">'我说你是人间的四月天；笑响点亮了四面风；轻灵在春的光艳中交舞着变。'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// initial</span></span><br><span class="line"><span class="keyword">var</span> fontmin = <span class="keyword">new</span> Fontmin()</span><br><span class="line">  .src(srcPath) <span class="comment">// font file you want to simplify</span></span><br><span class="line">  .use(</span><br><span class="line">    Fontmin.glyph(&#123;</span><br><span class="line">      <span class="comment">// extract glyph</span></span><br><span class="line">      text: text <span class="comment">// all the text you will use</span></span><br><span class="line">    &#125;)</span><br><span class="line">  )</span><br><span class="line">  .use(Fontmin.ttf2eot()) <span class="comment">// eot transform plugin</span></span><br><span class="line">  .use(Fontmin.ttf2woff()) <span class="comment">// woff transform plugin</span></span><br><span class="line">  .use(Fontmin.ttf2svg()) <span class="comment">// svg transform plugin</span></span><br><span class="line">  .use(Fontmin.css()) <span class="comment">// css generation plugin</span></span><br><span class="line">  .dest(destPath) <span class="comment">// output the simplified font file</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// run</span></span><br><span class="line">fontmin.run(<span class="function"><span class="keyword">function</span>(<span class="params">err, files, stream</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(err)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'done'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>In my case, I need to extract text from some file. So, I do it like this:</p>
+<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> text</span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line">fs.readFile(<span class="string">'data.js'</span>, <span class="string">'utf8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">er, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (er) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">console</span>.log(er)</span><br><span class="line">  &#125;</span><br><span class="line">  text = data</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> Fontmin = <span class="built_in">require</span>(<span class="string">'fontmin'</span>)</span><br><span class="line">  <span class="keyword">var</span> srcPath = <span class="string">'font/*.ttf'</span></span><br><span class="line">  <span class="keyword">var</span> destPath = <span class="string">'font/'</span></span><br><span class="line">  <span class="comment">// initial</span></span><br><span class="line">  <span class="keyword">var</span> fontmin = <span class="keyword">new</span> Fontmin()</span><br><span class="line">    .src(srcPath) <span class="comment">// font file you want to simplify</span></span><br><span class="line">    .use(</span><br><span class="line">      Fontmin.glyph(&#123;</span><br><span class="line">        <span class="comment">// extract glyph</span></span><br><span class="line">        text: text <span class="comment">// all the text you will use</span></span><br><span class="line">      &#125;)</span><br><span class="line">    )</span><br><span class="line">    .use(Fontmin.ttf2eot()) <span class="comment">// eot transform plugin</span></span><br><span class="line">    .use(Fontmin.ttf2woff()) <span class="comment">// woff transform plugin</span></span><br><span class="line">    .use(Fontmin.ttf2svg()) <span class="comment">// svg transform plugin</span></span><br><span class="line">    .use(Fontmin.css()) <span class="comment">// css generation plugin</span></span><br><span class="line">    .dest(destPath) <span class="comment">// output the simplified font file</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// run</span></span><br><span class="line">  fontmin.run(<span class="function"><span class="keyword">function</span>(<span class="params">err, files, stream</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.error(err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'done'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>And here is what I got:</p>
+<p><img src="../images/%E6%88%AA%E5%9B%BE20180804204452.png" alt="截图20180804204452.png"></p>
+<p>which is much smaller than origin Microsoft YaHei UI Light.ttf(<strong>11M</strong>).</p>
+<p>However, here is a little tip I want to give you.</p>
+<p>After you run the script above, <strong>the original font file <em>*.ttf</em> has been replaced.</strong> So, you had better back up the original font file before you run the script. Then if you need to run the script again, you should use the original font file, not the file which has been updated.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/08/find-what-font-the-browser-is-actually-using/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -531,177 +689,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/a-trap-when-using-letter-spacing-to-remove-the-extra-space-in-chrome66.0.3359.139/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/06/a-trap-when-using-letter-spacing-to-remove-the-extra-space-in-chrome66.0.3359.139/" itemprop="url">A Trap When Using letter-spacing to Remove the Extra Space in chrome66.0.3359.139</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-18T15:47:27+00:00">
-                2018-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Preface</h2>
-<p>As we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like <code>font-size:0</code>,<code>word-spacing</code>,<code>margin-left</code>,<code>letter-spacing</code> and so on.</p>
-<h2>Choice I Made</h2>
-<p>Normally I prefer using <code>letter-spacing</code> because</p>
-<ol>
-<li>it seems ok when we assign a value which is bigger than the width of extra space(e.g. <code>-1em</code>).</li>
-<li>However, it won't be okay with <code>word-spacing</code> and <code>margin-left</code> when we set bigger value like <code>-1em</code>.</li>
-<li>Using <code>font-size</code> is not convenient when we try to using <code>em</code> as <code>font-size</code> unit.</li>
-</ol>
-<p>So, <code>letter-spacing</code> seems to be the best choice.</p>
-<p>Well, I agree with that though I found a bug in chrome66.0.3359.139 today.</p>
-<h2>Bug I Found</h2>
-<p>Please run the code below:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav3<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  <span class="attribute">color</span>: inherit;</span><br><span class="line">  <span class="attribute">cursor</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">260px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: -<span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav__text</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">90px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>If you are using Chrome(test version 66.0.3359.139) or Opera(test version 53.0.2907.99), what you see might be:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180618184625.png" alt></p>
-<p>If you are using Firefox(60.0.2),IE10 or Edge, what you see might be:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180618184736.png" alt></p>
-<p>That's interesting. So, I checked the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a> and found this:</p>
-<blockquote>
-<p>&lt;length&gt;
-Specifies extra inter-character space in addition to the default space between characters. Values may be negative, but there may be implementation-specific limits. <strong>User agents may not further increase or decrease the inter-character space in order to justify text.</strong></p>
-</blockquote>
-<p>It seems that this is the reason.</p>
-<p>So, I tested and try to find the best value for <code>letter-spacing</code> and <strong>it turns out that <code>0.3em</code> or <code>0.31em</code> is the best value.</strong></p>
-<h2>Ending</h2>
-<p>Anyway, <code>letter-spacing</code> is still the best solution though we have to be more careful.</p>
-<h2>Reference</h2>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -752,7 +739,7 @@ Specifies extra inter-character space in addition to the default space between c
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -774,7 +761,7 @@ Specifies extra inter-character space in addition to the default space between c
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">139</span>
+                  <span class="site-state-item-count">141</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
