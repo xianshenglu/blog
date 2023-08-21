@@ -81,7 +81,7 @@ And here is the UI:
 
 ![](../images/Snipaste_2023-08-20_16-13-19.png)
 
-#### Default change detection strategy is a performance killer
+### Default change detection strategy is a performance killer
 
 Have you noticed how many times the function is called at the console when the page is loaded? **6\*9=54 times!** Here is the code
 
