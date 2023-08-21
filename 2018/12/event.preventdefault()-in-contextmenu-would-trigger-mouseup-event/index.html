@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Question How many logs would you have when you click and release right mouse button? Demo1 document.oncontextmenu = function() &amp;#123;  console.error(event.type, Date.now())&amp;#125;document.onmouseup = f">
+<meta name="description" content="QuestionHow many logs would you have when you click and release right mouse button? Demo1document.oncontextmenu = function() &amp;#123;  console.error(event.type, Date.now())&amp;#125;document.onmouseup = fun">
 <meta name="keywords" content="mouseup,contextmenu,preventDefault">
 <meta property="og:type" content="article">
 <meta property="og:title" content="event.preventDefault() in contextmenu Would Trigger mouseup event">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/12/event.preventdefault()-in-contextmenu-would-trigger-mouseup-event/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Question How many logs would you have when you click and release right mouse button? Demo1 document.oncontextmenu = function() &amp;#123;  console.error(event.type, Date.now())&amp;#125;document.onmouseup = f">
+<meta property="og:description" content="QuestionHow many logs would you have when you click and release right mouse button? Demo1document.oncontextmenu = function() &amp;#123;  console.error(event.type, Date.now())&amp;#125;document.onmouseup = fun">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="event.preventDefault() in contextmenu Would Trigger mouseup event">
-<meta name="twitter:description" content="Question How many logs would you have when you click and release right mouse button? Demo1 document.oncontextmenu = function() &amp;#123;  console.error(event.type, Date.now())&amp;#125;document.onmouseup = f">
+<meta name="twitter:description" content="QuestionHow many logs would you have when you click and release right mouse button? Demo1document.oncontextmenu = function() &amp;#123;  console.error(event.type, Date.now())&amp;#125;document.onmouseup = fun">
 
 
 
@@ -322,41 +322,40 @@
       
 
       
-        <h3>Question</h3>
-<p>How many logs would you have when you click and release right mouse button?</p>
-<h4>Demo1</h4>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4>Demo2</h4>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><p>How many logs would you have when you click and release right mouse button?</p>
+<h4 id="Demo1"><a href="#Demo1" class="headerlink" title="Demo1"></a>Demo1</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Demo2"><a href="#Demo2" class="headerlink" title="Demo2"></a>Demo2</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>The answer is 1,2. The question is</p>
 <ul>
 <li>Does that matter?</li>
 <li>And why?</li>
 </ul>
-<h3>Matters</h3>
-<p>Normally, click and release right button would only trigger <code>contextmenu</code> instead of <code>mouseup</code>.</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Matters"><a href="#Matters" class="headerlink" title="Matters"></a>Matters</h3><p>Normally, click and release right button would only trigger <code>contextmenu</code> instead of <code>mouseup</code>.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>It does make senses in most cases that when we were using <code>onmouseup</code> means that we only want to listen to the <code>mouseup</code> of left button.</p>
 <p>However, if you used <code>event.preventDefault()</code> in <code>contextmenu</code>, <code>mouseup</code> event would be triggered when you press and release the right button.</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>In most cases, this is not expected as it changes the behavior of <code>mouseup</code> listener because of changes in <code>contextmenu</code> listener. To be honest, this awful <strong>unless we add button detection in <code>mouseup</code> listener every time we want to do something when user only press and release left button.</strong></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (event.button !== <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3>Why</h3>
-<p>according to mdn <a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseup" target="_blank" rel="noopener">mouseup</a>, default action of <code>mouseup</code> is</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (event.button !== <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h3><p>according to mdn <a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseup" target="_blank" rel="noopener">mouseup</a>, default action of <code>mouseup</code> is</p>
 <blockquote>
 <p>Default Action : Invoke a context menu (in combination with the right mouse button, if supported)</p>
 </blockquote>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>However, at least Chrome 70 didn't prevent triggering <code>contextmenu</code> event. But it might explain something.</p>
-<ul>
-<li>Because default action of <code>rightClick</code> was to invoke a context menu. So, <code>mouseup</code> won't get triggered.</li>
-<li>And <code>event.preventDefault()</code> in <code>contextmenu</code> listener did the actual prevent job. So, <code>mouseup</code>
-get triggered.</li>
-</ul>
-<p>Anyway, it's still hard to understand.</p>
-<p><a href="https://github.com/xianshenglu/blog/issues/64"><strong>Original Post</strong></a></p>
-<h2>Reference</h2>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>However, at least Chrome 70 didn’t prevent triggering <code>contextmenu</code> event. But it might explain something.</p>
+<ul>
+<li>Because default action of <code>rightClick</code> was to invoke a context menu. So, <code>mouseup</code> won’t get triggered.</li>
+<li>And <code>event.preventDefault()</code> in <code>contextmenu</code> listener did the actual prevent job. So, <code>mouseup</code><br>get triggered.</li>
+</ul>
+<p>Anyway, it’s still hard to understand.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/64"><strong>Original Post</strong></a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
       
     </div>
     
@@ -534,7 +533,7 @@ get triggered.</li>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">Demo1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">Demo2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Matters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Why</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Demo1"><span class="nav-number">1.1.</span> <span class="nav-text">Demo1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Demo2"><span class="nav-number">1.2.</span> <span class="nav-text">Demo2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Matters"><span class="nav-number">2.</span> <span class="nav-text">Matters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why"><span class="nav-number">3.</span> <span class="nav-text">Why</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
             
 
           </div>

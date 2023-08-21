@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="If you have met empty rows in HTML table or have seen this question Prevent collapse of empty rows in HTML table via CSS you might know what I am saying. See this image:  Above answers can&apos;t handle st">
+<meta name="description" content="If you have met empty rows in HTML table or have seen this question Prevent collapse of empty rows in HTML table via CSS you might know what I am saying. See this image:  Above answers can’t handle st">
 <meta name="keywords" content="content,table">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to Prevent Collapse of Empty Rows in HTML table">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2019/08/how-to-prevent-collapse-of-empty-rows-in-html-table/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="If you have met empty rows in HTML table or have seen this question Prevent collapse of empty rows in HTML table via CSS you might know what I am saying. See this image:  Above answers can&apos;t handle st">
+<meta property="og:description" content="If you have met empty rows in HTML table or have seen this question Prevent collapse of empty rows in HTML table via CSS you might know what I am saying. See this image:  Above answers can’t handle st">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2019/08/images/%7B7BF1B62D-3148-4A47-BC17-538AFEEE4D19%7D_20190827105623.jpg">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:image" content="https://github.com/images/%7B7BF1B62D-3148-4A47-BC17-538AFEEE4D19%7D_20190827105623.jpg">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to Prevent Collapse of Empty Rows in HTML table">
-<meta name="twitter:description" content="If you have met empty rows in HTML table or have seen this question Prevent collapse of empty rows in HTML table via CSS you might know what I am saying. See this image:  Above answers can&apos;t handle st">
-<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2019/08/images/%7B7BF1B62D-3148-4A47-BC17-538AFEEE4D19%7D_20190827105623.jpg">
+<meta name="twitter:description" content="If you have met empty rows in HTML table or have seen this question Prevent collapse of empty rows in HTML table via CSS you might know what I am saying. See this image:  Above answers can’t handle st">
+<meta name="twitter:image" content="https://github.com/images/%7B7BF1B62D-3148-4A47-BC17-538AFEEE4D19%7D_20190827105623.jpg">
 
 
 
@@ -327,19 +327,22 @@
         <p>If you have met empty rows in HTML table or have seen this question</p>
 <p><a href="https://stackoverflow.com/questions/42225196/prevent-collapse-of-empty-rows-in-html-table-via-css/42225797" target="_blank" rel="noopener">Prevent collapse of empty rows in HTML table via CSS</a></p>
 <p>you might know what I am saying. See this image:</p>
-<p><img src="../images/%7B7BF1B62D-3148-4A47-BC17-538AFEEE4D19%7D_20190827105623.jpg" alt></p>
-<p>Above answers can't handle strings like <code>&quot; &quot;</code>. In this case, we still need the help of js. Just like the idea of css,</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">// prevent empty table rows collapse</span><br><span class="line"><span class="selector-class">.cell</span><span class="selector-pseudo">:empty</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">"\00a0"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/blog/../images/%7B7BF1B62D-3148-4A47-BC17-538AFEEE4D19%7D_20190827105623.jpg"></p>
+<p>Above answers can’t handle strings like <code>&quot; &quot;</code>. In this case, we still need the help of js. Just like the idea of css,</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">// prevent empty table rows collapse</span><br><span class="line"><span class="selector-class">.cell</span><span class="selector-pseudo">:empty</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">"\00a0"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>We can write a function like</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">falsyToNbsp</span>(<span class="params">value, falsyValues = [null, undefined, <span class="string">""</span>, NaN]</span>) </span>&#123;</span><br><span class="line">  value = <span class="keyword">typeof</span> value === <span class="string">"string"</span> ? value.trim() : value;</span><br><span class="line">  <span class="keyword">return</span> falsyValues.includes(value) ? <span class="string">"\u00a0"</span> : value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&lt;!--//todo unicode in <code>html</code>, how does <code>\u00a0</code> show? --&gt;</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">falsyToNbsp</span>(<span class="params">value, falsyValues = [null, undefined, <span class="string">""</span>, NaN]</span>) </span>&#123;</span><br><span class="line">  value = <span class="keyword">typeof</span> value === <span class="string">"string"</span> ? value.trim() : value;</span><br><span class="line">  <span class="keyword">return</span> falsyValues.includes(value) ? <span class="string">"\u00a0"</span> : value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+ <!--//todo unicode in `html`, how does `\u00a0` show? -->
+
 <p>You can use it in vue filters like</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; falsyToNbsp &#125; <span class="keyword">from</span> <span class="string">"utils"</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  filters: &#123;</span><br><span class="line">    falsyToNbsp</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; falsyToNbsp &#125; <span class="keyword">from</span> <span class="string">"utils"</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  filters: &#123;</span><br><span class="line">    falsyToNbsp</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <p>or with other libs.</p>
 <p><strong><a href="https://github.com/xianshenglu/blog/issues/98">Issue</a></strong></p>
 <p><strong><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/how-to-prevent-collapse-of-empty-rows-in-html-table.md">Source</a></strong></p>
-<h2>Reference</h2>
-
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
       
     </div>
     
@@ -515,7 +518,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

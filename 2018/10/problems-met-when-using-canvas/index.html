@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Preface Kind of weird when using canvas, but it&apos;s true. Let&apos;s take a look. Main canvas would lost accurate data when opacity isn&apos;t equal to 255 sample code: &amp;lt;canvas id=&quot;canvas&quot;&amp;gt;&amp;lt;/canvas&amp;gt; l">
+<meta name="description" content="PrefaceKind of weird when using canvas, but it’s true. Let’s take a look. Maincanvas would lost accurate data when opacity isn’t equal to 255sample code: &amp;lt;canvas id=&quot;canvas&quot;&amp;gt;&amp;lt;/canvas&amp;gt;  let">
 <meta name="keywords" content="canvas">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Problems Met When Using canvas">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/10/problems-met-when-using-canvas/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface Kind of weird when using canvas, but it&apos;s true. Let&apos;s take a look. Main canvas would lost accurate data when opacity isn&apos;t equal to 255 sample code: &amp;lt;canvas id=&quot;canvas&quot;&amp;gt;&amp;lt;/canvas&amp;gt; l">
+<meta property="og:description" content="PrefaceKind of weird when using canvas, but it’s true. Let’s take a look. Maincanvas would lost accurate data when opacity isn’t equal to 255sample code: &amp;lt;canvas id=&quot;canvas&quot;&amp;gt;&amp;lt;/canvas&amp;gt;  let">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Problems Met When Using canvas">
-<meta name="twitter:description" content="Preface Kind of weird when using canvas, but it&apos;s true. Let&apos;s take a look. Main canvas would lost accurate data when opacity isn&apos;t equal to 255 sample code: &amp;lt;canvas id=&quot;canvas&quot;&amp;gt;&amp;lt;/canvas&amp;gt; l">
+<meta name="twitter:description" content="PrefaceKind of weird when using canvas, but it’s true. Let’s take a look. Maincanvas would lost accurate data when opacity isn’t equal to 255sample code: &amp;lt;canvas id=&quot;canvas&quot;&amp;gt;&amp;lt;/canvas&amp;gt;  let">
 
 
 
@@ -322,29 +322,26 @@
       
 
       
-        <h2>Preface</h2>
-<p>Kind of weird when using <code>canvas</code>, but it's true. Let's take a look.</p>
-<h2>Main</h2>
-<h3>canvas would lost accurate data when opacity isn't equal to 255</h3>
-<p>sample code:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"canvas"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>)</span><br><span class="line"><span class="keyword">let</span> cxt = canvas.getContext(<span class="string">'2d'</span>)</span><br><span class="line"><span class="keyword">let</span> imageData = cxt.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="keyword">let</span> data = imageData.data</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>] = <span class="number">200</span></span><br><span class="line">data[<span class="number">1</span>] = <span class="number">100</span></span><br><span class="line">data[<span class="number">2</span>] = <span class="number">50</span></span><br><span class="line">data[<span class="number">3</span>] = <span class="number">25</span></span><br><span class="line"><span class="built_in">console</span>.log(imageData.data) <span class="comment">//[200, 100, 50, 25]</span></span><br><span class="line">cxt.putImageData(imageData, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">let</span> debugImgData = cxt.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(debugImgData.data) <span class="comment">//[204, 102, 51, 25]</span></span><br></pre></td></tr></table></figure></p>
-<p><code>imageData.data</code> wouldn't be equal to <code>debugImgData.data</code> because opacity isn't equal to 255. If we set opacity to 255. They would be the same.</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data[<span class="number">3</span>] = <span class="number">255</span></span><br></pre></td></tr></table></figure></p>
-<h3>imageData.data is readonly</h3>
-<p>You can modify <code>data</code> but you can't reassign it like <code>imageData.data=[1,22,3,5]</code>. It will fail <strong>silently</strong>.</p>
-<h3>copy imageData</h3>
-<p>Because <code>imageData.data</code> is readonly. So, you can't copy it like code below:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newImgData = cxt.createImageData(debugImgData)</span><br><span class="line">newImgData.data = debugImgData.data</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'newImgData'</span>, newImgData.data) <span class="comment">//[0,0,0,0]</span></span><br></pre></td></tr></table></figure></p>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>Kind of weird when using <code>canvas</code>, but it’s true. Let’s take a look.</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><h3 id="canvas-would-lost-accurate-data-when-opacity-isn’t-equal-to-255"><a href="#canvas-would-lost-accurate-data-when-opacity-isn’t-equal-to-255" class="headerlink" title="canvas would lost accurate data when opacity isn’t equal to 255"></a>canvas would lost accurate data when opacity isn’t equal to 255</h3><p>sample code:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"canvas"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>)</span><br><span class="line"><span class="keyword">let</span> cxt = canvas.getContext(<span class="string">'2d'</span>)</span><br><span class="line"><span class="keyword">let</span> imageData = cxt.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="keyword">let</span> data = imageData.data</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>] = <span class="number">200</span></span><br><span class="line">data[<span class="number">1</span>] = <span class="number">100</span></span><br><span class="line">data[<span class="number">2</span>] = <span class="number">50</span></span><br><span class="line">data[<span class="number">3</span>] = <span class="number">25</span></span><br><span class="line"><span class="built_in">console</span>.log(imageData.data) <span class="comment">//[200, 100, 50, 25]</span></span><br><span class="line">cxt.putImageData(imageData, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">let</span> debugImgData = cxt.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(debugImgData.data) <span class="comment">//[204, 102, 51, 25]</span></span><br></pre></td></tr></table></figure>
+
+<p><code>imageData.data</code> wouldn’t be equal to <code>debugImgData.data</code> because opacity isn’t equal to 255. If we set opacity to 255. They would be the same.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data[<span class="number">3</span>] = <span class="number">255</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="imageData-data-is-readonly"><a href="#imageData-data-is-readonly" class="headerlink" title="imageData.data is readonly"></a>imageData.data is readonly</h3><p>You can modify <code>data</code> but you can’t reassign it like <code>imageData.data=[1,22,3,5]</code>. It will fail <strong>silently</strong>.</p>
+<h3 id="copy-imageData"><a href="#copy-imageData" class="headerlink" title="copy imageData"></a>copy imageData</h3><p>Because <code>imageData.data</code> is readonly. So, you can’t copy it like code below:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newImgData = cxt.createImageData(debugImgData)</span><br><span class="line">newImgData.data = debugImgData.data</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'newImgData'</span>, newImgData.data) <span class="comment">//[0,0,0,0]</span></span><br></pre></td></tr></table></figure>
+
 <p>According to mdn, return value of <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createImageData" target="_blank" rel="noopener">createImageData</a> is</p>
 <p><em>A new ImageData object with the specified width and height. The new object is filled with transparent black pixels.</em></p>
 <p>which is <code>[0,0,0,0,,,,]</code>. And assignment of <code>newImgData.data = debugImgData.data</code> fail silently. So, if you want to copy <code>imageData</code> the right way is:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newImgData = cxt.createImageData(debugImgData)</span><br><span class="line">newImgData.data.set(debugImgData.data)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'newImgData'</span>, newImgData.data) <span class="comment">//[200, 100, 50, 255]</span></span><br></pre></td></tr></table></figure></p>
-<p>That is because <code>ImageData.data</code> is a <code>Uint8ClampedArray</code>. So we can find the API of
-<code>Uint8ClampedArray.prototype.set()</code> which stores multiple values in the typed array, reading input values from a specified array.</p>
-<h2>Ending</h2>
-<h2>Reference</h2>
-<ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newImgData = cxt.createImageData(debugImgData)</span><br><span class="line">newImgData.data.set(debugImgData.data)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'newImgData'</span>, newImgData.data) <span class="comment">//[200, 100, 50, 255]</span></span><br></pre></td></tr></table></figure>
+
+<p>That is because <code>ImageData.data</code> is a <code>Uint8ClampedArray</code>. So we can find the API of<br><code>Uint8ClampedArray.prototype.set()</code> which stores multiple values in the typed array, reading input values from a specified array.</p>
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://stackoverflow.com/questions/36588722/html-canvas-putimagedata-with-transparency-causes-incorrect-rgb-to-be-saved#" target="_blank" rel="noopener">HTML Canvas putImageData with transparency causes incorrect RGB to be saved</a></li>
 </ul>
 
@@ -521,7 +518,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">canvas would lost accurate data when opacity isn&#39;t equal to 255</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">imageData.data is readonly</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">copy imageData</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas-would-lost-accurate-data-when-opacity-isn’t-equal-to-255"><span class="nav-number">2.1.</span> <span class="nav-text">canvas would lost accurate data when opacity isn’t equal to 255</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#imageData-data-is-readonly"><span class="nav-number">2.2.</span> <span class="nav-text">imageData.data is readonly</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copy-imageData"><span class="nav-number">2.3.</span> <span class="nav-text">copy imageData</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ending"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

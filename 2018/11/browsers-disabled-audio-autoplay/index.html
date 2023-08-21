@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="If you have used audio or video, I guess you probably know autoplay attribute. Sometimes, PM wants to use that. However, the browsers doesn&apos;t want that. When I was using autoplay on 2018.10, I find th">
+<meta name="description" content="If you have used audio or video, I guess you probably know autoplay attribute. Sometimes, PM wants to use that. However, the browsers doesn’t want that. When I was using autoplay on 2018.10, I find th">
 <meta name="keywords" content="audio,autoplay">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Browsers Disabled Audio AutoPlay">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/11/browsers-disabled-audio-autoplay/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="If you have used audio or video, I guess you probably know autoplay attribute. Sometimes, PM wants to use that. However, the browsers doesn&apos;t want that. When I was using autoplay on 2018.10, I find th">
+<meta property="og:description" content="If you have used audio or video, I guess you probably know autoplay attribute. Sometimes, PM wants to use that. However, the browsers doesn’t want that. When I was using autoplay on 2018.10, I find th">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Browsers Disabled Audio AutoPlay">
-<meta name="twitter:description" content="If you have used audio or video, I guess you probably know autoplay attribute. Sometimes, PM wants to use that. However, the browsers doesn&apos;t want that. When I was using autoplay on 2018.10, I find th">
+<meta name="twitter:description" content="If you have used audio or video, I guess you probably know autoplay attribute. Sometimes, PM wants to use that. However, the browsers doesn’t want that. When I was using autoplay on 2018.10, I find th">
 
 
 
@@ -322,15 +322,16 @@
       
 
       
-        <p>If you have used <code>audio</code> or <code>video</code>, I guess you probably know <code>autoplay</code> attribute. Sometimes, PM wants to use that. However, the browsers doesn't want that.</p>
-<p>When I was using <code>autoplay</code> on 2018.10, I find that safari and chrome disabled <code>autoplay</code> when user haven't interacted with the page, especially on safari mobile. It's annoying.</p>
-<p>So, if you want to use <code>autoplay</code> it may fail. So, some guys choose to play the audio when user click or touch the page. But I think the better way is to detect whether the user's browser support <code>autoplay</code>. And the way is:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">audioEl</span><br><span class="line">  .play()</span><br><span class="line">  .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//not disabled</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="params">er</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//disabled</span></span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure></p>
+        <p>If you have used <code>audio</code> or <code>video</code>, I guess you probably know <code>autoplay</code> attribute. Sometimes, PM wants to use that. However, the browsers doesn’t want that.</p>
+<p>When I was using <code>autoplay</code> on 2018.10, I find that safari and chrome disabled <code>autoplay</code> when user haven’t interacted with the page, especially on safari mobile. It’s annoying.</p>
+<p>So, if you want to use <code>autoplay</code> it may fail. So, some guys choose to play the audio when user click or touch the page. But I think the better way is to detect whether the user’s browser support <code>autoplay</code>. And the way is:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">audioEl</span><br><span class="line">  .play()</span><br><span class="line">  .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//not disabled</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="params">er</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//disabled</span></span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
 <p>However, <a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11998448/" target="_blank" rel="noopener">ie11 and edge before 2018.1 returns <code>undefined</code> when <code>audio.play()</code></a>. So, if you care about that, you may try:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> audioState = audioEl.play()</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> audioState !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">  audioState</span><br><span class="line">    .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//not disabled</span></span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">er</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//disabled</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//other logic? what are you gonna do?</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> audioState = audioEl.play()</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> audioState !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">  audioState</span><br><span class="line">    .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//not disabled</span></span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">er</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//disabled</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//other logic? what are you gonna do?</span></span><br></pre></td></tr></table></figure>
+
 <p><a href="https://github.com/xianshenglu/blog/issues/18"><strong>Original Post</strong></a></p>
-<h2>Reference</h2>
-<ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://blog.videojs.com/autoplay-best-practices-with-video-js/" target="_blank" rel="noopener">Autoplay Best Practices with Video.js</a></li>
 </ul>
 
@@ -509,7 +510,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

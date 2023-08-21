@@ -322,116 +322,92 @@
       
         
           
-            <h2>Where to Learn Web Performance Optimization(WPO)</h2>
-<p>About one month ago, I started to learn and summarize the knowledge about web performance optimization. However, beyond my expectations, there is too many things need to know. After thinking, I chose <a href="https://developers.google.com/web/fundamentals/performance/why-performance-matters/" target="_blank" rel="noopener">developers.google.com</a> to start to learn. And other resources are listed <a href="https://github.com/xianshenglu/blog/issues/70"><strong>here</strong></a> with this article.</p>
+            <h2 id="Where-to-Learn-Web-Performance-Optimization-WPO"><a href="#Where-to-Learn-Web-Performance-Optimization-WPO" class="headerlink" title="Where to Learn Web Performance Optimization(WPO)"></a>Where to Learn Web Performance Optimization(WPO)</h2><p>About one month ago, I started to learn and summarize the knowledge about web performance optimization. However, beyond my expectations, there is too many things need to know. After thinking, I chose <a href="https://developers.google.com/web/fundamentals/performance/why-performance-matters/" target="_blank" rel="noopener">developers.google.com</a> to start to learn. And other resources are listed <a href="https://github.com/xianshenglu/blog/issues/70"><strong>here</strong></a> with this article.</p>
 <p>The reasons that I chose <a href="https://developers.google.com/web/fundamentals/performance/why-performance-matters/" target="_blank" rel="noopener">developers.google.com</a> can be listed below:</p>
 <ul>
 <li>Articles will update when some methods or workarounds is outdated. This is extremely important for me to check it out when I need to update my knowledge about WPO. Also, it lets me know that I am learning something which can be tested and applied right now. For me, a blog is not better than a real-time updated document.</li>
 <li>All the knowledge about WPO was listed systematically which is easy to understand, remember and use.</li>
 </ul>
-<h2>Summary About WPO</h2>
-<p>There are too many things for me to remember or test according to the doc. So, I am trying to summarize and abstract to make it simple to deduce and remember. Well, let's start with the questions.</p>
-<h3>What Is the Target of WPO</h3>
-<p>To make the page load as quickly as possible, also in a progressive way if possible.</p>
-<h3>How Can We Do That</h3>
-<p>Generally, we can analyze from the following aspects.</p>
-<p>&lt;!-- #### Loading Performance --&gt;</p>
+<h2 id="Summary-About-WPO"><a href="#Summary-About-WPO" class="headerlink" title="Summary About WPO"></a>Summary About WPO</h2><p>There are too many things for me to remember or test according to the doc. So, I am trying to summarize and abstract to make it simple to deduce and remember. Well, let’s start with the questions.</p>
+<h3 id="What-Is-the-Target-of-WPO"><a href="#What-Is-the-Target-of-WPO" class="headerlink" title="What Is the Target of WPO"></a>What Is the Target of WPO</h3><p>To make the page load as quickly as possible, also in a progressive way if possible.</p>
+<h3 id="How-Can-We-Do-That"><a href="#How-Can-We-Do-That" class="headerlink" title="How Can We Do That"></a>How Can We Do That</h3><p>Generally, we can analyze from the following aspects.</p>
+<!-- #### Loading Performance -->
+
 <ul>
-<li>
-<p>Use as much <strong>cache</strong> as possible.</p>
+<li><p>Use as much <strong>cache</strong> as possible.</p>
 <ul>
 <li>For a better control of cache in the front end, we may need to learn something about <code>PWA</code> or <code>Service Worker</code>.</li>
 <li>Or we might need some knowledge about offline storage like <code>Indexed DB</code>, <code>Web SQL</code>, <code>localStorage</code> and so on.</li>
 </ul>
 </li>
-<li>
-<p>For those content that we can't use the cache, we need to take other measures.</p>
+<li><p>For those content that we can’t use the cache, we need to take other measures.</p>
 <ul>
-<li>
-<p>Send <strong>as little content as possible</strong> which</p>
+<li><p>Send <strong>as little content as possible</strong> which</p>
 <ul>
-<li>
-<p>needs <code>code compression</code>, <code>GZIP</code>, <code>code split</code>, <code>tree shake</code>, <code>image compression</code> and remove or replace the bigger resources with smaller ones if possible.</p>
+<li><p>needs <code>code compression</code>, <code>GZIP</code>, <code>code split</code>, <code>tree shake</code>, <code>image compression</code> and remove or replace the bigger resources with smaller ones if possible.</p>
 </li>
-<li>
-<p>refactor component, export, import and file structure with <code>code split</code> or routes.
-&lt;!-- //todo test --&gt;
-&lt;!-- Don't put data based on routes or splitter in one file which would let final bundles in <em>app.js</em>. --&gt;</p>
-</li>
+<li><p>refactor component, export, import and file structure with <code>code split</code> or routes.</p>
+<!-- //todo test -->
+  <!-- Don't put data based on routes or splitter in one file which would let final bundles in _app.js_. --></li>
 </ul>
 </li>
-<li>
-<p>Send the content <strong>as closely as possible</strong> which</p>
+<li><p>Send the content <strong>as closely as possible</strong> which</p>
 <ul>
 <li>needs the help of <code>CDN</code>.</li>
 </ul>
 </li>
-<li>
-<p>Send the content <strong>simultaneously as many as possible</strong> which</p>
+<li><p>Send the content <strong>simultaneously as many as possible</strong> which</p>
 <ul>
-<li>needs the help of <code>http/2.0</code> to breakthrough the 6 parallel TCP connections limit in http/1.1 and request the resources simultaneously instead of one by one.</li>
+<li>needs the help of <code>http/2.0</code> to breakthrough the 6 parallel TCP connections limit in http&#x2F;1.1 and request the resources simultaneously instead of one by one.</li>
 </ul>
 </li>
-<li>
-<p>Load the resource <strong>in a more efficient way</strong> which</p>
+<li><p>Load the resource <strong>in a more efficient way</strong> which</p>
 <ul>
-<li>
-<p>needs to put <code>script</code> at the bottom of <code>body</code></p>
+<li><p>needs to put <code>script</code> at the bottom of <code>body</code></p>
 </li>
-<li>
-<p>use the <code>async</code> or <code>defer</code> according to the situation</p>
+<li><p>use the <code>async</code> or <code>defer</code> according to the situation</p>
 </li>
-<li>
-<p>use <code>prefetch</code>, <code>preconnect</code> or <code>dns-prefetch</code> according to the situation</p>
+<li><p>use <code>prefetch</code>, <code>preconnect</code> or <code>dns-prefetch</code> according to the situation</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p>&lt;!-- #### Rendering Performance --&gt;</p>
+<!-- #### Rendering Performance -->
+
 <ul>
-<li>
-<p><strong>Render the page in a more efficient way</strong> which requires more efficient practice in our daily code. For examples,</p>
+<li><p><strong>Render the page in a more efficient way</strong> which requires more efficient practice in our daily code. For examples,</p>
 <ul>
-<li>
-<p>Use <code>requestAnimationFrame</code> to change the UI instead of <code>setTimeout</code> or <code>setInterval</code>.</p>
+<li><p>Use <code>requestAnimationFrame</code> to change the UI instead of <code>setTimeout</code> or <code>setInterval</code>.</p>
 </li>
-<li>
-<p>Implement lazy load with <code>Intersection Observer</code> instead of calculating the position of each target element by <code>getBoundingClientRect</code>.</p>
+<li><p>Implement lazy load with <code>Intersection Observer</code> instead of calculating the position of each target element by <code>getBoundingClientRect</code>.</p>
 </li>
-<li>
-<p>Stick to compositor-only properties like <code>transform</code> and <code>opacity</code> to avoid re-layout and re-paint.</p>
+<li><p>Stick to compositor-only properties like <code>transform</code> and <code>opacity</code> to avoid re-layout and re-paint.</p>
 </li>
-<li>
-<p>Reduce the complexity of selectors.</p>
+<li><p>Reduce the complexity of selectors.</p>
 </li>
-<li>
-<p>....</p>
+<li><p>….</p>
 </li>
 </ul>
 </li>
 </ul>
-<h3>How Can We Prove That Our Optimization Is Work</h3>
-<p>We need some tools like below to collect the result each time we did an optimization.</p>
+<h3 id="How-Can-We-Prove-That-Our-Optimization-Is-Work"><a href="#How-Can-We-Prove-That-Our-Optimization-Is-Work" class="headerlink" title="How Can We Prove That Our Optimization Is Work"></a>How Can We Prove That Our Optimization Is Work</h3><p>We need some tools like below to collect the result each time we did an optimization.</p>
 <ul>
 <li><a href="https://developers.google.com/web/tools/lighthouse/" target="_blank" rel="noopener">Lighthouse</a></li>
 <li><a href="https://www.webpagetest.org/easy" target="_blank" rel="noopener">WebPageTest</a></li>
 <li><a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">PageSpeed Insights</a></li>
-<li>......</li>
+<li>……</li>
 </ul>
-<h3>Strictly</h3>
-<p>Strictly speaking, if we want to do WPO seriously for a long time, we still need to do something like:</p>
+<h3 id="Strictly"><a href="#Strictly" class="headerlink" title="Strictly"></a>Strictly</h3><p>Strictly speaking, if we want to do WPO seriously for a long time, we still need to do something like:</p>
 <ul>
 <li>Set a performance budget</li>
 <li>Use <code>performance</code> or google analysis tool to get the performance data in the real scene.</li>
-<li>...</li>
+<li>…</li>
 </ul>
-<h2>Last Words</h2>
-<p>Here is just a summary about WPO. More accurate information is in <a href="https://developers.google.com/web/fundamentals/performance/why-performance-matters/" target="_blank" rel="noopener">developers.google.com</a>.</p>
+<h2 id="Last-Words"><a href="#Last-Words" class="headerlink" title="Last Words"></a>Last Words</h2><p>Here is just a summary about WPO. More accurate information is in <a href="https://developers.google.com/web/fundamentals/performance/why-performance-matters/" target="_blank" rel="noopener">developers.google.com</a>.</p>
 <p><a href="https://github.com/xianshenglu/blog/issues/70"><strong>Source</strong></a></p>
-<h2>Reference</h2>
-
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
           
         
       
@@ -573,23 +549,19 @@
         
           
             <p>Here is the stuff.</p>
-<h3>Still Consider IE?</h3>
-<p>If you still need to be compatible with IE browser, the below tag might be needed to render page using EdgeHTML instead of uncertain render engine.</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3>Use Custom Font on the Web?</h3>
-<p><a href="https://github.com/ecomfe/fontmin/">fontmin</a> will help you. For more information, check <a href="https://github.com/xianshenglu/blog/issues/72">issues/72</a>.</p>
-<h3>Consider Scroll Bar</h3>
-<p>Before we can directly set scroll bar width by <code>::-webkit-scrollbar</code> <strong>for major browsers on PC</strong>, we always need to take care of the toggle of scroll bar because it might affect the layout except in Mac. For example,</p>
+<h3 id="Still-Consider-IE"><a href="#Still-Consider-IE" class="headerlink" title="Still Consider IE?"></a>Still Consider IE?</h3><p>If you still need to be compatible with IE browser, the below tag might be needed to render page using EdgeHTML instead of uncertain render engine.</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Use-Custom-Font-on-the-Web"><a href="#Use-Custom-Font-on-the-Web" class="headerlink" title="Use Custom Font on the Web?"></a>Use Custom Font on the Web?</h3><p><a href="https://github.com/ecomfe/fontmin/">fontmin</a> will help you. For more information, check <a href="https://github.com/xianshenglu/blog/issues/72">issues&#x2F;72</a>.</p>
+<h3 id="Consider-Scroll-Bar"><a href="#Consider-Scroll-Bar" class="headerlink" title="Consider Scroll Bar"></a>Consider Scroll Bar</h3><p>Before we can directly set scroll bar width by <code>::-webkit-scrollbar</code> <strong>for major browsers on PC</strong>, we always need to take care of the toggle of scroll bar because it might affect the layout except in Mac. For example,</p>
 <ul>
 <li>It is common that we need to use <code>box-sizing: border-box;</code> to include the scroll bar.</li>
 <li>Sometimes we even need to get the scroll bar width in js.</li>
 </ul>
 <p>Anyway, make sure that you have already considered scroll bar before production. For example, the style, the effect of layout, etc.</p>
-<h3>Mobile Web Page</h3>
-<p>For the mobile web page, we need to do something else and I write a summary <a href="https://github.com/xianshenglu/blog/issues/69">here</a>.</p>
+<h3 id="Mobile-Web-Page"><a href="#Mobile-Web-Page" class="headerlink" title="Mobile Web Page"></a>Mobile Web Page</h3><p>For the mobile web page, we need to do something else and I write a summary <a href="https://github.com/xianshenglu/blog/issues/69">here</a>.</p>
 <p><a href="https://github.com/xianshenglu/blog/issues/68"><strong>Source</strong></a></p>
-<h2>Reference</h2>
-
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
           
         
       
@@ -730,85 +702,82 @@
       
         
           
-            <h4>Layout</h4>
-<p>I guess most of you were using <code>rem</code>, <code>vw</code>, <code>viewport</code> etc.</p>
+            <h4 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h4><p>I guess most of you were using <code>rem</code>, <code>vw</code>, <code>viewport</code> etc.</p>
 <p>For <code>rem</code> or <code>vw</code>, we always work with the below tag.</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>And then we transformed <code>px</code> to <code>rem</code> or <code>vw</code> by plugins. However, some guys prefer using internal scale logic like below:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- if the device-width is 375 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=750, initial-scale=0.5"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- if the device-width is 375 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=750, initial-scale=0.5"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>It will also work by changing the <code>width</code> and <code>initial-scale</code> at the same time.</p>
 <p>However, in most cases, we can see the <code>meta[name=&quot;viewport&quot;]</code> with more complicated content. For example,</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"viewport"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"viewport"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>What if we remove the <code>minimum-scale</code>, <code>minimum-scale</code> and <code>user-scalable</code>? The result is:</p>
 <ul>
-<li>
-<p>If an <code>input</code> was focused on safari, the web page would zoom in. Here is the proof.</p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171932.gif" alt></p>
+<li><p>If an <code>input</code> was focused on safari, the web page would zoom in. Here is the proof.</p>
+<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171932.gif"></p>
 </li>
-<li>
-<p>You will get the scale buttons like below when you touch the page in WeChat 7.0.0, at least in Android.</p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190128134750.png" alt></p>
+<li><p>You will get the scale buttons like below when you touch the page in WeChat 7.0.0, at least in Android.</p>
+<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190128134750.png"></p>
 </li>
 </ul>
 <p>And the solution is to add <code>user-scalable=no</code> or <code>minimum-scale=1, minimum-scale=1</code>. But you have to accept a shortcoming:</p>
 <ul>
-<li><strong>User can't zoom the page using two fingers, at least in my Android WeChat and Chrome 71.</strong> Though in some browsers user can still zoom like UC, QQ etc.</li>
+<li><strong>User can’t zoom the page using two fingers, at least in my Android WeChat and Chrome 71.</strong> Though in some browsers user can still zoom like UC, QQ etc.</li>
 </ul>
-<p>For better compatibility, we may have to use both <code>user-scalable=no</code> and <code>minimum-scale=1, minimum-scale=1</code>. That's why we always see the code below.</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"viewport"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4>Screen With High Resolution</h4>
-<p>Normally, we would use <code>png@2x</code>, <code>png@3x</code> etc to solve the vague problem of images brought by high resolution screen. For example,</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">media</span> (-webkit-min-device-pixel-ratio: <span class="number">2</span>), (min-resolution: <span class="number">192dpi</span>) &#123;</span><br><span class="line">  <span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'/images/my_image@2x.png'</span>) center center no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> (-webkit-min-device-pixel-ratio: <span class="number">3</span>), (min-resolution: <span class="number">288dpi</span>) &#123;</span><br><span class="line">  <span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'/images/my_image@3x.png'</span>) center center no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>For better compatibility, we may have to use both <code>user-scalable=no</code> and <code>minimum-scale=1, minimum-scale=1</code>. That’s why we always see the code below.</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"viewport"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Screen-With-High-Resolution"><a href="#Screen-With-High-Resolution" class="headerlink" title="Screen With High Resolution"></a>Screen With High Resolution</h4><p>Normally, we would use <code>png@2x</code>, <code>png@3x</code> etc to solve the vague problem of images brought by high resolution screen. For example,</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">media</span> (-webkit-min-device-pixel-ratio: <span class="number">2</span>), (min-resolution: <span class="number">192dpi</span>) &#123;</span><br><span class="line">  <span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'/images/my_image@2x.png'</span>) center center no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> (-webkit-min-device-pixel-ratio: <span class="number">3</span>), (min-resolution: <span class="number">288dpi</span>) &#123;</span><br><span class="line">  <span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'/images/my_image@3x.png'</span>) center center no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>A convenient way to do this is by <a href="https://github.com/strues/retinajs">retinajs</a>. And for icons, I would suggest you use <code>svg</code> if possible.</p>
-<h4><code>vh</code> Is Always Calculated as If the Url Bar Is Hidden.</h4>
-<p>In brief, <code>100vh</code> doesn't equal <code>window.innerHeight</code>. For more, check <a href="https://github.com/xianshenglu/blog/issues/38">issues/38</a>.</p>
-<h4>Consider the Pop-Up Keyboard</h4>
-<p>If there is an input or another form element, the keyboard would pop up when the element was focused. For example,</p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202174136.jpg" alt></p>
-<p>Is this a bug? Maybe... At least, you have to notice that before deploying. And the best way I think is to consult PM or designer if it's okay.</p>
+<h4 id="vh-Is-Always-Calculated-as-If-the-Url-Bar-Is-Hidden"><a href="#vh-Is-Always-Calculated-as-If-the-Url-Bar-Is-Hidden" class="headerlink" title="vh Is Always Calculated as If the Url Bar Is Hidden."></a><code>vh</code> Is Always Calculated as If the Url Bar Is Hidden.</h4><p>In brief, <code>100vh</code> doesn’t equal <code>window.innerHeight</code>. For more, check <a href="https://github.com/xianshenglu/blog/issues/38">issues&#x2F;38</a>.</p>
+<h4 id="Consider-the-Pop-Up-Keyboard"><a href="#Consider-the-Pop-Up-Keyboard" class="headerlink" title="Consider the Pop-Up Keyboard"></a>Consider the Pop-Up Keyboard</h4><p>If there is an input or another form element, the keyboard would pop up when the element was focused. For example,</p>
+<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202174136.jpg"></p>
+<p>Is this a bug? Maybe… At least, you have to notice that before deploying. And the best way I think is to consult PM or designer if it’s okay.</p>
 <p>In that case, the keyboard would make <code>vh</code> smaller which may ruin the layout using <code>vh</code>.</p>
-<h4>Link Highlight While It's Being Tapped</h4>
-<p>In my Android Chrome 71, the highlight would show when I touch the link.</p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173819.jpg" alt></p>
+<h4 id="Link-Highlight-While-It’s-Being-Tapped"><a href="#Link-Highlight-While-It’s-Being-Tapped" class="headerlink" title="Link Highlight While It’s Being Tapped"></a>Link Highlight While It’s Being Tapped</h4><p>In my Android Chrome 71, the highlight would show when I touch the link.</p>
+<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173819.jpg"></p>
 <p>We can disable it by the code below.</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(0, 0, 0, 0);</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: transparent; <span class="comment">/* For some Androids */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(0, 0, 0, 0);</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: transparent; <span class="comment">/* For some Androids */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>I would suggest you disable it because different manufacturers may show different colors</strong>.</p>
-<h4><code>img</code> Without src Would Have 1px White <code>border</code> on Mobile Chrome 70.</h4>
-<p>You may need to add the code below to your <em>reset.css</em> to hide the <code>img</code> without <code>src</code>.</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4>Qrcode in WeChat</h4>
-<ul>
-<li>Use <code>img</code> Instead of <code>background-image</code>. Otherwise, it won't work.</li>
-<li>Don't put two qrcodes in one screen. Otherwise, it would only recognize one.</li>
+<h4 id="img-Without-src-Would-Have-1px-White-border-on-Mobile-Chrome-70"><a href="#img-Without-src-Would-Have-1px-White-border-on-Mobile-Chrome-70" class="headerlink" title="img Without src Would Have 1px White border on Mobile Chrome 70."></a><code>img</code> Without src Would Have 1px White <code>border</code> on Mobile Chrome 70.</h4><p>You may need to add the code below to your <em>reset.css</em> to hide the <code>img</code> without <code>src</code>.</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Qrcode-in-WeChat"><a href="#Qrcode-in-WeChat" class="headerlink" title="Qrcode in WeChat"></a>Qrcode in WeChat</h4><ul>
+<li>Use <code>img</code> Instead of <code>background-image</code>. Otherwise, it won’t work.</li>
+<li>Don’t put two qrcodes in one screen. Otherwise, it would only recognize one.</li>
 </ul>
-<h4>Format-detection</h4>
-<p>It is said that iOS safari has a default style for telephone numbers, email, etc. As I tested in iPhoneX 11.3, at least for telephone numbers, it does have a default style like below.</p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171930.png" alt></p>
+<h4 id="Format-detection"><a href="#Format-detection" class="headerlink" title="Format-detection"></a>Format-detection</h4><p>It is said that iOS safari has a default style for telephone numbers, email, etc. As I tested in iPhoneX 11.3, at least for telephone numbers, it does have a default style like below.</p>
+<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171930.png"></p>
 <p>If we want to disable the default style we can use the code below to avoid that.</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"format-detection"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"telephone=no, email=no, date=no, address=no, url=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"format-detection"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"telephone=no, email=no, date=no, address=no, url=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>If you want to call telephone, send message etc when the element is clicked you can do it by</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"tel:020-11811922"</span>&gt;</span>Call me: 020-11811922<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"sms:10086"</span>&gt;</span>Send me a message: 10086<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4>Disable Select</h4>
-<p>You may want to avoid the situation like below when the user is touching the <strong>text of the element</strong>.</p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173857.jpg" alt> <img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173902.jpg" alt></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"tel:020-11811922"</span>&gt;</span>Call me: 020-11811922<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"sms:10086"</span>&gt;</span>Send me a message: 10086<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Disable-Select"><a href="#Disable-Select" class="headerlink" title="Disable Select"></a>Disable Select</h4><p>You may want to avoid the situation like below when the user is touching the <strong>text of the element</strong>.</p>
+<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173857.jpg"> <img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173902.jpg"></p>
 <p>You can use the code below to avoid that.</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.example</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-user-select</span>: none;</span><br><span class="line">  <span class="attribute">-moz-user-select</span>: none;</span><br><span class="line">  <span class="attribute">-ms-user-select</span>: none;</span><br><span class="line">  <span class="attribute">user-select</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.example</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-user-select</span>: none;</span><br><span class="line">  <span class="attribute">-moz-user-select</span>: none;</span><br><span class="line">  <span class="attribute">-ms-user-select</span>: none;</span><br><span class="line">  <span class="attribute">user-select</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>The user may still hear the tone or feel the vibration, at least in my WeChat 7.0.0. <strong>However, the user can still trigger selection on UC, QQ browser with an extra operation.</strong></p>
-<h4>Avoid Popup Menu in Long Touch ?（Not Compatible）</h4>
-<p>You may also want to disable popup like below when the user is touching <strong>an image or other stuff</strong></p>
-<p><img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173852.jpg" alt> <img src="../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173826.jpg" alt></p>
+<h4 id="Avoid-Popup-Menu-in-Long-Touch-（Not-Compatible）"><a href="#Avoid-Popup-Menu-in-Long-Touch-（Not-Compatible）" class="headerlink" title="Avoid Popup Menu in Long Touch ?（Not Compatible）"></a>Avoid Popup Menu in Long Touch ?（Not Compatible）</h4><p>You may also want to disable popup like below when the user is touching <strong>an image or other stuff</strong></p>
+<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173852.jpg"> <img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173826.jpg"></p>
 <p>In this case, <code>user-select:none</code> is not enough to cover this. You may have to add js code like below.</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'contextmenu'</span>, event =&gt; event.preventDefault())</span><br></pre></td></tr></table></figure></p>
-<p>Our User may still hear the tone or feel the vibration, at least in my Android Chrome 71. <strong>However, in WeChat, QQ and UC browser, it doesn't work.</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'contextmenu'</span>, event =&gt; event.preventDefault())</span><br></pre></td></tr></table></figure>
+
+<p>Our User may still hear the tone or feel the vibration, at least in my Android Chrome 71. <strong>However, in WeChat, QQ and UC browser, it doesn’t work.</strong></p>
 <p>and CSS to disable callout in iOS.</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.target</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-touch-callout</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4>Use <code>touchstart</code> to Imitate <code>hover</code></h4>
-<p>As we all know, there is no <code>hover</code> on mobile. If you really want that, you can use <code>touchstart</code> to imitate it.</p>
-<h4>No Need to Worry About the Scroll Bar</h4>
-<p>On mobile, the scroll bar would hide automatically when you stop scrolling.</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.target</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-touch-callout</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Use-touchstart-to-Imitate-hover"><a href="#Use-touchstart-to-Imitate-hover" class="headerlink" title="Use touchstart to Imitate hover"></a>Use <code>touchstart</code> to Imitate <code>hover</code></h4><p>As we all know, there is no <code>hover</code> on mobile. If you really want that, you can use <code>touchstart</code> to imitate it.</p>
+<h4 id="No-Need-to-Worry-About-the-Scroll-Bar"><a href="#No-Need-to-Worry-About-the-Scroll-Bar" class="headerlink" title="No Need to Worry About the Scroll Bar"></a>No Need to Worry About the Scroll Bar</h4><p>On mobile, the scroll bar would hide automatically when you stop scrolling.</p>
 <p><a href="https://github.com/xianshenglu/blog/issues/69"><strong>Source</strong></a></p>
-<h2>Reference</h2>
-<ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://www.w3.org/TR/css-device-adapt-1/#user-scalable" target="_blank" rel="noopener">user-scalable</a></li>
 </ul>
 

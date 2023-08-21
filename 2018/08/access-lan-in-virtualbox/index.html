@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Preface 工作需要，在 MAC 中开发，调试的时候，就装了 virtualBox 虚拟机来调试 IE，但是开发中经常调试的是局域网的网址，比如 localhost:8080，我可以用 192.168.x.x:8080 在局域网中另一台设备上访问，但是放到虚拟机中就不行了。 Main 经搜索，方案如下： 在虚拟系统未打开的情况下,在设置》网络属性中设置两个网络连接：  网络连接 1 设置成 N">
+<meta name="description" content="Preface工作需要，在 MAC 中开发，调试的时候，就装了 virtualBox 虚拟机来调试 IE，但是开发中经常调试的是局域网的网址，比如 localhost:8080，我可以用 192.168.x.x:8080 在局域网中另一台设备上访问，但是放到虚拟机中就不行了。 Main经搜索，方案如下： 在虚拟系统未打开的情况下,在设置》网络属性中设置两个网络连接：  网络连接 1 设置成 NAT">
 <meta name="keywords" content="VirtualBox,LAN,192.168.x.x,chinese">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 VirtualBox 中访问局域网">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/08/access-lan-in-virtualbox/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface 工作需要，在 MAC 中开发，调试的时候，就装了 virtualBox 虚拟机来调试 IE，但是开发中经常调试的是局域网的网址，比如 localhost:8080，我可以用 192.168.x.x:8080 在局域网中另一台设备上访问，但是放到虚拟机中就不行了。 Main 经搜索，方案如下： 在虚拟系统未打开的情况下,在设置》网络属性中设置两个网络连接：  网络连接 1 设置成 N">
+<meta property="og:description" content="Preface工作需要，在 MAC 中开发，调试的时候，就装了 virtualBox 虚拟机来调试 IE，但是开发中经常调试的是局域网的网址，比如 localhost:8080，我可以用 192.168.x.x:8080 在局域网中另一台设备上访问，但是放到虚拟机中就不行了。 Main经搜索，方案如下： 在虚拟系统未打开的情况下,在设置》网络属性中设置两个网络连接：  网络连接 1 设置成 NAT">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 VirtualBox 中访问局域网">
-<meta name="twitter:description" content="Preface 工作需要，在 MAC 中开发，调试的时候，就装了 virtualBox 虚拟机来调试 IE，但是开发中经常调试的是局域网的网址，比如 localhost:8080，我可以用 192.168.x.x:8080 在局域网中另一台设备上访问，但是放到虚拟机中就不行了。 Main 经搜索，方案如下： 在虚拟系统未打开的情况下,在设置》网络属性中设置两个网络连接：  网络连接 1 设置成 N">
+<meta name="twitter:description" content="Preface工作需要，在 MAC 中开发，调试的时候，就装了 virtualBox 虚拟机来调试 IE，但是开发中经常调试的是局域网的网址，比如 localhost:8080，我可以用 192.168.x.x:8080 在局域网中另一台设备上访问，但是放到虚拟机中就不行了。 Main经搜索，方案如下： 在虚拟系统未打开的情况下,在设置》网络属性中设置两个网络连接：  网络连接 1 设置成 NAT">
 
 
 
@@ -322,19 +322,16 @@
       
 
       
-        <h2>Preface</h2>
-<p>工作需要，在 MAC 中开发，调试的时候，就装了 virtualBox 虚拟机来调试 IE，但是开发中经常调试的是局域网的网址，比如 <code>localhost:8080</code>，我可以用 <code>192.168.x.x:8080</code> 在局域网中另一台设备上访问，但是放到虚拟机中就不行了。</p>
-<h2>Main</h2>
-<p>经搜索，方案如下：</p>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>工作需要，在 MAC 中开发，调试的时候，就装了 virtualBox 虚拟机来调试 IE，但是开发中经常调试的是局域网的网址，比如 <code>localhost:8080</code>，我可以用 <code>192.168.x.x:8080</code> 在局域网中另一台设备上访问，但是放到虚拟机中就不行了。</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>经搜索，方案如下：</p>
 <p>在虚拟系统未打开的情况下,在设置》网络属性中设置两个网络连接：</p>
 <ul>
 <li>网络连接 1 设置成 NAT，</li>
 <li>网络连接 2 设置成 Bridged Adapter,名称是 eth0（这个我没找到，但是选的另一个）</li>
 </ul>
 <p>这样的话就可以联上互联网同时可以连上局域网。</p>
-<p>但是在这种情况下，在虚拟机中输入网址时，遇到 老版的 IE ，需要输入在局域网网址前加 http:// 否则，直接输 192.168.x.x 可能会变成自动搜索。</p>
-<h2>Reference</h2>
-<p><a href="https://blog.csdn.net/ppby2002/article/details/6455892" target="_blank" rel="noopener">设置 VirtualBox 虚拟机访问局域网</a></p>
+<p>但是在这种情况下，在虚拟机中输入网址时，遇到 老版的 IE ，需要输入在局域网网址前加 http:&#x2F;&#x2F; 否则，直接输 192.168.x.x 可能会变成自动搜索。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://blog.csdn.net/ppby2002/article/details/6455892" target="_blank" rel="noopener">设置 VirtualBox 虚拟机访问局域网</a></p>
 
       
     </div>
@@ -515,7 +512,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

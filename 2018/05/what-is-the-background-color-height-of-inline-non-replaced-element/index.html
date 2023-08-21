@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="Preface As we all know, when we set background-color in block-level non-replaced elements, the height of background-color is equal to border-top+padding-top+height+padding-bottom+border-bottom accordi">
+<meta name="description" content="PrefaceAs we all know, when we set background-color in block-level non-replaced elements, the height of background-color is equal to border-top+padding-top+height+padding-bottom+border-bottom accordin">
 <meta name="keywords" content="background-color,inline non-replaced element,content area">
 <meta property="og:type" content="article">
 <meta property="og:title" content="What Is the background-color&#39;s Height of Inline Non-Replaced Element?">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/05/what-is-the-background-color-height-of-inline-non-replaced-element/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface As we all know, when we set background-color in block-level non-replaced elements, the height of background-color is equal to border-top+padding-top+height+padding-bottom+border-bottom accordi">
+<meta property="og:description" content="PrefaceAs we all know, when we set background-color in block-level non-replaced elements, the height of background-color is equal to border-top+padding-top+height+padding-bottom+border-bottom accordin">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/05/images/20180517161430.png">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/05/images/20180517162130.png">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.642Z">
+<meta property="og:image" content="https://github.com/images/20180517161430.png">
+<meta property="og:image" content="https://github.com/images/20180517162130.png">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="What Is the background-color&#39;s Height of Inline Non-Replaced Element?">
-<meta name="twitter:description" content="Preface As we all know, when we set background-color in block-level non-replaced elements, the height of background-color is equal to border-top+padding-top+height+padding-bottom+border-bottom accordi">
-<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2018/05/images/20180517161430.png">
+<meta name="twitter:description" content="PrefaceAs we all know, when we set background-color in block-level non-replaced elements, the height of background-color is equal to border-top+padding-top+height+padding-bottom+border-bottom accordin">
+<meta name="twitter:image" content="https://github.com/images/20180517161430.png">
 
 
 
@@ -325,13 +325,13 @@
       
 
       
-        <h2>Preface</h2>
-<p>As we all know, when we set <code>background-color</code> in block-level non-replaced elements, the height of <code>background-color</code> is equal to <code>border-top</code>+<code>padding-top</code>+<code>height</code>+<code>padding-bottom</code>+<code>border-bottom</code> according to box-model which is very clear.</p>
-<h2>Question</h2>
-<p>However, things get weird when we set <code>background-color</code> to inline non-replaced element because <code>height</code> doesn't apply to the element. For example:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inline"</span>&gt;</span></span><br><span class="line">  inline non-replaced element</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: Microsoft YaHei;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inline</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="../images/20180517161430.png" alt="20180517161430.png"></p>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>As we all know, when we set <code>background-color</code> in block-level non-replaced elements, the height of <code>background-color</code> is equal to <code>border-top</code>+<code>padding-top</code>+<code>height</code>+<code>padding-bottom</code>+<code>border-bottom</code> according to box-model which is very clear.</p>
+<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>However, things get weird when we set <code>background-color</code> to inline non-replaced element because <code>height</code> doesn’t apply to the element. For example:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inline"</span>&gt;</span></span><br><span class="line">  inline non-replaced element</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: Microsoft YaHei;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inline</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/blog/../images/20180517161430.png" alt="20180517161430.png"></p>
 <p>So, here is the question,</p>
 <ul>
 <li>Assume there is no <code>margin</code> and <code>padding</code>,how much is the size of the <code>background-color</code> area which is also the content area ?any rules?</li>
@@ -344,28 +344,28 @@
 <p>If we measured the direction as the screenshot above ,we can get some data below, called Case A :</p>
 <ul>
 <li>font-size:40px</li>
-<li>background-color's height : about 50px</li>
-<li>top/bottom space : about 15px</li>
+<li>background-color’s height : about 50px</li>
+<li>top&#x2F;bottom space : about 15px</li>
 </ul>
 <p>May be you thought that those data should be like these, called Case B :</p>
 <ul>
 <li>font-size:40px</li>
-<li>background-color's height : about 40px</li>
-<li>top/bottom space : about 20px, equals to half-leading</li>
+<li>background-color’s height : about 40px</li>
+<li>top&#x2F;bottom space : about 20px, equals to half-leading</li>
 </ul>
 <p>It seems Case B is more reasonable.</p>
 <p>However, the fact is that Case A is applied until Chrome-66.</p>
 <p>Anyway, <code>line-height</code> is definitive, always 80px.</p>
 <p>After reading <a href="https://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#inline-non-replaced" target="_blank" rel="noopener">10.6.1 Inline, non-replaced elements</a> in CSS2.1 and SO, I think the point is below:</p>
 <blockquote>
-<p>The 'height' property does not apply. The height of the content area should be based on the font, but this specification does not specify how. A UA may, e.g., use the em-box or the maximum ascender and descender of the font.</p>
+<p>The ‘height’ property does not apply. The height of the content area should be based on the font, but this specification does not specify how. A UA may, e.g., use the em-box or the maximum ascender and descender of the font.</p>
 </blockquote>
 <blockquote>
-<p>(The latter would ensure that glyphs with parts above or below the em-box still fall within the content area, but leads to differently sized boxes for different fonts; the former would ensure authors can control background styling relative to the 'line-height', but leads to glyphs painting outside their content area.)</p>
+<p>(The latter would ensure that glyphs with parts above or below the em-box still fall within the content area, but leads to differently sized boxes for different fonts; the former would ensure authors can control background styling relative to the ‘line-height’, but leads to glyphs painting outside their content area.)</p>
 </blockquote>
 <p>According to the specification above, I think that Case B means</p>
 <blockquote>
-<p>A UA use the em-box which would ensure authors can control background styling relative to the 'line-height', but leads to glyphs painting outside their content area.</p>
+<p>A UA use the em-box which would ensure authors can control background styling relative to the ‘line-height’, but leads to glyphs painting outside their content area.</p>
 </blockquote>
 <p>while Case A means</p>
 <blockquote>
@@ -373,23 +373,24 @@
 </blockquote>
 <p>Then, I try to prove it with different fonts which will lead differently sized boxes according to specification above.</p>
 <p>For example, change <code>font-family</code>from <code>Microsoft YaHei</code>to<code>Georgia</code>:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inline"</span>&gt;</span>inline non-replaced element <span class="tag">&lt;<span class="name">br</span> /&gt;</span>sss<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">font-family</span>: Georgia;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inline</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="../images/20180517162130.png" alt="20180517162130.png"></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inline"</span>&gt;</span>inline non-replaced element <span class="tag">&lt;<span class="name">br</span> /&gt;</span>sss<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">font-family</span>: Georgia;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inline</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/blog/../images/20180517162130.png" alt="20180517162130.png"></p>
 <p>As you can see ,these data becomes:</p>
 <ul>
 <li>font-size:40px</li>
-<li>background-color's height : about 46px</li>
+<li>background-color’s height : about 46px</li>
 <li>top space : about 15px</li>
 <li>bottom space: about 19px</li>
 </ul>
-<h2>Conclusion</h2>
-<p>So, precisely, assuming that there is no <code>margin</code> and <code>padding</code>,we can say that background-color's height of inline non-replaced element is</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>So, precisely, assuming that there is no <code>margin</code> and <code>padding</code>,we can say that background-color’s height of inline non-replaced element is</p>
 <ul>
 <li>determined by <code>font-size</code></li>
 <li>and modified partially by <code>font-family</code> which depends on the rules UA takes.</li>
 </ul>
-<p>And also the area outside of the <code>background-color</code> area isn't equal to half-leading.</p>
+<p>And also the area outside of the <code>background-color</code> area isn’t equal to half-leading.</p>
 <p>Reference:</p>
 <p><a href="https://stackoverflow.com/questions/28363186/inline-elements-and-line-height" target="_blank" rel="noopener">Inline elements and line-height</a></p>
 <p><a href="https://iamvdo.me/en/blog/css-font-metrics-line-height-and-vertical-align" target="_blank" rel="noopener">Deep dive CSS: font metrics, line-height and vertical-align
@@ -569,7 +570,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">2.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">3.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
             
 
           </div>

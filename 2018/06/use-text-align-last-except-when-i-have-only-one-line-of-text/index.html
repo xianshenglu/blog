@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="Preface As the title says, what I want is like image below:  Is that Possible, ha? Steps At the first, I thought that was impossible with css only. But I find an answer in SO. Here is the code: &amp;lt;di">
+<meta name="description" content="PrefaceAs the title says, what I want is like image below:  Is that Possible, ha? StepsAt the first, I thought that was impossible with css only. But I find an answer in SO. Here is the code: &amp;lt;div">
 <meta name="keywords" content="text-align,text-align-last">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Use Text Align Last Except When I Have Only One Line Of Text">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/06/use-text-align-last-except-when-i-have-only-one-line-of-text/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface As the title says, what I want is like image below:  Is that Possible, ha? Steps At the first, I thought that was impossible with css only. But I find an answer in SO. Here is the code: &amp;lt;di">
+<meta property="og:description" content="PrefaceAs the title says, what I want is like image below:  Is that Possible, ha? StepsAt the first, I thought that was impossible with css only. But I find an answer in SO. Here is the code: &amp;lt;div">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/06/images/%E6%88%AA%E5%9B%BE20180609163513.png">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180609163513.png">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Use Text Align Last Except When I Have Only One Line Of Text">
-<meta name="twitter:description" content="Preface As the title says, what I want is like image below:  Is that Possible, ha? Steps At the first, I thought that was impossible with css only. But I find an answer in SO. Here is the code: &amp;lt;di">
-<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2018/06/images/%E6%88%AA%E5%9B%BE20180609163513.png">
+<meta name="twitter:description" content="PrefaceAs the title says, what I want is like image below:  Is that Possible, ha? StepsAt the first, I thought that was impossible with css only. But I find an answer in SO. Here is the code: &amp;lt;div">
+<meta name="twitter:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180609163513.png">
 
 
 
@@ -324,21 +324,19 @@
       
 
       
-        <h2>Preface</h2>
-<p>As the title says, what I want is like image below:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180609163513.png" alt></p>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>As the title says, what I want is like image below:</p>
+<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180609163513.png"></p>
 <p>Is that Possible, ha?</p>
-<h2>Steps</h2>
-<p>At the first, I thought that was impossible with css only. But I find an answer in SO. Here is the code:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"par"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child child1"</span>&gt;</span>box box box box box <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child child2"</span>&gt;</span>box box<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child child3"</span>&gt;</span>box box box box<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child1</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child2</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: yellowgreen;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child3</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: orange;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h2><p>At the first, I thought that was impossible with css only. But I find an answer in SO. Here is the code:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"par"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child child1"</span>&gt;</span>box box box box box <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child child2"</span>&gt;</span>box box<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child child3"</span>&gt;</span>box box box box<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child1</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child2</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: yellowgreen;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child3</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: orange;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>That is magic!</p>
-<p>Because inline-blocks is an inline-level element. So, it will be in the left of the container <code>.par</code> built because of <code>text-align:left</code>. The width of <code>inline-block</code> is determined by the content which is only one line. So, <code>text-align:center</code> on the <code>.child</code> doesn't work because the width of <code>.child</code> is equal to the width of one line content in the <code>.child</code>.</p>
+<p>Because inline-blocks is an inline-level element. So, it will be in the left of the container <code>.par</code> built because of <code>text-align:left</code>. The width of <code>inline-block</code> is determined by the content which is only one line. So, <code>text-align:center</code> on the <code>.child</code> doesn’t work because the width of <code>.child</code> is equal to the width of one line content in the <code>.child</code>.</p>
 <p>Also, the <code>inline-block</code> is a block container. When there is more than one line, the width of <code>inline-block</code> will be equal to the width of <code>.par</code>. In this case, <code>text-align:center</code> will work on the last line because the width of last line is less than the width of the <code>inline-block</code>.</p>
-<h2>Ending</h2>
-<p>Anyway, this solution is awesome. Thanks to the reference.</p>
-<h2>Reference</h2>
-<p><a href="https://stackoverflow.com/questions/43556557/how-can-i-use-text-align-last-except-when-i-have-only-one-line-of-text/43556943#comment88476400_43556943" target="_blank" rel="noopener">how-can-i-use-text-align-last-except-when-i-have-only-one-line-of-text</a></p>
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><p>Anyway, this solution is awesome. Thanks to the reference.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://stackoverflow.com/questions/43556557/how-can-i-use-text-align-last-except-when-i-have-only-one-line-of-text/43556943#comment88476400_43556943" target="_blank" rel="noopener">how-can-i-use-text-align-last-except-when-i-have-only-one-line-of-text</a></p>
 
       
     </div>
@@ -515,7 +513,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Steps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Steps"><span class="nav-number">2.</span> <span class="nav-text">Steps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ending"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="Preface In the past, I posted an answer in SO about how to replace broken images. And the code is window.addEventListener(  &apos;error&apos;,  windowErrorCb,  &amp;#123;    capture: true  &amp;#125;,  true)function wi">
+<meta name="description" content="PrefaceIn the past, I posted an answer in SO about how to replace broken images. And the code is window.addEventListener(  &apos;error&apos;,  windowErrorCb,  &amp;#123;    capture: true  &amp;#125;,  true)function win">
 <meta name="keywords" content="img">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Image Load Error Handler">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/11/image-load-error-handler/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface In the past, I posted an answer in SO about how to replace broken images. And the code is window.addEventListener(  &apos;error&apos;,  windowErrorCb,  &amp;#123;    capture: true  &amp;#125;,  true)function wi">
+<meta property="og:description" content="PrefaceIn the past, I posted an answer in SO about how to replace broken images. And the code is window.addEventListener(  &apos;error&apos;,  windowErrorCb,  &amp;#123;    capture: true  &amp;#125;,  true)function win">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/11/images/%E6%88%AA%E5%9B%BE20181119171728.png">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/11/images/1542620382678.gif">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20181119171728.png">
+<meta property="og:image" content="https://github.com/images/1542620382678.gif">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Image Load Error Handler">
-<meta name="twitter:description" content="Preface In the past, I posted an answer in SO about how to replace broken images. And the code is window.addEventListener(  &apos;error&apos;,  windowErrorCb,  &amp;#123;    capture: true  &amp;#125;,  true)function wi">
-<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2018/11/images/%E6%88%AA%E5%9B%BE20181119171728.png">
+<meta name="twitter:description" content="PrefaceIn the past, I posted an answer in SO about how to replace broken images. And the code is window.addEventListener(  &apos;error&apos;,  windowErrorCb,  &amp;#123;    capture: true  &amp;#125;,  true)function win">
+<meta name="twitter:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20181119171728.png">
 
 
 
@@ -325,66 +325,63 @@
       
 
       
-        <h2>Preface</h2>
-<p>In the past, I posted an answer in SO about how to <a href="https://stackoverflow.com/questions/92720/jquery-javascript-to-replace-broken-images/50484874" target="_blank" rel="noopener">replace broken images</a>. And the code is</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'error'</span>,</span><br><span class="line">  windowErrorCb,</span><br><span class="line">  &#123;</span><br><span class="line">    capture: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">windowErrorCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> target = event.target</span><br><span class="line">  <span class="keyword">let</span> isImg = target.tagName.toLowerCase() === <span class="string">'img'</span></span><br><span class="line">  <span class="keyword">if</span> (isImg) &#123;</span><br><span class="line">    imgErrorCb()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">imgErrorCb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isImgErrorHandled = target.hasAttribute(<span class="string">'data-src-error'</span>)</span><br><span class="line">    <span class="keyword">if</span> (!isImgErrorHandled) &#123;</span><br><span class="line">      target.setAttribute(<span class="string">'data-src-error'</span>, <span class="string">'handled'</span>)</span><br><span class="line">      target.src = <span class="string">'backup.png'</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//anything you want to do</span></span><br><span class="line">      <span class="built_in">console</span>.log(target.alt, <span class="string">'both origin and backup image fail to load!'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>In the past, I posted an answer in SO about how to <a href="https://stackoverflow.com/questions/92720/jquery-javascript-to-replace-broken-images/50484874" target="_blank" rel="noopener">replace broken images</a>. And the code is</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'error'</span>,</span><br><span class="line">  windowErrorCb,</span><br><span class="line">  &#123;</span><br><span class="line">    capture: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">windowErrorCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> target = event.target</span><br><span class="line">  <span class="keyword">let</span> isImg = target.tagName.toLowerCase() === <span class="string">'img'</span></span><br><span class="line">  <span class="keyword">if</span> (isImg) &#123;</span><br><span class="line">    imgErrorCb()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">imgErrorCb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isImgErrorHandled = target.hasAttribute(<span class="string">'data-src-error'</span>)</span><br><span class="line">    <span class="keyword">if</span> (!isImgErrorHandled) &#123;</span><br><span class="line">      target.setAttribute(<span class="string">'data-src-error'</span>, <span class="string">'handled'</span>)</span><br><span class="line">      target.src = <span class="string">'backup.png'</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//anything you want to do</span></span><br><span class="line">      <span class="built_in">console</span>.log(target.alt, <span class="string">'both origin and backup image fail to load!'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>And the point is :</p>
 <ol>
-<li>
-<p>Put the code in the head and executed as the first inline script. So, it will listen the errors happen after the script.</p>
+<li><p>Put the code in the head and executed as the first inline script. So, it will listen the errors happen after the script.</p>
 </li>
-<li>
-<p>Use event capturing to catch the errors earlier, also for those events which don't bubble.</p>
+<li><p>Use event capturing to catch the errors earlier, also for those events which don’t bubble.</p>
 </li>
-<li>
-<p>Use event delegation which avoids binding events on each image.</p>
+<li><p>Use event delegation which avoids binding events on each image.</p>
 </li>
-<li>
-<p>Give the error img element an attribute after giving them a backup.png to avoid error of the <em>backup.png</em> and subsequent infinite loop like below:</p>
+<li><p>Give the error img element an attribute after giving them a backup.png to avoid error of the <em>backup.png</em> and subsequent infinite loop like below:</p>
 </li>
 </ol>
 <blockquote>
 <p>img error-&gt;backup.png-&gt;error-&gt;backup.png-&gt;error-&gt;,,,,,</p>
 </blockquote>
-<p>I thought the answer is almost perfect. But it turns out there is more scenes I don't know.</p>
-<h4>No Src?</h4>
-<p>Until Chrome 70.0.3538.102 in win7, code below wouldn't trigger error event.</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>I thought the answer is almost perfect. But it turns out there is more scenes I don’t know.</p>
+<h4 id="No-Src"><a href="#No-Src" class="headerlink" title="No Src?"></a>No Src?</h4><p>Until Chrome 70.0.3538.102 in win7, code below wouldn’t trigger error event.</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>But code below would trigger!</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span> /&gt;</span> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>That does make sense. However, <code>img</code> without <code>src</code> wouldn't hidden. They would have 1px border like:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20181119171728.png" alt></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span> /&gt;</span> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>That does make sense. However, <code>img</code> without <code>src</code> wouldn’t hidden. They would have 1px border like:</p>
+<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181119171728.png"></p>
 <p>In this case, we may have to do something about that. For instance,</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>or a default <code>backgroundImage</code> which will work on <code>img</code> though 1px border is still there.</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, lightblue, pink); <span class="comment">/*or your logo*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4>BackgroundImage Error?</h4>
-<p>I still can't find a perfect solution for <code>backgroundImage</code>. The best answer in SO is like:</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app__bg_img_box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(./images/github.png), <span class="built_in">linear-gradient</span>(to right, lightblue, pink);</span><br><span class="line">  <span class="comment">/* you can also use default.png like code below */</span></span><br><span class="line">  <span class="comment">/* background-image: url(./images/github.png), url(./images/default.png); */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, lightblue, pink); <span class="comment">/*or your logo*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="BackgroundImage-Error"><a href="#BackgroundImage-Error" class="headerlink" title="BackgroundImage Error?"></a>BackgroundImage Error?</h4><p>I still can’t find a perfect solution for <code>backgroundImage</code>. The best answer in SO is like:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app__bg_img_box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(./images/github.png), <span class="built_in">linear-gradient</span>(to right, lightblue, pink);</span><br><span class="line">  <span class="comment">/* you can also use default.png like code below */</span></span><br><span class="line">  <span class="comment">/* background-image: url(./images/github.png), url(./images/default.png); */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>And the cons is obvious.</p>
-<p><img src="../images/1542620382678.gif" alt></p>
+<p><img src="/blog/../images/1542620382678.gif"></p>
 <ol>
 <li>You have to take care of the transparency problem of the target image.</li>
 <li>Users can see the toggle between target image and default image.</li>
 <li>A little flaw is that default image will always be downloaded.</li>
 </ol>
 <p>Another way I figured out is like code below. Here is the simplest code:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> backgroundDivs = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'.app__bg_img_box'</span>))</span><br><span class="line">backgroundDivs.forEach(<span class="function"><span class="params">div</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> imgUrl = <span class="built_in">window</span></span><br><span class="line">    .getComputedStyle(div)</span><br><span class="line">    .backgroundImage.match(<span class="regexp">/url\(["']?(.*)["']?\)/</span>)</span><br><span class="line">  <span class="keyword">if</span> (imgUrl) &#123;</span><br><span class="line">    <span class="keyword">let</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">    img.src = imgUrl[<span class="number">1</span>]</span><br><span class="line">    img.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">      div.style.backgroundImage = <span class="string">'url(./images/default.png)'</span></span><br><span class="line">      img.onerror = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> backgroundDivs = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'.app__bg_img_box'</span>))</span><br><span class="line">backgroundDivs.forEach(<span class="function"><span class="params">div</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> imgUrl = <span class="built_in">window</span></span><br><span class="line">    .getComputedStyle(div)</span><br><span class="line">    .backgroundImage.match(<span class="regexp">/url\(["']?(.*)["']?\)/</span>)</span><br><span class="line">  <span class="keyword">if</span> (imgUrl) &#123;</span><br><span class="line">    <span class="keyword">let</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">    img.src = imgUrl[<span class="number">1</span>]</span><br><span class="line">    img.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">      div.style.backgroundImage = <span class="string">'url(./images/default.png)'</span></span><br><span class="line">      img.onerror = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
 <p>It will work well in most simple scenes but the cons is also obvious:</p>
 <ol>
 <li>Code will be more complicated if you want to deal with multiple backgroundImages.</li>
 <li>Each time you updated your dom structure, you may have to run the code above if you have add new divs with backgroundImage.</li>
 </ol>
-<h2>Ending</h2>
-<p>If lucky enough, we may have the new API in <a href="https://drafts.csswg.org/css-images-4/#image-set-notation" target="_blank" rel="noopener">Images</a> which would make code below work.</p>
-<p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">background: image('target.gif', 'fallback.gif');</span><br></pre></td></tr></table></figure></p>
-<h2>Reference</h2>
-<ul>
-<li>
-<p><a href="https://stackoverflow.com/questions/22287474/onerror-event-using-background-url" target="_blank" rel="noopener">onerror event using background: url()</a></p>
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><p>If lucky enough, we may have the new API in <a href="https://drafts.csswg.org/css-images-4/#image-set-notation" target="_blank" rel="noopener">Images</a> which would make code below work.</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">background: image('target.gif', 'fallback.gif');</span><br></pre></td></tr></table></figure>
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><p><a href="https://stackoverflow.com/questions/22287474/onerror-event-using-background-url" target="_blank" rel="noopener">onerror event using background: url()</a></p>
 </li>
-<li>
-<p><a href="https://drafts.csswg.org/css-images-4/#image-set-notation" target="_blank" rel="noopener">image-set-notation</a></p>
+<li><p><a href="https://drafts.csswg.org/css-images-4/#image-set-notation" target="_blank" rel="noopener">image-set-notation</a></p>
 </li>
 </ul>
 
@@ -561,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.1.</span> <span class="nav-text">No Src?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.2.</span> <span class="nav-text">BackgroundImage Error?</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#No-Src"><span class="nav-number">1.0.1.</span> <span class="nav-text">No Src?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BackgroundImage-Error"><span class="nav-number">1.0.2.</span> <span class="nav-text">BackgroundImage Error?</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Ending"><span class="nav-number">2.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></div>
             
 
           </div>

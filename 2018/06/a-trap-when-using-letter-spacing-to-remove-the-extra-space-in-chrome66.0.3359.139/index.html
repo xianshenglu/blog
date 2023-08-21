@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="Preface As we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like font-size:0,word-spacing,margin-left,letter-spacing and so on.">
+<meta name="description" content="PrefaceAs we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like font-size:0,word-spacing,margin-left,letter-spacing and so on. C">
 <meta name="keywords" content="bug,chrome,inline-block,letter-spacing">
 <meta property="og:type" content="article">
 <meta property="og:title" content="A Trap When Using letter-spacing to Remove the Extra Space in chrome66.0.3359.139">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/06/a-trap-when-using-letter-spacing-to-remove-the-extra-space-in-chrome66.0.3359.139/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface As we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like font-size:0,word-spacing,margin-left,letter-spacing and so on.">
+<meta property="og:description" content="PrefaceAs we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like font-size:0,word-spacing,margin-left,letter-spacing and so on. C">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/06/images/%E6%88%AA%E5%9B%BE20180618184625.png">
-<meta property="og:image" content="https://github.com/xianshenglu/blog/2018/06/images/%E6%88%AA%E5%9B%BE20180618184736.png">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180618184625.png">
+<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180618184736.png">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A Trap When Using letter-spacing to Remove the Extra Space in chrome66.0.3359.139">
-<meta name="twitter:description" content="Preface As we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like font-size:0,word-spacing,margin-left,letter-spacing and so on.">
-<meta name="twitter:image" content="https://github.com/xianshenglu/blog/2018/06/images/%E6%88%AA%E5%9B%BE20180618184625.png">
+<meta name="twitter:description" content="PrefaceAs we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like font-size:0,word-spacing,margin-left,letter-spacing and so on. C">
+<meta name="twitter:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180618184625.png">
 
 
 
@@ -325,36 +325,33 @@
       
 
       
-        <h2>Preface</h2>
-<p>As we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like <code>font-size:0</code>,<code>word-spacing</code>,<code>margin-left</code>,<code>letter-spacing</code> and so on.</p>
-<h2>Choice I Made</h2>
-<p>Normally I prefer using <code>letter-spacing</code> because</p>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>As we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like <code>font-size:0</code>,<code>word-spacing</code>,<code>margin-left</code>,<code>letter-spacing</code> and so on.</p>
+<h2 id="Choice-I-Made"><a href="#Choice-I-Made" class="headerlink" title="Choice I Made"></a>Choice I Made</h2><p>Normally I prefer using <code>letter-spacing</code> because</p>
 <ol>
 <li>it seems ok when we assign a value which is bigger than the width of extra space(e.g. <code>-1em</code>).</li>
-<li>However, it won't be okay with <code>word-spacing</code> and <code>margin-left</code> when we set bigger value like <code>-1em</code>.</li>
+<li>However, it won’t be okay with <code>word-spacing</code> and <code>margin-left</code> when we set bigger value like <code>-1em</code>.</li>
 <li>Using <code>font-size</code> is not convenient when we try to using <code>em</code> as <code>font-size</code> unit.</li>
 </ol>
 <p>So, <code>letter-spacing</code> seems to be the best choice.</p>
 <p>Well, I agree with that though I found a bug in chrome66.0.3359.139 today.</p>
-<h2>Bug I Found</h2>
-<p>Please run the code below:</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav3<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  <span class="attribute">color</span>: inherit;</span><br><span class="line">  <span class="attribute">cursor</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">260px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: -<span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav__text</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">90px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Bug-I-Found"><a href="#Bug-I-Found" class="headerlink" title="Bug I Found"></a>Bug I Found</h2><p>Please run the code below:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav3<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  <span class="attribute">color</span>: inherit;</span><br><span class="line">  <span class="attribute">cursor</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">260px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: -<span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav__text</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">90px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>If you are using Chrome(test version 66.0.3359.139) or Opera(test version 53.0.2907.99), what you see might be:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180618184625.png" alt></p>
+<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180618184625.png"></p>
 <p>If you are using Firefox(60.0.2),IE10 or Edge, what you see might be:</p>
-<p><img src="../images/%E6%88%AA%E5%9B%BE20180618184736.png" alt></p>
-<p>That's interesting. So, I checked the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a> and found this:</p>
+<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180618184736.png"></p>
+<p>That’s interesting. So, I checked the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a> and found this:</p>
 <blockquote>
-<p>&lt;length&gt;
-Specifies extra inter-character space in addition to the default space between characters. Values may be negative, but there may be implementation-specific limits. <strong>User agents may not further increase or decrease the inter-character space in order to justify text.</strong></p>
-</blockquote>
+<length>
+Specifies extra inter-character space in addition to the default space between characters. Values may be negative, but there may be implementation-specific limits. **User agents may not further increase or decrease the inter-character space in order to justify text.**
+</length></blockquote>
 <p>It seems that this is the reason.</p>
 <p>So, I tested and try to find the best value for <code>letter-spacing</code> and <strong>it turns out that <code>0.3em</code> or <code>0.31em</code> is the best value.</strong></p>
-<h2>Ending</h2>
-<p>Anyway, <code>letter-spacing</code> is still the best solution though we have to be more careful.</p>
-<h2>Reference</h2>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a></p>
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><p>Anyway, <code>letter-spacing</code> is still the best solution though we have to be more careful.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a></p>
 
       
     </div>
@@ -535,7 +532,7 @@ Specifies extra inter-character space in addition to the default space between c
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Choice I Made</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Bug I Found</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Choice-I-Made"><span class="nav-number">2.</span> <span class="nav-text">Choice I Made</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug-I-Found"><span class="nav-number">3.</span> <span class="nav-text">Bug I Found</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ending"><span class="nav-number">4.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

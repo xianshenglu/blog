@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="I have seen many times people talking about the compatibility problems of wheelEvent, something about wheel, DOMMouseScroll, mousewheel etc. But now, it seems we don&apos;t need to care about those compati">
+<meta name="description" content="I have seen many times people talking about the compatibility problems of wheelEvent, something about wheel, DOMMouseScroll, mousewheel etc. But now, it seems we don’t need to care about those compati">
 <meta name="keywords" content="WheelEvent,delta,wheel,DOMMouseScroll,mousewheel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WheelEvent Compatibility and Delta Handler">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2019/01/wheelevent-compatibility-and-delta-handler/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="I have seen many times people talking about the compatibility problems of wheelEvent, something about wheel, DOMMouseScroll, mousewheel etc. But now, it seems we don&apos;t need to care about those compati">
+<meta property="og:description" content="I have seen many times people talking about the compatibility problems of wheelEvent, something about wheel, DOMMouseScroll, mousewheel etc. But now, it seems we don’t need to care about those compati">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.642Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WheelEvent Compatibility and Delta Handler">
-<meta name="twitter:description" content="I have seen many times people talking about the compatibility problems of wheelEvent, something about wheel, DOMMouseScroll, mousewheel etc. But now, it seems we don&apos;t need to care about those compati">
+<meta name="twitter:description" content="I have seen many times people talking about the compatibility problems of wheelEvent, something about wheel, DOMMouseScroll, mousewheel etc. But now, it seems we don’t need to care about those compati">
 
 
 
@@ -322,22 +322,21 @@
       
 
       
-        <p>I have seen many times people talking about the compatibility problems of wheelEvent, something about <code>wheel</code>, <code>DOMMouseScroll</code>, <code>mousewheel</code> etc. But now, it seems we don't need to care about those compatibility problems anymore.</p>
+        <p>I have seen many times people talking about the compatibility problems of wheelEvent, something about <code>wheel</code>, <code>DOMMouseScroll</code>, <code>mousewheel</code> etc. But now, it seems we don’t need to care about those compatibility problems anymore.</p>
 <p>As <a href="https://developer.mozilla.org/en-US/docs/Web/Events/wheel#Browser_compatibility" target="_blank" rel="noopener">mdn</a> shows, <strong>IE9 support <code>wheel</code> event in <code>addEventListener</code> and <code>DOMMouseScroll</code> is only needed for Firefox 17-</strong>. And for other major browsers, they all support <code>wheel</code> event.</p>
 <p>But, there are other problems still need to take care.</p>
-<h3><code>delta</code></h3>
-<p><code>event.delta</code> returns different numbers in the major browsers. For instance, if you run the code below at your console in some page,</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'wheel'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event.deltaY)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="delta"><a href="#delta" class="headerlink" title="delta"></a><code>delta</code></h3><p><code>event.delta</code> returns different numbers in the major browsers. For instance, if you run the code below at your console in some page,</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'wheel'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event.deltaY)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
 <p>then moving your mouse wheel, you will see the <code>deltaY</code> numbers.</p>
 <table>
 <thead>
 <tr>
-<th>browsers/win7</th>
+<th>browsers&#x2F;win7</th>
 <th>deltaY</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Chrome 70</td>
 <td>100</td>
 </tr>
@@ -349,23 +348,22 @@
 <td>IE 11</td>
 <td>88.19</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>Well, you can find a solution to unify the <code>deltaY</code>. But I think the easier way is to give up unifying and only do the accumulation job. For example, try the code below:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> wheelSize = <span class="number">0</span></span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'wheel'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  wheelSize += event.deltaY &gt; <span class="number">0</span> ? <span class="number">0.025</span> : <span class="number">-0.025</span></span><br><span class="line">  <span class="built_in">console</span>.log(wheelSize, event.deltaY)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> wheelSize = <span class="number">0</span></span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'wheel'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  wheelSize += event.deltaY &gt; <span class="number">0</span> ? <span class="number">0.025</span> : <span class="number">-0.025</span></span><br><span class="line">  <span class="built_in">console</span>.log(wheelSize, event.deltaY)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
 <p>In this way, we will get the unified <code>wheelSize</code>.</p>
-<h3>More Situations Need to Watch Out</h3>
-<p>When used in projects, there are more things we need to watch out. For example,</p>
+<h3 id="More-Situations-Need-to-Watch-Out"><a href="#More-Situations-Need-to-Watch-Out" class="headerlink" title="More Situations Need to Watch Out"></a>More Situations Need to Watch Out</h3><p>When used in projects, there are more things we need to watch out. For example,</p>
 <ul>
 <li>We might have <code>wheelSize</code> limit.</li>
 <li>We might want to prevent calculating <code>wheelSize</code> when the page has been scrolled to the top or the bottom.</li>
-<li>...</li>
+<li>…</li>
 </ul>
 <p>And the code would become more complicated. For instance,</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> targetNode = <span class="built_in">document</span>.body</span><br><span class="line"><span class="keyword">let</span> curWheelSize = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> minWheelSize = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> maxWheelSize = <span class="number">10</span></span><br><span class="line"><span class="keyword">let</span> minScrollTop = <span class="number">0</span></span><br><span class="line"><span class="keyword">let</span> maxScrollTop =</span><br><span class="line">  targetNode.parentNode.scrollHeight - targetNode.parentNode.offsetHeight</span><br><span class="line">targetNode.addEventListener(<span class="string">'wheel'</span>, wheelCb)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wheelCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> isDeltaYPositive = event.deltaY &gt; <span class="number">0</span></span><br><span class="line">  <span class="keyword">let</span> scrollTop = targetNode.parentNode.scrollTop</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    (scrollTop &lt;= minScrollTop &amp;&amp; !isDeltaYPositive) ||</span><br><span class="line">    (scrollTop &gt;= maxScrollTop &amp;&amp; isDeltaYPositive)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> stepSize = isDeltaYPositive ? <span class="number">0.025</span> : <span class="number">-0.025</span></span><br><span class="line">  <span class="keyword">let</span> targetWheelSize = curWheelSize + stepSize</span><br><span class="line">  targetWheelSize = <span class="built_in">Math</span>.max(targetWheelSize, minWheelSize)</span><br><span class="line">  targetWheelSize = <span class="built_in">Math</span>.min(targetWheelSize, maxWheelSize)</span><br><span class="line">  curWheelSize = targetWheelSize</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://github.com/xianshenglu/blog/issues/58"><strong>Original Post</strong></a></p>
-<h2>Reference</h2>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> targetNode = <span class="built_in">document</span>.body</span><br><span class="line"><span class="keyword">let</span> curWheelSize = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> minWheelSize = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> maxWheelSize = <span class="number">10</span></span><br><span class="line"><span class="keyword">let</span> minScrollTop = <span class="number">0</span></span><br><span class="line"><span class="keyword">let</span> maxScrollTop =</span><br><span class="line">  targetNode.parentNode.scrollHeight - targetNode.parentNode.offsetHeight</span><br><span class="line">targetNode.addEventListener(<span class="string">'wheel'</span>, wheelCb)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wheelCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> isDeltaYPositive = event.deltaY &gt; <span class="number">0</span></span><br><span class="line">  <span class="keyword">let</span> scrollTop = targetNode.parentNode.scrollTop</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    (scrollTop &lt;= minScrollTop &amp;&amp; !isDeltaYPositive) ||</span><br><span class="line">    (scrollTop &gt;= maxScrollTop &amp;&amp; isDeltaYPositive)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> stepSize = isDeltaYPositive ? <span class="number">0.025</span> : <span class="number">-0.025</span></span><br><span class="line">  <span class="keyword">let</span> targetWheelSize = curWheelSize + stepSize</span><br><span class="line">  targetWheelSize = <span class="built_in">Math</span>.max(targetWheelSize, minWheelSize)</span><br><span class="line">  targetWheelSize = <span class="built_in">Math</span>.min(targetWheelSize, maxWheelSize)</span><br><span class="line">  curWheelSize = targetWheelSize</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p><a href="https://github.com/xianshenglu/blog/issues/58"><strong>Original Post</strong></a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
       
     </div>
     
@@ -547,7 +545,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">delta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">More Situations Need to Watch Out</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#delta"><span class="nav-number">1.</span> <span class="nav-text">delta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-Situations-Need-to-Watch-Out"><span class="nav-number">2.</span> <span class="nav-text">More Situations Need to Watch Out</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
             
 
           </div>

@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Preface As the title says, let&apos;s see the demo below: Main &amp;lt;label id=&quot;cont&quot; contentEditable&amp;gt;   label should be focused&amp;lt;/label&amp;gt;&amp;lt;button id=&quot;focus&quot;&amp;gt;make label focus&amp;lt;/button&amp;gt; #cont">
+<meta name="description" content="PrefaceAs the title says, let’s see the demo below: Main&amp;lt;label id=&quot;cont&quot; contentEditable&amp;gt;   label should be focused&amp;lt;/label&amp;gt;&amp;lt;button id=&quot;focus&quot;&amp;gt;make label focus&amp;lt;/button&amp;gt;  #cont &amp;">
 <meta name="keywords" content="bug,focus,label,firefox,contentEditable">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Label Can&#39;t Be Focused In Firefox With Element.focus()">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/06/label-can-t-be-focused-in-firefox-with-element.focus()/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface As the title says, let&apos;s see the demo below: Main &amp;lt;label id=&quot;cont&quot; contentEditable&amp;gt;   label should be focused&amp;lt;/label&amp;gt;&amp;lt;button id=&quot;focus&quot;&amp;gt;make label focus&amp;lt;/button&amp;gt; #cont">
+<meta property="og:description" content="PrefaceAs the title says, let’s see the demo below: Main&amp;lt;label id=&quot;cont&quot; contentEditable&amp;gt;   label should be focused&amp;lt;/label&amp;gt;&amp;lt;button id=&quot;focus&quot;&amp;gt;make label focus&amp;lt;/button&amp;gt;  #cont &amp;">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Label Can&#39;t Be Focused In Firefox With Element.focus()">
-<meta name="twitter:description" content="Preface As the title says, let&apos;s see the demo below: Main &amp;lt;label id=&quot;cont&quot; contentEditable&amp;gt;   label should be focused&amp;lt;/label&amp;gt;&amp;lt;button id=&quot;focus&quot;&amp;gt;make label focus&amp;lt;/button&amp;gt; #cont">
+<meta name="twitter:description" content="PrefaceAs the title says, let’s see the demo below: Main&amp;lt;label id=&quot;cont&quot; contentEditable&amp;gt;   label should be focused&amp;lt;/label&amp;gt;&amp;lt;button id=&quot;focus&quot;&amp;gt;make label focus&amp;lt;/button&amp;gt;  #cont &amp;">
 
 
 
@@ -322,14 +322,15 @@
       
 
       
-        <h2>Preface</h2>
-<p>As the title says, let's see the demo below:</p>
-<h2>Main</h2>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">id</span>=<span class="string">"cont"</span> <span class="attr">contentEditable</span>&gt;</span></span><br><span class="line">   label should be focused</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"focus"</span>&gt;</span>make label focus<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#cont</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="string">'#focus'</span>)[<span class="number">0</span>].onclick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  $(<span class="string">'#cont'</span>)[<span class="number">0</span>].focus()</span><br><span class="line">&#125;</span><br><span class="line">$(<span class="string">'#cont'</span>)[<span class="number">0</span>].onfocus = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event.type)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(selector))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>As the title says, let’s see the demo below:</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">id</span>=<span class="string">"cont"</span> <span class="attr">contentEditable</span>&gt;</span></span><br><span class="line">   label should be focused</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"focus"</span>&gt;</span>make label focus<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#cont</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="string">'#focus'</span>)[<span class="number">0</span>].onclick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  $(<span class="string">'#cont'</span>)[<span class="number">0</span>].focus()</span><br><span class="line">&#125;</span><br><span class="line">$(<span class="string">'#cont'</span>)[<span class="number">0</span>].onfocus = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event.type)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(selector))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>Suppose that you are using chrome, after loaded please press <code>F12</code> and open the console and then click the button. <code>label#cont</code> should be focused after clicking the button.So, there will be word <code>focus</code> at the console.</p>
-<p>However, firefox wouldn't do that until you click the label. Anyway, I have posted a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1468049" target="_blank" rel="noopener">bug</a>. Let's see what will happen.</p>
+<p>However, firefox wouldn’t do that until you click the label. Anyway, I have posted a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1468049" target="_blank" rel="noopener">bug</a>. Let’s see what will happen.</p>
 
       
     </div>
@@ -512,7 +513,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li></ol></div>
             
 
           </div>

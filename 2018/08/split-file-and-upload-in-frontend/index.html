@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Preface 后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。 Main 咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：  ``````js Ending Reference">
+<meta name="description" content="Preface后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。 Main咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：   ``````js  EndingReference">
 <meta name="keywords" content="Blob,Chinese">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端大文件分拆上传与上传池管理">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/08/split-file-and-upload-in-frontend/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface 后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。 Main 咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：  ``````js Ending Reference">
+<meta property="og:description" content="Preface后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。 Main咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：   ``````js  EndingReference">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端大文件分拆上传与上传池管理">
-<meta name="twitter:description" content="Preface 后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。 Main 咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：  ``````js Ending Reference">
+<meta name="twitter:description" content="Preface后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。 Main咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：   ``````js  EndingReference">
 
 
 
@@ -322,15 +322,13 @@
       
 
       
-        <h2>Preface</h2>
-<p>后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。</p>
-<h2>Main</h2>
-<p>咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：</p>
-<p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">```<span class="selector-tag">js</span></span><br></pre></td></tr></table></figure></p>
-<h2>Ending</h2>
-<h2>Reference</h2>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>后台管理项目有个上传组件，本来大家通过这个组件上传好好的，后来好像是腾讯云那边做了限制，这边上传 zip 包超过 50M 就会返回 413，所以总监让我对文件进行拆分，分块上传，然后他后台那边进行合并处理。</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>咋一看，好像蛮简单，就是拆分下文件，根据文件份数发 n 个请求就可以了，所以搜索了下，示例代码大概是这样：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">```<span class="selector-tag">js</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
       
     </div>
     
@@ -506,7 +504,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ending"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

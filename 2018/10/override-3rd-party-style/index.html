@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Preface It is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems. How can we override partial 3rd party style and avoid our style being ov">
+<meta name="description" content="PrefaceIt is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems. How can we override partial 3rd party style and avoid our style being ove">
 <meta name="keywords" content="override.css">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Override 3rd Party Style">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/10/override-3rd-party-style/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface It is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems. How can we override partial 3rd party style and avoid our style being ov">
+<meta property="og:description" content="PrefaceIt is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems. How can we override partial 3rd party style and avoid our style being ove">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Override 3rd Party Style">
-<meta name="twitter:description" content="Preface It is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems. How can we override partial 3rd party style and avoid our style being ov">
+<meta name="twitter:description" content="PrefaceIt is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems. How can we override partial 3rd party style and avoid our style being ove">
 
 
 
@@ -322,28 +322,25 @@
       
 
       
-        <h2>Preface</h2>
-<p>It is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems.</p>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>It is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems.</p>
 <p>How can we override partial 3rd party style and avoid our style being overridden by 3rd party.</p>
-<p>Well, that's two question.</p>
-<h2>Main</h2>
-<h3>Override Partial 3rd Party Style</h3>
-<ul>
+<p>Well, that’s two question.</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><h3 id="Override-Partial-3rd-Party-Style"><a href="#Override-Partial-3rd-Party-Style" class="headerlink" title="Override Partial 3rd Party Style"></a>Override Partial 3rd Party Style</h3><ul>
 <li><em>lib-override.css</em></li>
 </ul>
 <p>I think the first thing is to prepare a single file like <em>lib-override.css</em> to do this job whatever choice we make.</p>
 <ul>
 <li>override ways</li>
 </ul>
-<p>It's obvious that <code>!important</code> or <code>#id</code> can help us do this job. However, I wouldn't suggest you to do that. I would choose to use class selector with namespace to solve this kind of problem. For example,</p>
+<p>It’s obvious that <code>!important</code> or <code>#id</code> can help us do this job. However, I wouldn’t suggest you to do that. I would choose to use class selector with namespace to solve this kind of problem. For example,</p>
 <p>3rd party code is:</p>
-<p><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.el-button--primary</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Then you can write:</p>
-<p><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="selector-class">.el-button--primary</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Code above also works to avoid our style being overridden by 3rd party. In some cases, if one class is not enough you may have to add more class as namespace.</p>
-<h2>Ending</h2>
-<h2>Reference</h2>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.el-button--primary</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>Then you can write:</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="selector-class">.el-button--primary</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Code above also works to avoid our style being overridden by 3rd party. In some cases, if one class is not enough you may have to add more class as namespace.</p>
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
       
     </div>
     
@@ -517,7 +514,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">Override Partial 3rd Party Style</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Override-Partial-3rd-Party-Style"><span class="nav-number">2.1.</span> <span class="nav-text">Override Partial 3rd Party Style</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ending"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Main Access localhost on Mobile As you know, If I am working with url like http://localhost:8080 It doesn&apos;t work on mobile. So, I have to try another way. After some research, I find something related">
+<meta name="description" content="MainAccess localhost on MobileAs you know, If I am working with url like http://localhost:8080 It doesn’t work on mobile. So, I have to try another way. After some research, I find something related:">
 <meta name="keywords" content="mobile,webpack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Skills on Mobile Development">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/07/skills-on-mobile-development/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Main Access localhost on Mobile As you know, If I am working with url like http://localhost:8080 It doesn&apos;t work on mobile. So, I have to try another way. After some research, I find something related">
+<meta property="og:description" content="MainAccess localhost on MobileAs you know, If I am working with url like http://localhost:8080 It doesn’t work on mobile. So, I have to try another way. After some research, I find something related:">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Skills on Mobile Development">
-<meta name="twitter:description" content="Main Access localhost on Mobile As you know, If I am working with url like http://localhost:8080 It doesn&apos;t work on mobile. So, I have to try another way. After some research, I find something related">
+<meta name="twitter:description" content="MainAccess localhost on MobileAs you know, If I am working with url like http://localhost:8080 It doesn’t work on mobile. So, I have to try another way. After some research, I find something related:">
 
 
 
@@ -322,9 +322,7 @@
       
 
       
-        <h2>Main</h2>
-<h3>Access localhost on Mobile</h3>
-<p>As you know, If I am working with url like <code>http://localhost:8080</code> It doesn't work on mobile. So, I have to try another way. After some research, I find something related:</p>
+        <h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><h3 id="Access-localhost-on-Mobile"><a href="#Access-localhost-on-Mobile" class="headerlink" title="Access localhost on Mobile"></a>Access localhost on Mobile</h3><p>As you know, If I am working with url like <code>http://localhost:8080</code> It doesn’t work on mobile. So, I have to try another way. After some research, I find something related:</p>
 <ul>
 <li><code>localhost</code> is a hostname which points to <code>127.0.0.1</code> by default and also can be changed.</li>
 </ul>
@@ -333,14 +331,13 @@
 <li>I use command <code>ipconfig</code> and got the ip <code>192.168.x.x</code>.</li>
 <li>I add <code>--host 192.168.x.x</code> in my <em>package.json</em> scripts like this:</li>
 </ul>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"webpack-boilerplate"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"app.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"npm run lint &amp;&amp; webpack --config webpack.config.js -p"</span>,</span><br><span class="line">    <span class="string">"dev"</span>: <span class="string">"npm run lint &amp;&amp; webpack-dev-server --config webpack.dev.config.js --inline --host 192.168.x.x"</span>,</span><br><span class="line">    <span class="string">"lint"</span>: <span class="string">"./node_modules/.bin/eslint js"</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"webpack-boilerplate"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"app.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"npm run lint &amp;&amp; webpack --config webpack.config.js -p"</span>,</span><br><span class="line">    <span class="string">"dev"</span>: <span class="string">"npm run lint &amp;&amp; webpack-dev-server --config webpack.dev.config.js --inline --host 192.168.x.x"</span>,</span><br><span class="line">    <span class="string">"lint"</span>: <span class="string">"./node_modules/.bin/eslint js"</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>If you aren't using <em>package.json</em>, you can directly replace <code>localhost</code> to <code>192.168.x.x</code> in the url.</li>
+<li>If you aren’t using <em>package.json</em>, you can directly replace <code>localhost</code> to <code>192.168.x.x</code> in the url.</li>
 <li>Then I open the url <code>http://192.168.x.x:8080</code> on my computer and mobile. Both work!</li>
 </ul>
-<h2>Ending</h2>
-<h2>Reference</h2>
-<ul>
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="http://yujiangshui.com/multidevice-frontend-debug/" target="_blank" rel="noopener">移动端前端开发调试</a></li>
 </ul>
 
@@ -519,7 +516,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Main</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">Access localhost on Mobile</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Main"><span class="nav-number">1.</span> <span class="nav-text">Main</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Access-localhost-on-Mobile"><span class="nav-number">1.1.</span> <span class="nav-text">Access localhost on Mobile</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ending"><span class="nav-number">2.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

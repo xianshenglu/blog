@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Preface It is very common for us to use console.log When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server? In the past, I chose to delete t">
+<meta name="description" content="PrefaceIt is very common for us to use console.log When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server? In the past, I chose to delete th">
 <meta name="keywords" content="console.log,URLSearchParams">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Move the Switch of Console to URLSearchParams">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2018/10/move-the-switch-of-console-to-urlsearchparams/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Preface It is very common for us to use console.log When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server? In the past, I chose to delete t">
+<meta property="og:description" content="PrefaceIt is very common for us to use console.log When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server? In the past, I chose to delete th">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Move the Switch of Console to URLSearchParams">
-<meta name="twitter:description" content="Preface It is very common for us to use console.log When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server? In the past, I chose to delete t">
+<meta name="twitter:description" content="PrefaceIt is very common for us to use console.log When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server? In the past, I chose to delete th">
 
 
 
@@ -322,15 +322,12 @@
       
 
       
-        <h2>Preface</h2>
-<p>It is very common for us to use <code>console.log</code> When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server?</p>
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>It is very common for us to use <code>console.log</code> When we are in a development environment. So, how do you handle this when you are preparing to deploy it to server?</p>
 <p>In the past, I chose to delete those debug logs. However, I guess nobody likes doing that and in some place, I really want to keep that.</p>
-<h2>Main</h2>
-<p>One day, I find a better way to handle this. Before the main js code, I add code below:</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> urlSearchParams = <span class="keyword">new</span> URLSearchParams(<span class="built_in">window</span>.location.search)</span><br><span class="line"><span class="keyword">let</span> isDebug = urlSearchParams.get(<span class="string">'debug'</span>) === <span class="string">'1'</span></span><br><span class="line"><span class="keyword">if</span> (!isDebug) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2>Ending</h2>
-<h2>Reference</h2>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>One day, I find a better way to handle this. Before the main js code, I add code below:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> urlSearchParams = <span class="keyword">new</span> URLSearchParams(<span class="built_in">window</span>.location.search)</span><br><span class="line"><span class="keyword">let</span> isDebug = urlSearchParams.get(<span class="string">'debug'</span>) === <span class="string">'1'</span></span><br><span class="line"><span class="keyword">if</span> (!isDebug) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
       
     </div>
     
@@ -506,7 +503,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ending"><span class="nav-number">3.</span> <span class="nav-text">Ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>

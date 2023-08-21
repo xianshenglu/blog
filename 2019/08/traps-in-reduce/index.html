@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Optional initialValue? Sometimes, we can see code using reduce without initialValue. For example, const array = [1, 2, 3];array.reduce((re, v) =&amp;gt; re + v); According to mdn, it is valid and seems si">
+<meta name="description" content="Optional initialValue?Sometimes, we can see code using reduce without initialValue. For example, const array = [1, 2, 3];array.reduce((re, v) =&amp;gt; re + v);  According to mdn, it is valid and seems si">
 <meta name="keywords" content="reduce">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Traps in reduce">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2019/08/traps-in-reduce/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="Optional initialValue? Sometimes, we can see code using reduce without initialValue. For example, const array = [1, 2, 3];array.reduce((re, v) =&amp;gt; re + v); According to mdn, it is valid and seems si">
+<meta property="og:description" content="Optional initialValue?Sometimes, we can see code using reduce without initialValue. For example, const array = [1, 2, 3];array.reduce((re, v) =&amp;gt; re + v);  According to mdn, it is valid and seems si">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-21T15:18:22.638Z">
+<meta property="og:updated_time" content="2023-08-21T15:49:00.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Traps in reduce">
-<meta name="twitter:description" content="Optional initialValue? Sometimes, we can see code using reduce without initialValue. For example, const array = [1, 2, 3];array.reduce((re, v) =&amp;gt; re + v); According to mdn, it is valid and seems si">
+<meta name="twitter:description" content="Optional initialValue?Sometimes, we can see code using reduce without initialValue. For example, const array = [1, 2, 3];array.reduce((re, v) =&amp;gt; re + v);  According to mdn, it is valid and seems si">
 
 
 
@@ -322,13 +322,13 @@
       
 
       
-        <h3>Optional <code>initialValue</code>?</h3>
-<p>Sometimes, we can see code using <code>reduce</code> without <code>initialValue</code>. For example,</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">array.reduce(<span class="function">(<span class="params">re, v</span>) =&gt;</span> re + v);</span><br></pre></td></tr></table></figure></p>
+        <h3 id="Optional-initialValue"><a href="#Optional-initialValue" class="headerlink" title="Optional initialValue?"></a>Optional <code>initialValue</code>?</h3><p>Sometimes, we can see code using <code>reduce</code> without <code>initialValue</code>. For example,</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">array.reduce(<span class="function">(<span class="params">re, v</span>) =&gt;</span> re + v);</span><br></pre></td></tr></table></figure>
+
 <p>According to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce#Parameters" target="_blank" rel="noopener">mdn</a>, it is valid and seems simpler. However, is it a good practice?</p>
-<h3>Cons Brought by No <code>initialValue</code></h3>
-<p>In the real world, <code>array</code> could be <code>[]</code>. In this case,</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [];</span><br><span class="line">array.reduce(<span class="function">(<span class="params">re, v</span>) =&gt;</span> re + v);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Cons-Brought-by-No-initialValue"><a href="#Cons-Brought-by-No-initialValue" class="headerlink" title="Cons Brought by No initialValue"></a>Cons Brought by No <code>initialValue</code></h3><p>In the real world, <code>array</code> could be <code>[]</code>. In this case,</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [];</span><br><span class="line">array.reduce(<span class="function">(<span class="params">re, v</span>) =&gt;</span> re + v);</span><br></pre></td></tr></table></figure>
+
 <p>You will got error in production!</p>
 <blockquote>
 <p>Uncaught TypeError: Reduce of empty array with no initial value</p>
@@ -345,9 +345,9 @@
 <li>Potential Error</li>
 <li>Unclear semantics</li>
 </ul>
-<h3>Benefits Brought with <code>initialValue</code></h3>
-<p>Instead, if using <code>reduce</code> with <code>initialValue</code>. For example, in the above case, we can write like this</p>
-<p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [];</span><br><span class="line">array.reduce(<span class="function">(<span class="params">re, v</span>) =&gt;</span> re + v, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Benefits-Brought-with-initialValue"><a href="#Benefits-Brought-with-initialValue" class="headerlink" title="Benefits Brought with initialValue"></a>Benefits Brought with <code>initialValue</code></h3><p>Instead, if using <code>reduce</code> with <code>initialValue</code>. For example, in the above case, we can write like this</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [];</span><br><span class="line">array.reduce(<span class="function">(<span class="params">re, v</span>) =&gt;</span> re + v, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>We would never meet the error!</li>
 <li>It is obvious that <code>reduce</code> is using to do the cumulative summation job.</li>
@@ -355,8 +355,7 @@
 <p><strong>Safer</strong> and <strong>Clearer!</strong></p>
 <p><strong><a href="https://github.com/xianshenglu/blog/issues/97">Issue</a></strong></p>
 <p><strong><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/traps-in-reduce.md">Source</a></strong></p>
-<h2>Reference</h2>
-
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
       
     </div>
     
@@ -530,7 +529,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Optional initialValue?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Cons Brought by No initialValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Benefits Brought with initialValue</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Optional-initialValue"><span class="nav-number">1.</span> <span class="nav-text">Optional initialValue?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cons-Brought-by-No-initialValue"><span class="nav-number">2.</span> <span class="nav-text">Cons Brought by No initialValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Benefits-Brought-with-initialValue"><span class="nav-number">3.</span> <span class="nav-text">Benefits Brought with initialValue</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
             
 
           </div>
