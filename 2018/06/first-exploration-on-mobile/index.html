@@ -87,18 +87,18 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="PrefaceRecently, I have been working on mobile development. Before this I have heard something strange but I didn’t pay attention to. Now, I have to figure out though there is a lot of stuff. I am try">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180614143059.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180614143060.gif">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180615093229.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180615090536.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180614143059.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180614143060.gif">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180615093229.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180615090536.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180615090453.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180615155759.png">
 <meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180615090453.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180615155759.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180615090453.png">
-<meta property="og:updated_time" content="2023-08-21T15:52:45.401Z">
+<meta property="og:updated_time" content="2023-08-21T16:32:21.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="First Exploration on Mobile">
 <meta name="twitter:description" content="PrefaceRecently, I have been working on mobile development. Before this I have heard something strange but I didn’t pay attention to. Now, I have to figure out though there is a lot of stuff. I am try">
-<meta name="twitter:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180614143059.png">
+<meta name="twitter:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180614143059.png">
 
 
 
@@ -338,7 +338,7 @@
 
 <p>Before switching to device mode, make sure you don’t have code starts with <code>&lt;meta name=&quot;viewport&quot; ...</code> in your <code>head</code> tag.</p>
 <p>Normally, we will find everything seems ok when we switch to mobile. For example, Let’s switch to iPhone6.</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180614143059.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180614143059.png"></p>
 <p>According to <a href="https://developer.chrome.com/devtools/docs/device-mode" target="_blank" rel="noopener">chrome-devtools</a>, width 375 and height 667 is <code>css pixels</code>. And before we keep going , we need to figure out some terms first including <code>css pixels</code>, <code>physical pixels</code> and <code>DPR</code>. Here is some related readings:</p>
 <ul>
 <li><p><a href="https://stackoverflow.com/questions/3588983/converting-between-physical-pixels-and-css-pixels" target="_blank" rel="noopener">converting-between-physical-pixels-and-css-pixels</a></p>
@@ -405,7 +405,7 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=750,initial-scale=1,user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>Look what we got:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180614143060.gif"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180614143060.gif"></p>
 <p>This makes sense. However, if you remove <code>user-scalable=no</code> in the <code>meta</code> the browser will again enter into the fully zoomed-out mode. In that case, you will find the font-size is smaller and the whole page is showed in the screen which make the effect of <code>initial-scale=1</code> disappear.</p>
 <p>To be compatible with mobiles with different sizes we need to switch the number to <code>device-width</code>:</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -456,12 +456,12 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"example.png"</span> <span class="attr">width</span>=<span class="string">"2"</span> <span class="attr">height</span>=<span class="string">"2"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>Assume that size of example.png is 2*2 and the picture is like:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180615093229.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180615093229.png"></p>
 <p>With DPR of 2, the browser has to use 2 device pixels to draw a single css pixel. So <code>img</code> with 2*2 css pixels will be drew by 4*4 device pixel which means example.png with 2*2 bitmap pixels will be drew by 4*4 device pixel. So, 4 bitmap pixels of example.png will be drew by 16 device pixels which means 1 bitmap pixel will be drew by 4 device pixels.</p>
 <p>Let’s move on, normally what we want might be:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180615090536.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180615090536.png"></p>
 <p>However, actual result will be:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180615090453.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180615090453.png"></p>
 <p>The result happens because 1 bitmap pixel can’t be further divided into 4 device pixels. That’s what @smashingmagazine says:</p>
 <blockquote>
 <p>A bitmap pixel is the smallest unit of data in a raster image (PNG, JPG, GIF, etc).</p>
@@ -481,7 +481,7 @@
 <ol start="2">
 <li>Replace example.png with 4*4 and keep the original <code>img</code> with 2*2 css pixels, same explanation as above.</li>
 </ol>
-<p>In this case, we might do this by changing the <code>src</code> attribute in the <code>img</code>. For example, update the <code>src</code> search param <code>?v=2*2</code> with <code>?v=4*4</code> or change from example.png to <a href="mailto:&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#101;&#64;&#x32;&#x78;&#x2e;&#112;&#110;&#103;" target="_blank" rel="noopener">&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#101;&#64;&#x32;&#x78;&#x2e;&#112;&#110;&#103;</a>. <a href="https://github.com/strues/retinajs">retinajs</a> will help you do this job.</p>
+<p>In this case, we might do this by changing the <code>src</code> attribute in the <code>img</code>. For example, update the <code>src</code> search param <code>?v=2*2</code> with <code>?v=4*4</code> or change from example.png to <a href="mailto:&#x65;&#120;&#x61;&#109;&#x70;&#x6c;&#x65;&#64;&#50;&#120;&#x2e;&#x70;&#110;&#x67;" target="_blank" rel="noopener">&#x65;&#120;&#x61;&#109;&#x70;&#x6c;&#x65;&#64;&#50;&#120;&#x2e;&#x70;&#110;&#x67;</a>. <a href="https://github.com/strues/retinajs">retinajs</a> will help you do this job.</p>
 <ol start="3">
 <li><p>Use icon-font instead of raster image.</p>
 </li>
@@ -490,7 +490,7 @@
 </ol>
 <p>Actually, what you need to care about is not only <code>img</code> but also <code>background-image</code>. So, option1 and option2 will be not convenient without any other help(e.g. retinajs).</p>
 <p>Also, with DPR smaller than 2 we need to switch size back. If not, image will become sharp which is the opposite process of blur. For instance:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180615155759.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180615155759.png"></p>
 <p>Compare with the process of blur:</p>
 <p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180615090453.png"></p>
 <p>Option3 and option4 would be easier. And with the help of <a href="http://www.iconfont.cn/" target="_blank" rel="noopener">iconfont</a>, things can be easier and easier when you choose svg.</p>

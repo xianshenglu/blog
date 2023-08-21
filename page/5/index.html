@@ -528,7 +528,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot; ref=&quot;app&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;App&quot;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    this.$refs.app.innerHTML = `&lt;h1 class=&quot;App__title&quot;&gt;App__title&lt;/h1&gt;`;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.App__title &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
 
 <p><code>color: red</code> won’t work on <code>.App__title</code> because of <code>scoped</code>. The actual style is rendered with a unique attribute like:</p>
-<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190126215103.png"></p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190126215103.png"></p>
 <p>So, how do we solve this? <code>/deep/</code> or <code>&gt;&gt;&gt;</code>.</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;style scoped&gt;</span><br><span class="line">/deep/ .App__title &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
 

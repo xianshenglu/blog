@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="PrefaceWhen I was using form validate in Vue, I found sometimes vue doesn’t render data which was modified by me. I even thought it was a bug. Anyway, let’s take a look. MainHere is a simple demo: htm">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20181004204524.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20181004205221.png">
-<meta property="og:updated_time" content="2023-08-21T15:52:45.401Z">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20181004204524.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20181004205221.png">
+<meta property="og:updated_time" content="2023-08-21T16:32:21.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue Form Input Bindings Fail?">
 <meta name="twitter:description" content="PrefaceWhen I was using form validate in Vue, I found sometimes vue doesn’t render data which was modified by me. I even thought it was a bug. Anyway, let’s take a look. MainHere is a simple demo: htm">
-<meta name="twitter:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20181004204524.png">
+<meta name="twitter:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20181004204524.png">
 
 
 
@@ -334,12 +334,12 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">"#app"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">"please enter a positive num"</span>,</span><br><span class="line">    positiveNum: <span class="string">""</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">"validated and modified result: "</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value;</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span>;</span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value);</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>When I was pressing <em>dddddddddd</em>, what did I got?</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181004204524.png" alt="截图20181004204524.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181004204524.png" alt="截图20181004204524.png"></p>
 <p>The first letter was replaced to 1 but the others not. And the most important is the result I got is always 1 which means <code>this.positiveNum</code> is 1 while the value in the <code>input</code> is not 1.</p>
 <p>Why?</p>
 <p>I even thought it was a bug until one day I met a similar problem which was solved in SO.</p>
 <p>The key is the Lifecycle. The guide mentions it before but I didn’t understand it until now. Let’s see the picture again:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181004205221.png" alt="截图20181004205221.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181004205221.png" alt="截图20181004205221.png"></p>
 <p>See?</p>
 <p>The first time we change <code>positiveNum</code> to 1 and then we always change <code>positiveNum</code> to 1. So, vue wouldn’t re-render because the data doesn’t change. So, the connection between <code>input</code> and <code>positiveNum</code> was cut off until <code>positiveNum</code> isn’t equal to 1.</p>
 <p>We can add <code>updated</code> to see how many times data has changed:</p>

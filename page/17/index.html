@@ -507,11 +507,11 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo s -g</span><br></pre></td></tr></table></figure>
 
 <p>Normally, you will see:</p>
-<p><img src="/blog/../images/20180520101721.png" alt="20180520101721.png"></p>
+<p><img src="/blog/images/20180520101721.png" alt="20180520101721.png"></p>
 <ul>
 <li>Open the browser with the url in the above screenshot:</li>
 </ul>
-<p><img src="/blog/../images/20180520102405.png" alt="20180520102405.png"></p>
+<p><img src="/blog/images/20180520102405.png" alt="20180520102405.png"></p>
 <p>You can change the theme if you don’t like it. However that is not the point of this article. You can do it according to the docs in <a href="https://hexo.io/docs/" target="_blank" rel="noopener">hexo</a>.</p>
 <ul>
 <li>Also, if we want to deploy it on github, we have to install <code>hexo-deployer-git</code> according to <a href="https://hexo.io/docs/" target="_blank" rel="noopener">docs</a>.</li>
@@ -559,8 +559,7 @@
 <li><p>Above operation works well if there is no image in the markdown. However, if there is an image, for example:</p>
 </li>
 </ul>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">![<span class="string">20180520102405.png</span>](<span class="link">../images/20180520102405.png</span>)</span><br></pre></td></tr></table></figure>
-
+<p><img src="/blog/images/Snipaste_2023-08-22_00-31-30.png" alt="Snipaste_2023-08-22_00-31-30.png"></p>
 <p>The path for the image will be resolved incorrectly. In consistent with above case, the correct path should be <code>https://username.github.io/blog/images/20180520102405.png</code> while what we got is like <code>https://username.github.io/blog/2018/05/20/images/20180520101721.png</code>.So, we need to modify <code>src</code> to get a new url.</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'error'</span>, windowErrorCb, &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;, <span class="literal">true</span>)</span><br><span class="line"><span class="built_in">document</span>.addEventListener(</span><br><span class="line">  <span class="string">'DOMContentLoaded'</span>,</span><br><span class="line">  refreshImgUrl,</span><br><span class="line">  &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">windowErrorCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> target = event.target</span><br><span class="line">  imgErrorCb()</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">imgErrorCb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isImgErrorHandled = target.hasAttribute(<span class="string">'data-src-error'</span>)</span><br><span class="line">    <span class="keyword">let</span> isImgPathMatch =</span><br><span class="line">      target.tagName.toLowerCase() === <span class="string">'img'</span> &amp;&amp;</span><br><span class="line">      target.src.match(<span class="regexp">/\/images\/[^/]*?\d&#123;10,20&#125;[^/]*$/</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isImgPathMatch &amp;&amp; !isImgErrorHandled) &#123;</span><br><span class="line">      target.src = <span class="string">'https://xianshenglu.github.io/blog'</span> + isImgPathMatch[<span class="number">0</span>]</span><br><span class="line">      target.setAttribute(<span class="string">'data-src-error'</span>, <span class="string">'handled'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">refreshImgUrl</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> isImgPathMatchReg = <span class="regexp">/\/images\/[^/]*?\d&#123;10,20&#125;[^/]*$/</span></span><br><span class="line">  $(<span class="string">'img'</span>)</span><br><span class="line">    .toArray()</span><br><span class="line">    .forEach(<span class="function"><span class="params">img</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (img.src.match(isImgPathMatchReg)) &#123;</span><br><span class="line">        img.src = img.src</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -713,7 +712,7 @@
 
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: Microsoft YaHei;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inline</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/blog/../images/20180517161430.png" alt="20180517161430.png"></p>
+<p><img src="/blog/images/20180517161430.png" alt="20180517161430.png"></p>
 <p>So, here is the question,</p>
 <ul>
 <li>Assume there is no <code>margin</code> and <code>padding</code>,how much is the size of the <code>background-color</code> area which is also the content area ?any rules?</li>
@@ -759,7 +758,7 @@
 
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">font-family</span>: Georgia;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inline</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/blog/../images/20180517162130.png" alt="20180517162130.png"></p>
+<p><img src="/blog/images/20180517162130.png" alt="20180517162130.png"></p>
 <p>As you can see ,these data becomes:</p>
 <ul>
 <li>font-size:40px</li>

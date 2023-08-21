@@ -87,20 +87,20 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="LayoutI guess most of you were using rem, vw, viewport etc. For rem or vw, we always work with the below tag. &amp;lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&amp;gt;  And then w">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171932.gif">
-<meta property="og:image" content="https://github.com/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190128134750.png">
-<meta property="og:image" content="https://github.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202174136.jpg">
-<meta property="og:image" content="https://github.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173819.jpg">
-<meta property="og:image" content="https://github.com/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171930.png">
-<meta property="og:image" content="https://github.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173857.jpg">
-<meta property="og:image" content="https://github.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173902.jpg">
-<meta property="og:image" content="https://github.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173852.jpg">
-<meta property="og:image" content="https://github.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173826.jpg">
-<meta property="og:updated_time" content="2023-08-21T15:52:45.401Z">
+<meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171932.gif">
+<meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190128134750.png">
+<meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202174136.jpg">
+<meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173819.jpg">
+<meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171930.png">
+<meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173857.jpg">
+<meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173902.jpg">
+<meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173852.jpg">
+<meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173826.jpg">
+<meta property="og:updated_time" content="2023-08-21T16:32:21.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Notes for Developing Mobile Web Page">
 <meta name="twitter:description" content="LayoutI guess most of you were using rem, vw, viewport etc. For rem or vw, we always work with the below tag. &amp;lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&amp;gt;  And then w">
-<meta name="twitter:image" content="https://github.com/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171932.gif">
+<meta name="twitter:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171932.gif">
 
 
 
@@ -346,10 +346,10 @@
 <p>What if we remove the <code>minimum-scale</code>, <code>minimum-scale</code> and <code>user-scalable</code>? The result is:</p>
 <ul>
 <li><p>If an <code>input</code> was focused on safari, the web page would zoom in. Here is the proof.</p>
-<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171932.gif"></p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171932.gif"></p>
 </li>
 <li><p>You will get the scale buttons like below when you touch the page in WeChat 7.0.0, at least in Android.</p>
-<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190128134750.png"></p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190128134750.png"></p>
 </li>
 </ul>
 <p>And the solution is to add <code>user-scalable=no</code> or <code>minimum-scale=1, minimum-scale=1</code>. But you have to accept a shortcoming:</p>
@@ -365,11 +365,11 @@
 <p>A convenient way to do this is by <a href="https://github.com/strues/retinajs">retinajs</a>. And for icons, I would suggest you use <code>svg</code> if possible.</p>
 <h4 id="vh-Is-Always-Calculated-as-If-the-Url-Bar-Is-Hidden"><a href="#vh-Is-Always-Calculated-as-If-the-Url-Bar-Is-Hidden" class="headerlink" title="vh Is Always Calculated as If the Url Bar Is Hidden."></a><code>vh</code> Is Always Calculated as If the Url Bar Is Hidden.</h4><p>In brief, <code>100vh</code> doesn’t equal <code>window.innerHeight</code>. For more, check <a href="https://github.com/xianshenglu/blog/issues/38">issues&#x2F;38</a>.</p>
 <h4 id="Consider-the-Pop-Up-Keyboard"><a href="#Consider-the-Pop-Up-Keyboard" class="headerlink" title="Consider the Pop-Up Keyboard"></a>Consider the Pop-Up Keyboard</h4><p>If there is an input or another form element, the keyboard would pop up when the element was focused. For example,</p>
-<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202174136.jpg"></p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202174136.jpg"></p>
 <p>Is this a bug? Maybe… At least, you have to notice that before deploying. And the best way I think is to consult PM or designer if it’s okay.</p>
 <p>In that case, the keyboard would make <code>vh</code> smaller which may ruin the layout using <code>vh</code>.</p>
 <h4 id="Link-Highlight-While-It’s-Being-Tapped"><a href="#Link-Highlight-While-It’s-Being-Tapped" class="headerlink" title="Link Highlight While It’s Being Tapped"></a>Link Highlight While It’s Being Tapped</h4><p>In my Android Chrome 71, the highlight would show when I touch the link.</p>
-<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173819.jpg"></p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173819.jpg"></p>
 <p>We can disable it by the code below.</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(0, 0, 0, 0);</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: transparent; <span class="comment">/* For some Androids */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -382,7 +382,7 @@
 <li>Don’t put two qrcodes in one screen. Otherwise, it would only recognize one.</li>
 </ul>
 <h4 id="Format-detection"><a href="#Format-detection" class="headerlink" title="Format-detection"></a>Format-detection</h4><p>It is said that iOS safari has a default style for telephone numbers, email, etc. As I tested in iPhoneX 11.3, at least for telephone numbers, it does have a default style like below.</p>
-<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171930.png"></p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171930.png"></p>
 <p>If we want to disable the default style we can use the code below to avoid that.</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"format-detection"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"telephone=no, email=no, date=no, address=no, url=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -390,13 +390,13 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"tel:020-11811922"</span>&gt;</span>Call me: 020-11811922<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"sms:10086"</span>&gt;</span>Send me a message: 10086<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="Disable-Select"><a href="#Disable-Select" class="headerlink" title="Disable Select"></a>Disable Select</h4><p>You may want to avoid the situation like below when the user is touching the <strong>text of the element</strong>.</p>
-<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173857.jpg"> <img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173902.jpg"></p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173857.jpg"> <img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173902.jpg"></p>
 <p>You can use the code below to avoid that.</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.example</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-user-select</span>: none;</span><br><span class="line">  <span class="attribute">-moz-user-select</span>: none;</span><br><span class="line">  <span class="attribute">-ms-user-select</span>: none;</span><br><span class="line">  <span class="attribute">user-select</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>The user may still hear the tone or feel the vibration, at least in my WeChat 7.0.0. <strong>However, the user can still trigger selection on UC, QQ browser with an extra operation.</strong></p>
 <h4 id="Avoid-Popup-Menu-in-Long-Touch-（Not-Compatible）"><a href="#Avoid-Popup-Menu-in-Long-Touch-（Not-Compatible）" class="headerlink" title="Avoid Popup Menu in Long Touch ?（Not Compatible）"></a>Avoid Popup Menu in Long Touch ?（Not Compatible）</h4><p>You may also want to disable popup like below when the user is touching <strong>an image or other stuff</strong></p>
-<p><img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173852.jpg"> <img src="/blog/../images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173826.jpg"></p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173852.jpg"> <img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173826.jpg"></p>
 <p>In this case, <code>user-select:none</code> is not enough to cover this. You may have to add js code like below.</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'contextmenu'</span>, event =&gt; event.preventDefault())</span><br></pre></td></tr></table></figure>
 

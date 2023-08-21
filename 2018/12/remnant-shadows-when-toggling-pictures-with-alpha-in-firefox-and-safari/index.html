@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="See the demo: &amp;lt;div id=&quot;app&quot; class=&quot;app&quot;&amp;gt;  &amp;lt;img src=&quot;./images/hd3.png&quot; class=&quot;app__image&quot; id=&quot;app__image&quot; /&amp;gt;  &amp;lt;button class=&quot;app__button&quot; id=&quot;app__button&quot;&amp;gt;next image&amp;lt;/button&amp;gt;&amp;lt">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/images/1543630801931.gif">
-<meta property="og:updated_time" content="2023-08-21T15:52:45.401Z">
+<meta property="og:image" content="https://github.com/blog/images/1543630801931.gif">
+<meta property="og:updated_time" content="2023-08-21T16:32:21.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Remnant Shadows When Toggling HD Pictures with Alpha">
 <meta name="twitter:description" content="See the demo: &amp;lt;div id=&quot;app&quot; class=&quot;app&quot;&amp;gt;  &amp;lt;img src=&quot;./images/hd3.png&quot; class=&quot;app__image&quot; id=&quot;app__image&quot; /&amp;gt;  &amp;lt;button class=&quot;app__button&quot; id=&quot;app__button&quot;&amp;gt;next image&amp;lt;/button&amp;gt;&amp;lt">
-<meta name="twitter:image" content="https://github.com/images/1543630801931.gif">
+<meta name="twitter:image" content="https://github.com/blog/images/1543630801931.gif">
 
 
 
@@ -335,7 +335,7 @@
 <li>Both happen on my win7 and Mac 10.13.</li>
 </ul>
 <p>In this case, when we click the button above, the result in Firefox and Safari would be:</p>
-<p><img src="/blog/../images/1543630801931.gif"></p>
+<p><img src="/blog/images/1543630801931.gif"></p>
 <p>If you look at it carefully, you would see the remnant shadows of previous image. That is unexpected because I change the <code>src</code> in the <code>onload</code> callback. Also, the same thing would happen in Chrome, though the frequency is much lower. So, how do we solve this?</p>
 <h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app__button = <span class="built_in">document</span>.getElementById(<span class="string">'app__button'</span>)</span><br><span class="line"><span class="keyword">let</span> app__image = <span class="built_in">document</span>.getElementById(<span class="string">'app__image'</span>)</span><br><span class="line">app__button.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  app__image.src = <span class="string">'../images/transparent.png'</span></span><br><span class="line">  <span class="keyword">let</span> tempImage = <span class="keyword">new</span> Image()</span><br><span class="line">  tempImage.src = <span class="string">'../images/hd4.png'</span></span><br><span class="line">  tempImage.onload = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// setTimeout(() =&gt; &#123;</span></span><br><span class="line">    <span class="comment">// if you are still worried, you can use setTimeout or requestAnimationFrame to delay</span></span><br><span class="line">    app__image.src = event.target.src</span><br><span class="line">    <span class="comment">// &#125;, 20)</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 

@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="PrefaceFor a long time, I was thinking if the .css files would block DOM parsing and rendering. It seems I got different results sometimes. So, I decided to test and summarize the behaviors carefully">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/images/1584456970837.gif">
-<meta property="og:image" content="https://github.com/images/1584452497349.gif">
-<meta property="og:image" content="https://github.com/images/%7B65466B88-0183-435E-AA55-0682FCE52CA5%7D_20200328210103.jpg">
-<meta property="og:image" content="https://github.com/images/70C9BEB6-EEB8-4795-A265-FE71D7605ED4.png">
-<meta property="og:updated_time" content="2023-08-21T15:52:45.401Z">
+<meta property="og:image" content="https://github.com/blog/images/1584456970837.gif">
+<meta property="og:image" content="https://github.com/blog/images/1584452497349.gif">
+<meta property="og:image" content="https://github.com/blog/images/%7B65466B88-0183-435E-AA55-0682FCE52CA5%7D_20200328210103.jpg">
+<meta property="og:image" content="https://github.com/blog/images/70C9BEB6-EEB8-4795-A265-FE71D7605ED4.png">
+<meta property="og:updated_time" content="2023-08-21T16:32:21.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="The Impact of Styles and Scripts Position in index.html">
 <meta name="twitter:description" content="PrefaceFor a long time, I was thinking if the .css files would block DOM parsing and rendering. It seems I got different results sometimes. So, I decided to test and summarize the behaviors carefully">
-<meta name="twitter:image" content="https://github.com/images/1584456970837.gif">
+<meta name="twitter:image" content="https://github.com/blog/images/1584456970837.gif">
 
 
 
@@ -338,7 +338,7 @@
 <li>Would <em>header.css</em> block <em>main.css</em>, <em>app.js</em> and other resources fetching?</li>
 </ul>
 <p>And here are the results.</p>
-<p><img src="/blog/../images/1584456970837.gif"></p>
+<p><img src="/blog/images/1584456970837.gif"></p>
 <ol>
 <li><em>header.css</em> won’t block DOM parsing.</li>
 <li><em>header.css</em>, <em>main.css</em> all blocked rendering which means <strong>the page would be always blank until all the <em>.css</em> files request in the <code>&lt;head&gt;</code> finished.</strong></li>
@@ -353,7 +353,7 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>MyApp<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./static/app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>Say I still block all the <em>.css</em> files with fiddler. What would the results be?</p>
-<p><img src="/blog/../images/1584452497349.gif"></p>
+<p><img src="/blog/images/1584452497349.gif"></p>
 <p>As you can see,</p>
 <ol>
 <li><p><strong>The DOM parsing and rendering would work before they met <em>header.css</em> in the <code>&lt;body&gt;</code> which would get an earlier first paint</strong>. User can see something(usually there is a loading bar) before the styles in <code>&lt;body&gt;</code> loaded.</p>
@@ -384,9 +384,9 @@
 
 <p>Demo2 would render the page after all the styles loaded while demo1 would load and render step by step. Assuming that there is a 1 second delay in <em>main.css</em>, the results would be:</p>
 <p><em>styles in head</em></p>
-<p><img src="/blog/../images/%7B65466B88-0183-435E-AA55-0682FCE52CA5%7D_20200328210103.jpg" alt="styles in head"></p>
+<p><img src="/blog/images/%7B65466B88-0183-435E-AA55-0682FCE52CA5%7D_20200328210103.jpg" alt="styles in head"></p>
 <p><em>styles in body</em></p>
-<p><img src="/blog/../images/70C9BEB6-EEB8-4795-A265-FE71D7605ED4.png" alt="styles in body"></p>
+<p><img src="/blog/images/70C9BEB6-EEB8-4795-A265-FE71D7605ED4.png" alt="styles in body"></p>
 <p>As you can see, the result of <em>styles in body</em> might be more acceptable and expected. However, with that way we might need more code because we haven’t taken consideration of <code>script</code>. Things can be more complicated in production.</p>
 <h3 id="Put-js-Files-in-the-or"><a href="#Put-js-Files-in-the-or" class="headerlink" title="Put .js Files in the &lt;head&gt; or &lt;body&gt;"></a>Put <em>.js</em> Files in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code></h3><p>Actually, it works like styles in <code>&lt;body&gt;</code> where we put it in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code>. The script without <code>async</code> and <code>deferred</code> would block DOM parsing and rendering. Actually, it is specified in W3C specifications.</p>
 <blockquote>

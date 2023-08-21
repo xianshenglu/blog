@@ -339,9 +339,9 @@
 <li>Need routing</li>
 <li>CSS format</li>
 </ul>
-<p><img src="/blog/../images/Snipaste_2023-08-15_00-09-52.png"></p>
+<p><img src="/blog/images/Snipaste_2023-08-15_00-09-52.png"></p>
 <p>While with Vue CLI,</p>
-<p><img src="/blog/../images/Snipaste_2023-08-15_00-13-34.png"></p>
+<p><img src="/blog/images/Snipaste_2023-08-15_00-13-34.png"></p>
 <p>besides the 2 options, I also have more than 4 options</p>
 <ul>
 <li>state-management lib</li>
@@ -354,31 +354,31 @@
 <p>If they’re not set up at the beginning of a big project, it’s not easy to make all team members agree on one specific solution. Some people like this state management lib while others like another one. Some people like semi while others don’t…</p>
 <p>By the way, Angular doesn’t have an official state-management solution until now. Angular added this feature to the backlog in 2022 because of <a href="https://github.com/angular/angular/issues/46662">this issue</a>. Until now, the most starred state management solution for Angular is <a href="https://github.com/ngrx/platform">ngrx</a>.</p>
 <h3 id="Too-simple-default-project-folder-structure"><a href="#Too-simple-default-project-folder-structure" class="headerlink" title="Too simple default project folder structure"></a>Too simple default project folder structure</h3><p>For Angular, I don’t even know how to code with the template before I find the <a href="https://angular.io/guide/styleguide#overall-structural-guidelines" target="_blank" rel="noopener">CodingStyleGuide</a> chapter.</p>
-<p><img src="/blog/../images/Snipaste_2023-08-15_22-53-07.png"></p>
+<p><img src="/blog/images/Snipaste_2023-08-15_22-53-07.png"></p>
 <ul>
 <li>Where to put router views?</li>
 <li>Where to put shared code?</li>
 <li>Where to put …</li>
 </ul>
 <p>While for Vue, I think developers can code immediately.</p>
-<p><img src="/blog/../images/Snipaste_2023-08-15_22-56-12.png"></p>
+<p><img src="/blog/images/Snipaste_2023-08-15_22-56-12.png"></p>
 <p>Anyway, I’ll follow the Angular style guide to create a heroes feature module. </p>
-<p><img src="/blog/../images/Snipaste_2023-08-16_00-05-27.png"></p>
+<p><img src="/blog/images/Snipaste_2023-08-16_00-05-27.png"></p>
 <p><em>The demo code is copied from Angular homepage demo.</em></p>
 <p>And here is the UI:</p>
-<p><img src="/blog/../images/Snipaste_2023-08-20_16-13-19.png"></p>
+<p><img src="/blog/images/Snipaste_2023-08-20_16-13-19.png"></p>
 <h4 id="Default-change-detection-strategy-is-a-performance-killer"><a href="#Default-change-detection-strategy-is-a-performance-killer" class="headerlink" title="Default change detection strategy is a performance killer"></a>Default change detection strategy is a performance killer</h4><p>Have you noticed how many times the function is called at the console when the page is loaded? <strong>6*9&#x3D;54 times!</strong> Here is the code</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Heroes<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"heroes"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span></span></span><br><span class="line"><span class="tag">    *<span class="attr">ngFor</span>=<span class="string">"let hero of heroes$ | async"</span></span></span><br><span class="line"><span class="tag">    [<span class="attr">class.selected</span>]=<span class="string">"hero.id === selectedId"</span></span></span><br><span class="line"><span class="tag">    [<span class="attr">class.sensitive</span>]=<span class="string">"isSensitiveHeroName(hero)"</span></span></span><br><span class="line"><span class="tag">    (<span class="attr">mouseenter</span>)=<span class="string">"showTooltip()"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/hero', hero.id]"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"badge"</span>&gt;</span>&#123;&#123; hero.id &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span>&#123;&#123; hero.name &#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">routerLink</span>=<span class="string">"/sidekicks"</span>&gt;</span>Go to sidekicks<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">"app-hero-list"</span>,</span><br><span class="line">  templateUrl: <span class="string">"./hero-list.component.html"</span>,</span><br><span class="line">  styleUrls: [<span class="string">"./hero-list.component.scss"</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> HeroListComponent <span class="keyword">implements</span> OnInit &#123;</span><br><span class="line">  heroes$!: Observable&lt;Hero[]&gt;;</span><br><span class="line">  selectedId = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> service: HeroService, <span class="keyword">private</span> route: ActivatedRoute</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">    <span class="keyword">this</span>.heroes$ = <span class="keyword">this</span>.route.paramMap.pipe(</span><br><span class="line">      switchMap(<span class="function">(<span class="params">params</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.selectedId = <span class="built_in">parseInt</span>(params.get(<span class="string">"id"</span>)!, <span class="number">10</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.service.getHeroes();</span><br><span class="line">      &#125;)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  isSensitiveHeroName(hero: Hero) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"isSensitiveHeroName"</span>);</span><br><span class="line">    <span class="keyword">return</span> hero.name.toLowerCase().includes(<span class="string">"sex"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  showTooltip() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>And if you move your mouse from top to bottom, the function will be triggered <strong>2<em>9</em>9 times!</strong></p>
-<p><img src="/blog/../images/Snipaste_2023-08-20_16-25-47.png"></p>
+<p><img src="/blog/images/Snipaste_2023-08-20_16-25-47.png"></p>
 <p>In this case, we can use the <code>OnPush</code> strategy.</p>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">'app-hero-list'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./hero-list.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./hero-list.component.scss'</span>],</span><br><span class="line">  changeDetection: ChangeDetectionStrategy.OnPush <span class="comment">// +</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>The function will be triggered <strong>9</strong> times in the first time and <strong>9*9</strong> times for <code>mouseenter</code> event.</p>
-<p><img src="/blog/../images/Snipaste_2023-08-20_16-42-37.png"></p>
+<p><img src="/blog/images/Snipaste_2023-08-20_16-42-37.png"></p>
 <p>So the performance is improved by 1200% with <code>OnPush</code> strategy. <strong>In reality, if we want to change the <code>Default</code> strategy to <code>OnPush</code>, we need to apply more changes, not just one line in this demo.</strong></p>
 <p>Regarding this demo, there’s a better solution for Angular.</p>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> Hero &#123;</span><br><span class="line">  id: <span class="built_in">number</span>;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  isSensitive?: <span class="built_in">boolean</span>; <span class="comment">// +</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -783,7 +783,7 @@
 <li>Would <em>header.css</em> block <em>main.css</em>, <em>app.js</em> and other resources fetching?</li>
 </ul>
 <p>And here are the results.</p>
-<p><img src="/blog/../images/1584456970837.gif"></p>
+<p><img src="/blog/images/1584456970837.gif"></p>
 <ol>
 <li><em>header.css</em> won’t block DOM parsing.</li>
 <li><em>header.css</em>, <em>main.css</em> all blocked rendering which means <strong>the page would be always blank until all the <em>.css</em> files request in the <code>&lt;head&gt;</code> finished.</strong></li>
@@ -798,7 +798,7 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>MyApp<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./static/app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>Say I still block all the <em>.css</em> files with fiddler. What would the results be?</p>
-<p><img src="/blog/../images/1584452497349.gif"></p>
+<p><img src="/blog/images/1584452497349.gif"></p>
 <p>As you can see,</p>
 <ol>
 <li><p><strong>The DOM parsing and rendering would work before they met <em>header.css</em> in the <code>&lt;body&gt;</code> which would get an earlier first paint</strong>. User can see something(usually there is a loading bar) before the styles in <code>&lt;body&gt;</code> loaded.</p>
@@ -829,9 +829,9 @@
 
 <p>Demo2 would render the page after all the styles loaded while demo1 would load and render step by step. Assuming that there is a 1 second delay in <em>main.css</em>, the results would be:</p>
 <p><em>styles in head</em></p>
-<p><img src="/blog/../images/%7B65466B88-0183-435E-AA55-0682FCE52CA5%7D_20200328210103.jpg" alt="styles in head"></p>
+<p><img src="/blog/images/%7B65466B88-0183-435E-AA55-0682FCE52CA5%7D_20200328210103.jpg" alt="styles in head"></p>
 <p><em>styles in body</em></p>
-<p><img src="/blog/../images/70C9BEB6-EEB8-4795-A265-FE71D7605ED4.png" alt="styles in body"></p>
+<p><img src="/blog/images/70C9BEB6-EEB8-4795-A265-FE71D7605ED4.png" alt="styles in body"></p>
 <p>As you can see, the result of <em>styles in body</em> might be more acceptable and expected. However, with that way we might need more code because we haven’t taken consideration of <code>script</code>. Things can be more complicated in production.</p>
 <h3 id="Put-js-Files-in-the-or"><a href="#Put-js-Files-in-the-or" class="headerlink" title="Put .js Files in the &lt;head&gt; or &lt;body&gt;"></a>Put <em>.js</em> Files in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code></h3><p>Actually, it works like styles in <code>&lt;body&gt;</code> where we put it in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code>. The script without <code>async</code> and <code>deferred</code> would block DOM parsing and rendering. Actually, it is specified in W3C specifications.</p>
 <blockquote>

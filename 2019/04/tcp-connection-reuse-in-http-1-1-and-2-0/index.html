@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="I saw the introduction of http&amp;#x2F;2.0 in developers.google.com. However, I feel confused about the request and response multiplexing. So I decided to make a demo or an example for better understandi">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20190427204954.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20190428205446.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20190427210224.png">
-<meta property="og:updated_time" content="2023-08-21T15:52:45.401Z">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20190427204954.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20190428205446.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20190427210224.png">
+<meta property="og:updated_time" content="2023-08-21T16:32:21.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP Connection Reuse on HTTP&#x2F;1.1 and 2.0">
 <meta name="twitter:description" content="I saw the introduction of http&amp;#x2F;2.0 in developers.google.com. However, I feel confused about the request and response multiplexing. So I decided to make a demo or an example for better understandi">
-<meta name="twitter:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20190427204954.png">
+<meta name="twitter:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20190427204954.png">
 
 
 
@@ -335,7 +335,7 @@
 <li>….</li>
 </ul>
 <p>After searching, I found that there is a <strong>Connection ID</strong> column in the chrome dev tool <strong>Network</strong> panel. For example, here is the network image of <strong>baidu.com</strong> :</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20190427204954.png" alt="image"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20190427204954.png" alt="image"></p>
 <p>According to this <a href="https://stackoverflow.com/questions/34184994/chrome-developer-tools-connection-id/43520092#43520092" target="_blank" rel="noopener">question</a></p>
 <blockquote>
 <p>The new Connection ID Network Panel column in Canary can help indicate to you that a TCP connection was reused instead of handshaking and establishing a new one.</p>
@@ -353,8 +353,8 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>(<span class="number">13</span>)</span><br><span class="line">  .fill()</span><br><span class="line">  .forEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    fetch(</span><br><span class="line">      <span class="string">'https://ss3.baidu.com/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1556369856347'</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        credentials: <span class="string">'omit'</span>,</span><br><span class="line">        referrer: <span class="string">'https://www.baidu.com/'</span>,</span><br><span class="line">        referrerPolicy: <span class="string">'unsafe-url'</span>,</span><br><span class="line">        body: <span class="literal">null</span>,</span><br><span class="line">        method: <span class="string">'GET'</span>,</span><br><span class="line">        mode: <span class="string">'cors'</span></span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
 
 <p>Here are the results:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20190428205446.png"></p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20190427210224.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20190428205446.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20190427210224.png"></p>
 <p>Take a closer look at the pictures, we can find that</p>
 <ul>
 <li>On http&#x2F;1.1 connections, chrome would open up to 6 TCP connections per host and reuse the connections. While on http&#x2F;2.0 connections, chrome would open <strong>only one</strong> TCP connection per host on http&#x2F;2.0 connections.</li>

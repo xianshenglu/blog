@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="PrefaceIn the past, I posted an answer in SO about how to replace broken images. And the code is window.addEventListener(  &apos;error&apos;,  windowErrorCb,  &amp;#123;    capture: true  &amp;#125;,  true)function win">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20181119171728.png">
-<meta property="og:image" content="https://github.com/images/1542620382678.gif">
-<meta property="og:updated_time" content="2023-08-21T15:52:45.401Z">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20181119171728.png">
+<meta property="og:image" content="https://github.com/blog/images/1542620382678.gif">
+<meta property="og:updated_time" content="2023-08-21T16:32:21.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Image Load Error Handler">
 <meta name="twitter:description" content="PrefaceIn the past, I posted an answer in SO about how to replace broken images. And the code is window.addEventListener(  &apos;error&apos;,  windowErrorCb,  &amp;#123;    capture: true  &amp;#125;,  true)function win">
-<meta name="twitter:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20181119171728.png">
+<meta name="twitter:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20181119171728.png">
 
 
 
@@ -350,7 +350,7 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span> /&gt;</span> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>That does make sense. However, <code>img</code> without <code>src</code> wouldn’t hidden. They would have 1px border like:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181119171728.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181119171728.png"></p>
 <p>In this case, we may have to do something about that. For instance,</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -361,7 +361,7 @@
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app__bg_img_box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(./images/github.png), <span class="built_in">linear-gradient</span>(to right, lightblue, pink);</span><br><span class="line">  <span class="comment">/* you can also use default.png like code below */</span></span><br><span class="line">  <span class="comment">/* background-image: url(./images/github.png), url(./images/default.png); */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>And the cons is obvious.</p>
-<p><img src="/blog/../images/1542620382678.gif"></p>
+<p><img src="/blog/images/1542620382678.gif"></p>
 <ol>
 <li>You have to take care of the transparency problem of the target image.</li>
 <li>Users can see the toggle between target image and default image.</li>

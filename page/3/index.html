@@ -679,9 +679,9 @@
 <li><p><code>vscode-eslint</code> <strong>can’t fix all at one time</strong> by enable <code>&quot;eslint.autoFixOnSave&quot;: true</code>. You can find the <a href="https://github.com/microsoft/vscode-eslint/issues/154">issue here</a>. You might encounter situations like:</p>
 </li>
 </ul>
-<p><img src="/blog/../images/1560605687550.gif"></p>
+<p><img src="/blog/images/1560605687550.gif"></p>
 <p>or even worse like</p>
-<p><img src="/blog/../images/1560606459359.gif"></p>
+<p><img src="/blog/images/1560606459359.gif"></p>
 <p>If you choose <code>eslint-config-prettier</code> and <code>stylelint-config-prettier</code>, the pros are</p>
 <ul>
 <li><code>prettier-vscode</code> support auto fix and fix all at one time.</li>
@@ -718,12 +718,12 @@
 <p>It will run <code>eslint/stylelint/htmlhint</code> before commit. If error appears, commit would be blocked until errors have been fixed.</p>
 <p>So far, we can ensure the code quality in the repository by <code>eslint</code>, <code>eslint-plugin-vue</code>, <code>stylelint</code>, <code>htmlhint</code>, <code>prettier</code>, <code>husky</code> and <code>lint-staged</code> <strong>with no requirements for user settings</strong>.</p>
 <p>Hope svg below can help you organize thoughts.</p>
-<p><img src="/blog/../images/1560080932098.svg"></p>
+<p><img src="/blog/images/1560080932098.svg"></p>
 <h3 id="Ways-to-Avoid-Linting-Some-Lines"><a href="#Ways-to-Avoid-Linting-Some-Lines" class="headerlink" title="Ways to Avoid Linting Some Lines"></a>Ways to Avoid Linting Some Lines</h3><p>Sometimes, we might need to avoid linting some lines. So, I made a disable list.</p>
 <ul>
 <li><p><a href="https://eslint.org/docs/user-guide/command-line-interface#--no-inline-config" target="_blank" rel="noopener"><code>eslint</code></a></p>
 <p><code>vscode</code> also provides convenience like below,</p>
-<p><img src="/blog/../images/1560221484774.gif"></p>
+<p><img src="/blog/images/1560221484774.gif"></p>
 </li>
 <li><p><code>eslint-plugin-vue</code><br>Find it via this <a href="https://github.com/vuejs/eslint-plugin-vue/issues/260#issuecomment-425179782">issue</a>.</p>
 <blockquote>
@@ -732,7 +732,7 @@
 </li>
 <li><p><a href="https://stylelint.io/CHANGELOG/" target="_blank" rel="noopener"><code>stylelint</code></a></p>
 <p>You can find it in the change log. Also, for convenience you can install a snippet plugin. For example, I use <a href="https://marketplace.visualstudio.com/items?itemName=hedinne.stylelint-disable-snippets" target="_blank" rel="noopener">Stylelint Disable Snippets</a> which works like</p>
-<p><img src="/blog/../images/1560221484775.gif"></p>
+<p><img src="/blog/images/1560221484775.gif"></p>
 </li>
 <li><p><code>htmlhint</code></p>
 <p><strong>They haven’t support it yet</strong>. The latest <a href="https://github.com/htmlhint/HTMLHint/issues/161">issue</a>.</p>
@@ -759,7 +759,7 @@
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"files.autoSave"</span>: <span class="string">"onFocusChange"</span>,</span><br><span class="line">  // call internal formatter for current file on save.</span><br><span class="line">  "editor.formatOnSave": true,</span><br><span class="line">  // set internal formatter as prettier-vscode</span><br><span class="line">  "editor.defaultFormatter": "esbenp.prettier-vscode",</span><br><span class="line">  // default value is ['vue']</span><br><span class="line">  "prettier.disableLanguages": [""],</span><br><span class="line">  // show eslint on status bar</span><br><span class="line">  "eslint.alwaysShowStatus": true,</span><br><span class="line">  // some rules like [spaced-comment](https://github.com/prettier/prettier/issues/5755) enable in standard</span><br><span class="line">  // but not disabled in prettier/standard, so need auto fix by eslint.</span><br><span class="line">  "eslint.autoFixOnSave": true,</span><br><span class="line">  // enable validation in real time</span><br><span class="line">  "eslint.validate": [</span><br><span class="line">    "javascript",</span><br><span class="line">    "javascriptreact",</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">      <span class="attr">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">      <span class="attr">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  // enable validation in real time</span><br><span class="line">  "stylelint.enable": true,</span><br><span class="line">  "htmlhint.enable": true,</span><br><span class="line">  // disable vetur formatter because formatting job would be done by prettier</span><br><span class="line">  "vetur.format.enable": false,</span><br><span class="line">  //disable vetur validation because</span><br><span class="line">  // eslint plugin in editor will validate template and script using configuration file in project.</span><br><span class="line">  "vetur.validation.template": false,</span><br><span class="line">  "vetur.validation.script": false,</span><br><span class="line">  // stylelint plugin in editor will validate using configuration file in project.</span><br><span class="line">  "vetur.validation.style": false,</span><br><span class="line">  "html.validate.styles": false,</span><br><span class="line">  "css.validate": false,</span><br><span class="line">  "less.validate": false,</span><br><span class="line">  "scss.validate": false,</span><br><span class="line">  // we didn't validate script in html, so enable default validation</span><br><span class="line">  "html.validate.scripts": true,</span><br><span class="line">  // disable default validate</span><br><span class="line">  // eslint plugin in editor will validate template and script using configuration file in project.</span><br><span class="line">  "javascript.validate.enable": false,</span><br><span class="line">  // tslint plugin in editor will validate template and script using configuration file in project.</span><br><span class="line">  "typescript.validate.enable": false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>And I made this image for a better understanding.</p>
-<p><img src="/blog/../images/vue-project-format-editor-plugin-user-settings.svg"></p>
+<p><img src="/blog/images/vue-project-format-editor-plugin-user-settings.svg"></p>
 <h3 id="How-to-Handle-History-Files-with-Current-Formatter-and-Linter"><a href="#How-to-Handle-History-Files-with-Current-Formatter-and-Linter" class="headerlink" title="How to Handle History Files with Current Formatter and Linter?"></a>How to Handle History Files with Current Formatter and Linter?</h3><p>Actually, there are many choices. For example,</p>
 <ul>
 <li>We can fix all the stylistic errors at one time and add disable comments around the remaining linting errors. After that, each time we commit, it won’t have any effects on the code review.</li>
@@ -811,8 +811,8 @@
 <li><p>Sometimes you need to restart editor after modifying the <em>.prettierrc.js</em> or <em>.eslintrc.js</em>, especially when you modified options like <code>tabWidth</code> etc.</p>
 </li>
 <li><p>If you have enabled multiple formatters in <code>vscode</code>, you would see <code>Format Document with ...</code> choice when you right click your mouse.</p>
-<p><img src="/blog/../images/%7B1D5A8060-0A1F-41C2-9BBA-5BF6739CFDAA%7D_20190616142237.jpg"></p>
-<p><img src="/blog/../images/%7B3B680AB4-B268-4192-BD5A-0DEC72BDCD58%7D_20190616142502.jpg"></p>
+<p><img src="/blog/images/%7B1D5A8060-0A1F-41C2-9BBA-5BF6739CFDAA%7D_20190616142237.jpg"></p>
+<p><img src="/blog/images/%7B3B680AB4-B268-4192-BD5A-0DEC72BDCD58%7D_20190616142502.jpg"></p>
 <p>The <code>Format Document</code> choice is using your default formatter which is defined by <code>&quot;editor.defaultFormatter&quot;</code>. For example, <code>&quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;</code> is using <code>prettier</code> as default formatter.</p>
 </li>
 <li><p><code>lint-staged</code> has problems with committing partially staged files currently. The related issues are <a href="https://github.com/okonet/lint-staged/issues/62">#62</a>, <a href="https://github.com/okonet/lint-staged/pull/75">#75</a> and <a href="https://hackernoon.com/announcing-lint-staged-with-support-for-partially-staged-files-abc24a40d3ff" target="_blank" rel="noopener">article</a>.</p>
@@ -981,7 +981,7 @@
 <li>….</li>
 </ul>
 <p>After searching, I found that there is a <strong>Connection ID</strong> column in the chrome dev tool <strong>Network</strong> panel. For example, here is the network image of <strong>baidu.com</strong> :</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20190427204954.png" alt="image"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20190427204954.png" alt="image"></p>
 <p>According to this <a href="https://stackoverflow.com/questions/34184994/chrome-developer-tools-connection-id/43520092#43520092" target="_blank" rel="noopener">question</a></p>
 <blockquote>
 <p>The new Connection ID Network Panel column in Canary can help indicate to you that a TCP connection was reused instead of handshaking and establishing a new one.</p>
@@ -999,8 +999,8 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>(<span class="number">13</span>)</span><br><span class="line">  .fill()</span><br><span class="line">  .forEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    fetch(</span><br><span class="line">      <span class="string">'https://ss3.baidu.com/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1556369856347'</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        credentials: <span class="string">'omit'</span>,</span><br><span class="line">        referrer: <span class="string">'https://www.baidu.com/'</span>,</span><br><span class="line">        referrerPolicy: <span class="string">'unsafe-url'</span>,</span><br><span class="line">        body: <span class="literal">null</span>,</span><br><span class="line">        method: <span class="string">'GET'</span>,</span><br><span class="line">        mode: <span class="string">'cors'</span></span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
 
 <p>Here are the results:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20190428205446.png"></p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20190427210224.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20190428205446.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20190427210224.png"></p>
 <p>Take a closer look at the pictures, we can find that</p>
 <ul>
 <li>On http&#x2F;1.1 connections, chrome would open up to 6 TCP connections per host and reuse the connections. While on http&#x2F;2.0 connections, chrome would open <strong>only one</strong> TCP connection per host on http&#x2F;2.0 connections.</li>

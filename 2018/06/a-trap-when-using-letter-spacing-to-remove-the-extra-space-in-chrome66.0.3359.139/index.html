@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="PrefaceAs we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like font-size:0,word-spacing,margin-left,letter-spacing and so on. C">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180618184625.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180618184736.png">
-<meta property="og:updated_time" content="2023-08-21T15:52:45.401Z">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180618184625.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180618184736.png">
+<meta property="og:updated_time" content="2023-08-21T16:32:21.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A Trap When Using letter-spacing to Remove the Extra Space in chrome66.0.3359.139">
 <meta name="twitter:description" content="PrefaceAs we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like font-size:0,word-spacing,margin-left,letter-spacing and so on. C">
-<meta name="twitter:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180618184625.png">
+<meta name="twitter:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180618184625.png">
 
 
 
@@ -340,9 +340,9 @@
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  <span class="attribute">color</span>: inherit;</span><br><span class="line">  <span class="attribute">cursor</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">260px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: -<span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav__text</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">90px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>If you are using Chrome(test version 66.0.3359.139) or Opera(test version 53.0.2907.99), what you see might be:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180618184625.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180618184625.png"></p>
 <p>If you are using Firefox(60.0.2),IE10 or Edge, what you see might be:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180618184736.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180618184736.png"></p>
 <p>That’s interesting. So, I checked the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a> and found this:</p>
 <blockquote>
 <length>

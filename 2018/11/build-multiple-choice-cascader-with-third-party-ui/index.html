@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="PrefaceI need to make a cascader which can support multiple choices. However, I didn’t find any ui which supports that until 2018.11.18. That was a little pity. MainI check the element-ui and find mul">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/images/1542536446656.gif">
-<meta property="og:image" content="https://github.com/images/1542536827531.gif">
-<meta property="og:updated_time" content="2023-08-21T15:52:45.401Z">
+<meta property="og:image" content="https://github.com/blog/images/1542536446656.gif">
+<meta property="og:image" content="https://github.com/blog/images/1542536827531.gif">
+<meta property="og:updated_time" content="2023-08-21T16:32:21.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Build Multiple Choice Cascader with Third Party ui">
 <meta name="twitter:description" content="PrefaceI need to make a cascader which can support multiple choices. However, I didn’t find any ui which supports that until 2018.11.18. That was a little pity. MainI check the element-ui and find mul">
-<meta name="twitter:image" content="https://github.com/images/1542536446656.gif">
+<meta name="twitter:image" content="https://github.com/blog/images/1542536446656.gif">
 
 
 
@@ -327,10 +327,10 @@
       
         <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>I need to make a cascader which can support multiple choices. However, I didn’t find any ui which supports that until 2018.11.18. That was a little pity.</p>
 <h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>I check the <code>element-ui</code> and find multiple cascader was in toDoList while <code>ant-design</code> refuse to support that directly. Maybe because they have already implemented <a href="https://ant.design/components/tree-select/" target="_blank" rel="noopener">TreeSelect</a>. Here is what <code>TreeSelect</code> looks like:</p>
-<p><img src="/blog/../images/1542536446656.gif"></p>
+<p><img src="/blog/images/1542536446656.gif"></p>
 <p>Almost the result I want except the ui. It doesn’t look like a cascader but a tree.</p>
 <p>Anyway, I built a multiple cascader component based on select and cascader in <code>ant-design-vue</code>. Here is the result:</p>
-<p><img src="/blog/../images/1542536827531.gif"></p>
+<p><img src="/blog/images/1542536827531.gif"></p>
 <p>The principle is easy. I use the <code>input</code> in <code>select</code> and hide the popup. And then I hide the <code>input</code> in <code>cascader</code> and show the popup. So, MultipleCascader is equal to <code>input</code> in <code>select</code> plus popup in <code>cascader</code> and use <code>transform</code> to let them stay together.</p>
 <p>Talking about the event, you have to listen and change the data to show correctly. That is a little troublesome.</p>
 <p>Anyway, here is the earliest <a href="https://codesandbox.io/s/8njr9xy212" target="_blank" rel="noopener">demo</a> in codesandbox. I am not sure if the demo would be always able to visit.</p>

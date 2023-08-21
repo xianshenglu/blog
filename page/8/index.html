@@ -324,10 +324,10 @@
           
             <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>I need to make a cascader which can support multiple choices. However, I didn’t find any ui which supports that until 2018.11.18. That was a little pity.</p>
 <h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>I check the <code>element-ui</code> and find multiple cascader was in toDoList while <code>ant-design</code> refuse to support that directly. Maybe because they have already implemented <a href="https://ant.design/components/tree-select/" target="_blank" rel="noopener">TreeSelect</a>. Here is what <code>TreeSelect</code> looks like:</p>
-<p><img src="/blog/../images/1542536446656.gif"></p>
+<p><img src="/blog/images/1542536446656.gif"></p>
 <p>Almost the result I want except the ui. It doesn’t look like a cascader but a tree.</p>
 <p>Anyway, I built a multiple cascader component based on select and cascader in <code>ant-design-vue</code>. Here is the result:</p>
-<p><img src="/blog/../images/1542536827531.gif"></p>
+<p><img src="/blog/images/1542536827531.gif"></p>
 <p>The principle is easy. I use the <code>input</code> in <code>select</code> and hide the popup. And then I hide the <code>input</code> in <code>cascader</code> and show the popup. So, MultipleCascader is equal to <code>input</code> in <code>select</code> plus popup in <code>cascader</code> and use <code>transform</code> to let them stay together.</p>
 <p>Talking about the event, you have to listen and change the data to show correctly. That is a little troublesome.</p>
 <p>Anyway, here is the earliest <a href="https://codesandbox.io/s/8njr9xy212" target="_blank" rel="noopener">demo</a> in codesandbox. I am not sure if the demo would be always able to visit.</p>
@@ -487,7 +487,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /</span><br><span class="line"><span class="built_in">cd</span> d/nodemodules</span><br><span class="line">eslint --init</span><br></pre></td></tr></table></figure>
 
 <p>Then it will give you some choices.</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006154426.png" alt="截图20181006154426.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006154426.png" alt="截图20181006154426.png"></p>
 <p><strong>tips:</strong></p>
 <ol>
 <li><em>You may need to <code>npm init</code> first but you can remove it later.</em></li>
@@ -506,13 +506,13 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure>
 
 <p>Result:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006161411.png" alt="截图20181006161411.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006161411.png" alt="截图20181006161411.png"></p>
 <p>Here it is. Well, of course we want to fix it when run lint. So, according to <a href="https://eslint.org/docs/user-guide/command-line-interface" target="_blank" rel="noopener">ESLint doc</a> we can try code below:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure>
 
 <p>Result:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006163246.png" alt="截图20181006163246.png"></p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006163413.png" alt="截图20181006163413.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006163246.png" alt="截图20181006163246.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006163413.png" alt="截图20181006163413.png"></p>
 <p>ESLint will fix some problems, mainly spaces. In the case above, <strong>no-unused-vars</strong> problems will not be fixed.</p>
 <h3 id="set-custom-rules"><a href="#set-custom-rules" class="headerlink" title="set custom rules"></a>set custom rules</h3><p>Futhermore, the expected indent is 4 spaces. But I want 2 spaces to be the default indent. So, we always set our own rules based on ESLint. In my case, I altered the <em>d:\nodemodules\.eslintrc.json</em> like:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="comment">//other settings</span></span><br><span class="line">    <span class="string">"rules"</span>: &#123;</span><br><span class="line">        <span class="string">"indent"</span>: [</span><br><span class="line">            <span class="string">"error"</span>,</span><br><span class="line">            <span class="number">2</span></span><br><span class="line">            <span class="comment">//change to 2 not 4</span></span><br><span class="line">        ],</span><br><span class="line">      <span class="comment">//other rules</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -528,12 +528,12 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure>
 
 <p>Actually, I got error:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006165344.png" alt="截图20181006165344.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006165344.png" alt="截图20181006165344.png"></p>
 <p>So, I have to run</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-config-standard@latest -g</span><br></pre></td></tr></table></figure>
 
 <p>It turns out I got more warnings.</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006165741.png" alt="截图20181006165741.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006165741.png" alt="截图20181006165741.png"></p>
 <p>So, I keep installing:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-plugin-import@latest eslint-plugin-node@latest eslint-plugin-promise@latest eslint-plugin-standard@latest -g</span><br></pre></td></tr></table></figure>
 
@@ -541,14 +541,14 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.js</span><br></pre></td></tr></table></figure>
 
 <p>I got a little difference because of different rules:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006165945.png" alt="截图20181006165945.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006165945.png" alt="截图20181006165945.png"></p>
 <h3 id="script-in-html"><a href="#script-in-html" class="headerlink" title="script in .html"></a>script in .html</h3><p>If you use code above to format js in .html, it will fail. For example:</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- test4.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      html,</span></span><br><span class="line"><span class="undefined">      body &#123;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        height: 100%;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"canvas"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> name = &#123;</span></span><br><span class="line"><span class="javascript">        name: <span class="string">"test4.js"</span></span></span><br><span class="line"><span class="undefined">      &#125;;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> obj = &#123;&#125;;</span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">params</span>) </span>&#123;&#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">eslint --fix --config d:\nodeModules\.eslintrc.json test4.html</span><br></pre></td></tr></table></figure>
 
 <p>Result:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006172654.png" alt="截图20181006172654.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006172654.png" alt="截图20181006172654.png"></p>
 <p>See? Actually, we need plugins for non .js files. After search, I have to run code:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint-plugin-html@latest -g</span><br></pre></td></tr></table></figure>
 
@@ -563,15 +563,15 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"eslint.options"</span>: &#123;</span><br><span class="line">    <span class="comment">//replace with your filename and path</span></span><br><span class="line">    <span class="string">"configFile"</span>: <span class="string">"D:/nodeModules/eslint/.eslintrc.json"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"eslint.alwaysShowStatus"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.autoFixOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.run"</span>: <span class="string">"onSave"</span>,</span><br><span class="line">  <span class="string">"eslint.validate"</span>: [</span><br><span class="line">    <span class="string">"javascript"</span>,</span><br><span class="line">    <span class="string">"javascriptreact"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>After restarting your editor, you will see</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006173812.png" alt="截图20181006173812.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006173812.png" alt="截图20181006173812.png"></p>
 <p>And</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006173913.png" alt="截图20181006173913.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006173913.png" alt="截图20181006173913.png"></p>
 <p>If your default settings of <code>formatOnSave:true</code>, then ESLint would format your code onSave.</p>
 <h3 id="make-global-and-local-config-file-independent"><a href="#make-global-and-local-config-file-independent" class="headerlink" title="make global and local config file independent"></a>make global and local config file independent</h3><p>Until now, everything seems perfect with ESLint. But there is one thing I need to mention. Suppose that you create a new vue project using vue-cli.</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue create my-proj</span><br><span class="line"><span class="built_in">cd</span> my-proj</span><br></pre></td></tr></table></figure>
 
 <p>You may find that ESLinter error like below:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006180631.png" alt="截图20181006180631.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006180631.png" alt="截图20181006180631.png"></p>
 <p>You can see this because we set the <code>eslint.options</code> in the <code>User Settings</code>. <code>eslint.options</code> setting is like passing it on the command line in a terminal using the <code>--config</code>. If you do this ESLint respects this and will not use the one in the project folder.</p>
 <p>However, if we delete the <code>eslint.options</code> it won’t be able to format other files. So, the compromise solution is :</p>
 <ol>
@@ -591,7 +591,7 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="string">"eslint.options"</span>: &#123;</span><br><span class="line">    <span class="comment">// "configFile": "D:/nodeModules/eslint/.eslintrc.json",</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"eslint.alwaysShowStatus"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.autoFixOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"eslint.run"</span>: <span class="string">"onSave"</span>,</span><br><span class="line">  <span class="string">"eslint.validate"</span>: [</span><br><span class="line">    <span class="string">"javascript"</span>,</span><br><span class="line">    <span class="string">"javascriptreact"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">      <span class="string">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>And in the folder of all projects, I have global eslint config file:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20181006210753.png" alt="截图20181006210753.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181006210753.png" alt="截图20181006210753.png"></p>
 <h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://github.com/Microsoft/vscode-eslint/issues/527">Override global eslintrc if one is found in current project</a></li>
 </ul>

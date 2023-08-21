@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="PrefaceI met some bug with MS’s flex box. Main min-heightSee code below:  &amp;lt;div class=&quot;par&quot;&amp;gt;  &amp;lt;div class=&quot;child child1&quot;&amp;gt;child1&amp;lt;/div&amp;gt;  &amp;lt;div class=&quot;child child2&quot;&amp;gt;child2&amp;lt;/div&amp;gt">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180609161841.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180609161934.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180818144157.png">
-<meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180818144338.png">
-<meta property="og:updated_time" content="2023-08-21T15:52:45.401Z">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180609161841.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180609161934.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180818144157.png">
+<meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180818144338.png">
+<meta property="og:updated_time" content="2023-08-21T16:32:21.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MS Bug In Flex">
 <meta name="twitter:description" content="PrefaceI met some bug with MS’s flex box. Main min-heightSee code below:  &amp;lt;div class=&quot;par&quot;&amp;gt;  &amp;lt;div class=&quot;child child1&quot;&amp;gt;child1&amp;lt;/div&amp;gt;  &amp;lt;div class=&quot;child child2&quot;&amp;gt;child2&amp;lt;/div&amp;gt">
-<meta name="twitter:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180609161841.png">
+<meta name="twitter:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180609161841.png">
 
 
 
@@ -336,9 +336,9 @@
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.par</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">min-height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">flex-flow</span>: column nowrap;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* _:-ms-lang(x),</span></span><br><span class="line"><span class="comment">.par &#123;</span></span><br><span class="line"><span class="comment">    height: 200px;</span></span><br><span class="line"><span class="comment">&#125; */</span></span><br><span class="line"><span class="selector-class">.par</span> <span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span> <span class="number">1</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child1</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child2</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child3</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: yellowgreen;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>I think the result is pretty clear. As the image below :</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180609161841.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180609161841.png"></p>
 <p>However, what I got in <code>IE10</code> and <code>Edge</code> is like :</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180609161934.png"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180609161934.png"></p>
 <p>The problem is quite clear. Property <code>flex</code> doesn’t work in MS when there is only <code>min-height</code>. I think it is a bug so I just fix it by hack. And the hack is the comments in the code above.</p>
 <ul>
 <li>IE10 <code>flex</code> doesn’t work if flex item is inline element</li>
@@ -349,12 +349,12 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"box__link"</span>&gt;</span>box1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"box__link"</span>&gt;</span>box2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"box__link"</span>&gt;</span>box3<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>Code above is quite clear. However, in IE10, you will see:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180818144157.png" alt="截图20180818144157"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180818144157.png" alt="截图20180818144157"></p>
 <p><code>justify-content:space-between</code> doesn’t work. If you add</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box__link</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>It will work. See:</p>
-<p><img src="/blog/../images/%E6%88%AA%E5%9B%BE20180818144338.png" alt="截图20180818144338"></p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180818144338.png" alt="截图20180818144338"></p>
 
       
     </div>
