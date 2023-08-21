@@ -124,9 +124,7 @@ npm install hexo-renderer-markdown-it  --save
 
 - Above operation works well if there is no image in the markdown. However, if there is an image, for example:
 
-```md
-![20180520102405.png](../images/20180520102405.png)
-```
+![Snipaste_2023-08-22_00-31-30.png](../images/Snipaste_2023-08-22_00-31-30.png)
 
 The path for the image will be resolved incorrectly. In consistent with above case, the correct path should be `https://username.github.io/blog/images/20180520102405.png` while what we got is like `https://username.github.io/blog/2018/05/20/images/20180520101721.png`.So, we need to modify `src` to get a new url.
 

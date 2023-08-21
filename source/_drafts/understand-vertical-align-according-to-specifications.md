@@ -151,7 +151,7 @@ After point these out,the result of `vertical-align` can be more clear:
 }
 ```
 
-![20180519171218](./images/20180519171218.png)
+![20180519171218](../images/20180519171218.png)
 
 ```css
 .inline.text-wrapper {
@@ -159,7 +159,7 @@ After point these out,the result of `vertical-align` can be more clear:
 }
 ```
 
-![20180519171528](./images/20180519171528.png)
+![20180519171528](../images/20180519171528.png)
 
 ```css
 .inline.text-wrapper {
@@ -167,7 +167,7 @@ After point these out,the result of `vertical-align` can be more clear:
 }
 ```
 
-![截图20180519172009](./images/截图20180519172009.png)
+![截图20180519172009](../images/截图20180519172009.png)
 
 ```css
 .inline.text-wrapper {
@@ -175,7 +175,7 @@ After point these out,the result of `vertical-align` can be more clear:
 }
 ```
 
-![截图20180519172315](./images/截图20180519172315.png)
+![截图20180519172315](../images/截图20180519172315.png)
 
 [specifications]: https://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html
 [errata]: http://www.w3.org/Style/css2-updates/REC-CSS2-20110607-errata.html
