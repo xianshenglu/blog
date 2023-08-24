@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="You might have often heard someone saying that  Angular is waiting you in 3 years. Angular is better for big or enterprise project Angular provides excellent updating experience …  In this article, I’">
+<meta name="description" content="You might have often heard someone saying that  Angular is waiting for you in 3 years. Angular is better for big or enterprise project Angular provides an excellent updating experience …  In this arti">
 <meta name="keywords" content="Angular,Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Angular is not that good before 2023">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2023/08/angular-is-not-that-good-before-2023/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="You might have often heard someone saying that  Angular is waiting you in 3 years. Angular is better for big or enterprise project Angular provides excellent updating experience …  In this article, I’">
+<meta property="og:description" content="You might have often heard someone saying that  Angular is waiting for you in 3 years. Angular is better for big or enterprise project Angular provides an excellent updating experience …  In this arti">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://github.com/blog/images/Snipaste_2023-08-15_00-09-52.png">
 <meta property="og:image" content="https://github.com/blog/images/Snipaste_2023-08-15_00-13-34.png">
@@ -95,10 +95,10 @@
 <meta property="og:image" content="https://github.com/blog/images/Snipaste_2023-08-20_16-13-19.png">
 <meta property="og:image" content="https://github.com/blog/images/Snipaste_2023-08-20_16-25-47.png">
 <meta property="og:image" content="https://github.com/blog/images/Snipaste_2023-08-20_16-42-37.png">
-<meta property="og:updated_time" content="2023-08-21T16:40:12.924Z">
+<meta property="og:updated_time" content="2023-08-24T15:45:04.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Angular is not that good before 2023">
-<meta name="twitter:description" content="You might have often heard someone saying that  Angular is waiting you in 3 years. Angular is better for big or enterprise project Angular provides excellent updating experience …  In this article, I’">
+<meta name="twitter:description" content="You might have often heard someone saying that  Angular is waiting for you in 3 years. Angular is better for big or enterprise project Angular provides an excellent updating experience …  In this arti">
 <meta name="twitter:image" content="https://github.com/blog/images/Snipaste_2023-08-15_00-09-52.png">
 
 
@@ -333,9 +333,9 @@
       
         <p>You might have often heard someone saying that</p>
 <blockquote>
-<p>Angular is waiting you in 3 years.</p>
+<p>Angular is waiting for you in 3 years.</p>
 <p>Angular is better for big or enterprise project</p>
-<p>Angular provides excellent updating experience</p>
+<p>Angular provides an excellent updating experience</p>
 <p>…</p>
 </blockquote>
 <p>In this article, I’ll show you why I think Angular is not as good as you have heard <strong>before 2023 Angular 15, 16</strong>.</p>
@@ -355,8 +355,8 @@
 <ul>
 <li>state-management lib</li>
 <li>e2e test lib</li>
-<li>ESLint</li>
-<li>Prettier for code formatting</li>
+<li><code>ESLint</code></li>
+<li><code>Prettier</code> for code formatting</li>
 <li>……</li>
 </ul>
 <p>To be honest, in my opinion, the above 4 options are important for a big or enterprise project. </p>
@@ -367,11 +367,11 @@
 <ul>
 <li>Where to put router views?</li>
 <li>Where to put shared code?</li>
-<li>Where to put …</li>
+<li>…</li>
 </ul>
 <p>While for Vue, I think developers can code immediately.</p>
 <p><img src="/blog/images/Snipaste_2023-08-15_22-56-12.png"></p>
-<p>Anyway, I’ll follow the Angular style guide to create a heroes feature module. </p>
+<p>Anyway, I’ll follow the Angular style guide to create a <code>heroes</code> feature module. </p>
 <p><img src="/blog/images/Snipaste_2023-08-16_00-05-27.png"></p>
 <p><em>The demo code is copied from Angular homepage demo.</em></p>
 <p>And here is the UI:</p>
@@ -381,50 +381,50 @@
 
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">"app-hero-list"</span>,</span><br><span class="line">  templateUrl: <span class="string">"./hero-list.component.html"</span>,</span><br><span class="line">  styleUrls: [<span class="string">"./hero-list.component.scss"</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> HeroListComponent <span class="keyword">implements</span> OnInit &#123;</span><br><span class="line">  heroes$!: Observable&lt;Hero[]&gt;;</span><br><span class="line">  selectedId = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> service: HeroService, <span class="keyword">private</span> route: ActivatedRoute</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">    <span class="keyword">this</span>.heroes$ = <span class="keyword">this</span>.route.paramMap.pipe(</span><br><span class="line">      switchMap(<span class="function">(<span class="params">params</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.selectedId = <span class="built_in">parseInt</span>(params.get(<span class="string">"id"</span>)!, <span class="number">10</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.service.getHeroes();</span><br><span class="line">      &#125;)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  isSensitiveHeroName(hero: Hero) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"isSensitiveHeroName"</span>);</span><br><span class="line">    <span class="keyword">return</span> hero.name.toLowerCase().includes(<span class="string">"sex"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  showTooltip() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>And if you move your mouse from top to bottom, the function will be triggered <strong>2<em>9</em>9 times!</strong></p>
+<p>And if you move your mouse from top to bottom, the function will be triggered <strong>2*9*9 times!</strong></p>
 <p><img src="/blog/images/Snipaste_2023-08-20_16-25-47.png"></p>
 <p>In this case, we can use the <code>OnPush</code> strategy.</p>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">'app-hero-list'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./hero-list.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./hero-list.component.scss'</span>],</span><br><span class="line">  changeDetection: ChangeDetectionStrategy.OnPush <span class="comment">// +</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>The function will be triggered <strong>9</strong> times in the first time and <strong>9*9</strong> times for <code>mouseenter</code> event.</p>
+<p><code>isSensitiveHeroName</code> will be triggered <strong>9</strong> times in the first time and <strong>9*9</strong> times for <code>mouseenter</code> event.</p>
 <p><img src="/blog/images/Snipaste_2023-08-20_16-42-37.png"></p>
 <p>So the performance is improved by 1200% with <code>OnPush</code> strategy. <strong>In reality, if we want to change the <code>Default</code> strategy to <code>OnPush</code>, we need to apply more changes, not just one line in this demo.</strong></p>
-<p>Regarding this demo, there’s a better solution for Angular.</p>
+<p>Regarding this case, there’s a better solution for Angular.</p>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> Hero &#123;</span><br><span class="line">  id: <span class="built_in">number</span>;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  isSensitive?: <span class="built_in">boolean</span>; <span class="comment">// +</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.heroes$ = <span class="keyword">this</span>.route.paramMap.pipe(</span><br><span class="line">  switchMap(<span class="function">(<span class="params">params</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.selectedId = <span class="built_in">parseInt</span>(params.get(<span class="string">"id"</span>)!, <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.service.getHeroes().pipe(</span><br><span class="line">      map(<span class="function">(<span class="params">heroes</span>) =&gt;</span> &#123; <span class="comment">// +</span></span><br><span class="line">        <span class="keyword">return</span> heroes.map(<span class="function">(<span class="params">hero</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> &#123;</span><br><span class="line">            ...hero,</span><br><span class="line">            isSensitive: <span class="keyword">this</span>.isSensitiveHeroName(hero), <span class="comment">// +</span></span><br><span class="line">          &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;)</span><br><span class="line">    );</span><br><span class="line">  &#125;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
-<p>Now, we get a better performance, maybe the best performance. That’s why you can often see this in the Angular community.</p>
+<p>Now, we get better performance, maybe the best performance. That’s why you can often see this in the Angular community.</p>
 <blockquote>
-<p>Never call functions in template</p>
+<p>Never call functions in the template</p>
 </blockquote>
-<p>Ok. Here comes my concerns</p>
+<p>Ok. Here are my concerns</p>
 <blockquote>
-<p>Is it really a good way to avoid using functions in template?</p>
+<p>Is it really good to avoid using functions in the template?</p>
 </blockquote>
-<p>For a better performance, we defined a derived state <code>isSensitive</code>. So, each time we change the name of the hero, we need to update the value of <code>isSensitive</code>.</p>
-<p>In reality, there would be many derived states dependent on 2 or more other states. So we need to add more and more code to keep the current performance which will quickly bring bugs and maintenance issues.</p>
-<p>Though, there might be other ways to keep the performance without writing more code. But here comes my concern</p>
+<p>For better performance, we defined a derived state <code>isSensitive</code>. So, each time we change the name of the hero, we need to update <code>isSensitive</code>.</p>
+<p>In real-word apps, there would be many derived states dependent on 2 or more other states. So we need to add more and more code to keep the current performance which will quickly bring bugs and maintenance issues.</p>
+<p>There might be other ways to keep the performance without writing more code. But Here are my concern</p>
 <blockquote>
-<p>How long time does Angular need to take developers to write high-performance and easy maintenance code? 1 month or 1 year?</p>
+<p>How long time does Angular need to take developers to write high-performance and easy-maintenance code? 1 month or 1 year?</p>
 </blockquote>
-<p><strong>Luckily, in 2023 Angular launched Signals which is in developer preview now. Signals allow you to write high-performance and easy-maintenance code.</strong></p>
-<h3 id="Complicated-NgModule"><a href="#Complicated-NgModule" class="headerlink" title="Complicated NgModule"></a>Complicated NgModule</h3><p>Now, let’s assume I want to use <code>HeroListComponent</code> out of <code>HeroesModule</code>. I need to export it in the <code>HeroesModule</code>, then import the <code>HeroesModule</code> in another module(let’s assume <code>AppModule</code>).</p>
+<p><strong>Luckily, in 2023 Angular launched <code>Signals</code> which is in developer preview now. <code>Signals</code> allows you to write high-performance and easy-maintenance code.</strong></p>
+<h3 id="Complicated-NgModule"><a href="#Complicated-NgModule" class="headerlink" title="Complicated NgModule"></a>Complicated NgModule</h3><p>Now, let’s assume I want to use <code>HeroListComponent</code> out of <code>HeroesModule</code>. I need to export it from <code>HeroesModule</code>, then import the <code>HeroesModule</code> to another module(let’s assume <code>AppModule</code>).</p>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  declarations: [HeroListComponent],</span><br><span class="line">  imports: [CommonModule, HeroesRoutingModule],</span><br><span class="line">  exports: [</span><br><span class="line">    HeroListComponent, <span class="comment">// +</span></span><br><span class="line">  ],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> HeroesModule &#123;&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  declarations: [AppComponent],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule,</span><br><span class="line">    HeroesModule, <span class="comment">// +</span></span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> AppModule &#123;&#125;</span><br></pre></td></tr></table></figure>
 
-<p>I can see only 1 good point. If I want to use the exported components in <code>HeroesModule</code>, I don’t need to import the components in <code>AppModule</code> again.</p>
+<p>I can see only 1 good point. If I want to use the components exported from <code>HeroesModule</code>, I don’t need to import the components to <code>AppModule</code> again.</p>
 <p>However, I can see many drawbacks.</p>
 <blockquote>
-<p>It’s not easy for developers to know how many things <code>AppModule</code> has imported through <code>HeroesModule</code>. Only Angular knows.</p>
-<p>Because component has to be declared in a module, so it’s not easy for developers to know how many things the component is dependent on in the module. For example, is <code>HeroListComponent</code> dependent on <code>CommonModule</code> and <code>HeroesRoutingModule</code>? We need check.</p>
-<p>Thus it’s quite common that if you move a component from one module to another then it’s not working because you need to find out what dependencies the component needs and move the dependencies also.</p>
+<p>It’s not easy for developers to know how many things <code>AppModule</code> has imported from <code>HeroesModule</code>. Only Angular knows.</p>
+<p>Because a component has to be declared in a module, it’s not easy for developers to know how many things the component is dependent on in the module. For example, is <code>HeroListComponent</code> dependent on <code>CommonModule</code> and <code>HeroesRoutingModule</code>? We need to check.</p>
+<p>Thus it’s quite common that if you move a component from one module to another and it’s not working because you need to find out what dependencies the component needs and move the dependencies also. Because the dependencies are not declared in the component.</p>
 </blockquote>
 <p>In conclusion, a component can not work by itself which is hard to think about if you’re coming from other frameworks.</p>
-<p>Luckily, we have <code>standalone</code> components ready in Angular@15 by the end of 2022. Angular team even provided a tool for you to migrate from <code>NgModule</code> to <code>standalone</code> component.</p>
+<p>Luckily, we got <code>standalone</code> components in Angular@15 by the end of 2022. Angular team even provided a tool for you to migrate from <code>NgModule</code> to <code>standalone</code> component.</p>
 <h3 id="Deep-binding-with-RxJs"><a href="#Deep-binding-with-RxJs" class="headerlink" title="Deep binding with RxJs"></a>Deep binding with RxJs</h3><p>Many Angular APIs are exposed with <code>Observable</code>, even <code>HttpClient</code>. However, it’s not easy for beginners to write code with fewer bugs with RxJs.</p>
-<h4 id="Things-to-be-cautious-in-RxJs-declarative-style"><a href="#Things-to-be-cautious-in-RxJs-declarative-style" class="headerlink" title="Things to be cautious in RxJs declarative style"></a>Things to be cautious in RxJs declarative style</h4><p>For example, the previous <code>HeroListComponent</code> is implemented with a declarative style. <strong>If we remove the <code>heroes$ | async</code> in the template, the <code>service.getHeroes</code> will not be called.</strong> If you’re new to Angular or RxJs, it might be a shock to you.</p>
+<h4 id="Things-to-be-cautious-in-RxJs-declarative-style"><a href="#Things-to-be-cautious-in-RxJs-declarative-style" class="headerlink" title="Things to be cautious in RxJs declarative style"></a>Things to be cautious in RxJs declarative style</h4><p>For example, the previous <code>HeroListComponent</code> is implemented with a declarative style. <strong>If we remove the <code>heroes$ | async</code> in the template, the <code>service.getHeroes</code> will never be called again.</strong> If you’re new to Angular or RxJs, it might be a shock to you.</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Heroes<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"heroes"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;li *ngFor="let hero of heroes$ | async" [class.selected]="hero.id === selectedId" [class.sensitive]="hero.isSensitive" (mouseenter)="showTooltip()"&gt;</span></span><br><span class="line"><span class="comment">    &lt;a [routerLink]="['/hero', hero.id]"&gt;</span></span><br><span class="line"><span class="comment">      &lt;span class="badge"&gt;&#123;&#123; hero.id &#125;&#125;&lt;/span&gt;&#123;&#123; hero.name &#125;&#125;</span></span><br><span class="line"><span class="comment">    &lt;/a&gt;</span></span><br><span class="line"><span class="comment">  &lt;/li&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>Also, if the <code>service.getHeroes</code> throws an error once, the function will not work anymore. That’s why you can often see <code>catchError(() =&gt; EMPTY)</code> in declarative code.</p>
@@ -437,11 +437,11 @@
 <p>However, it has bugs. Just like we need <code>removeEventListener</code> after <code>addEventListener</code>, we also need to <code>unsubscribe</code> or use <code>takeUntilDestroyed</code>.</p>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.route.paramMap.pipe(takeUntilDestroyed()).subscribe(<span class="function">(<span class="params">params</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">this</span>.selectedId = <span class="built_in">parseInt</span>(params.get(<span class="string">"id"</span>)!, <span class="number">10</span>);</span><br><span class="line">  <span class="keyword">this</span>.service</span><br><span class="line">    .getHeroes()</span><br><span class="line">    .pipe(takeUntilDestroyed())</span><br><span class="line">    .subscribe(<span class="function">(<span class="params">heroes</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.heroes = heroes.map(<span class="function">(<span class="params">hero</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          ...hero,</span><br><span class="line">          isSensitive: <span class="keyword">this</span>.isSensitiveHeroName(hero),</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<p>However, <code>takeUntilDestroyed</code> is in developer preview until now. Before 2023, we need to add more code. And one more thing, this way is unfriendly for <code>OnPush</code> strategy.</p>
+<p>However, <code>takeUntilDestroyed</code> is in the developer preview until now. Before 2023, we need to add more code. And one more thing, this way is unfriendly for <code>OnPush</code> strategy.</p>
 <h4 id="Short-conclusion"><a href="#Short-conclusion" class="headerlink" title="Short conclusion"></a>Short conclusion</h4><p>As you can see, deep binding with RxJs makes it easier for developers to make mistakes or write less performant code. </p>
 <p>I do think RxJs is powerful and especially good for edge cases. However, having a powerful tool doesn’t mean that we need to use it in all cases. Lots of frameworks&#x2F;libs&#x2F;projects without RxJs are working quite well.</p>
 <p>Also, I didn’t mention the things developers need to know from RxJs and the very intrusive code style it brings.</p>
-<h3 id="The-status-of-Angular"><a href="#The-status-of-Angular" class="headerlink" title="The status of Angular"></a>The status of Angular</h3><p>As you can see, Angular has bought many new solutions. It’s a good thing, but it could be a bad thing if they don’t point out recommended solutions in time. The community could get much more split than before.</p>
+<h3 id="Current-status-of-Angular"><a href="#Current-status-of-Angular" class="headerlink" title="Current status of Angular"></a>Current status of Angular</h3><p>As you can see, Angular has brought many new solutions. It’s a good thing, but it could be a bad thing if they don’t point out recommended solutions in time. The community could get much more split than before.</p>
 <ul>
 <li>declarative or imperative programming</li>
 <li>less or more <code>RxJs</code></li>
@@ -453,18 +453,17 @@
 <p>Choses between those will result in different styles, which also make code hard to maintain.</p>
 <p>The first 2 choices have already made the community split. Now we have more.</p>
 <h3 id="In-my-opinion"><a href="#In-my-opinion" class="headerlink" title="In my opinion,"></a>In my opinion,</h3><ul>
-<li><code>standalone</code> and <code>Singals</code> are the future of Angular.</li>
+<li><code>standalone</code> + <code>Singals</code> are the future of Angular.</li>
 <li><a href="https://github.com/angular/angular/issues/5689#issuecomment-879474919"><code>RxJs</code> will be optional for Angular</a>.</li>
 <li>Official state management solution will be provided.</li>
 <li>Angular will be more like other frameworks&#x2F;libs.</li>
 </ul>
-<p>Angular has made great choices like choosing <code>typescript</code>, but choosing <code>NgModule</code> and <code>zone.js</code> might have been proven not that successful. Even built-in <code>RxJs</code> APIs is also not a good solution.</p>
-<p>Angular is a good framework and has made great progress recently. Please do not mythologize it.</p>
+<p>Angular has made great choices like choosing <code>typescript</code>, but choosing <code>NgModule</code> and <code>zone.js</code> might have been proven not that successful. Even built-in <code>RxJs</code> APIs is also probably not a good solution.</p>
 <blockquote>
-<p>Angular is not waiting other frameworks&#x2F;libs in 3 years.</p>
-<p>He is making progress and choices. Some solutions that many frameworks and developers are not choosing often mean that they might not be that suitable for front end developing. In those cases, Angular is also learning from other frameworks&#x2F;libs instead of waiting.</p>
+<p>Angular is not waiting for other frameworks&#x2F;libs in 3 years.</p>
+<p>He is making progress and choices. Some solutions that many frameworks and developers are not choosing often mean that they might not be that suitable for front end developing. In those cases, Angular is also learning from other frameworks&#x2F;libs instead of waiting and insisting that he’s in the right direction.</p>
 </blockquote>
-<p>Actually, frameworks&#x2F;libs are both learning from each other. It would be a good thing to see them become more and more similar.</p>
+<p>Actually, frameworks&#x2F;libs are both learning from each other. Learning and improving themselves is much better than thinking I’m the best one.</p>
 <p><a href="https://github.com/xianshenglu/blog/issues/149"><strong>Issue</strong></a></p>
 <p><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/angular-is-not-that-good-before-2023.md"><strong>Source</strong></a></p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
@@ -639,7 +638,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Too-simple-template-when-creating-a-new-project"><span class="nav-number">1.</span> <span class="nav-text">Too simple template when creating a new project</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Too-simple-default-project-folder-structure"><span class="nav-number">2.</span> <span class="nav-text">Too simple default project folder structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Default-change-detection-strategy-is-a-performance-killer"><span class="nav-number">3.</span> <span class="nav-text">Default change detection strategy is a performance killer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Complicated-NgModule"><span class="nav-number">4.</span> <span class="nav-text">Complicated NgModule</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deep-binding-with-RxJs"><span class="nav-number">5.</span> <span class="nav-text">Deep binding with RxJs</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Things-to-be-cautious-in-RxJs-declarative-style"><span class="nav-number">5.1.</span> <span class="nav-text">Things to be cautious in RxJs declarative style</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Things-to-be-cautious-in-RxJs-imperative-style"><span class="nav-number">5.2.</span> <span class="nav-text">Things to be cautious in RxJs imperative style</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Short-conclusion"><span class="nav-number">5.3.</span> <span class="nav-text">Short conclusion</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-status-of-Angular"><span class="nav-number">6.</span> <span class="nav-text">The status of Angular</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#In-my-opinion"><span class="nav-number">7.</span> <span class="nav-text">In my opinion,</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Too-simple-template-when-creating-a-new-project"><span class="nav-number">1.</span> <span class="nav-text">Too simple template when creating a new project</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Too-simple-default-project-folder-structure"><span class="nav-number">2.</span> <span class="nav-text">Too simple default project folder structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Default-change-detection-strategy-is-a-performance-killer"><span class="nav-number">3.</span> <span class="nav-text">Default change detection strategy is a performance killer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Complicated-NgModule"><span class="nav-number">4.</span> <span class="nav-text">Complicated NgModule</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deep-binding-with-RxJs"><span class="nav-number">5.</span> <span class="nav-text">Deep binding with RxJs</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Things-to-be-cautious-in-RxJs-declarative-style"><span class="nav-number">5.1.</span> <span class="nav-text">Things to be cautious in RxJs declarative style</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Things-to-be-cautious-in-RxJs-imperative-style"><span class="nav-number">5.2.</span> <span class="nav-text">Things to be cautious in RxJs imperative style</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Short-conclusion"><span class="nav-number">5.3.</span> <span class="nav-text">Short conclusion</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Current-status-of-Angular"><span class="nav-number">6.</span> <span class="nav-text">Current status of Angular</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#In-my-opinion"><span class="nav-number">7.</span> <span class="nav-text">In my opinion,</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
             
 
           </div>
