@@ -10,11 +10,11 @@ date: 2023-08-15 21:34:56
 
 You might have often heard someone saying that
 
-> Angular is waiting you in 3 years.
+> Angular is waiting for you in 3 years.
 > 
 > Angular is better for big or enterprise project
 > 
-> Angular provides excellent updating experience
+> Angular provides an excellent updating experience
 > 
 > ...
 
@@ -46,8 +46,8 @@ besides the 2 options, I also have more than 4 options
 
 - state-management lib
 - e2e test lib
-- ESLint
-- Prettier for code formatting
+- `ESLint`
+- `Prettier` for code formatting
 - ......
 
 
@@ -65,13 +65,13 @@ For Angular, I don't even know how to code with the template before I find the [
 
 - Where to put router views?
 - Where to put shared code?
-- Where to put ...
+- ...
 
 While for Vue, I think developers can code immediately.
 
 ![](../images/Snipaste_2023-08-15_22-56-12.png)
 
-Anyway, I'll follow the Angular style guide to create a heroes feature module. 
+Anyway, I'll follow the Angular style guide to create a `heroes` feature module. 
 
 ![](../images/Snipaste_2023-08-16_00-05-27.png)
 
@@ -132,7 +132,7 @@ export class HeroListComponent implements OnInit {
 }
 ```
 
-And if you move your mouse from top to bottom, the function will be triggered **2*9*9 times!**
+And if you move your mouse from top to bottom, the function will be triggered **2\*9\*9 times!**
 
 ![](../images/Snipaste_2023-08-20_16-25-47.png)
 
@@ -147,13 +147,13 @@ In this case, we can use the `OnPush` strategy.
 })
 ```
 
-The function will be triggered **9** times in the first time and **9\*9** times for `mouseenter` event.
+`isSensitiveHeroName` will be triggered **9** times in the first time and **9\*9** times for `mouseenter` event.
 
 ![](../images/Snipaste_2023-08-20_16-42-37.png)
 
 So the performance is improved by 1200% with `OnPush` strategy. **In reality, if we want to change the `Default` strategy to `OnPush`, we need to apply more changes, not just one line in this demo.**
 
-Regarding this demo, there's a better solution for Angular.
+Regarding this case, there's a better solution for Angular.
 
 ```ts
 export interface Hero {
@@ -181,27 +181,27 @@ this.heroes$ = this.route.paramMap.pipe(
 );
 ```
 
-Now, we get a better performance, maybe the best performance. That's why you can often see this in the Angular community.
+Now, we get better performance, maybe the best performance. That's why you can often see this in the Angular community.
 
-> Never call functions in template
+> Never call functions in the template
 
-Ok. Here comes my concerns
+Ok. Here are my concerns
 
-> Is it really a good way to avoid using functions in template?
+> Is it really good to avoid using functions in the template?
 
-For a better performance, we defined a derived state `isSensitive`. So, each time we change the name of the hero, we need to update the value of `isSensitive`.
+For better performance, we defined a derived state `isSensitive`. So, each time we change the name of the hero, we need to update `isSensitive`.
 
-In reality, there would be many derived states dependent on 2 or more other states. So we need to add more and more code to keep the current performance which will quickly bring bugs and maintenance issues.
+In real-word apps, there would be many derived states dependent on 2 or more other states. So we need to add more and more code to keep the current performance which will quickly bring bugs and maintenance issues.
 
-Though, there might be other ways to keep the performance without writing more code. But here comes my concern
+There might be other ways to keep the performance without writing more code. But Here are my concern
 
-> How long time does Angular need to take developers to write high-performance and easy maintenance code? 1 month or 1 year?
+> How long time does Angular need to take developers to write high-performance and easy-maintenance code? 1 month or 1 year?
 
-**Luckily, in 2023 Angular launched Signals which is in developer preview now. Signals allow you to write high-performance and easy-maintenance code.**
+**Luckily, in 2023 Angular launched `Signals` which is in developer preview now. `Signals` allows you to write high-performance and easy-maintenance code.**
 
 ### Complicated NgModule
 
-Now, let's assume I want to use `HeroListComponent` out of `HeroesModule`. I need to export it in the `HeroesModule`, then import the `HeroesModule` in another module(let's assume `AppModule`).
+Now, let's assume I want to use `HeroListComponent` out of `HeroesModule`. I need to export it from `HeroesModule`, then import the `HeroesModule` to another module(let's assume `AppModule`).
 
 ```ts
 @NgModule({
@@ -228,19 +228,19 @@ export class HeroesModule {}
 export class AppModule {}
 ```
 
-I can see only 1 good point. If I want to use the exported components in `HeroesModule`, I don't need to import the components in `AppModule` again.
+I can see only 1 good point. If I want to use the components exported from `HeroesModule`, I don't need to import the components to `AppModule` again.
 
 However, I can see many drawbacks.
 
-> It's not easy for developers to know how many things `AppModule` has imported through `HeroesModule`. Only Angular knows.
+> It's not easy for developers to know how many things `AppModule` has imported from `HeroesModule`. Only Angular knows.
 >
->Because component has to be declared in a module, so it's not easy for developers to know how many things the component is dependent on in the module. For example, is `HeroListComponent` dependent on `CommonModule` and `HeroesRoutingModule`? We need check.
+>Because a component has to be declared in a module, it's not easy for developers to know how many things the component is dependent on in the module. For example, is `HeroListComponent` dependent on `CommonModule` and `HeroesRoutingModule`? We need to check.
 >
-> Thus it's quite common that if you move a component from one module to another then it's not working because you need to find out what dependencies the component needs and move the dependencies also.
+> Thus it's quite common that if you move a component from one module to another and it's not working because you need to find out what dependencies the component needs and move the dependencies also. Because the dependencies are not declared in the component.
 
 In conclusion, a component can not work by itself which is hard to think about if you're coming from other frameworks.
 
-Luckily, we have `standalone` components ready in Angular@15 by the end of 2022. Angular team even provided a tool for you to migrate from `NgModule` to `standalone` component.
+Luckily, we got `standalone` components in Angular@15 by the end of 2022. Angular team even provided a tool for you to migrate from `NgModule` to `standalone` component.
 
 ### Deep binding with RxJs
 
@@ -248,7 +248,7 @@ Many Angular APIs are exposed with `Observable`, even `HttpClient`. However, it'
 
 #### Things to be cautious in RxJs declarative style
 
-For example, the previous `HeroListComponent` is implemented with a declarative style. **If we remove the `heroes$ | async` in the template, the `service.getHeroes` will not be called.** If you're new to Angular or RxJs, it might be a shock to you.
+For example, the previous `HeroListComponent` is implemented with a declarative style. **If we remove the `heroes$ | async` in the template, the `service.getHeroes` will never be called again.** If you're new to Angular or RxJs, it might be a shock to you.
 
 ```html
 <h2>Heroes</h2>
@@ -330,7 +330,7 @@ this.route.paramMap.pipe(takeUntilDestroyed()).subscribe((params) => {
 });
 ```
 
-However, `takeUntilDestroyed` is in developer preview until now. Before 2023, we need to add more code. And one more thing, this way is unfriendly for `OnPush` strategy.
+However, `takeUntilDestroyed` is in the developer preview until now. Before 2023, we need to add more code. And one more thing, this way is unfriendly for `OnPush` strategy.
 
 #### Short conclusion
 
@@ -340,9 +340,9 @@ I do think RxJs is powerful and especially good for edge cases. However, having 
 
 Also, I didn't mention the things developers need to know from RxJs and the very intrusive code style it brings.
 
-### The status of Angular
+### Current status of Angular
 
-As you can see, Angular has bought many new solutions. It's a good thing, but it could be a bad thing if they don't point out recommended solutions in time. The community could get much more split than before.
+As you can see, Angular has brought many new solutions. It's a good thing, but it could be a bad thing if they don't point out recommended solutions in time. The community could get much more split than before.
 
 - declarative or imperative programming
 - less or more `RxJs`
@@ -357,20 +357,18 @@ The first 2 choices have already made the community split. Now we have more.
 
 ### In my opinion,
 
-- `standalone` and `Singals` are the future of Angular.
+- `standalone` + `Singals` are the future of Angular.
 - [`RxJs` will be optional for Angular](https://github.com/angular/angular/issues/5689#issuecomment-879474919).
 - Official state management solution will be provided.
 - Angular will be more like other frameworks/libs.
 
-Angular has made great choices like choosing `typescript`, but choosing `NgModule` and `zone.js` might have been proven not that successful. Even built-in `RxJs` APIs is also not a good solution.
+Angular has made great choices like choosing `typescript`, but choosing `NgModule` and `zone.js` might have been proven not that successful. Even built-in `RxJs` APIs is also probably not a good solution.
 
-Angular is a good framework and has made great progress recently. Please do not mythologize it.
-
-> Angular is not waiting other frameworks/libs in 3 years.
+> Angular is not waiting for other frameworks/libs in 3 years.
 >
-> He is making progress and choices. Some solutions that many frameworks and developers are not choosing often mean that they might not be that suitable for front end developing. In those cases, Angular is also learning from other frameworks/libs instead of waiting.
+> He is making progress and choices. Some solutions that many frameworks and developers are not choosing often mean that they might not be that suitable for front end developing. In those cases, Angular is also learning from other frameworks/libs instead of waiting and insisting that he's in the right direction.
 
-Actually, frameworks/libs are both learning from each other. It would be a good thing to see them become more and more similar.
+Actually, frameworks/libs are both learning from each other. Learning and improving themselves is much better than thinking I'm the best one.
 
 [**Issue**](https://github.com/xianshenglu/blog/issues/149)
 
