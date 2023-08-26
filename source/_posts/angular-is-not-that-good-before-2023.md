@@ -51,11 +51,15 @@ besides the 2 options, I also have more than 4 options
 - ......
 
 
-To be honest, in my opinion, the above 4 options are important for a big or enterprise project. 
+To be honest, in my opinion, for a big or enterprise project configuring the above 4 options is important.
+
+If developers are not a senior or professional front-end engineer, or just want to save some time, and the CLI doesn't provide these options, they're easily missing.
 
 If they're not set up at the beginning of a big project, it's not easy to make all team members agree on one specific solution. Some people like this state management lib while others like another one. Some people like semi while others don't...
 
-By the way, Angular doesn't have an official state-management solution until now. Angular added this feature to the backlog in 2022 because of [this issue](https://github.com/angular/angular/issues/46662). Until now, the most starred state management solution for Angular is [ngrx](https://github.com/ngrx/platform).
+Even luckily, developers set it up in the iteration, there's still some legacy codes need to migrate.
+
+By the way, Angular doesn't have an official state-management solution until now. Angular added this feature to the backlog in 2022 because of [this issue](https://github.com/angular/angular/issues/46662). Until now, the most starred state management solution for Angular is [ngrx](https://github.com/ngrx/platform). And there're also many people using their own designed state management lib with `RxJs` and `DI`.
 
 ### Too simple default project folder structure
 
