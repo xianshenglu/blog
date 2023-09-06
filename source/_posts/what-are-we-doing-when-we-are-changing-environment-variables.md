@@ -8,9 +8,9 @@ date: 2023-09-03 14:14:57
 
 We often use `process.env` to manage environment variables in front-end or Node.js projects.
 
-### How the env works in front-end 
+### How the env works in the front-end 
 
-In a lot of cases, we're using `dotenv` or `cross-env` to manage environment variables.
+In lots of cases, we're using `dotenv` or `cross-env` to manage environment variables.
 
 If you check the source code of [`dotenv`](https://github.com/motdotla/dotenv), you will find that it assigns all the defined env variables to the `process.env`.
 
@@ -32,15 +32,15 @@ In conclusion, the env variables set by `dotenv` or `cross-env` are only visible
 
 But it doesn't matter normally because the env is set in the same process as the app or the app is running in a child process with the target env.
 
-Thus **if you open the windows system environment variable dialog when your app is running, you will not see the defined env**. Because it's out of the app process.
+Thus **if you open the Windows system environment variable dialog when your app is running, you will not see the defined env** because it's out of the app process.
 
-Actually, if you set env by `$env:TEST_ENV=dev` in powershell or `set TEST_ENV=dev` in cmd, you will not get the expected value in another shell or cmd by `$env:TEST_ENV` or `echo "%TEST_ENV%"`.
+If you set env by `$env:TEST_ENV=dev` in PowerShell or `set TEST_ENV=dev` in cmd, you will not get the expected value in another shell or cmd by `$env:TEST_ENV` or `echo "%TEST_ENV%"`.
 
-### Change the env variable like editing in the windows "system environment variable dialog" 
+### Change the env variable like editing in the Windows "environment variable dialog" 
 
-If you want to do this, you can use `setx TEST_ENV dev` in powershell or cmd. Then **open a new process(not a new child process)** you will get the new `TEST_ENV` value.
+If you want to do this, you can use `setx TEST_ENV dev` in Powershell or cmd. Then **open a new process(not a new child process)** you will get the new `TEST_ENV` value.
 
-For example, if you change the env out of vscode, you need to restart the vscode. Otherwise even you open a new shell in the vscode, you still can't see the new env value.
+For example, if you change the env out of vscode, you need to restart the vscode. Otherwise, even if you open a new shell in the vscode, you still can't see the new env value.
 
 If you don't want to restart vscode you can use `refreshenv` in the vscode powershell or cmd after installing [chocolatey](https://chocolatey.org/install)(_Package Manager for Windows_). For example,
 
@@ -52,7 +52,7 @@ refreshenv
 $env:TEST_ENV # prod, changed
 ```
 
-Since we can use `setx` to set the env variable permantly, we can also let Node.js execute the `setx` command. For example,
+Since we can use `setx` to set the env variable permanently, we can also let Node.js execute the `setx` command. For example,
 
 ```js
 const { spawnSync } = require("child_process");
