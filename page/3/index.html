@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -215,6 +215,165 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/08/how-to-prevent-collapse-of-empty-rows-in-html-table/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2019/08/how-to-prevent-collapse-of-empty-rows-in-html-table/" itemprop="url">How to Prevent Collapse of Empty Rows in HTML table</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-27T10:49:46+00:00">
+                2019-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>If you have met empty rows in HTML table or have seen this question</p>
+<p><a href="https://stackoverflow.com/questions/42225196/prevent-collapse-of-empty-rows-in-html-table-via-css/42225797" target="_blank" rel="noopener">Prevent collapse of empty rows in HTML table via CSS</a></p>
+<p>you might know what I am saying. See this image:</p>
+<p><img src="/blog/images/%7B7BF1B62D-3148-4A47-BC17-538AFEEE4D19%7D_20190827105623.jpg"></p>
+<p>Above answers can’t handle strings like <code>&quot; &quot;</code>. In this case, we still need the help of js. Just like the idea of css,</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">// prevent empty table rows collapse</span><br><span class="line"><span class="selector-class">.cell</span><span class="selector-pseudo">:empty</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">"\00a0"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>We can write a function like</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">falsyToNbsp</span>(<span class="params">value, falsyValues = [null, undefined, <span class="string">""</span>, NaN]</span>) </span>&#123;</span><br><span class="line">  value = <span class="keyword">typeof</span> value === <span class="string">"string"</span> ? value.trim() : value;</span><br><span class="line">  <span class="keyword">return</span> falsyValues.includes(value) ? <span class="string">"\u00a0"</span> : value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+ <!--//todo unicode in `html`, how does `\u00a0` show? -->
+
+<p>You can use it in vue filters like</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; falsyToNbsp &#125; <span class="keyword">from</span> <span class="string">"utils"</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  filters: &#123;</span><br><span class="line">    falsyToNbsp</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>or with other libs.</p>
+<p><strong><a href="https://github.com/xianshenglu/blog/issues/98">Issue</a></strong></p>
+<p><strong><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/how-to-prevent-collapse-of-empty-rows-in-html-table.md">Source</a></strong></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -589,7 +748,7 @@
 <h3 id="Format-and-lint-html"><a href="#Format-and-lint-html" class="headerlink" title="Format and lint .html."></a>Format and lint <code>.html</code>.</h3><p>There is two cases happen to <code>.html</code>.</p>
 <ul>
 <li><p>One is vue component file like</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- component.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">src</span>=<span class="string">"./template.html"</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">src</span>=<span class="string">"./style.scss"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./index.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- component.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">src</span>=<span class="string">"./template.html"</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">src</span>=<span class="string">"./style.scss"</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./index.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>For this one, <code>eslint-plugin-vue</code> wouldn’t support in the near future and recommend using .vue file. Related <a href="https://github.com/vuejs/eslint-plugin-vue/issues/490">issue1</a>, <a href="https://github.com/mysticatea/vue-eslint-parser/issues/28">issue2</a>.</p>
 </li>
@@ -756,7 +915,7 @@
 <li>Enable internal <code>script</code> in .html validation because we didn’t add validation for that.</li>
 </ol>
 <p>And in the user settings, take <code>vscode</code> for example</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"files.autoSave"</span>: <span class="string">"onFocusChange"</span>,</span><br><span class="line">  // call internal formatter for current file on save.</span><br><span class="line">  "editor.formatOnSave": true,</span><br><span class="line">  // set internal formatter as prettier-vscode</span><br><span class="line">  "editor.defaultFormatter": "esbenp.prettier-vscode",</span><br><span class="line">  // default value is ['vue']</span><br><span class="line">  "prettier.disableLanguages": [""],</span><br><span class="line">  // show eslint on status bar</span><br><span class="line">  "eslint.alwaysShowStatus": true,</span><br><span class="line">  // some rules like [spaced-comment](https://github.com/prettier/prettier/issues/5755) enable in standard</span><br><span class="line">  // but not disabled in prettier/standard, so need auto fix by eslint.</span><br><span class="line">  "eslint.autoFixOnSave": true,</span><br><span class="line">  // enable validation in real time</span><br><span class="line">  "eslint.validate": [</span><br><span class="line">    "javascript",</span><br><span class="line">    "javascriptreact",</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">      <span class="attr">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">      <span class="attr">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  // enable validation in real time</span><br><span class="line">  "stylelint.enable": true,</span><br><span class="line">  "htmlhint.enable": true,</span><br><span class="line">  // disable vetur formatter because formatting job would be done by prettier</span><br><span class="line">  "vetur.format.enable": false,</span><br><span class="line">  //disable vetur validation because</span><br><span class="line">  // eslint plugin in editor will validate template and script using configuration file in project.</span><br><span class="line">  "vetur.validation.template": false,</span><br><span class="line">  "vetur.validation.script": false,</span><br><span class="line">  // stylelint plugin in editor will validate using configuration file in project.</span><br><span class="line">  "vetur.validation.style": false,</span><br><span class="line">  "html.validate.styles": false,</span><br><span class="line">  "css.validate": false,</span><br><span class="line">  "less.validate": false,</span><br><span class="line">  "scss.validate": false,</span><br><span class="line">  // we didn't validate script in html, so enable default validation</span><br><span class="line">  "html.validate.scripts": true,</span><br><span class="line">  // disable default validate</span><br><span class="line">  // eslint plugin in editor will validate template and script using configuration file in project.</span><br><span class="line">  "javascript.validate.enable": false,</span><br><span class="line">  // tslint plugin in editor will validate template and script using configuration file in project.</span><br><span class="line">  "typescript.validate.enable": false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"files.autoSave"</span>: <span class="string">"onFocusChange"</span>,</span><br><span class="line">  <span class="comment">// call internal formatter for current file on save.</span></span><br><span class="line">  <span class="attr">"editor.formatOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// set internal formatter as prettier-vscode</span></span><br><span class="line">  <span class="attr">"editor.defaultFormatter"</span>: <span class="string">"esbenp.prettier-vscode"</span>,</span><br><span class="line">  <span class="comment">// default value is ['vue']</span></span><br><span class="line">  <span class="attr">"prettier.disableLanguages"</span>: [<span class="string">""</span>],</span><br><span class="line">  <span class="comment">// show eslint on status bar</span></span><br><span class="line">  <span class="attr">"eslint.alwaysShowStatus"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// some rules like [spaced-comment](https://github.com/prettier/prettier/issues/5755) enable in standard</span></span><br><span class="line">  <span class="comment">// but not disabled in prettier/standard, so need auto fix by eslint.</span></span><br><span class="line">  <span class="attr">"eslint.autoFixOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// enable validation in real time</span></span><br><span class="line">  <span class="attr">"eslint.validate"</span>: [</span><br><span class="line">    <span class="string">"javascript"</span>,</span><br><span class="line">    <span class="string">"javascriptreact"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">      <span class="attr">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">      <span class="attr">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="comment">// enable validation in real time</span></span><br><span class="line">  <span class="attr">"stylelint.enable"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"htmlhint.enable"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// disable vetur formatter because formatting job would be done by prettier</span></span><br><span class="line">  <span class="attr">"vetur.format.enable"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">//disable vetur validation because</span></span><br><span class="line">  <span class="comment">// eslint plugin in editor will validate template and script using configuration file in project.</span></span><br><span class="line">  <span class="attr">"vetur.validation.template"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"vetur.validation.script"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// stylelint plugin in editor will validate using configuration file in project.</span></span><br><span class="line">  <span class="attr">"vetur.validation.style"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"html.validate.styles"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"css.validate"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"less.validate"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"scss.validate"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// we didn't validate script in html, so enable default validation</span></span><br><span class="line">  <span class="attr">"html.validate.scripts"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// disable default validate</span></span><br><span class="line">  <span class="comment">// eslint plugin in editor will validate template and script using configuration file in project.</span></span><br><span class="line">  <span class="attr">"javascript.validate.enable"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// tslint plugin in editor will validate template and script using configuration file in project.</span></span><br><span class="line">  <span class="attr">"typescript.validate.enable"</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>And I made this image for a better understanding.</p>
 <p><img src="/blog/images/vue-project-format-editor-plugin-user-settings.svg"></p>
@@ -771,7 +930,7 @@
 <ol>
 <li>I add these scripts in my <em>package.json</em>.</li>
 </ol>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // ...</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    // ...</span><br><span class="line">    "lint:es": "eslint --ext .js,.vue ./ --fix --cache --debug",</span><br><span class="line">    "lint:style": "stylelint \"**/*.&#123;vue,htm,html,css,less,sass,scss,styl,stylus,md,js&#125;\" --fix --cache",</span><br><span class="line">    "lint:html": "htmlhint **/*.&#123;htm,html&#125; --ignore */build/**, */dist/**, */node_modules/**",</span><br><span class="line">    "lint": "exitzero npm run lint:es &amp;&amp; exitzero npm run lint:style &amp;&amp; exitzero npm run lint:html",</span><br><span class="line">    "format": "prettier --write \"**/*.*\"",</span><br><span class="line">    "lint-format": "npm run lint &amp;&amp; npm run format"</span><br><span class="line">    // ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="attr">"lint:es"</span>: <span class="string">"eslint --ext .js,.vue ./ --fix --cache --debug"</span>,</span><br><span class="line">    <span class="attr">"lint:style"</span>: <span class="string">"stylelint \"**/*.&#123;vue,htm,html,css,less,sass,scss,styl,stylus,md,js&#125;\" --fix --cache"</span>,</span><br><span class="line">    <span class="attr">"lint:html"</span>: <span class="string">"htmlhint **/*.&#123;htm,html&#125; --ignore */build/**, */dist/**, */node_modules/**"</span>,</span><br><span class="line">    <span class="attr">"lint"</span>: <span class="string">"exitzero npm run lint:es &amp;&amp; exitzero npm run lint:style &amp;&amp; exitzero npm run lint:html"</span>,</span><br><span class="line">    <span class="attr">"format"</span>: <span class="string">"prettier --write \"**/*.*\""</span>,</span><br><span class="line">    <span class="attr">"lint-format"</span>: <span class="string">"npm run lint &amp;&amp; npm run format"</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>and install related packages by</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i eslint@latest eslint-plugin-vue@latest eslint-config-prettier@latest eslint-plugin-standard@latest eslint-config-standard@latest eslint-loader@latest eslint-plugin-node@latest eslint-plugin-promise@latest eslint-plugin-json@latest -D</span><br><span class="line"></span><br><span class="line">npm i husky@latest lint-staged@latest prettier@latest htmlhint@latest stylelint@latest stylelint-config-prettier@latest stylelint-config-recommended@latest stylelint-config-sass-guidelines@latest stylelint-color-format@latest stylelint-no-indistinguishable-colors@latest exitzero@latest -D</span><br></pre></td></tr></table></figure>
@@ -866,205 +1025,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/04/tcp-connection-reuse-in-http-1-1-and-2-0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2019/04/tcp-connection-reuse-in-http-1-1-and-2-0/" itemprop="url">TCP Connection Reuse on HTTP/1.1 and 2.0</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-27T19:18:49+00:00">
-                2019-04-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/http/" itemprop="url" rel="index">
-                    <span itemprop="name">http</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>I saw the introduction of http&#x2F;2.0 in <a href="https://developers.google.com/web/fundamentals/performance/http2/#request_and_response_multiplexing" target="_blank" rel="noopener">developers.google.com</a>. However, I feel confused about the request and response multiplexing. So I decided to make a demo or an example for better understanding.</p>
-<h2 id="TCP-Connection-Reuse"><a href="#TCP-Connection-Reuse" class="headerlink" title="TCP Connection Reuse"></a>TCP Connection Reuse</h2><p>When I saw the TCP connection reuse, I had a lot of questions in my head. For instances,</p>
-<ul>
-<li>how do I know if the TCP was reused?</li>
-<li>What would the network be if the TCP wasn’t reused?</li>
-<li>It seems that HTTP 1.1 also supports TCP connection reuse. So, what’s the difference?</li>
-<li>….</li>
-</ul>
-<p>After searching, I found that there is a <strong>Connection ID</strong> column in the chrome dev tool <strong>Network</strong> panel. For example, here is the network image of <strong>baidu.com</strong> :</p>
-<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20190427204954.png" alt="image"></p>
-<p>According to this <a href="https://stackoverflow.com/questions/34184994/chrome-developer-tools-connection-id/43520092#43520092" target="_blank" rel="noopener">question</a></p>
-<blockquote>
-<p>The new Connection ID Network Panel column in Canary can help indicate to you that a TCP connection was reused instead of handshaking and establishing a new one.</p>
-</blockquote>
-<p>Combined with the above image, we can say that in the network panel of <strong>baidu.com</strong></p>
-<ul>
-<li>Requests to <strong>ss1.bdstatic.com</strong> are based on H2 (http&#x2F;2.0.) and share the same TCP connection because there is only one connection ID.</li>
-<li>Requests to <strong><a href="http://www.baidu.com/" target="_blank" rel="noopener">www.baidu.com</a></strong> are based on http&#x2F;1.1 and 6 requests share two TCP connections because there are two connection IDs.</li>
-</ul>
-<p>It seems http&#x2F;1.1 also support TCP connection Reuse. So, how can I prove the advantages of H2 or what’s the difference between the connection reuse of http&#x2F;1.1 and 2.0? That confused me in the past.</p>
-<h2 id="Prove-The-Advantages-of-H2"><a href="#Prove-The-Advantages-of-H2" class="headerlink" title="Prove The Advantages of H2"></a>Prove The Advantages of H2</h2><p>I pick two requests from the network record and then fetch it at the console. The code of requests to http&#x2F;1.1 is:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>(<span class="number">13</span>)</span><br><span class="line">  .fill()</span><br><span class="line">  .forEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    fetch(<span class="string">'https://www.baidu.com/favicon.ico'</span>, &#123;</span><br><span class="line">      credentials: <span class="string">'omit'</span>,</span><br><span class="line">      referrer: <span class="string">'https://www.baidu.com/'</span>,</span><br><span class="line">      referrerPolicy: <span class="string">'unsafe-url'</span>,</span><br><span class="line">      body: <span class="literal">null</span>,</span><br><span class="line">      method: <span class="string">'GET'</span>,</span><br><span class="line">      mode: <span class="string">'cors'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
-
-<p>And the code of requests to http&#x2F;2.0 is:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>(<span class="number">13</span>)</span><br><span class="line">  .fill()</span><br><span class="line">  .forEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    fetch(</span><br><span class="line">      <span class="string">'https://ss3.baidu.com/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1556369856347'</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        credentials: <span class="string">'omit'</span>,</span><br><span class="line">        referrer: <span class="string">'https://www.baidu.com/'</span>,</span><br><span class="line">        referrerPolicy: <span class="string">'unsafe-url'</span>,</span><br><span class="line">        body: <span class="literal">null</span>,</span><br><span class="line">        method: <span class="string">'GET'</span>,</span><br><span class="line">        mode: <span class="string">'cors'</span></span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
-
-<p>Here are the results:</p>
-<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20190428205446.png"></p>
-<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20190427210224.png"></p>
-<p>Take a closer look at the pictures, we can find that</p>
-<ul>
-<li>On http&#x2F;1.1 connections, chrome would open up to 6 TCP connections per host and reuse the connections. While on http&#x2F;2.0 connections, chrome would open <strong>only one</strong> TCP connection per host on http&#x2F;2.0 connections.</li>
-<li>Also, on http&#x2F;1.1 connections chrome would send the requests <strong>one by one</strong> when the requests are using the same TCP connection. Just as the <a href="https://developers.google.com/web/tools/chrome-devtools/network/understanding-resource-timing" target="_blank" rel="noopener">developers.google.com</a> said:</li>
-</ul>
-<blockquote>
-<p>On HTTP 1.0&#x2F;1.1 connections, Chrome enforces a maximum of six TCP connections per host. If you are requesting twelve items at once, the first six will begin and the last half will be queued. Once one of the original half is finished, the first item in the queue will begin its request process.</p>
-</blockquote>
-<p>This would bring more delay when sending more requests.</p>
-<ul>
-<li>While on http&#x2F;2 connections, chrome would send all the requests to the same origin simultaneously without delay.</li>
-</ul>
-<h2 id="Differences-of-TCP-Connection-Reuse-between-HTTP-1-1-and-2-0"><a href="#Differences-of-TCP-Connection-Reuse-between-HTTP-1-1-and-2-0" class="headerlink" title="Differences of TCP Connection Reuse between HTTP&#x2F;1.1 and 2.0"></a>Differences of TCP Connection Reuse between HTTP&#x2F;1.1 and 2.0</h2><p>On http&#x2F;1.1 connections, chrome would reuse TCP connection by default and you can find</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Connection: keep-alive</span><br></pre></td></tr></table></figure>
-
-<p>in the response headers. But according to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Connection_management_in_HTTP_1.x" target="_blank" rel="noopener">docs in mdn</a></p>
-<blockquote>
-<p>This connection will not stay open forever: idle connections are closed after some time (a server may use the Keep-Alive header to specify a minimum time the connection should be kept open).</p>
-</blockquote>
-<p>And for http&#x2F;2.0, according to <a href="https://developers.google.com/web/fundamentals/performance/http2/#one_connection_per_origin" target="_blank" rel="noopener">developers.google.com</a></p>
-<blockquote>
-<p>all HTTP&#x2F;2 connections are persistent, and only one connection per origin is required, which offers numerous performance benefits.</p>
-</blockquote>
-<p><a href="https://github.com/xianshenglu/blog/issues/85"><strong>Source</strong></a></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/17/">17</a><a class="extend next" rel="next" href="/blog/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/18/">18</a><a class="extend next" rel="next" href="/blog/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1110,7 +1075,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1132,7 +1097,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -215,6 +215,179 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2023/09/what-are-we-doing-when-we-are-changing-environment-variables/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2023/09/what-are-we-doing-when-we-are-changing-environment-variables/" itemprop="url">Differences between Node.js env and user environment variables</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-09-03T14:14:57+00:00">
+                2023-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>We often use <code>process.env</code> to manage environment variables in front-end or Node.js projects.</p>
+<h3 id="How-the-env-works-in-front-end"><a href="#How-the-env-works-in-front-end" class="headerlink" title="How the env works in front-end"></a>How the env works in front-end</h3><p>In a lot of cases, we’re using <code>dotenv</code> or <code>cross-env</code> to manage environment variables.</p>
+<p>If you check the source code of <a href="https://github.com/motdotla/dotenv"><code>dotenv</code></a>, you will find that it assigns all the defined env variables to the <code>process.env</code>.</p>
+<p><img src="/blog/images/what-are-we-doing-when-we-are-changing-environment-variables-image.png" alt="Alt text"></p>
+<p>According to the document of <a href="https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env" target="_blank" rel="noopener">Node.js</a>.</p>
+<blockquote>
+<p>It is possible to modify this object(<code>process.env</code>), but <strong>such modifications will not be reflected outside the Node.js process</strong>.</p>
+</blockquote>
+<p>And <a href="https://github.com/kentcdodds/cross-env">cross-env</a> will pass the target env to <code>cross-spawn</code> to launch a child process.</p>
+<p><img src="/blog/images/what-are-we-doing-when-we-are-changing-environment-variables-image-3.png" alt="Alt text"></p>
+<p><img src="/blog/images/what-are-we-doing-when-we-are-changing-environment-variables-image-2.png" alt="Alt text"></p>
+<blockquote>
+<p>The <code>child_process.spawn()</code> method spawns a new process using the given command, with command line arguments in args.</p>
+</blockquote>
+<p>In conclusion, the env variables set by <code>dotenv</code> or <code>cross-env</code> are only visible in the running Node.js process.</p>
+<p>But it doesn’t matter normally because the env is set in the same process as the app or the app is running in a child process with the target env.</p>
+<p>Thus <strong>if you open the windows system environment variable dialog when your app is running, you will not see the defined env</strong>. Because it’s out of the app process.</p>
+<p>Actually, if you set env by <code>$env:TEST_ENV=dev</code> in powershell or <code>set TEST_ENV=dev</code> in cmd, you will not get the expected value in another shell or cmd by <code>$env:TEST_ENV</code> or <code>echo &quot;%TEST_ENV%&quot;</code>.</p>
+<h3 id="Change-the-env-variable-like-editing-in-the-windows-“system-environment-variable-dialog”"><a href="#Change-the-env-variable-like-editing-in-the-windows-“system-environment-variable-dialog”" class="headerlink" title="Change the env variable like editing in the windows “system environment variable dialog”"></a>Change the env variable like editing in the windows “system environment variable dialog”</h3><p>If you want to do this, you can use <code>setx TEST_ENV dev</code> in powershell or cmd. Then <strong>open a new process(not a new child process)</strong> you will get the new <code>TEST_ENV</code> value.</p>
+<p>For example, if you change the env out of vscode, you need to restart the vscode. Otherwise even you open a new shell in the vscode, you still can’t see the new env value.</p>
+<p>If you don’t want to restart vscode you can use <code>refreshenv</code> in the vscode powershell or cmd after installing <a href="https://chocolatey.org/install" target="_blank" rel="noopener">chocolatey</a>(<em>Package Manager for Windows</em>). For example,</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$env:TEST_ENV</span>  <span class="comment"># dev</span></span><br><span class="line">setx TEST_ENV prod</span><br><span class="line"><span class="variable">$env:TEST_ENV</span>  <span class="comment"># dev, not change</span></span><br><span class="line">refreshenv</span><br><span class="line"><span class="variable">$env:TEST_ENV</span> <span class="comment"># prod, changed</span></span><br></pre></td></tr></table></figure>
+
+<p>Since we can use <code>setx</code> to set the env variable permantly, we can also let Node.js execute the <code>setx</code> command. For example,</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; spawnSync &#125; = <span class="built_in">require</span>(<span class="string">"child_process"</span>);</span><br><span class="line">spawnSync(<span class="string">'setx'</span>, [<span class="string">'-m'</span>, <span class="string">'TEST_ENV'</span>, <span class="string">'prod'</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>In the script,</p>
+<blockquote>
+<p>The <code>child_process.spawnSync()</code> method is generally identical to <code>child_process.spawn()</code> with the exception that the function will not return until the child process has fully closed.</p>
+</blockquote>
+<p><a href="https://github.com/xianshenglu/blog/issues/150"><strong>Issue</strong></a></p>
+<p><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/what-are-we-doing-when-we-are-changing-environment-variables.md"><strong>Source</strong></a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -667,225 +840,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/" itemprop="url">The Impact of Styles and Scripts Position in index.html</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-17T21:42:02+00:00">
-                2020-03-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/browser/" itemprop="url" rel="index">
-                    <span itemprop="name">browser</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>For a long time, I was thinking if the <em>.css</em> files would block DOM parsing and rendering. It seems I got different results sometimes. So, I decided to test and summarize the behaviors carefully with chrome.</p>
-<p>Let’s begin.</p>
-<h3 id="Put-css-Files-in-the"><a href="#Put-css-Files-in-the" class="headerlink" title="Put .css Files in the &lt;head&gt;"></a>Put <em>.css</em> Files in the <code>&lt;head&gt;</code></h3><p>Normally, we would put the <em>.css</em> files in the head and <em>.js</em> files at the bottom of <code>&lt;body&gt;</code>. For example,</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>MyApp<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./static/app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Say we blocked the <em>.css</em> files request by fiddler. And here are the questions,</p>
-<ul>
-<li>Would <em>header.css</em> block DOM parsing and rendering?</li>
-<li>Would <em>header.css</em> block <em>main.css</em>, <em>app.js</em> and other resources fetching?</li>
-</ul>
-<p>And here are the results.</p>
-<p><img src="/blog/images/1584456970837.gif"></p>
-<ol>
-<li><em>header.css</em> won’t block DOM parsing.</li>
-<li><em>header.css</em>, <em>main.css</em> all blocked rendering which means <strong>the page would be always blank until all the <em>.css</em> files request in the <code>&lt;head&gt;</code> finished.</strong></li>
-<li><em>header.css</em> won’t block <em>main.css</em>, <em>app.js</em> and other resources fetching. Though the codes in the resources won’t be executed in advance!</li>
-<li>After <em>header.css</em>, <em>main.css</em> loaded and parsed, we will get the first paint.</li>
-<li>Then <em>app.js</em> was fetched, parsed and executed with DOM parsing and rendering blocked.</li>
-<li>After <em>app.js</em> was executed, DOM parsing and rendering keep working.</li>
-<li>DOM parsing complete.</li>
-<li>Rendering complete.</li>
-</ol>
-<h3 id="Put-css-Files-in-the-1"><a href="#Put-css-Files-in-the-1" class="headerlink" title="Put .css Files in the &lt;body&gt;"></a>Put <em>.css</em> Files in the <code>&lt;body&gt;</code></h3><p>It is not very common to see this usage recently. However, test is still needed if we want to know more. Consider the following code,</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>MyApp<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./static/app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Say I still block all the <em>.css</em> files with fiddler. What would the results be?</p>
-<p><img src="/blog/images/1584452497349.gif"></p>
-<p>As you can see,</p>
-<ol>
-<li><p><strong>The DOM parsing and rendering would work before they met <em>header.css</em> in the <code>&lt;body&gt;</code> which would get an earlier first paint</strong>. User can see something(usually there is a loading bar) before the styles in <code>&lt;body&gt;</code> loaded.</p>
-</li>
-<li><p><em>header.css</em> <strong>blocked DOM parsing</strong>, hence blocked rendering.</p>
-</li>
-<li><p><em>header.css</em> didn’t block other files fetching and <em>app.js</em> is still not executed in advance!</p>
-</li>
-<li><p>After <em>header.css</em> was loaded, <strong>the DOM parsing and rendering keeps working</strong>. Then blocked by <em>main.css</em> again. However, user can see the header now!</p>
-</li>
-<li><p>After <em>main.css</em> was loaded, <em>app.js</em> is executed!</p>
-</li>
-<li><p>DOM parsing complete</p>
-</li>
-<li><p>Rendering complete.</p>
-</li>
-</ol>
-<p>Compared with the first example, we can find the difference is that</p>
-<ul>
-<li><em>.css</em> files in the <code>&lt;body&gt;</code> would block DOM parsing while <em>.css</em> files in the <code>&lt;head&gt;</code> wouldn’t though they both blocked rendering.</li>
-</ul>
-<p>Hence, if we put the styles in the <code>&lt;head&gt;</code>, we can make use of the time of styles downloading and parsing to parse more DOM.</p>
-<p>However, <em>.css</em> files in the <code>&lt;body&gt;</code> would get a faster first paint and is closer to a progressive loading webpage . That’s because it doesn’t need to load all the styles in the <code>&lt;head&gt;</code> and allow content above the <code>&lt;link&gt;</code> to render.</p>
-<p>Assuming that the requests of the styles need 1 second, let’s see the following demo.</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- demo1 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/app.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/footer.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- demo2 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/app.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/footer.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Demo2 would render the page after all the styles loaded while demo1 would load and render step by step. Assuming that there is a 1 second delay in <em>main.css</em>, the results would be:</p>
-<p><em>styles in head</em></p>
-<p><img src="/blog/images/%7B65466B88-0183-435E-AA55-0682FCE52CA5%7D_20200328210103.jpg" alt="styles in head"></p>
-<p><em>styles in body</em></p>
-<p><img src="/blog/images/70C9BEB6-EEB8-4795-A265-FE71D7605ED4.png" alt="styles in body"></p>
-<p>As you can see, the result of <em>styles in body</em> might be more acceptable and expected. However, with that way we might need more code because we haven’t taken consideration of <code>script</code>. Things can be more complicated in production.</p>
-<h3 id="Put-js-Files-in-the-or"><a href="#Put-js-Files-in-the-or" class="headerlink" title="Put .js Files in the &lt;head&gt; or &lt;body&gt;"></a>Put <em>.js</em> Files in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code></h3><p>Actually, it works like styles in <code>&lt;body&gt;</code> where we put it in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code>. The script without <code>async</code> and <code>deferred</code> would block DOM parsing and rendering. Actually, it is specified in W3C specifications.</p>
-<blockquote>
-<p>For classic scripts, if the async attribute is present, then the classic script will be fetched in parallel to parsing and evaluated as soon as it is available (potentially before parsing completes).<br>If the async attribute is not present but the defer attribute is present, then the classic script will be fetched in parallel and evaluated when the page has finished parsing.<br>If neither attribute is present, then the script is fetched and evaluated immediately, blocking parsing until these are both complete.</p>
-</blockquote>
-<p>Hence for better experience we can add a loading before the script. So it’s common to put the scripts at the bottom of <code>&lt;body&gt;</code> to let the loading dom be parsed and rendering first.</p>
-<h3 id="Inline-Scripts-Blocks-Rendering"><a href="#Inline-Scripts-Blocks-Rendering" class="headerlink" title="Inline Scripts Blocks Rendering"></a>Inline Scripts Blocks Rendering</h3><p>It’s also worth mentioning that if we put an inline script at the bottom of the <code>&lt;body&gt;</code> the nearest or even all DOM and styles rendering before the script would be blocked until the script was executed. You can use code below to test</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/app.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/header.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      Header</span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/main.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      Main</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./static/footer.css"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> startTime = <span class="built_in">Date</span>.now();</span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> interval = <span class="number">0</span>;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">while</span> ((interval = <span class="built_in">Date</span>.now() - startTime) &lt; <span class="number">10000</span>) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (interval % <span class="number">1000</span> === <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(interval / <span class="number">1000</span> + <span class="string">" second passed"</span>);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>In that case, users might not see the loading bar. So take care of the inline scripts.</p>
-<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>The above tests are tested in windows7 Chrome 80.0.3987.106.</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a href="https://jakearchibald.com/2016/link-in-body/" target="_blank" rel="noopener">The future of loading CSS</a></p>
-<p><a href="https://github.com/xianshenglu/blog/issues/103"><strong>Source</strong></a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/17/">17</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/18/">18</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -931,7 +890,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -953,7 +912,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

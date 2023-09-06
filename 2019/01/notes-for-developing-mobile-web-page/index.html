@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -96,7 +96,7 @@
 <meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173902.jpg">
 <meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173852.jpg">
 <meta property="og:image" content="https://github.com/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173826.jpg">
-<meta property="og:updated_time" content="2023-08-26T08:22:20.135Z">
+<meta property="og:updated_time" content="2023-09-06T12:19:35.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Notes for Developing Mobile Web Page">
 <meta name="twitter:description" content="LayoutI guess most of you were using rem, vw, viewport etc. For rem or vw, we always work with the below tag. &amp;lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&amp;gt;  And then w">
@@ -360,7 +360,7 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"viewport"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="Screen-With-High-Resolution"><a href="#Screen-With-High-Resolution" class="headerlink" title="Screen With High Resolution"></a>Screen With High Resolution</h4><p>Normally, we would use <code>png@2x</code>, <code>png@3x</code> etc to solve the vague problem of images brought by high resolution screen. For example,</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">media</span> (-webkit-min-device-pixel-ratio: <span class="number">2</span>), (min-resolution: <span class="number">192dpi</span>) &#123;</span><br><span class="line">  <span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'/images/my_image@2x.png'</span>) center center no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> (-webkit-min-device-pixel-ratio: <span class="number">3</span>), (min-resolution: <span class="number">288dpi</span>) &#123;</span><br><span class="line">  <span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'/images/my_image@3x.png'</span>) center center no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@media</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">2</span>), (<span class="attribute">min-resolution:</span> <span class="number">192dpi</span>) &#123;</span><br><span class="line">  <span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'/images/my_image@2x.png'</span>) center center no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">3</span>), (<span class="attribute">min-resolution:</span> <span class="number">288dpi</span>) &#123;</span><br><span class="line">  <span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'/images/my_image@3x.png'</span>) center center no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>A convenient way to do this is by <a href="https://github.com/strues/retinajs">retinajs</a>. And for icons, I would suggest you use <code>svg</code> if possible.</p>
 <h4 id="vh-Is-Always-Calculated-as-If-the-Url-Bar-Is-Hidden"><a href="#vh-Is-Always-Calculated-as-If-the-Url-Bar-Is-Hidden" class="headerlink" title="vh Is Always Calculated as If the Url Bar Is Hidden."></a><code>vh</code> Is Always Calculated as If the Url Bar Is Hidden.</h4><p>In brief, <code>100vh</code> doesn’t equal <code>window.innerHeight</code>. For more, check <a href="https://github.com/xianshenglu/blog/issues/38">issues&#x2F;38</a>.</p>
@@ -371,7 +371,7 @@
 <h4 id="Link-Highlight-While-It’s-Being-Tapped"><a href="#Link-Highlight-While-It’s-Being-Tapped" class="headerlink" title="Link Highlight While It’s Being Tapped"></a>Link Highlight While It’s Being Tapped</h4><p>In my Android Chrome 71, the highlight would show when I touch the link.</p>
 <p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173819.jpg"></p>
 <p>We can disable it by the code below.</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(0, 0, 0, 0);</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: transparent; <span class="comment">/* For some Androids */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: transparent; <span class="comment">/* For some Androids */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>I would suggest you disable it because different manufacturers may show different colors</strong>.</p>
 <h4 id="img-Without-src-Would-Have-1px-White-border-on-Mobile-Chrome-70"><a href="#img-Without-src-Would-Have-1px-White-border-on-Mobile-Chrome-70" class="headerlink" title="img Without src Would Have 1px White border on Mobile Chrome 70."></a><code>img</code> Without src Would Have 1px White <code>border</code> on Mobile Chrome 70.</h4><p>You may need to add the code below to your <em>reset.css</em> to hide the <code>img</code> without <code>src</code>.</p>
@@ -529,7 +529,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -551,7 +551,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -215,6 +215,165 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/12/remnant-shadows-when-toggling-pictures-with-alpha-in-firefox-and-safari/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/12/remnant-shadows-when-toggling-pictures-with-alpha-in-firefox-and-safari/" itemprop="url">Remnant Shadows When Toggling HD Pictures with Alpha</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T10:10:51+00:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>See the demo:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./images/hd3.png"</span> <span class="attr">class</span>=<span class="string">"app__image"</span> <span class="attr">id</span>=<span class="string">"app__image"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"app__button"</span> <span class="attr">id</span>=<span class="string">"app__button"</span>&gt;</span>next image<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> app__button = <span class="built_in">document</span>.getElementById(<span class="string">'app__button'</span>)</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> app__image = <span class="built_in">document</span>.getElementById(<span class="string">'app__image'</span>)</span></span><br><span class="line"><span class="javascript">  app__button.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    app__image.style.visibility = <span class="string">'hidden'</span></span></span><br><span class="line"><span class="javascript">    app__image.src = <span class="string">'./images/hd4.png'</span></span></span><br><span class="line"><span class="javascript">    app__image.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      app__image.style.visibility = <span class="string">'visible'</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>The code is easy. But the images are special.</p>
+<ul>
+<li>Type is png.</li>
+<li>Size is more than 10M.</li>
+<li>Alpha channel has been modified.</li>
+<li>Both happen on my win7 and Mac 10.13.</li>
+</ul>
+<p>In this case, when we click the button above, the result in Firefox and Safari would be:</p>
+<p><img src="/blog/images/1543630801931.gif"></p>
+<p>If you look at it carefully, you would see the remnant shadows of previous image. That is unexpected because I change the <code>src</code> in the <code>onload</code> callback. Also, the same thing would happen in Chrome, though the frequency is much lower. So, how do we solve this?</p>
+<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app__button = <span class="built_in">document</span>.getElementById(<span class="string">'app__button'</span>)</span><br><span class="line"><span class="keyword">let</span> app__image = <span class="built_in">document</span>.getElementById(<span class="string">'app__image'</span>)</span><br><span class="line">app__button.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  app__image.src = <span class="string">'../images/transparent.png'</span></span><br><span class="line">  <span class="keyword">let</span> tempImage = <span class="keyword">new</span> Image()</span><br><span class="line">  tempImage.src = <span class="string">'../images/hd4.png'</span></span><br><span class="line">  tempImage.onload = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// setTimeout(() =&gt; &#123;</span></span><br><span class="line">    <span class="comment">// if you are still worried, you can use setTimeout or requestAnimationFrame to delay</span></span><br><span class="line">    app__image.src = event.target.src</span><br><span class="line">    <span class="comment">// &#125;, 20)</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>See? We change the previous image with a transparent image. A little hack, but it works.</p>
+<p>Obviously, there is a little interval between images onload and browsers’ ready to render the latest image, especially in Firefox and Safari. When the browsers’ performance becomes better this problem may not happen again. Anyway, hope we lucky.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/22"><strong>Original Post</strong></a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -481,7 +640,7 @@
 <p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213110.jpg"></p>
 <p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20181125213118.jpg"></p>
 <p>And the code is:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      * &#123;</span></span><br><span class="line"><span class="undefined">        margin: 0;</span></span><br><span class="line"><span class="undefined">        padding: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">      html,</span></span><br><span class="line"><span class="undefined">      body,</span></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="comment">/* height: 100%; */</span></span></span><br><span class="line"><span class="undefined">        height: 100vh;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span> &#123;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        border: 10px solid orange;</span></span><br><span class="line"><span class="undefined">        box-sizing: border-box;</span></span><br><span class="line"><span class="undefined">        position: relative;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">      <span class="selector-class">.app__footer</span> &#123;</span></span><br><span class="line"><span class="undefined">        height: 100px;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">        box-sizing: border-box;</span></span><br><span class="line"><span class="undefined">        border: 10px solid pink;</span></span><br><span class="line"><span class="undefined">        position: absolute;</span></span><br><span class="line"><span class="undefined">        bottom: 0;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"app__header"</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">main</span> <span class="attr">class</span>=<span class="string">"app__main"</span>&gt;</span><span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"app__footer"</span>&gt;</span>app__footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      html,</span><br><span class="line">      body,</span><br><span class="line"><span class="css">      <span class="selector-class">.app</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="comment">/* height: 100%; */</span></span></span><br><span class="line">        height: 100vh;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">      <span class="selector-class">.app</span> &#123;</span></span><br><span class="line">        width: 100%;</span><br><span class="line">        border: 10px solid orange;</span><br><span class="line">        box-sizing: border-box;</span><br><span class="line">        position: relative;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">      <span class="selector-class">.app__footer</span> &#123;</span></span><br><span class="line">        height: 100px;</span><br><span class="line">        width: 100%;</span><br><span class="line">        box-sizing: border-box;</span><br><span class="line">        border: 10px solid pink;</span><br><span class="line">        position: absolute;</span><br><span class="line">        bottom: 0;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"app__header"</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">main</span> <span class="attr">class</span>=<span class="string">"app__main"</span>&gt;</span><span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"app__footer"</span>&gt;</span>app__footer<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>The viewport size changes when scrolling. In my Mi6X, the smaller is <code>659px</code> while the larger one is <code>715px</code> when the address bar is hidden.</p>
 <p>According to test on chrome 70, <code>height:100%</code> and <code>window.innerHeight</code> is always equal to the smaller one. I think it is correct. I also thought <code>100vh</code> would act like <code>100%</code>. However, it’s not.</p>
@@ -537,211 +696,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/11/image-load-error-handler/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/11/image-load-error-handler/" itemprop="url">Image Load Error Handler</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T16:53:48+00:00">
-                2018-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>In the past, I posted an answer in SO about how to <a href="https://stackoverflow.com/questions/92720/jquery-javascript-to-replace-broken-images/50484874" target="_blank" rel="noopener">replace broken images</a>. And the code is</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'error'</span>,</span><br><span class="line">  windowErrorCb,</span><br><span class="line">  &#123;</span><br><span class="line">    capture: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">windowErrorCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> target = event.target</span><br><span class="line">  <span class="keyword">let</span> isImg = target.tagName.toLowerCase() === <span class="string">'img'</span></span><br><span class="line">  <span class="keyword">if</span> (isImg) &#123;</span><br><span class="line">    imgErrorCb()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">imgErrorCb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isImgErrorHandled = target.hasAttribute(<span class="string">'data-src-error'</span>)</span><br><span class="line">    <span class="keyword">if</span> (!isImgErrorHandled) &#123;</span><br><span class="line">      target.setAttribute(<span class="string">'data-src-error'</span>, <span class="string">'handled'</span>)</span><br><span class="line">      target.src = <span class="string">'backup.png'</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//anything you want to do</span></span><br><span class="line">      <span class="built_in">console</span>.log(target.alt, <span class="string">'both origin and backup image fail to load!'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>And the point is :</p>
-<ol>
-<li><p>Put the code in the head and executed as the first inline script. So, it will listen the errors happen after the script.</p>
-</li>
-<li><p>Use event capturing to catch the errors earlier, also for those events which don’t bubble.</p>
-</li>
-<li><p>Use event delegation which avoids binding events on each image.</p>
-</li>
-<li><p>Give the error img element an attribute after giving them a backup.png to avoid error of the <em>backup.png</em> and subsequent infinite loop like below:</p>
-</li>
-</ol>
-<blockquote>
-<p>img error-&gt;backup.png-&gt;error-&gt;backup.png-&gt;error-&gt;,,,,,</p>
-</blockquote>
-<p>I thought the answer is almost perfect. But it turns out there is more scenes I don’t know.</p>
-<h4 id="No-Src"><a href="#No-Src" class="headerlink" title="No Src?"></a>No Src?</h4><p>Until Chrome 70.0.3538.102 in win7, code below wouldn’t trigger error event.</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>But code below would trigger!</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span> /&gt;</span> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>That does make sense. However, <code>img</code> without <code>src</code> wouldn’t hidden. They would have 1px border like:</p>
-<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181119171728.png"></p>
-<p>In this case, we may have to do something about that. For instance,</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>or a default <code>backgroundImage</code> which will work on <code>img</code> though 1px border is still there.</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, lightblue, pink); <span class="comment">/*or your logo*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="BackgroundImage-Error"><a href="#BackgroundImage-Error" class="headerlink" title="BackgroundImage Error?"></a>BackgroundImage Error?</h4><p>I still can’t find a perfect solution for <code>backgroundImage</code>. The best answer in SO is like:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app__bg_img_box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: no-repeat left top / cover;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(./images/github.png), <span class="built_in">linear-gradient</span>(to right, lightblue, pink);</span><br><span class="line">  <span class="comment">/* you can also use default.png like code below */</span></span><br><span class="line">  <span class="comment">/* background-image: url(./images/github.png), url(./images/default.png); */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>And the cons is obvious.</p>
-<p><img src="/blog/images/1542620382678.gif"></p>
-<ol>
-<li>You have to take care of the transparency problem of the target image.</li>
-<li>Users can see the toggle between target image and default image.</li>
-<li>A little flaw is that default image will always be downloaded.</li>
-</ol>
-<p>Another way I figured out is like code below. Here is the simplest code:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> backgroundDivs = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'.app__bg_img_box'</span>))</span><br><span class="line">backgroundDivs.forEach(<span class="function"><span class="params">div</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> imgUrl = <span class="built_in">window</span></span><br><span class="line">    .getComputedStyle(div)</span><br><span class="line">    .backgroundImage.match(<span class="regexp">/url\(["']?(.*)["']?\)/</span>)</span><br><span class="line">  <span class="keyword">if</span> (imgUrl) &#123;</span><br><span class="line">    <span class="keyword">let</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">    img.src = imgUrl[<span class="number">1</span>]</span><br><span class="line">    img.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">      div.style.backgroundImage = <span class="string">'url(./images/default.png)'</span></span><br><span class="line">      img.onerror = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>It will work well in most simple scenes but the cons is also obvious:</p>
-<ol>
-<li>Code will be more complicated if you want to deal with multiple backgroundImages.</li>
-<li>Each time you updated your dom structure, you may have to run the code above if you have add new divs with backgroundImage.</li>
-</ol>
-<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><p>If lucky enough, we may have the new API in <a href="https://drafts.csswg.org/css-images-4/#image-set-notation" target="_blank" rel="noopener">Images</a> which would make code below work.</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">background: image('target.gif', 'fallback.gif');</span><br></pre></td></tr></table></figure>
-
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><p><a href="https://stackoverflow.com/questions/22287474/onerror-event-using-background-url" target="_blank" rel="noopener">onerror event using background: url()</a></p>
-</li>
-<li><p><a href="https://drafts.csswg.org/css-images-4/#image-set-notation" target="_blank" rel="noopener">image-set-notation</a></p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/blog/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/17/">17</a><a class="extend next" rel="next" href="/blog/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/blog/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/18/">18</a><a class="extend next" rel="next" href="/blog/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -787,7 +746,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -809,7 +768,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

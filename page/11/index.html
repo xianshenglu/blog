@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -215,6 +215,176 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/x-ua-compatible-and-ie-edge/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/x-ua-compatible-and-ie-edge/" itemprop="url">X-UA-Compatible and ie=edge</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-03T19:43:57+00:00">
+                2018-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>平时会用 vue 写新项目，老项目就在原有基础上更新。对于 vue 这种框架，使用官方的脚手架通常就避免了很多问题，就像平时用模板创建新的单页一样。</p>
+<p>然而有时总是会遇到些不按模板走的代码，虽然跑起来也没有问题，但是放到有些浏览器上就有 bug 了，这个时候对既有模板的理解和掌握就很重要了。</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>当我用 html 模板创建一个新单页时，拿到的页面是这样的，vue 也是类似，至少三个 <code>meta</code> 标签基本都是一样的：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>viewport</code> 是在兼容移动端时才了解的内容，费了不少功夫。而 <code>X-UA-Compatible</code> 则是在遇到非常规代码的时候才想起来的。有一回改个老项目，用了 <code>transform</code>，在 ie11 上测试，没有用，而且在它的工具栏里样式表里根本看不到我写的代码，这个时候我就好奇了，这是 ie11 啊，怎么会不支持 <code>transform</code> 呢？然后我瞄了一下开发者工具，大概是这样的：</p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181003201618.png" alt="截图20181003201618.png"></p>
+<p>然后我就好奇了，为什么会是 ie7 模式呢？我明明装的是 ie11 浏览器啊，然后脑袋一闪，好像明白了什么，看了看 <code>html</code> ，果然没有:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>加上之后，再刷新，网页就正常了。</p>
+<p>在这件事之前，我知道这个东西，但是因为是用的模板，一直没有遇到过这个问题，而且通常来说，我会以为，我既然是在 ie11 里打开的，默认你也没有理由用 ie11- 的文档模式去渲染啊，结果就错了。后来看到 SO 上高票答主大概是这么解释 ie 的行为的：</p>
+<p><em>ie 会用它认为最好的方式去渲染页面，如果没有上面那行代码的话</em></p>
+<p>此外，ie11 已经开始废弃上面那个了，如果不兼容 ie 的话，其实上面的代码也可以不用写了，不过目前为止 html 模板和 vue 的模板都还是默认支持的。而上面的那行代码实际意思呢，就是：</p>
+<p><em>Edge：始终以最新的文档模式来渲染页面。忽略文档类型声明。对于 IE8，始终保持以 IE8 标准模式渲染页面。对于 IE9，则以 IE9 标准模式渲染页面。</em></p>
+<p>当然 ie 还可以等于其他值，不过其他值大多都是老版本，目前而言，都没有必要去纠结了，譬如：</p>
+<ul>
+<li>“IE&#x3D;edge”</li>
+<li>“IE&#x3D;11”</li>
+<li>“IE&#x3D;EmulateIE11”</li>
+<li>“IE&#x3D;10”</li>
+<li>“IE&#x3D;EmulateIE10”</li>
+<li>“IE&#x3D;9”</li>
+<li>“IE&#x3D;EmulateIE9</li>
+<li>…</li>
+</ul>
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do" target="_blank" rel="noopener">What does &lt;meta http-equiv&#x3D;“X-UA-Compatible” content&#x3D;“IE&#x3D;edge”&gt; do?</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -560,7 +730,7 @@
 
 <p>我司稍微特殊些，直接把初始化的代码放在前面需要引入微信的 js 文件后面了，所以我直接引入这个文件就完成了初始化操作。不过，我还是需要在引入后监听初始化成功和失败的回调。</p>
 <p>我司代码：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./js/shareInWeChat.js?debug=1"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 里面包含了 wx.config(&#123;&#125;) 的代码--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 通过 debug 参数来切换调试模式  --&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./js/shareInWeChat.js?debug=1"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 里面包含了 wx.config(&#123;&#125;) 的代码--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 通过 debug 参数来切换调试模式  --&gt;</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">setWeChatShareStyle(product, imgUrl)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setWeChatShareStyle</span>(<span class="params">product, imgUrl</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> success = <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">var</span> fail = <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">var</span> desc =</span><br><span class="line">    product.description &amp;&amp; product.description !== <span class="string">''</span></span><br><span class="line">      ? product.description</span><br><span class="line">      : <span class="string">'后备描述'</span></span><br><span class="line">  wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> eventConf = &#123;</span><br><span class="line">      title: product.name,</span><br><span class="line">      desc: desc,</span><br><span class="line">      imgUrl: imgUrl,</span><br><span class="line">      link: <span class="built_in">window</span>.location.href,</span><br><span class="line">      success: success</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (pubMethods.isAndroid()) &#123;</span><br><span class="line">      <span class="comment">// 安卓适用于老接口，新接口不行</span></span><br><span class="line">      wx.onMenuShareAppMessage(eventConf)</span><br><span class="line">      wx.onMenuShareTimeline(eventConf)</span><br><span class="line">      wx.onMenuShareQQ(eventConf)</span><br><span class="line">      wx.onMenuShareQZone(eventConf)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (pubMethods.isIOS()) &#123;</span><br><span class="line">      <span class="comment">// iOS 适用于新接口，老接口不行</span></span><br><span class="line">      wx.updateAppMessageShareData(eventConf, success)</span><br><span class="line">      wx.updateTimelineShareData(eventConf, success)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  wx.error(fail)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -622,190 +792,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/09/settings-in-vscode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/09/settings-in-vscode/" itemprop="url">settings in vscode</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-23T10:09:06+00:00">
-                2018-09-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/software/" itemprop="url" rel="index">
-                    <span itemprop="name">software</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
-<li>vscode 支持特定语言的设置，比如，为不同的语言设置不同的配置：</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"[html]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.tabSize"</span>: <span class="number">4</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"[css]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.tabSize"</span>: <span class="number">4</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"[javascript]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.insertSpaces"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"editor.tabSize"</span>: <span class="number">2</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"[typescript]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.tabSize"</span>: <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>个别插件的配置比较特殊，需要配置后才能正常使用，譬如 csscomb, eslint, Easy LESS 等，注意查看文档。</p>
-</li>
-<li><p>我的配置文件，借助 Settings Sync VSCode 插件，不定期修改会同步到 <a href="https://gist.github.com/xianshenglu" target="_blank" rel="noopener">https://gist.github.com/xianshenglu</a></p>
-</li>
-</ol>
-<h2 id="相关插件"><a href="#相关插件" class="headerlink" title="相关插件"></a>相关插件</h2><h4 id="HTML："><a href="#HTML：" class="headerlink" title="HTML："></a>HTML：</h4><p>Auto Rename Tag 修改 HTML 标签时，自动修改匹配的标签</p>
-<p>Open in Browser</p>
-<p>HTML CSS Class Completion: CSS class 提示</p>
-<p>HTMLHint: HTML 格式提示</p>
-<h4 id="CSS："><a href="#CSS：" class="headerlink" title="CSS："></a>CSS：</h4><p>Can I Use: HTML5、CSS3、SVG 的浏览器兼容性检查</p>
-<p>Color Highlight: 颜色值在代码中高亮显示</p>
-<p>Color Picker: 拾色器</p>
-<p>csscomb: css 排序，格式化，支持 .vue，<strong>但对于嵌入式样式缩进有问题</strong></p>
-<p>HTML CSS Support: css 提示，支持 .vue</p>
-<h4 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h4><p>ESLint: ESLint 语法校验，自动格式化，修改等</p>
-<p>Version Lens package.json: 文件显示模块当前版本和最新版本</p>
-<p>View Node Package: 快速打开选中模块的主页和代码仓库</p>
-<p>JavaScript (ES6) code snippets: ES6 语法代码段</p>
-<p>Version Lens: 在 package.json 里显示包最新版本号</p>
-<h4 id="HTML-CSS-JS"><a href="#HTML-CSS-JS" class="headerlink" title="HTML&#x2F;CSS&#x2F;JS"></a>HTML&#x2F;CSS&#x2F;JS</h4><p>Emmet: html,css,js 提示</p>
-<h4 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h4><p>vetur: 目前比较好的 Vue 语法高亮</p>
-<p>VueHelper: Vue2 代码段（包括 Vue2 api、vue-router2、vuex2）</p>
-<p>vue-peek: vue 文件内查找速览声明</p>
-<p>vue-format: vue 格式化插件</p>
-<h4 id="非语言类"><a href="#非语言类" class="headerlink" title="非语言类"></a>非语言类</h4><p>Bracket Pair Colorizer: 不同层级括号上色</p>
-<p>Code Spelling Checker: 单词拼写检查</p>
-<p>Output Colorizer: 彩色输出信息</p>
-<p>Partial Diff: 对比两段代码或文件</p>
-<p>Path Autocomplete: 路径补全</p>
-<p>Path Intellisense: 路径提示</p>
-<p>Project Manager: 快速切换项目</p>
-<p>Settings Sync VSCode: 设置同步到 Gist</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/blog/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/17/">17</a><a class="extend next" rel="next" href="/blog/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/blog/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/18/">18</a><a class="extend next" rel="next" href="/blog/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -851,7 +842,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -873,7 +864,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

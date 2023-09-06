@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Hey , you !">
 <meta property="og:description" content="PrefaceWhen I was using orientationchange event, I met a few bugs. So, I take it down. Maincompatibility problemWhen I was testing my code on my android, it was ok. However, it doesn’t work on my boss">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-08-26T08:22:20.135Z">
+<meta property="og:updated_time" content="2023-09-06T12:19:35.322Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Better Way to Use orientationchange Event on Mobile">
 <meta name="twitter:description" content="PrefaceWhen I was using orientationchange event, I met a few bugs. So, I take it down. Maincompatibility problemWhen I was testing my code on my android, it was ok. However, it doesn’t work on my boss">
@@ -341,7 +341,7 @@
 <p>It seems a little weird but it’s true until chrome 69. That’s why I add <code>isMobile()</code> before I use <code>window.addEventListener</code>. In that case, we don’t have to listen for the <code>resize</code> event on desktop.</p>
 <h4 id="window-orientation-or-screen-orientation"><a href="#window-orientation-or-screen-orientation" class="headerlink" title="window.orientation or screen.orientation"></a>window.orientation or screen.orientation</h4><p>According to mdn, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/orientation#Specifications" target="_blank" rel="noopener">window.orientation</a> has been <strong>Deprecated</strong>. However, similar API <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation#Browser_compatibility" target="_blank" rel="noopener">screen.orientation</a> has a big problem for compatibility. Safari and QQ doesn’t support. As of 2018.10.4, global support in <a href="https://caniuse.com/#search=orientation" target="_blank" rel="noopener">caniuse</a> is only 72.5%.</p>
 <h4 id="css-only"><a href="#css-only" class="headerlink" title="css only"></a>css only</h4><p>If you just want to update style, you don’t have to use code above. CSS media queries<br>support code like:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">media</span> (min-height: <span class="number">680px</span>), screen and (orientation: portrait) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> (min-height: <span class="number">680px</span>), screen and (orientation: landscape) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@media</span> (<span class="attribute">min-height:</span> <span class="number">680px</span>), screen <span class="keyword">and</span> (<span class="attribute">orientation:</span> portrait) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">min-height:</span> <span class="number">680px</span>), screen <span class="keyword">and</span> (<span class="attribute">orientation:</span> landscape) &#123;</span><br><span class="line">  <span class="comment">/* ...; */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://stackoverflow.com/questions/4917664/detect-viewport-orientation-if-orientation-is-portrait-display-alert-message-ad" target="_blank" rel="noopener">detect viewport orientation, if orientation is portrait display alert message advising user of instructions</a></li>
@@ -467,7 +467,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -489,7 +489,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

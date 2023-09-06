@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -215,6 +215,175 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/05/event-capturing-vs-event-bubbling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/05/event-capturing-vs-event-bubbling/" itemprop="url">Event Capturing Vs Event Bubbling</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T15:40:02+00:00">
+                2018-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>When I am trying to delegate the <code>error</code> event of <code>img</code>, I find that those events won’t bubble up to window. So,does that mean I have to bind so many events as many as images I have?</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>After a while, I think of something about event capturing which maybe can solve this question. So, I tried code below:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"img"</span> <span class="attr">src</span>=<span class="string">"error.png"</span> <span class="attr">alt</span>=<span class="string">"error.png"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'error'</span>, windowErrorCb, &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;, <span class="literal">true</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">windowErrorCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> target = event.target</span><br><span class="line">  <span class="keyword">let</span> isImg = target.tagName.toLowerCase() === <span class="string">'img'</span></span><br><span class="line">  <span class="keyword">if</span> (isImg) &#123;</span><br><span class="line">    imgErrorCb()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">imgErrorCb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isImgErrorHandled = target.hasAttribute(<span class="string">'data-src-error'</span>)</span><br><span class="line">    <span class="keyword">if</span> (!isImgErrorHandled) &#123;</span><br><span class="line">      target.setAttribute(<span class="string">'data-src-error'</span>, <span class="string">'handled'</span>)</span><br><span class="line">      target.src = <span class="string">'backup.png'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Code above works normally. If we change the <code>capture</code> and the last argument to <code>false</code>, it doesn’t work.</p>
+<p>In this case, we can find that event capturing seems have more applicable situations than event bubbling. Also it seems faster because I catch and handle the event earlier than event bubbling.<br>So, I got these questions:</p>
+<ul>
+<li><p>Why would we use event bubbling not event capturing as default except for compatibility?</p>
+</li>
+<li><p>Does event capturing really faster than event bubbling as I thought?</p>
+</li>
+<li><p>Does event capturing really have more applicable situations?</p>
+</li>
+</ul>
+<p>The answers can be listed below:</p>
+<ul>
+<li><p>Don’t know yet.</p>
+</li>
+<li><p>Yes, you can see the demo <a href="https://jsperf.com/delegating-capture-vs-bubble/2" target="_blank" rel="noopener">here</a></p>
+</li>
+<li><p>Yes.</p>
+</li>
+</ul>
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><p>After words above, I think we should use event capturing as default.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://stackoverflow.com/questions/2661199/event-capturing-vs-event-bubbling/10335117" target="_blank" rel="noopener">Event Capturing vs Event Bubbling</a></p>
+<p><a href="https://jsperf.com/delegating-capture-vs-bubble/2" target="_blank" rel="noopener">delegating-capture-vs-bubble</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -600,223 +769,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/05/what-is-the-background-color-height-of-inline-non-replaced-element/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/05/what-is-the-background-color-height-of-inline-non-replaced-element/" itemprop="url">What Is the background-color's Height of Inline Non-Replaced Element?</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-18T00:00:00+00:00">
-                2018-05-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>As we all know, when we set <code>background-color</code> in block-level non-replaced elements, the height of <code>background-color</code> is equal to <code>border-top</code>+<code>padding-top</code>+<code>height</code>+<code>padding-bottom</code>+<code>border-bottom</code> according to box-model which is very clear.</p>
-<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>However, things get weird when we set <code>background-color</code> to inline non-replaced element because <code>height</code> doesn’t apply to the element. For example:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inline"</span>&gt;</span></span><br><span class="line">  inline non-replaced element</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: Microsoft YaHei;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inline</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/blog/images/20180517161430.png" alt="20180517161430.png"></p>
-<p>So, here is the question,</p>
-<ul>
-<li>Assume there is no <code>margin</code> and <code>padding</code>,how much is the size of the <code>background-color</code> area which is also the content area ?any rules?</li>
-</ul>
-<p>And here is the answer I figured out:</p>
-<ul>
-<li>It depends.</li>
-</ul>
-<p>Then we are going to talk a lot about how it depends.</p>
-<p>If we measured the direction as the screenshot above ,we can get some data below, called Case A :</p>
-<ul>
-<li>font-size:40px</li>
-<li>background-color’s height : about 50px</li>
-<li>top&#x2F;bottom space : about 15px</li>
-</ul>
-<p>May be you thought that those data should be like these, called Case B :</p>
-<ul>
-<li>font-size:40px</li>
-<li>background-color’s height : about 40px</li>
-<li>top&#x2F;bottom space : about 20px, equals to half-leading</li>
-</ul>
-<p>It seems Case B is more reasonable.</p>
-<p>However, the fact is that Case A is applied until Chrome-66.</p>
-<p>Anyway, <code>line-height</code> is definitive, always 80px.</p>
-<p>After reading <a href="https://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#inline-non-replaced" target="_blank" rel="noopener">10.6.1 Inline, non-replaced elements</a> in CSS2.1 and SO, I think the point is below:</p>
-<blockquote>
-<p>The ‘height’ property does not apply. The height of the content area should be based on the font, but this specification does not specify how. A UA may, e.g., use the em-box or the maximum ascender and descender of the font.</p>
-</blockquote>
-<blockquote>
-<p>(The latter would ensure that glyphs with parts above or below the em-box still fall within the content area, but leads to differently sized boxes for different fonts; the former would ensure authors can control background styling relative to the ‘line-height’, but leads to glyphs painting outside their content area.)</p>
-</blockquote>
-<p>According to the specification above, I think that Case B means</p>
-<blockquote>
-<p>A UA use the em-box which would ensure authors can control background styling relative to the ‘line-height’, but leads to glyphs painting outside their content area.</p>
-</blockquote>
-<p>while Case A means</p>
-<blockquote>
-<p>A UA use the maximum ascender and descender of the font which would ensure that glyphs with parts above or below the em-box still fall within the content area, but leads to differently sized boxes for different fonts.</p>
-</blockquote>
-<p>Then, I try to prove it with different fonts which will lead differently sized boxes according to specification above.</p>
-<p>For example, change <code>font-family</code>from <code>Microsoft YaHei</code>to<code>Georgia</code>:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inline"</span>&gt;</span>inline non-replaced element <span class="tag">&lt;<span class="name">br</span> /&gt;</span>sss<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">font-family</span>: Georgia;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inline</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/blog/images/20180517162130.png" alt="20180517162130.png"></p>
-<p>As you can see ,these data becomes:</p>
-<ul>
-<li>font-size:40px</li>
-<li>background-color’s height : about 46px</li>
-<li>top space : about 15px</li>
-<li>bottom space: about 19px</li>
-</ul>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>So, precisely, assuming that there is no <code>margin</code> and <code>padding</code>,we can say that background-color’s height of inline non-replaced element is</p>
-<ul>
-<li>determined by <code>font-size</code></li>
-<li>and modified partially by <code>font-family</code> which depends on the rules UA takes.</li>
-</ul>
-<p>And also the area outside of the <code>background-color</code> area isn’t equal to half-leading.</p>
-<p>Reference:</p>
-<p><a href="https://stackoverflow.com/questions/28363186/inline-elements-and-line-height" target="_blank" rel="noopener">Inline elements and line-height</a></p>
-<p><a href="https://iamvdo.me/en/blog/css-font-metrics-line-height-and-vertical-align" target="_blank" rel="noopener">Deep dive CSS: font metrics, line-height and vertical-align
-</a></p>
-<p><a href="https://segmentfault.com/q/1010000020023014/a-1020000020036595" target="_blank" rel="noopener">这个 div 的 10px 是哪里来的能帮我看一下吗？</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/16/">16</a><span class="page-number current">17</span>
+    <a class="extend prev" rel="prev" href="/blog/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/blog/page/18/">18</a><a class="extend next" rel="next" href="/blog/page/18/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -862,7 +819,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -884,7 +841,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

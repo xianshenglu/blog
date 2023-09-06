@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -215,6 +215,180 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/12/event.preventdefault()-in-contextmenu-would-trigger-mouseup-event/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/12/event.preventdefault()-in-contextmenu-would-trigger-mouseup-event/" itemprop="url">event.preventDefault() in contextmenu Would Trigger mouseup event</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-27T21:16:15+00:00">
+                2018-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><p>How many logs would you have when you click and release right mouse button?</p>
+<h4 id="Demo1"><a href="#Demo1" class="headerlink" title="Demo1"></a>Demo1</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Demo2"><a href="#Demo2" class="headerlink" title="Demo2"></a>Demo2</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The answer is 1,2. The question is</p>
+<ul>
+<li>Does that matter?</li>
+<li>And why?</li>
+</ul>
+<h3 id="Matters"><a href="#Matters" class="headerlink" title="Matters"></a>Matters</h3><p>Normally, click and release right button would only trigger <code>contextmenu</code> instead of <code>mouseup</code>.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>It does make senses in most cases that when we were using <code>onmouseup</code> means that we only want to listen to the <code>mouseup</code> of left button.</p>
+<p>However, if you used <code>event.preventDefault()</code> in <code>contextmenu</code>, <code>mouseup</code> event would be triggered when you press and release the right button.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In most cases, this is not expected as it changes the behavior of <code>mouseup</code> listener because of changes in <code>contextmenu</code> listener. To be honest, this awful <strong>unless we add button detection in <code>mouseup</code> listener every time we want to do something when user only press and release left button.</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (event.button !== <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h3><p>according to mdn <a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseup" target="_blank" rel="noopener">mouseup</a>, default action of <code>mouseup</code> is</p>
+<blockquote>
+<p>Default Action : Invoke a context menu (in combination with the right mouse button, if supported)</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>However, at least Chrome 70 didn’t prevent triggering <code>contextmenu</code> event. But it might explain something.</p>
+<ul>
+<li>Because default action of <code>rightClick</code> was to invoke a context menu. So, <code>mouseup</code> won’t get triggered.</li>
+<li>And <code>event.preventDefault()</code> in <code>contextmenu</code> listener did the actual prevent job. So, <code>mouseup</code><br>get triggered.</li>
+</ul>
+<p>Anyway, it’s still hard to understand.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/64"><strong>Original Post</strong></a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -529,8 +703,8 @@
 <blockquote>
 <p>If you find yourself needing to force an update in Vue, in <strong>99.99%</strong> of cases, you’ve made a mistake somewhere.</p>
 </blockquote>
-<p>When I come back to write a blog, I find it’s totally true. Well, let’s begin. Here is the demo code based on <em><a href="mailto:&#x65;&#x6c;&#101;&#109;&#101;&#x6e;&#116;&#45;&#x75;&#105;&#64;&#50;&#x2e;&#52;&#46;&#x31;&#49;" target="_blank" rel="noopener">&#x65;&#x6c;&#101;&#109;&#101;&#x6e;&#116;&#45;&#x75;&#105;&#64;&#50;&#x2e;&#52;&#46;&#x31;&#49;</a></em> and <em><a href="mailto:&#x76;&#117;&#101;&#64;&#50;&#46;&#x35;&#x2e;&#49;&#55;" target="_blank" rel="noopener">&#x76;&#117;&#101;&#64;&#50;&#46;&#x35;&#x2e;&#49;&#55;</a></em>:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-for</span>=<span class="string">"item in items"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span>&#123;&#123; item.label &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">hr</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-tree</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:data</span>=<span class="string">"items"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">show-checkbox</span></span></span><br><span class="line"><span class="tag">    <span class="attr">node-key</span>=<span class="string">"id"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:default-expanded-keys</span>=<span class="string">"[2, 3]"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-if</span>=<span class="string">"isElTreeShow"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:key</span>=<span class="string">"elTreeVersion"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-tree</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">"#app"</span>,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="javascript">      isElTreeShow: <span class="literal">true</span>,</span></span><br><span class="line"><span class="undefined">      elTreeVersion: 100,</span></span><br><span class="line"><span class="undefined">      items: [</span></span><br><span class="line"><span class="undefined">        &#123;</span></span><br><span class="line"><span class="undefined">          id: 1,</span></span><br><span class="line"><span class="javascript">          label: <span class="string">"Level one 1"</span></span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        &#123;</span></span><br><span class="line"><span class="undefined">          id: 2,</span></span><br><span class="line"><span class="javascript">          label: <span class="string">"Level one 2"</span>,</span></span><br><span class="line"><span class="undefined">          children: [</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="undefined">              id: 21,</span></span><br><span class="line"><span class="javascript">              label: <span class="string">"Level two 2-1"</span></span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          ]</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        &#123;</span></span><br><span class="line"><span class="undefined">          id: 3,</span></span><br><span class="line"><span class="javascript">          label: <span class="string">"Level one 3"</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      ],</span></span><br><span class="line"><span class="undefined">      compare(a, b) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> a.id - b.id;</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      compareReverse(a, b) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> -<span class="keyword">this</span>.compare(a, b);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>When I come back to write a blog, I find it’s totally true. Well, let’s begin. Here is the demo code based on <em><a href="mailto:&#x65;&#x6c;&#x65;&#109;&#x65;&#x6e;&#x74;&#45;&#117;&#105;&#64;&#50;&#46;&#52;&#46;&#x31;&#x31;" target="_blank" rel="noopener">&#x65;&#x6c;&#x65;&#109;&#x65;&#x6e;&#x74;&#45;&#117;&#105;&#64;&#50;&#46;&#52;&#46;&#x31;&#x31;</a></em> and <em><a href="mailto:&#118;&#x75;&#101;&#64;&#50;&#46;&#53;&#x2e;&#x31;&#55;" target="_blank" rel="noopener">&#118;&#x75;&#101;&#64;&#50;&#46;&#53;&#x2e;&#x31;&#55;</a></em>:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-for</span>=<span class="string">"item in items"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span>&#123;&#123; item.label &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">hr</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-tree</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:data</span>=<span class="string">"items"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">show-checkbox</span></span></span><br><span class="line"><span class="tag">    <span class="attr">node-key</span>=<span class="string">"id"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:default-expanded-keys</span>=<span class="string">"[2, 3]"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-if</span>=<span class="string">"isElTreeShow"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:key</span>=<span class="string">"elTreeVersion"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-tree</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">"#app"</span>,</span></span><br><span class="line">    data: &#123;</span><br><span class="line"><span class="javascript">      isElTreeShow: <span class="literal">true</span>,</span></span><br><span class="line">      elTreeVersion: 100,</span><br><span class="line">      items: [</span><br><span class="line">        &#123;</span><br><span class="line">          id: 1,</span><br><span class="line"><span class="javascript">          label: <span class="string">"Level one 1"</span></span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          id: 2,</span><br><span class="line"><span class="javascript">          label: <span class="string">"Level one 2"</span>,</span></span><br><span class="line">          children: [</span><br><span class="line">            &#123;</span><br><span class="line">              id: 21,</span><br><span class="line"><span class="javascript">              label: <span class="string">"Level two 2-1"</span></span></span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          id: 3,</span><br><span class="line"><span class="javascript">          label: <span class="string">"Level one 3"</span></span></span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      compare(a, b) &#123;</span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> a.id - b.id;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      compareReverse(a, b) &#123;</span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> -<span class="keyword">this</span>.compare(a, b);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="Auto-Update-with-Vue’s-Reactivity-System"><a href="#Auto-Update-with-Vue’s-Reactivity-System" class="headerlink" title="Auto Update with Vue’s Reactivity System"></a>Auto Update with Vue’s Reactivity System</h2><p>Go check the doc.</p>
 <h2 id="forceUpdate"><a href="#forceUpdate" class="headerlink" title="$forceUpdate"></a>$forceUpdate</h2><p>For example, if someone made a mistake and wrote the code like</p>
@@ -540,7 +714,7 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> length = app.items.length;</span><br><span class="line">app.items.push(&#123; <span class="attr">id</span>: length + <span class="number">1</span>, <span class="attr">label</span>: <span class="string">`Level one <span class="subst">$&#123;length + <span class="number">1</span>&#125;</span>`</span> &#125;);</span><br></pre></td></tr></table></figure>
 
 <p>or</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> length = app.items.length;</span><br><span class="line"><span class="keyword">this</span>.$set(app.items, length, &#123;</span><br><span class="line">  id: length + <span class="number">1</span>,</span><br><span class="line">  label: <span class="string">`Level one <span class="subst">$&#123;length + <span class="number">1</span>&#125;</span>`</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> length = app.items.length;</span><br><span class="line"><span class="keyword">this</span>.$<span class="keyword">set</span>(app.items, length, &#123;</span><br><span class="line">  id: length + <span class="number">1</span>,</span><br><span class="line">  label: <span class="string">`Level one <span class="subst">$&#123;length + <span class="number">1</span>&#125;</span>`</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <h2 id="Reassign"><a href="#Reassign" class="headerlink" title="Reassign"></a>Reassign</h2><p>However, it’s common to use third party components. In this case, it may not be easy to modify the component if we find something not good. For example, if we sort the data using:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">app.items.reverse();</span><br></pre></td></tr></table></figure>
@@ -595,170 +769,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/12/remnant-shadows-when-toggling-pictures-with-alpha-in-firefox-and-safari/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/12/remnant-shadows-when-toggling-pictures-with-alpha-in-firefox-and-safari/" itemprop="url">Remnant Shadows When Toggling HD Pictures with Alpha</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T10:10:51+00:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>See the demo:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./images/hd3.png"</span> <span class="attr">class</span>=<span class="string">"app__image"</span> <span class="attr">id</span>=<span class="string">"app__image"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"app__button"</span> <span class="attr">id</span>=<span class="string">"app__button"</span>&gt;</span>next image<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> app__button = <span class="built_in">document</span>.getElementById(<span class="string">'app__button'</span>)</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> app__image = <span class="built_in">document</span>.getElementById(<span class="string">'app__image'</span>)</span></span><br><span class="line"><span class="javascript">  app__button.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    app__image.style.visibility = <span class="string">'hidden'</span></span></span><br><span class="line"><span class="javascript">    app__image.src = <span class="string">'./images/hd4.png'</span></span></span><br><span class="line"><span class="javascript">    app__image.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      app__image.style.visibility = <span class="string">'visible'</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>The code is easy. But the images are special.</p>
-<ul>
-<li>Type is png.</li>
-<li>Size is more than 10M.</li>
-<li>Alpha channel has been modified.</li>
-<li>Both happen on my win7 and Mac 10.13.</li>
-</ul>
-<p>In this case, when we click the button above, the result in Firefox and Safari would be:</p>
-<p><img src="/blog/images/1543630801931.gif"></p>
-<p>If you look at it carefully, you would see the remnant shadows of previous image. That is unexpected because I change the <code>src</code> in the <code>onload</code> callback. Also, the same thing would happen in Chrome, though the frequency is much lower. So, how do we solve this?</p>
-<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app__button = <span class="built_in">document</span>.getElementById(<span class="string">'app__button'</span>)</span><br><span class="line"><span class="keyword">let</span> app__image = <span class="built_in">document</span>.getElementById(<span class="string">'app__image'</span>)</span><br><span class="line">app__button.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  app__image.src = <span class="string">'../images/transparent.png'</span></span><br><span class="line">  <span class="keyword">let</span> tempImage = <span class="keyword">new</span> Image()</span><br><span class="line">  tempImage.src = <span class="string">'../images/hd4.png'</span></span><br><span class="line">  tempImage.onload = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// setTimeout(() =&gt; &#123;</span></span><br><span class="line">    <span class="comment">// if you are still worried, you can use setTimeout or requestAnimationFrame to delay</span></span><br><span class="line">    app__image.src = event.target.src</span><br><span class="line">    <span class="comment">// &#125;, 20)</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>See? We change the previous image with a transparent image. A little hack, but it works.</p>
-<p>Obviously, there is a little interval between images onload and browsers’ ready to render the latest image, especially in Firefox and Safari. When the browsers’ performance becomes better this problem may not happen again. Anyway, hope we lucky.</p>
-<p><a href="https://github.com/xianshenglu/blog/issues/22"><strong>Original Post</strong></a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/blog/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/17/">17</a><a class="extend next" rel="next" href="/blog/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/blog/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/18/">18</a><a class="extend next" rel="next" href="/blog/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -804,7 +819,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -826,7 +841,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

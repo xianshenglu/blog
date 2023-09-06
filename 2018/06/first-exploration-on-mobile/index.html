@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180615090453.png">
 <meta property="og:image" content="https://github.com/blog/images/%E6%88%AA%E5%9B%BE20180615155759.png">
 <meta property="og:image" content="https://github.com/images/%E6%88%AA%E5%9B%BE20180615090453.png">
-<meta property="og:updated_time" content="2023-08-26T08:22:20.135Z">
+<meta property="og:updated_time" content="2023-09-06T12:19:35.322Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="First Exploration on Mobile">
 <meta name="twitter:description" content="PrefaceRecently, I have been working on mobile development. Before this I have heard something strange but I didn’t pay attention to. Now, I have to figure out though there is a lot of stuff. I am try">
@@ -418,7 +418,7 @@
 </ol>
 <p>Option2 will work if our page is simple enough. In most instances, it will bring a disaster because of nested elements. One modification in parent will bring changes to all descendant elements.</p>
 <p>The problem of option1 is if we can avoid writing so many media queries codes to adapt to different sizes of viewport. For example:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* ... other codes for .cont with different sizes */</span></span><br><span class="line">@<span class="keyword">media</span> (max-width: <span class="number">800px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.cont</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">media</span> (max-width: <span class="number">400px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.cont</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*... other codes for .cont with different sizes */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* ... other codes for .cont with different sizes */</span></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">max-width:</span> <span class="number">800px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.cont</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">max-width:</span> <span class="number">400px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.cont</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*... other codes for .cont with different sizes */</span></span><br></pre></td></tr></table></figure>
 
 <p>Actually, we can avoid these codes. The key is <code>rem</code>. For example, code above can be simplified like:</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">80px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.cont</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">2.5rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* no more codes for .cont with different sizes */</span></span><br></pre></td></tr></table></figure>
@@ -481,7 +481,7 @@
 <ol start="2">
 <li>Replace example.png with 4*4 and keep the original <code>img</code> with 2*2 css pixels, same explanation as above.</li>
 </ol>
-<p>In this case, we might do this by changing the <code>src</code> attribute in the <code>img</code>. For example, update the <code>src</code> search param <code>?v=2*2</code> with <code>?v=4*4</code> or change from example.png to <a href="mailto:&#x65;&#x78;&#97;&#109;&#x70;&#x6c;&#101;&#64;&#x32;&#x78;&#46;&#x70;&#110;&#103;" target="_blank" rel="noopener">&#x65;&#x78;&#97;&#109;&#x70;&#x6c;&#101;&#64;&#x32;&#x78;&#46;&#x70;&#110;&#103;</a>. <a href="https://github.com/strues/retinajs">retinajs</a> will help you do this job.</p>
+<p>In this case, we might do this by changing the <code>src</code> attribute in the <code>img</code>. For example, update the <code>src</code> search param <code>?v=2*2</code> with <code>?v=4*4</code> or change from example.png to <a href="mailto:&#101;&#x78;&#x61;&#109;&#112;&#108;&#101;&#x40;&#50;&#120;&#x2e;&#x70;&#x6e;&#103;" target="_blank" rel="noopener">&#101;&#x78;&#x61;&#109;&#112;&#108;&#101;&#x40;&#50;&#120;&#x2e;&#x70;&#x6e;&#103;</a>. <a href="https://github.com/strues/retinajs">retinajs</a> will help you do this job.</p>
 <ol start="3">
 <li><p>Use icon-font instead of raster image.</p>
 </li>
@@ -666,7 +666,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -688,7 +688,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

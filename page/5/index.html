@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -215,6 +215,225 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/01/notes-for-developing-mobile-web-page/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2019/01/notes-for-developing-mobile-web-page/" itemprop="url">Notes for Developing Mobile Web Page</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-28T13:30:46+00:00">
+                2019-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/summary/" itemprop="url" rel="index">
+                    <span itemprop="name">summary</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h4><p>I guess most of you were using <code>rem</code>, <code>vw</code>, <code>viewport</code> etc.</p>
+<p>For <code>rem</code> or <code>vw</code>, we always work with the below tag.</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>And then we transformed <code>px</code> to <code>rem</code> or <code>vw</code> by plugins. However, some guys prefer using internal scale logic like below:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- if the device-width is 375 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=750, initial-scale=0.5"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>It will also work by changing the <code>width</code> and <code>initial-scale</code> at the same time.</p>
+<p>However, in most cases, we can see the <code>meta[name=&quot;viewport&quot;]</code> with more complicated content. For example,</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"viewport"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>What if we remove the <code>minimum-scale</code>, <code>minimum-scale</code> and <code>user-scalable</code>? The result is:</p>
+<ul>
+<li><p>If an <code>input</code> was focused on safari, the web page would zoom in. Here is the proof.</p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171932.gif"></p>
+</li>
+<li><p>You will get the scale buttons like below when you touch the page in WeChat 7.0.0, at least in Android.</p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190128134750.png"></p>
+</li>
+</ul>
+<p>And the solution is to add <code>user-scalable=no</code> or <code>minimum-scale=1, minimum-scale=1</code>. But you have to accept a shortcoming:</p>
+<ul>
+<li><strong>User can’t zoom the page using two fingers, at least in my Android WeChat and Chrome 71.</strong> Though in some browsers user can still zoom like UC, QQ etc.</li>
+</ul>
+<p>For better compatibility, we may have to use both <code>user-scalable=no</code> and <code>minimum-scale=1, minimum-scale=1</code>. That’s why we always see the code below.</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"viewport"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Screen-With-High-Resolution"><a href="#Screen-With-High-Resolution" class="headerlink" title="Screen With High Resolution"></a>Screen With High Resolution</h4><p>Normally, we would use <code>png@2x</code>, <code>png@3x</code> etc to solve the vague problem of images brought by high resolution screen. For example,</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@media</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">2</span>), (<span class="attribute">min-resolution:</span> <span class="number">192dpi</span>) &#123;</span><br><span class="line">  <span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'/images/my_image@2x.png'</span>) center center no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">3</span>), (<span class="attribute">min-resolution:</span> <span class="number">288dpi</span>) &#123;</span><br><span class="line">  <span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'/images/my_image@3x.png'</span>) center center no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>A convenient way to do this is by <a href="https://github.com/strues/retinajs">retinajs</a>. And for icons, I would suggest you use <code>svg</code> if possible.</p>
+<h4 id="vh-Is-Always-Calculated-as-If-the-Url-Bar-Is-Hidden"><a href="#vh-Is-Always-Calculated-as-If-the-Url-Bar-Is-Hidden" class="headerlink" title="vh Is Always Calculated as If the Url Bar Is Hidden."></a><code>vh</code> Is Always Calculated as If the Url Bar Is Hidden.</h4><p>In brief, <code>100vh</code> doesn’t equal <code>window.innerHeight</code>. For more, check <a href="https://github.com/xianshenglu/blog/issues/38">issues&#x2F;38</a>.</p>
+<h4 id="Consider-the-Pop-Up-Keyboard"><a href="#Consider-the-Pop-Up-Keyboard" class="headerlink" title="Consider the Pop-Up Keyboard"></a>Consider the Pop-Up Keyboard</h4><p>If there is an input or another form element, the keyboard would pop up when the element was focused. For example,</p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202174136.jpg"></p>
+<p>Is this a bug? Maybe… At least, you have to notice that before deploying. And the best way I think is to consult PM or designer if it’s okay.</p>
+<p>In that case, the keyboard would make <code>vh</code> smaller which may ruin the layout using <code>vh</code>.</p>
+<h4 id="Link-Highlight-While-It’s-Being-Tapped"><a href="#Link-Highlight-While-It’s-Being-Tapped" class="headerlink" title="Link Highlight While It’s Being Tapped"></a>Link Highlight While It’s Being Tapped</h4><p>In my Android Chrome 71, the highlight would show when I touch the link.</p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173819.jpg"></p>
+<p>We can disable it by the code below.</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>: transparent; <span class="comment">/* For some Androids */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>I would suggest you disable it because different manufacturers may show different colors</strong>.</p>
+<h4 id="img-Without-src-Would-Have-1px-White-border-on-Mobile-Chrome-70"><a href="#img-Without-src-Would-Have-1px-White-border-on-Mobile-Chrome-70" class="headerlink" title="img Without src Would Have 1px White border on Mobile Chrome 70."></a><code>img</code> Without src Would Have 1px White <code>border</code> on Mobile Chrome 70.</h4><p>You may need to add the code below to your <em>reset.css</em> to hide the <code>img</code> without <code>src</code>.</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[src]</span>) &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Qrcode-in-WeChat"><a href="#Qrcode-in-WeChat" class="headerlink" title="Qrcode in WeChat"></a>Qrcode in WeChat</h4><ul>
+<li>Use <code>img</code> Instead of <code>background-image</code>. Otherwise, it won’t work.</li>
+<li>Don’t put two qrcodes in one screen. Otherwise, it would only recognize one.</li>
+</ul>
+<h4 id="Format-detection"><a href="#Format-detection" class="headerlink" title="Format-detection"></a>Format-detection</h4><p>It is said that iOS safari has a default style for telephone numbers, email, etc. As I tested in iPhoneX 11.3, at least for telephone numbers, it does have a default style like below.</p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190201171930.png"></p>
+<p>If we want to disable the default style we can use the code below to avoid that.</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"format-detection"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">"telephone=no, email=no, date=no, address=no, url=no"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>If you want to call telephone, send message etc when the element is clicked you can do it by</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"tel:020-11811922"</span>&gt;</span>Call me: 020-11811922<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"sms:10086"</span>&gt;</span>Send me a message: 10086<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Disable-Select"><a href="#Disable-Select" class="headerlink" title="Disable Select"></a>Disable Select</h4><p>You may want to avoid the situation like below when the user is touching the <strong>text of the element</strong>.</p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173857.jpg"> <img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173902.jpg"></p>
+<p>You can use the code below to avoid that.</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.example</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-user-select</span>: none;</span><br><span class="line">  <span class="attribute">-moz-user-select</span>: none;</span><br><span class="line">  <span class="attribute">-ms-user-select</span>: none;</span><br><span class="line">  <span class="attribute">user-select</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The user may still hear the tone or feel the vibration, at least in my WeChat 7.0.0. <strong>However, the user can still trigger selection on UC, QQ browser with an extra operation.</strong></p>
+<h4 id="Avoid-Popup-Menu-in-Long-Touch-（Not-Compatible）"><a href="#Avoid-Popup-Menu-in-Long-Touch-（Not-Compatible）" class="headerlink" title="Avoid Popup Menu in Long Touch ?（Not Compatible）"></a>Avoid Popup Menu in Long Touch ?（Not Compatible）</h4><p>You may also want to disable popup like below when the user is touching <strong>an image or other stuff</strong></p>
+<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173852.jpg"> <img src="/blog/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190202173826.jpg"></p>
+<p>In this case, <code>user-select:none</code> is not enough to cover this. You may have to add js code like below.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'contextmenu'</span>, event =&gt; event.preventDefault())</span><br></pre></td></tr></table></figure>
+
+<p>Our User may still hear the tone or feel the vibration, at least in my Android Chrome 71. <strong>However, in WeChat, QQ and UC browser, it doesn’t work.</strong></p>
+<p>and CSS to disable callout in iOS.</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.target</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-touch-callout</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Use-touchstart-to-Imitate-hover"><a href="#Use-touchstart-to-Imitate-hover" class="headerlink" title="Use touchstart to Imitate hover"></a>Use <code>touchstart</code> to Imitate <code>hover</code></h4><p>As we all know, there is no <code>hover</code> on mobile. If you really want that, you can use <code>touchstart</code> to imitate it.</p>
+<h4 id="No-Need-to-Worry-About-the-Scroll-Bar"><a href="#No-Need-to-Worry-About-the-Scroll-Bar" class="headerlink" title="No Need to Worry About the Scroll Bar"></a>No Need to Worry About the Scroll Bar</h4><p>On mobile, the scroll bar would hide automatically when you stop scrolling.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/69"><strong>Source</strong></a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://www.w3.org/TR/css-device-adapt-1/#user-scalable" target="_blank" rel="noopener">user-scalable</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -544,7 +763,7 @@
 <p>Passing in immediate: true in the option will trigger the callback immediately with the current value of the expression.</p>
 </blockquote>
 <h4 id="attrs-and-listeners"><a href="#attrs-and-listeners" class="headerlink" title="$attrs and $listeners"></a>$attrs and $listeners</h4><p>I don’t know if you have used <code>$attrs</code> and <code>$listeners</code> from <code>this</code>. However, I never used those until I met this situation. For example:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">base-input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:value</span>=<span class="string">"value"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">"parentPlaceholder"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">otherAttrs</span>=<span class="string">"otherAttrs"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">input</span>=<span class="string">"inputCb"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">click</span>=<span class="string">"clickCb"</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">base-input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> BaseInput = &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">"base-input"</span>,</span></span><br><span class="line"><span class="undefined">    template: `</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">:value</span>=<span class="string">"value"</span> <span class="attr">:placeholder</span>=<span class="string">"placeholder"</span>  <span class="attr">:otherAttrs</span>=<span class="string">"otherAttrs"</span> @<span class="attr">input</span>=<span class="string">"$emit('input',$event)"</span> @<span class="attr">click</span>=<span class="string">"$emit('click',$event)"</span> @<span class="attr">focus</span>=<span class="string">"focusCb"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span><br><span class="line"><span class="undefined">    props: &#123;</span></span><br><span class="line"><span class="undefined">      value: &#123;</span></span><br><span class="line"><span class="javascript">        type: <span class="built_in">String</span></span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    computed: &#123;</span></span><br><span class="line"><span class="undefined">      listeners() &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> listeners = &#123;</span></span><br><span class="line"><span class="undefined">          ...this.$listeners,</span></span><br><span class="line"><span class="javascript">          focus: <span class="keyword">this</span>.focusCb</span></span><br><span class="line"><span class="undefined">        &#125;;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> listeners;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">      focusCb(event) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"child"</span>, event);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">"#app"</span>,</span></span><br><span class="line"><span class="undefined">    components: &#123;</span></span><br><span class="line"><span class="undefined">      BaseInput</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="javascript">      value: <span class="string">""</span>,</span></span><br><span class="line"><span class="javascript">      parentPlaceholder: <span class="string">"parentPlaceholder"</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">      inputCb(event) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event);</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      clickCb(event) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">base-input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:value</span>=<span class="string">"value"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">"parentPlaceholder"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">otherAttrs</span>=<span class="string">"otherAttrs"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">input</span>=<span class="string">"inputCb"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">click</span>=<span class="string">"clickCb"</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">base-input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> BaseInput = &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">"base-input"</span>,</span></span><br><span class="line">    template: `</span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">:value</span>=<span class="string">"value"</span> <span class="attr">:placeholder</span>=<span class="string">"placeholder"</span>  <span class="attr">:otherAttrs</span>=<span class="string">"otherAttrs"</span> @<span class="attr">input</span>=<span class="string">"$emit('input',$event)"</span> @<span class="attr">click</span>=<span class="string">"$emit('click',$event)"</span> @<span class="attr">focus</span>=<span class="string">"focusCb"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span><br><span class="line">    props: &#123;</span><br><span class="line">      value: &#123;</span><br><span class="line"><span class="javascript">        type: <span class="built_in">String</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    computed: &#123;</span><br><span class="line">      listeners() &#123;</span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> listeners = &#123;</span></span><br><span class="line">          ...this.$listeners,</span><br><span class="line"><span class="javascript">          focus: <span class="keyword">this</span>.focusCb</span></span><br><span class="line">        &#125;;</span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> listeners;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      focusCb(event) &#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"child"</span>, event);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">"#app"</span>,</span></span><br><span class="line">    components: &#123;</span><br><span class="line">      BaseInput</span><br><span class="line">    &#125;,</span><br><span class="line">    data: &#123;</span><br><span class="line"><span class="javascript">      value: <span class="string">""</span>,</span></span><br><span class="line"><span class="javascript">      parentPlaceholder: <span class="string">"parentPlaceholder"</span></span></span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      inputCb(event) &#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event);</span></span><br><span class="line">      &#125;,</span><br><span class="line">      clickCb(event) &#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>It’s obviously tedious to bind every attribute and listener by hand. Actually, this is where <code>$attrs</code> and <code>$listeners</code> will help us. We can write the <code>BaseInput</code> <code>template</code> like:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> BaseInput = &#123;</span><br><span class="line">  name: <span class="string">"base-input"</span>,</span><br><span class="line">  template: <span class="string">`&lt;div&gt;&lt;input type="text" :value="value"  v-bind="$attrs" v-on="listeners" /&gt;&lt;/div&gt;`</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    value: &#123;</span><br><span class="line">      type: <span class="built_in">String</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    listeners() &#123;</span><br><span class="line">      <span class="keyword">const</span> listeners = &#123;</span><br><span class="line">        ...this.$listeners,</span><br><span class="line">        <span class="comment">// move `focus` in to `listeners` instead of adding one more `focus` listener.</span></span><br><span class="line">        focus: <span class="keyword">this</span>.focusCb</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="keyword">return</span> listeners;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    focusCb(event) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"child"</span>, event);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -602,185 +821,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/12/event.preventdefault()-in-contextmenu-would-trigger-mouseup-event/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/12/event.preventdefault()-in-contextmenu-would-trigger-mouseup-event/" itemprop="url">event.preventDefault() in contextmenu Would Trigger mouseup event</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-27T21:16:15+00:00">
-                2018-12-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><p>How many logs would you have when you click and release right mouse button?</p>
-<h4 id="Demo1"><a href="#Demo1" class="headerlink" title="Demo1"></a>Demo1</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Demo2"><a href="#Demo2" class="headerlink" title="Demo2"></a>Demo2</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>The answer is 1,2. The question is</p>
-<ul>
-<li>Does that matter?</li>
-<li>And why?</li>
-</ul>
-<h3 id="Matters"><a href="#Matters" class="headerlink" title="Matters"></a>Matters</h3><p>Normally, click and release right button would only trigger <code>contextmenu</code> instead of <code>mouseup</code>.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>It does make senses in most cases that when we were using <code>onmouseup</code> means that we only want to listen to the <code>mouseup</code> of left button.</p>
-<p>However, if you used <code>event.preventDefault()</code> in <code>contextmenu</code>, <code>mouseup</code> event would be triggered when you press and release the right button.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>In most cases, this is not expected as it changes the behavior of <code>mouseup</code> listener because of changes in <code>contextmenu</code> listener. To be honest, this awful <strong>unless we add button detection in <code>mouseup</code> listener every time we want to do something when user only press and release left button.</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (event.button !== <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h3><p>according to mdn <a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseup" target="_blank" rel="noopener">mouseup</a>, default action of <code>mouseup</code> is</p>
-<blockquote>
-<p>Default Action : Invoke a context menu (in combination with the right mouse button, if supported)</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  <span class="built_in">console</span>.error(event.type, <span class="built_in">Date</span>.now())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>However, at least Chrome 70 didn’t prevent triggering <code>contextmenu</code> event. But it might explain something.</p>
-<ul>
-<li>Because default action of <code>rightClick</code> was to invoke a context menu. So, <code>mouseup</code> won’t get triggered.</li>
-<li>And <code>event.preventDefault()</code> in <code>contextmenu</code> listener did the actual prevent job. So, <code>mouseup</code><br>get triggered.</li>
-</ul>
-<p>Anyway, it’s still hard to understand.</p>
-<p><a href="https://github.com/xianshenglu/blog/issues/64"><strong>Original Post</strong></a></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/blog/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/17/">17</a><a class="extend next" rel="next" href="/blog/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/blog/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/18/">18</a><a class="extend next" rel="next" href="/blog/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -826,7 +871,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -848,7 +893,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
