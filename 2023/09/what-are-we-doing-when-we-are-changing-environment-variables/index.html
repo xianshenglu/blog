@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="We often use process.env to manage environment variables in front-end or Node.js projects. How the env works in front-endIn a lot of cases, we’re using dotenv or cross-env to manage environment variab">
+<meta name="description" content="We often use process.env to manage environment variables in front-end or Node.js projects. How the env works in the front-endIn lots of cases, we’re using dotenv or cross-env to manage environment var">
 <meta name="keywords" content="TBD">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Differences between Node.js env and user environment variables">
 <meta property="og:url" content="https://github.com/xianshenglu/blog/2023/09/what-are-we-doing-when-we-are-changing-environment-variables/index.html">
 <meta property="og:site_name" content="Hey , you !">
-<meta property="og:description" content="We often use process.env to manage environment variables in front-end or Node.js projects. How the env works in front-endIn a lot of cases, we’re using dotenv or cross-env to manage environment variab">
+<meta property="og:description" content="We often use process.env to manage environment variables in front-end or Node.js projects. How the env works in the front-endIn lots of cases, we’re using dotenv or cross-env to manage environment var">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://github.com/blog/images/what-are-we-doing-when-we-are-changing-environment-variables-image.png">
 <meta property="og:image" content="https://github.com/blog/images/what-are-we-doing-when-we-are-changing-environment-variables-image-3.png">
 <meta property="og:image" content="https://github.com/blog/images/what-are-we-doing-when-we-are-changing-environment-variables-image-2.png">
-<meta property="og:updated_time" content="2023-09-06T12:19:35.326Z">
+<meta property="og:updated_time" content="2023-09-06T12:24:08.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Differences between Node.js env and user environment variables">
-<meta name="twitter:description" content="We often use process.env to manage environment variables in front-end or Node.js projects. How the env works in front-endIn a lot of cases, we’re using dotenv or cross-env to manage environment variab">
+<meta name="twitter:description" content="We often use process.env to manage environment variables in front-end or Node.js projects. How the env works in the front-endIn lots of cases, we’re using dotenv or cross-env to manage environment var">
 <meta name="twitter:image" content="https://github.com/blog/images/what-are-we-doing-when-we-are-changing-environment-variables-image.png">
 
 
@@ -327,7 +327,7 @@
 
       
         <p>We often use <code>process.env</code> to manage environment variables in front-end or Node.js projects.</p>
-<h3 id="How-the-env-works-in-front-end"><a href="#How-the-env-works-in-front-end" class="headerlink" title="How the env works in front-end"></a>How the env works in front-end</h3><p>In a lot of cases, we’re using <code>dotenv</code> or <code>cross-env</code> to manage environment variables.</p>
+<h3 id="How-the-env-works-in-the-front-end"><a href="#How-the-env-works-in-the-front-end" class="headerlink" title="How the env works in the front-end"></a>How the env works in the front-end</h3><p>In lots of cases, we’re using <code>dotenv</code> or <code>cross-env</code> to manage environment variables.</p>
 <p>If you check the source code of <a href="https://github.com/motdotla/dotenv"><code>dotenv</code></a>, you will find that it assigns all the defined env variables to the <code>process.env</code>.</p>
 <p><img src="/blog/images/what-are-we-doing-when-we-are-changing-environment-variables-image.png" alt="Alt text"></p>
 <p>According to the document of <a href="https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env" target="_blank" rel="noopener">Node.js</a>.</p>
@@ -342,14 +342,14 @@
 </blockquote>
 <p>In conclusion, the env variables set by <code>dotenv</code> or <code>cross-env</code> are only visible in the running Node.js process.</p>
 <p>But it doesn’t matter normally because the env is set in the same process as the app or the app is running in a child process with the target env.</p>
-<p>Thus <strong>if you open the windows system environment variable dialog when your app is running, you will not see the defined env</strong>. Because it’s out of the app process.</p>
-<p>Actually, if you set env by <code>$env:TEST_ENV=dev</code> in powershell or <code>set TEST_ENV=dev</code> in cmd, you will not get the expected value in another shell or cmd by <code>$env:TEST_ENV</code> or <code>echo &quot;%TEST_ENV%&quot;</code>.</p>
-<h3 id="Change-the-env-variable-like-editing-in-the-windows-“system-environment-variable-dialog”"><a href="#Change-the-env-variable-like-editing-in-the-windows-“system-environment-variable-dialog”" class="headerlink" title="Change the env variable like editing in the windows “system environment variable dialog”"></a>Change the env variable like editing in the windows “system environment variable dialog”</h3><p>If you want to do this, you can use <code>setx TEST_ENV dev</code> in powershell or cmd. Then <strong>open a new process(not a new child process)</strong> you will get the new <code>TEST_ENV</code> value.</p>
-<p>For example, if you change the env out of vscode, you need to restart the vscode. Otherwise even you open a new shell in the vscode, you still can’t see the new env value.</p>
+<p>Thus <strong>if you open the Windows system environment variable dialog when your app is running, you will not see the defined env</strong> because it’s out of the app process.</p>
+<p>If you set env by <code>$env:TEST_ENV=dev</code> in PowerShell or <code>set TEST_ENV=dev</code> in cmd, you will not get the expected value in another shell or cmd by <code>$env:TEST_ENV</code> or <code>echo &quot;%TEST_ENV%&quot;</code>.</p>
+<h3 id="Change-the-env-variable-like-editing-in-the-Windows-“environment-variable-dialog”"><a href="#Change-the-env-variable-like-editing-in-the-Windows-“environment-variable-dialog”" class="headerlink" title="Change the env variable like editing in the Windows “environment variable dialog”"></a>Change the env variable like editing in the Windows “environment variable dialog”</h3><p>If you want to do this, you can use <code>setx TEST_ENV dev</code> in Powershell or cmd. Then <strong>open a new process(not a new child process)</strong> you will get the new <code>TEST_ENV</code> value.</p>
+<p>For example, if you change the env out of vscode, you need to restart the vscode. Otherwise, even if you open a new shell in the vscode, you still can’t see the new env value.</p>
 <p>If you don’t want to restart vscode you can use <code>refreshenv</code> in the vscode powershell or cmd after installing <a href="https://chocolatey.org/install" target="_blank" rel="noopener">chocolatey</a>(<em>Package Manager for Windows</em>). For example,</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$env:TEST_ENV</span>  <span class="comment"># dev</span></span><br><span class="line">setx TEST_ENV prod</span><br><span class="line"><span class="variable">$env:TEST_ENV</span>  <span class="comment"># dev, not change</span></span><br><span class="line">refreshenv</span><br><span class="line"><span class="variable">$env:TEST_ENV</span> <span class="comment"># prod, changed</span></span><br></pre></td></tr></table></figure>
 
-<p>Since we can use <code>setx</code> to set the env variable permantly, we can also let Node.js execute the <code>setx</code> command. For example,</p>
+<p>Since we can use <code>setx</code> to set the env variable permanently, we can also let Node.js execute the <code>setx</code> command. For example,</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; spawnSync &#125; = <span class="built_in">require</span>(<span class="string">"child_process"</span>);</span><br><span class="line">spawnSync(<span class="string">'setx'</span>, [<span class="string">'-m'</span>, <span class="string">'TEST_ENV'</span>, <span class="string">'prod'</span>]);</span><br></pre></td></tr></table></figure>
 
 <p>In the script,</p>
@@ -528,7 +528,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-the-env-works-in-front-end"><span class="nav-number">1.</span> <span class="nav-text">How the env works in front-end</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Change-the-env-variable-like-editing-in-the-windows-“system-environment-variable-dialog”"><span class="nav-number">2.</span> <span class="nav-text">Change the env variable like editing in the windows “system environment variable dialog”</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-the-env-works-in-the-front-end"><span class="nav-number">1.</span> <span class="nav-text">How the env works in the front-end</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Change-the-env-variable-like-editing-in-the-Windows-“environment-variable-dialog”"><span class="nav-number">2.</span> <span class="nav-text">Change the env variable like editing in the Windows “environment variable dialog”</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
             
 
           </div>
