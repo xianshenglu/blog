@@ -229,6 +229,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/02/notes-for-developing-web-page/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2019/02/notes-for-developing-web-page/" itemprop="url">Notes for Developing Web Page</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T19:17:24+00:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/summary/" itemprop="url" rel="index">
+                    <span itemprop="name">summary</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Here is the stuff.</p>
+<h3 id="Still-Consider-IE"><a href="#Still-Consider-IE" class="headerlink" title="Still Consider IE?"></a>Still Consider IE?</h3><p>If you still need to be compatible with IE browser, the below tag might be needed to render page using EdgeHTML instead of uncertain render engine.</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Use-Custom-Font-on-the-Web"><a href="#Use-Custom-Font-on-the-Web" class="headerlink" title="Use Custom Font on the Web?"></a>Use Custom Font on the Web?</h3><p><a href="https://github.com/ecomfe/fontmin/">fontmin</a> will help you. For more information, check <a href="https://github.com/xianshenglu/blog/issues/72">issues&#x2F;72</a>.</p>
+<h3 id="Consider-Scroll-Bar"><a href="#Consider-Scroll-Bar" class="headerlink" title="Consider Scroll Bar"></a>Consider Scroll Bar</h3><p>Before we can directly set scroll bar width by <code>::-webkit-scrollbar</code> <strong>for major browsers on PC</strong>, we always need to take care of the toggle of scroll bar because it might affect the layout except in Mac. For example,</p>
+<ul>
+<li>It is common that we need to use <code>box-sizing: border-box;</code> to include the scroll bar.</li>
+<li>Sometimes we even need to get the scroll bar width in js.</li>
+</ul>
+<p>Anyway, make sure that you have already considered scroll bar before production. For example, the style, the effect of layout, etc.</p>
+<h3 id="Mobile-Web-Page"><a href="#Mobile-Web-Page" class="headerlink" title="Mobile Web Page"></a>Mobile Web Page</h3><p>For the mobile web page, we need to do something else and I write a summary <a href="https://github.com/xianshenglu/blog/issues/69">here</a>.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/68"><strong>Source</strong></a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/01/notes-for-developing-mobile-web-page/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -617,210 +771,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/01/tricks-in-vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2019/01/tricks-in-vue/" itemprop="url">Tricks in Vue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-25T19:12:07+00:00">
-                2019-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>There are some tricks which can’t be found easily in <a href="https://vuejs.org/index.html" target="_blank" rel="noopener">Vue.js homepage</a>. So, for convenient, I summarized them here.</p>
-<h3 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h3><h4 id="Access-Global-Variable-in-Template"><a href="#Access-Global-Variable-in-Template" class="headerlink" title="Access Global Variable in Template"></a>Access Global Variable in Template</h4><p>Have you ever done something like this in lots of components?</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;a @click=&quot;window.open(&apos;...&apos;)&quot;&gt;&lt;/a&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;App&quot;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      window: window</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>or</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;a @click=&quot;bus.$emit(&apos;some-event&apos;)&quot;&gt;&lt;/a&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;App&quot;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      bus: bus</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>Actually, you don’t have to, you can register <code>window</code> or <code>bus</code> in <code>Vue.prototype</code> like:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Vue.prototype.window = <span class="built_in">window</span>;</span><br><span class="line">Vue.prototype.bus = bus;</span><br></pre></td></tr></table></figure>
-
-<p>in the <em>main.js</em> or the entry file. Then you can use <code>bus</code> or <code>window</code> in <code>template</code> directly. Also, this usage prevents Vue watching the attributes of <code>bus</code> or <code>window</code> which would bring a waste of performance.</p>
-<h4 id="Reactive-or-Not-Reactive"><a href="#Reactive-or-Not-Reactive" class="headerlink" title="Reactive or Not Reactive"></a>Reactive or Not Reactive</h4><p>Always, if we want a data reactive, we have to do something like this:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  newTodoText: <span class="string">''</span>,</span><br><span class="line">  visitCount: <span class="number">0</span>,</span><br><span class="line">  hideCompletedTodos: <span class="literal">false</span>,</span><br><span class="line">  todos: [],</span><br><span class="line">  error: <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Set some initial value to adds <strong>all the properties found in its data object</strong> to Vue’s reactivity system.</p>
-<p>Things we need to take care about is:</p>
-<ul>
-<li>If we want to add reactive attributes dynamically, we have to use something like <code>Vue.set</code> or <code>this.$set</code>. Otherwise, they might not be reactive.</li>
-<li>If we definitely don’t want some data to participate in Vue’s reactivity system even we initialize it in <code>data</code>. We can use something like <code>Object.freeze()</code>. For example, freeze a <strong>huge</strong> array to improve <strong>performance</strong>.</li>
-</ul>
-<h4 id="Scoped-Style-Won’t-Work-on-Dynamically-Inserted-Elements"><a href="#Scoped-Style-Won’t-Work-on-Dynamically-Inserted-Elements" class="headerlink" title="Scoped Style Won’t Work on Dynamically Inserted Elements"></a>Scoped Style Won’t Work on Dynamically Inserted Elements</h4><p>I always use the <code>&lt;style scoped&gt;</code> tag in <em>.vue</em> files. It is always good except when we want to insert elements dynamically. For example:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot; ref=&quot;app&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;App&quot;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    this.$refs.app.innerHTML = `&lt;h1 class=&quot;App__title&quot;&gt;App__title&lt;/h1&gt;`;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.App__title &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-
-<p><code>color: red</code> won’t work on <code>.App__title</code> because of <code>scoped</code>. The actual style is rendered with a unique attribute like:</p>
-<p><img src="/blog/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190126215103.png"></p>
-<p>So, how do we solve this? <code>/deep/</code> or <code>&gt;&gt;&gt;</code>.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;style scoped&gt;</span><br><span class="line">/deep/ .App__title &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-
-<p>They can be used to override child component style. Here is the <a href="https://vue-loader.vuejs.org/guide/scoped-css.html#deep-selectors" target="_blank" rel="noopener">doc</a>.</p>
-<h4 id="Smarter-Watchers"><a href="#Smarter-Watchers" class="headerlink" title="Smarter Watchers"></a>Smarter Watchers</h4><p>Have you ever written code like this:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="keyword">this</span>.fetchPostList()</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    searchInputValue() &#123;</span><br><span class="line">      <span class="keyword">this</span>.fetchPostList()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Actually, you can simplify it by</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  watch: &#123;</span><br><span class="line">    searchInputValue:&#123;</span><br><span class="line">      handler: <span class="string">'fetchPostList'</span>,</span><br><span class="line">      immediate: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>As the <a href="https://vuejs.org/v2/api/#vm-watch" target="_blank" rel="noopener">doc</a> said:</p>
-<blockquote>
-<p>Passing in immediate: true in the option will trigger the callback immediately with the current value of the expression.</p>
-</blockquote>
-<h4 id="attrs-and-listeners"><a href="#attrs-and-listeners" class="headerlink" title="$attrs and $listeners"></a>$attrs and $listeners</h4><p>I don’t know if you have used <code>$attrs</code> and <code>$listeners</code> from <code>this</code>. However, I never used those until I met this situation. For example:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">base-input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:value</span>=<span class="string">"value"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">"parentPlaceholder"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">otherAttrs</span>=<span class="string">"otherAttrs"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">input</span>=<span class="string">"inputCb"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">click</span>=<span class="string">"clickCb"</span></span></span><br><span class="line"><span class="tag">  &gt;</span><span class="tag">&lt;/<span class="name">base-input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> BaseInput = &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">"base-input"</span>,</span></span><br><span class="line">    template: `</span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">:value</span>=<span class="string">"value"</span> <span class="attr">:placeholder</span>=<span class="string">"placeholder"</span>  <span class="attr">:otherAttrs</span>=<span class="string">"otherAttrs"</span> @<span class="attr">input</span>=<span class="string">"$emit('input',$event)"</span> @<span class="attr">click</span>=<span class="string">"$emit('click',$event)"</span> @<span class="attr">focus</span>=<span class="string">"focusCb"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span><br><span class="line">    props: &#123;</span><br><span class="line">      value: &#123;</span><br><span class="line"><span class="javascript">        type: <span class="built_in">String</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    computed: &#123;</span><br><span class="line">      listeners() &#123;</span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> listeners = &#123;</span></span><br><span class="line">          ...this.$listeners,</span><br><span class="line"><span class="javascript">          focus: <span class="keyword">this</span>.focusCb</span></span><br><span class="line">        &#125;;</span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> listeners;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      focusCb(event) &#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"child"</span>, event);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">"#app"</span>,</span></span><br><span class="line">    components: &#123;</span><br><span class="line">      BaseInput</span><br><span class="line">    &#125;,</span><br><span class="line">    data: &#123;</span><br><span class="line"><span class="javascript">      value: <span class="string">""</span>,</span></span><br><span class="line"><span class="javascript">      parentPlaceholder: <span class="string">"parentPlaceholder"</span></span></span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      inputCb(event) &#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event);</span></span><br><span class="line">      &#125;,</span><br><span class="line">      clickCb(event) &#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>It’s obviously tedious to bind every attribute and listener by hand. Actually, this is where <code>$attrs</code> and <code>$listeners</code> will help us. We can write the <code>BaseInput</code> <code>template</code> like:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> BaseInput = &#123;</span><br><span class="line">  name: <span class="string">"base-input"</span>,</span><br><span class="line">  template: <span class="string">`&lt;div&gt;&lt;input type="text" :value="value"  v-bind="$attrs" v-on="listeners" /&gt;&lt;/div&gt;`</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    value: &#123;</span><br><span class="line">      type: <span class="built_in">String</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    listeners() &#123;</span><br><span class="line">      <span class="keyword">const</span> listeners = &#123;</span><br><span class="line">        ...this.$listeners,</span><br><span class="line">        <span class="comment">// move `focus` in to `listeners` instead of adding one more `focus` listener.</span></span><br><span class="line">        focus: <span class="keyword">this</span>.focusCb</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="keyword">return</span> listeners;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    focusCb(event) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"child"</span>, event);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Vue-Router"><a href="#Vue-Router" class="headerlink" title="Vue-Router"></a>Vue-Router</h3><h4 id="router-and-route"><a href="#router-and-route" class="headerlink" title="$router and $route"></a>$router and $route</h4><p>Have you ever wonder about the relationship between <code>$router</code> and <code>$route</code>? I give you a hint:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.currentRoute === <span class="keyword">this</span>.$route; <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h3><h4 id="Commit-Data-by-One-Mutation"><a href="#Commit-Data-by-One-Mutation" class="headerlink" title="Commit Data by One Mutation"></a>Commit Data by One Mutation</h4><p>We can’t directly mutate <code>state</code> in Vuex. Instead, we have to <code>commit</code> a <code>mutation</code> to mutate the data. However, it would be tedious to write lots of similar mutations like this:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    updateName(state, data) &#123;</span><br><span class="line">      state.name = data;</span><br><span class="line">    &#125;,</span><br><span class="line">    updateChildrenCount(state, data) &#123;</span><br><span class="line">      state.children.count = data;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// other similar mutations</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>We can write a public mutation to do this like:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    replaceProperty(state, &#123; path, data &#125;) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> path !== <span class="string">"string"</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      path = path.split(<span class="string">"."</span>);</span><br><span class="line">      <span class="keyword">let</span> targetObj = path.slice(<span class="number">0</span>, <span class="number">-1</span>).reduce(<span class="function">(<span class="params">re, key</span>) =&gt;</span> re[key], state);</span><br><span class="line">      targetObj[path.pop()] = data;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>Then we can mutate <code>state</code> in anywhere with only one mutation like:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">commit(</span><br><span class="line">  <span class="string">"replaceProperty"</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"name"</span>,</span><br><span class="line">    data: name</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">root</span>: <span class="literal">true</span> &#125;</span><br><span class="line">);</span><br><span class="line">commit(</span><br><span class="line">  <span class="string">"replaceProperty"</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"children.count"</span>,</span><br><span class="line">    data: data</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">root</span>: <span class="literal">true</span> &#125;</span><br><span class="line">);</span><br><span class="line">commit(</span><br><span class="line">  <span class="string">"replaceProperty"</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">"some.other.deep.path.in.state"</span>,</span><br><span class="line">    data: data</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">root</span>: <span class="literal">true</span> &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>It would also work for modules!</p>
-<p><a href="https://github.com/xianshenglu/blog/issues/52"><strong>Original Post</strong></a></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a href="https://www.youtube.com/watch?v=7lpemgMhi0k" target="_blank" rel="noopener">7 Secret Patterns Vue Consultants Don’t Want You to Know - Chris Fritz</a></li>
-<li><a href="https://github.com/vuejs/vue-loader/issues/749">vue-loader&#x2F;issues&#x2F;749</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -871,7 +821,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

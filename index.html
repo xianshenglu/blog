@@ -229,6 +229,199 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2023/09/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2023/09/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test/" itemprop="url">If you have no time to write tests, I'd recommend trying e2e test</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-09-07T23:34:26+00:00">
+                2023-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>It’s very common that developers don’t have time to write tests, especially unit tests. </p>
+<p>In real-world apps, unit tests take lots of time so many teams give it up. Since they have given up the foundation of the test suit(unit test), they will also give up other tests. emmm……</p>
+<p>Actually, investing time in e2e(end-to-end) tests can be a cost-effective choice, especially for web apps. The least time can help you solve the biggest problem. For example,</p>
+<ul>
+<li>I want to avoid the blank page appearing in my website(Fatal bugs but only need the least time to avoid).</li>
+<li>I want to reduce the high&#x2F;critical bugs in the testing phase or production environment(Important for the DEV&#x2F;QA team but only need a little time)</li>
+<li>I want to keep the core functions available in any case(Depends on how many core functions you want to cover)</li>
+</ul>
+<p>Now, I’ll show the demo.</p>
+<h3 id="Choose-an-e2e-test-frameworks"><a href="#Choose-an-e2e-test-frameworks" class="headerlink" title="Choose an e2e test frameworks"></a>Choose an e2e test frameworks</h3><p>There’re many e2e test frameworks. I’ll compare them in another article, you can see a short comparison  via this graph. </p>
+<p><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-1.png" alt="Alt text"></p>
+<p><em><a href="https://npmtrends.com/cypress-vs-playwright-vs-selenium-webdriver-vs-webdriverio" target="_blank" rel="noopener">source</a></em></p>
+<p>Because <a href>playwright</a> is very convenient to demo, I’ll choose this one in this article. </p>
+<h3 id="Set-up-e2e-tests"><a href="#Set-up-e2e-tests" class="headerlink" title="Set up e2e tests"></a>Set up e2e tests</h3><p>I create the test project using <code>npm init playwright@latest</code>. Also, I installed <a href="https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright" target="_blank" rel="noopener">playwright vscode extension</a>. These are the files created by playwrite.</p>
+<p><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-2.png" alt="Alt text"></p>
+<h3 id="Run-the-example-tests"><a href="#Run-the-example-tests" class="headerlink" title="Run the example tests"></a>Run the example tests</h3><p>Now, I’ll run the example test through the start button provided by the vscode extension.</p>
+<p><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-3.png" alt="Alt text"></p>
+<p>You can see the browsers opened and the test passed.</p>
+<p><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-4.png" alt="Alt text"></p>
+<p>You can also see the test results in many places.</p>
+<p><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-5.png" alt="Alt text"></p>
+<h3 id="A-brief-conclusion"><a href="#A-brief-conclusion" class="headerlink" title="A brief conclusion"></a>A brief conclusion</h3><ul>
+<li><p>As you can see, it’s extremely simple to run tests and see the running status(because the browser can be opened during the tests). </p>
+</li>
+<li><p>Also, in the example test, <strong>we only need 3 lines to verify that the target websites is available</strong> and not displaying a blank page to users. If we deploy the tests to the CI QA and end users will have much lower chances of meeting a blank page.</p>
+</li>
+</ul>
+<p>You can also see the generated test reports</p>
+<p><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-6.png" alt="Alt text"><br><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-7.png" alt="Alt text"></p>
+<h3 id="One-step-further"><a href="#One-step-further" class="headerlink" title="One step further"></a>One step further</h3><p>If <a href="https://playwright.dev/" target="_blank" rel="noopener">playwright homepage</a> is our own product, then we can summarize the core functions or test cases</p>
+<ol>
+<li>The homepage should be available</li>
+<li>click the <code>Docs</code> should go to the document page</li>
+<li>The document page should display the correct documents</li>
+</ol>
+<p>Actually, there’re many remaining functions in the homepage, but the core functions are not too many. Since it’s a document website, the core function is that it is available and provides correct content. </p>
+<p>If other functions are broken, it’s not that important. Even if found in the production environment, you may not be required to fix it urgently like in 1 hour.</p>
+<p><strong>That’s the truth in reality, not everything has the same importance.</strong></p>
+<p>If you do have enough time, of course, you can cover more cases. In that case, I guess you’re also required to write unit tests.</p>
+<p>Anyway, based on my time budget and assumption, I’ll demo how to cover the remaining test cases.</p>
+<p>Here’s all the code for the above cases, less than 30 lines(including empty lines).</p>
+<p><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-8.png" alt="Alt text"></p>
+<p>In real-world apps, to make element locating easier, we can add an attribute like <code>data-testid</code> in the testing element, then we can use something like </p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">await</span> page.getByTestId(<span class="string">'nav-docs'</span>).click();</span><br></pre></td></tr></table></figure>
+
+<p>instead of </p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">await</span> page.locator(<span class="string">'.navbar__link'</span>).getByText(<span class="string">'Docs'</span>).click();</span><br></pre></td></tr></table></figure>
+
+<p>to make writing e2e tests even easier.</p>
+<p>The only thing left now is to deploy the e2e test to your CI environment(Jenkins, Github Actions…). You can find the documents <a href="https://playwright.dev/docs/ci" target="_blank" rel="noopener">here</a>.</p>
+<h3 id="One-more-thing"><a href="#One-more-thing" class="headerlink" title="One more thing"></a>One more thing</h3><p>Writing e2e tests can also help you write automation scripts to <strong>solve life problems</strong>, not just good for development works. </p>
+<p>So, are you planning to write some e2e tests for your project now?</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2023/09/what-are-we-doing-when-we-are-changing-environment-variables/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -667,179 +860,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/" itemprop="url">Several Ways of Configuring Environment Variables in Web FrontEnd Project</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-08-13T16:20:40+00:00">
-                2023-08-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>It’s quite often that we need to define and use environment variables. May be in building process or runtime. There’re many solutions, I’ll show some of them.</p>
-<h2 id="Production-CI-build-phase"><a href="#Production-CI-build-phase" class="headerlink" title="Production &#x2F; CI build phase"></a>Production &#x2F; CI build phase</h2><p><strong>Basically, we don’t need to care about them, just follow the rules provided by the platform because the env variables are often set manually in the platform.</strong> For example, in the <a href="https://vercel.com/" target="_blank" rel="noopener">vercel</a></p>
-<p><img src="https://github.com/xianshenglu/blog/assets/23273077/8b142955-c0b2-439b-9e47-f1d374b5b153"></p>
-<p>So, they will not appear in our projects’ code. </p>
-<h2 id="Development-phase"><a href="#Development-phase" class="headerlink" title="Development phase"></a>Development phase</h2><p><strong>If the framework you’re currently using has provided such configurations, normally we don’t need to care also, just follow the rules provided by the platform.</strong></p>
-<p>If not, we can consider some available solutions in the market.</p>
-<h4 id="dotnet"><a href="#dotnet" class="headerlink" title="dotnet"></a><a href="https://github.com/motdotla/dotenv">dotnet</a></h4><p>Just put <code>.env</code> file in the root of your project:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">S3_BUCKET=<span class="string">"my bucket"</span></span><br><span class="line">SECRET_KEY=<span class="string">"my secret key"</span></span><br></pre></td></tr></table></figure>
-
-<p>Then as early as possible in your application, import and configure <code>dotenv</code>:</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'dotenv'</span>).config()</span><br><span class="line"><span class="built_in">console</span>.log(process.env) <span class="comment">// remove this after you've confirmed it is working</span></span><br></pre></td></tr></table></figure>
-
-<p>If you don’t want to add the <code>require</code> code to the source code, you can </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">node -r dotenv/config your_script.js</span><br></pre></td></tr></table></figure>
-
-<p>It works now.</p>
-<p>Also, for the reason of security or interruptions between team members’ different configurations, I recommend putting <code>.env</code> file in the <code>.gitignore</code>. </p>
-<p>For better instruction for the new developers, you can add another <code>.env.example</code> file not in the <code>.gitignore</code> with content like</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># You need to create a .env file in the root with the below env variables to run this project.</span></span><br><span class="line">S3_BUCKET=<span class="string">"your bucket"</span></span><br><span class="line">SECRET_KEY=<span class="string">"your secret key"</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="cross-env"><a href="#cross-env" class="headerlink" title="cross-env"></a><a href="https://github.com/kentcdodds/cross-env">cross-env</a></h4><p>In the past, we had another popular package <code>cross-env</code>. But now, it has been archived.</p>
-<p>I think it’s really straightforward for new users.</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"cross-env S3_BUCKET=\"my bucket\" npm run start"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Just with some issues:</p>
-<ul>
-<li>It’ll become unfriendly if I have many env variables.</li>
-<li>I need to remove the variables before committing if I don’t want to share them with others.</li>
-</ul>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>For me, I would prefer <code>dotenv</code> at this moment.</p>
-<p><a href="https://github.com/xianshenglu/blog/issues/148"><strong>Issue</strong></a></p>
-<p><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/.md"><strong>Source</strong></a></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -890,7 +910,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

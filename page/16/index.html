@@ -229,6 +229,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/about-smooth-scroll/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/06/about-smooth-scroll/" itemprop="url">About Smooth Scroll</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-09T17:47:41+00:00">
+                2018-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>Recently, I need to make a smooth scroll. Of course, I think of <code>setTimeout</code>. However, I was thinking if there is a better way or API. So, here is the result of my research.</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo" target="_blank" rel="noopener">scrollTo</a></li>
+</ul>
+<p>You can use it like:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.scrollTo(&#123;</span><br><span class="line">  top: <span class="number">1000</span>,</span><br><span class="line">  behavior: <span class="string">'smooth'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>It works in Chrome and Firefox. However, <code>IE</code> and <code>Edge</code> doesn’t support. Code above will run like</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.scrollTo(<span class="number">0</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>Similar API also exists like <code>scrollIntoView</code> or <code>scrollBy</code>. The compatibility is the key problem.</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame" target="_blank" rel="noopener">requestAnimationFrame</a></li>
+</ul>
+<p>I would suggest this API instead of <code>setTimeout</code>. However, the process of implementation is not so easy like an existing API. Well, a little more complicated than <code>setTimeout</code>. However, compared with <code>setTimeout</code>, <code>requestanimationframe</code> has higher performance. Want to know more? Check the reference and SO. Also, here is the demo:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> animationFrameId = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">smoothScoll</span>(<span class="params">targetScrollTop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> speed = <span class="number">0.1</span>;</span><br><span class="line">  <span class="keyword">let</span> startTime = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> timeLimit = <span class="number">2000</span>;</span><br><span class="line">  <span class="built_in">window</span>.cancelAnimationFrame(animationFrameId);</span><br><span class="line">  animationFrameId = <span class="built_in">window</span>.requestAnimationFrame(step);</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">step</span>(<span class="params">timestamp</span>) </span>&#123;</span><br><span class="line">    startTime = startTime || timestamp;</span><br><span class="line">    <span class="keyword">let</span> interval = timestamp - startTime;</span><br><span class="line">    <span class="keyword">let</span> distance = targetScrollTop - getWinScrollTop();</span><br><span class="line">    <span class="keyword">let</span> stepSize = speed * distance;</span><br><span class="line">    <span class="keyword">switch</span> (<span class="built_in">Math</span>.ceil(stepSize)) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        stepSize = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        stepSize = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (distance !== <span class="number">0</span> &amp;&amp; interval &lt; timeLimit) &#123;</span><br><span class="line">      <span class="built_in">window</span>.scrollTo(<span class="number">0</span>, getWinScrollTop() + stepSize);</span><br><span class="line">      animationFrameId = <span class="built_in">window</span>.requestAnimationFrame(step);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getWinScrollTop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.scrollY || <span class="built_in">window</span>.pageYOffset;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The latest version can be found in my github <a href="https://github.com/xianshenglu/smoothScroll">smoothScroll</a>.</p>
+<p>However, the compatibility is not good enough because of <code>IE&lt;10</code> and <code>Opera Mini</code>.</p>
+<ul>
+<li>Other solution</li>
+</ul>
+<p>Code for <code>setTimeout</code> is similar with <code>requestAnimationFrame</code> but I won’t talk about it. Except that, jQuery has provided an API like:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="string">"a[href='#top']"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  $(<span class="string">'html, body'</span>).animate(&#123; <span class="attr">scrollTop</span>: <span class="number">0</span> &#125;, <span class="string">'slow'</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><p>Anyway, use <code>requestAnimationFrame</code> if possible. And if not, use <code>setTimeout</code> as shim.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://stackoverflow.com/questions/38709923/why-is-requestanimationframe-better-than-setinterval-or-settimeout" target="_blank" rel="noopener">Why is requestAnimationFrame better than setInterval or setTimeout</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/use-text-align-last-except-when-i-have-only-one-line-of-text/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -539,167 +707,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/when-and-how-to-use-frame/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/06/when-and-how-to-use-frame/" itemprop="url">When and How to Use Frame?</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-08T15:14:02+00:00">
-                2018-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/frame/" itemprop="url" rel="index">
-                    <span itemprop="name">frame</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>There has been a long time that I don’t know whether should I use frame like <code>jQuery</code> or still stick to pure js. So, I decided to summarize some principles for future reference.</p>
-<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><h4 id="Before-using"><a href="#Before-using" class="headerlink" title="Before using"></a>Before using</h4><ol>
-<li>Figure out the problem that the frame solved?</li>
-<li>Figure out what kind of situation the frame would be useful, similar with above.</li>
-<li>Why would so many people use this not other similar frames?</li>
-<li>How many parts in the frame?</li>
-<li>What is the relationship between those parts?</li>
-</ol>
-<h4 id="When-should-use"><a href="#When-should-use" class="headerlink" title="When should use"></a>When should use</h4><ul>
-<li>Needed in work.</li>
-<li>Emancipate the productive forces based on the fact that you can solve this with ease by pure js.</li>
-</ul>
-<h4 id="When-shouldn’t-use"><a href="#When-shouldn’t-use" class="headerlink" title="When shouldn’t use"></a>When shouldn’t use</h4><ul>
-<li>Don’t need in work and you don’t know how to implement it with pure js and use it just for laze.</li>
-<li>Need it in work and just use it without understanding the principle.</li>
-</ul>
-<h2 id="Recommendation"><a href="#Recommendation" class="headerlink" title="Recommendation"></a>Recommendation</h2><ul>
-<li>You can implement it with pure js easily so that you want to use it to emancipate the productive forces.</li>
-<li>In need of other situation, you have to implement it immediately so you use it and figure out the principle as soon as possible in case of bugs.</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -750,7 +757,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

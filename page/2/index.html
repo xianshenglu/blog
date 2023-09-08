@@ -229,6 +229,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2023/08/several-ways-of-configuring-environment-variables-in-web-frontend-project/" itemprop="url">Several Ways of Configuring Environment Variables in Web FrontEnd Project</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-08-13T16:20:40+00:00">
+                2023-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>It’s quite often that we need to define and use environment variables. May be in building process or runtime. There’re many solutions, I’ll show some of them.</p>
+<h2 id="Production-CI-build-phase"><a href="#Production-CI-build-phase" class="headerlink" title="Production &#x2F; CI build phase"></a>Production &#x2F; CI build phase</h2><p><strong>Basically, we don’t need to care about them, just follow the rules provided by the platform because the env variables are often set manually in the platform.</strong> For example, in the <a href="https://vercel.com/" target="_blank" rel="noopener">vercel</a></p>
+<p><img src="https://github.com/xianshenglu/blog/assets/23273077/8b142955-c0b2-439b-9e47-f1d374b5b153"></p>
+<p>So, they will not appear in our projects’ code. </p>
+<h2 id="Development-phase"><a href="#Development-phase" class="headerlink" title="Development phase"></a>Development phase</h2><p><strong>If the framework you’re currently using has provided such configurations, normally we don’t need to care also, just follow the rules provided by the platform.</strong></p>
+<p>If not, we can consider some available solutions in the market.</p>
+<h4 id="dotnet"><a href="#dotnet" class="headerlink" title="dotnet"></a><a href="https://github.com/motdotla/dotenv">dotnet</a></h4><p>Just put <code>.env</code> file in the root of your project:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">S3_BUCKET=<span class="string">"my bucket"</span></span><br><span class="line">SECRET_KEY=<span class="string">"my secret key"</span></span><br></pre></td></tr></table></figure>
+
+<p>Then as early as possible in your application, import and configure <code>dotenv</code>:</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'dotenv'</span>).config()</span><br><span class="line"><span class="built_in">console</span>.log(process.env) <span class="comment">// remove this after you've confirmed it is working</span></span><br></pre></td></tr></table></figure>
+
+<p>If you don’t want to add the <code>require</code> code to the source code, you can </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">node -r dotenv/config your_script.js</span><br></pre></td></tr></table></figure>
+
+<p>It works now.</p>
+<p>Also, for the reason of security or interruptions between team members’ different configurations, I recommend putting <code>.env</code> file in the <code>.gitignore</code>. </p>
+<p>For better instruction for the new developers, you can add another <code>.env.example</code> file not in the <code>.gitignore</code> with content like</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># You need to create a .env file in the root with the below env variables to run this project.</span></span><br><span class="line">S3_BUCKET=<span class="string">"your bucket"</span></span><br><span class="line">SECRET_KEY=<span class="string">"your secret key"</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="cross-env"><a href="#cross-env" class="headerlink" title="cross-env"></a><a href="https://github.com/kentcdodds/cross-env">cross-env</a></h4><p>In the past, we had another popular package <code>cross-env</code>. But now, it has been archived.</p>
+<p>I think it’s really straightforward for new users.</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"cross-env S3_BUCKET=\"my bucket\" npm run start"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Just with some issues:</p>
+<ul>
+<li>It’ll become unfriendly if I have many env variables.</li>
+<li>I need to remove the variables before committing if I don’t want to share them with others.</li>
+</ul>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>For me, I would prefer <code>dotenv</code> at this moment.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/148"><strong>Issue</strong></a></p>
+<p><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/.md"><strong>Source</strong></a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2020/03/the-impact-of-styles-and-scripts-position-in-index.html/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -598,180 +771,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/08/associated-validation-in-vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2019/08/associated-validation-in-vue/" itemprop="url">Associated Validation in Vue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-27T14:20:53+00:00">
-                2019-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Scenario"><a href="#Scenario" class="headerlink" title="Scenario"></a>Scenario</h2><p>Let’s see this gif:</p>
-<p><img src="/blog/images/1566887167692.gif"></p>
-<p>And collapsed code:</p>
-<details>
-<summary>Click here to expand code</summary>
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//unpkg.com/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//unpkg.com/element-ui@2.11.0/lib/index.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-form</span> <span class="attr">:inline</span>=<span class="string">"true"</span> <span class="attr">ref</span>=<span class="string">"form"</span> <span class="attr">:rules</span>=<span class="string">"rules"</span> <span class="attr">:model</span>=<span class="string">"formData"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">"startTime:"</span> <span class="attr">prop</span>=<span class="string">"startTime"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">        <span class="attr">v-model</span>=<span class="string">"formData.startTime"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">type</span>=<span class="string">"datetime"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">placeholder</span>=<span class="string">"choose startTime"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">value-format</span>=<span class="string">"yyyy-MM-dd HH:mm:ss"</span></span></span><br><span class="line"><span class="tag">      &gt;</span><span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">"endTime:"</span> <span class="attr">prop</span>=<span class="string">"endTime"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">        <span class="attr">v-model</span>=<span class="string">"formData.endTime"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">type</span>=<span class="string">"datetime"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">placeholder</span>=<span class="string">"choose endTime"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">value-format</span>=<span class="string">"yyyy-MM-dd HH:mm:ss"</span></span></span><br><span class="line"><span class="tag">      &gt;</span><span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"primary"</span> @<span class="attr">click</span>=<span class="string">"onSubmit"</span>&gt;</span>submit<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@import</span> url(<span class="string">"//unpkg.com/element-ui@2.11.0/lib/theme-chalk/index.css"</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Main = &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      formData: &#123;</span><br><span class="line">        startTime: <span class="string">""</span>,</span><br><span class="line">        endTime: <span class="string">""</span></span><br><span class="line">      &#125;,</span><br><span class="line">      rules: &#123;</span><br><span class="line">        startTime: [&#123; <span class="attr">validator</span>: <span class="keyword">this</span>.startEndTimeValidator &#125;],</span><br><span class="line">        endTime: [&#123; <span class="attr">validator</span>: <span class="keyword">this</span>.startEndTimeValidator &#125;]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    <span class="comment">// "formData.startTime"() &#123;</span></span><br><span class="line">    <span class="comment">//   this.validateField("endTime");</span></span><br><span class="line">    <span class="comment">// &#125;,</span></span><br><span class="line">    <span class="comment">// "formData.endTime"() &#123;</span></span><br><span class="line">    <span class="comment">//   this.validateField("startTime");</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    startEndTimeValidator(rule, value, callback) &#123;</span><br><span class="line">      <span class="keyword">let</span> &#123;</span><br><span class="line">        formData: &#123; startTime, endTime &#125;</span><br><span class="line">      &#125; = <span class="keyword">this</span>;</span><br><span class="line">      startTime = moment(startTime, <span class="string">"YYYY-MM-DD HH:mm:ss"</span>);</span><br><span class="line">      endTime = moment(endTime, <span class="string">"YYYY-MM-DD HH:mm:ss"</span>);</span><br><span class="line">      <span class="keyword">if</span> (startTime &gt; endTime) &#123;</span><br><span class="line">        <span class="keyword">return</span> callback(</span><br><span class="line">          <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`start time shouldn't be larger than end time！`</span>)</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">      callback();</span><br><span class="line">    &#125;,</span><br><span class="line">    validateField(...args) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.$refs.form === <span class="string">"undefined"</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.$refs.form.validateField(...args);</span><br><span class="line">    &#125;,</span><br><span class="line">    onSubmit() &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"submit!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> Ctor = Vue.extend(Main);</span><br><span class="line"><span class="keyword">new</span> Ctor().$mount(<span class="string">"#app"</span>);</span><br></pre></td></tr></table></figure>
-
-</details>
-
-<br>
-
-<p>When user selected a smaller <code>endTime</code>, we show the message:</p>
-<blockquote>
-<p>start time shouldn’t be larger than end time！</p>
-</blockquote>
-<p>If user changes the <code>endTime</code> with a larger one everything is okay. However, user could also choose a smaller <code>startTime</code> to avoid this message.</p>
-<p>But the behavior of changing <code>startTime</code> wouldn’t trigger the <code>endTime</code> validation. So, user would still see the error message though he did the right thing.</p>
-<p>That’s what we are going to talk about:</p>
-<blockquote>
-<p>Associated Validation.</p>
-</blockquote>
-<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><p>At the very beginning, I have tried adding similar logic in the validator. However, it fails because of dead loop.</p>
-<p>To avoid dead loop, I add this</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Main = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  watch: &#123;</span><br><span class="line">    <span class="string">"formData.startTime"</span>() &#123;</span><br><span class="line">      <span class="keyword">this</span>.validateField(<span class="string">"endTime"</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"formData.endTime"</span>() &#123;</span><br><span class="line">      <span class="keyword">this</span>.validateField(<span class="string">"startTime"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>Em, not so good but works.</p>
-<p><strong><a href="https://github.com/xianshenglu/blog/issues/99">Issue</a></strong></p>
-<p><strong><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/associated-validation-in-vue.md">Source</a></strong></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -822,7 +821,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
