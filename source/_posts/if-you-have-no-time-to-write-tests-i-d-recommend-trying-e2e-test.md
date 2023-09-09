@@ -12,11 +12,11 @@ In real-world apps, unit tests take lots of time so many teams give it up. Since
 
 Actually, investing time in e2e(end-to-end) tests can be a cost-effective choice, especially for web apps. The least time can help you solve the biggest problem. For example,
 
-- I want to avoid displaying blank page in my website after new release(Fatal bugs but only need the least time to avoid).
-- I want to reduce the high/critical bugs in the testing phase or production environment(Important for the DEV/QA team's performance but only need a little time)
-- I want to keep the core functions available in any case(Depends on how many core functions you want to cover you may need some time)
+- I want to avoid displaying blank page in my website after the new release(Fatal bugs but only need the least time to avoid).
+- I want to reduce the high/critical bugs in the testing phase or production environment(Important for the DEV/QA team's performance but only needs a little time to avoid)
+- I want to keep the core functions available in any case(Depending on how many core functions you want to cover you may need some time)
 
-Now, I'll demo how to spend the least time to write an end-to-end test to solve above problems.
+Now, I'll demo how to spend the least time to write an end-to-end test to solve the above problems.
 
 ### Choose an e2e test frameworks
 
@@ -26,7 +26,7 @@ There're many e2e test frameworks. I'll compare them in another article, you can
 
 _[source](https://npmtrends.com/cypress-vs-playwright-vs-selenium-webdriver-vs-webdriverio)_
 
-Because [playwright]() is very convenient to demo, I'll choose this one in this article. 
+Because [playwright](https://medium.com/r/?url=https%3A%2F%2Fplaywright.dev%2F) is very convenient to demo, I'll choose this one in this article. 
 
 ### Set up e2e tests
 
@@ -75,9 +75,7 @@ If other functions are broken, it's not that important. Even if found in the pro
 
 **If you do have enough time, of course, you can cover more cases. In that case, I guess you're also required to write unit tests.**
 
-Anyway, based on my time budget and assumption, I'll demo how to cover the remaining test cases.
-
-Here's all the code for the above cases, less than 30 lines(including empty lines).
+Anyway, based on my time budget and assumption, I'll show you the code for the remaining test cases, less than 30 lines(including empty lines).
 
 ![Alt text](../images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-8.png)
 
@@ -95,11 +93,12 @@ await page.locator('.navbar__link').getByText('Docs').click();
 
 to make writing e2e tests even easier.
 
-The only thing left now is to deploy the e2e test to your CI environment(Jenkins, Github Actions...). You can find the documents [here](https://playwright.dev/docs/ci).
-
 ### Last words
 
-If we deploy the e2e tests to our CI, according to this case **only 30 lines code can ensure that each push ad merge will not break the core functions**. The risk of breaking the core functions by code will be much lower.
+
+The only thing left now is to deploy the e2e test to your CI environment(Jenkins, Github Actions...). You can find the documents [here](https://playwright.dev/docs/ci).
+
+If we deploy the e2e tests to our CI, according to this case **only 30 lines of code can ensure that each push ad merge will not break the core functions**. The risk of breaking the core functions by code will be much lower.
 
 Writing e2e tests can also help you write automation scripts to **solve life problems**, not just good for development works. 
 
