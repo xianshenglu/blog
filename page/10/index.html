@@ -229,6 +229,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/override-3rd-party-style/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/override-3rd-party-style/" itemprop="url">Override 3rd Party Style</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T16:26:56+00:00">
+                2018-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>It is very common to see 3rd party libs in our projects, especially some UI frames. Meanwhile, here comes the problems.</p>
+<p>How can we override partial 3rd party style and avoid our style being overridden by 3rd party.</p>
+<p>Well, that’s two question.</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><h3 id="Override-Partial-3rd-Party-Style"><a href="#Override-Partial-3rd-Party-Style" class="headerlink" title="Override Partial 3rd Party Style"></a>Override Partial 3rd Party Style</h3><ul>
+<li><em>lib-override.css</em></li>
+</ul>
+<p>I think the first thing is to prepare a single file like <em>lib-override.css</em> to do this job whatever choice we make.</p>
+<ul>
+<li>override ways</li>
+</ul>
+<p>It’s obvious that <code>!important</code> or <code>#id</code> can help us do this job. However, I wouldn’t suggest you to do that. I would choose to use class selector with namespace to solve this kind of problem. For example,</p>
+<p>3rd party code is:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.el-button--primary</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Then you can write:</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="selector-class">.el-button--primary</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Code above also works to avoid our style being overridden by 3rd party. In some cases, if one class is not enough you may have to add more class as namespace.</p>
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/understand-sync-in-vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -527,178 +686,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/10/vue-form-input-bindings-fail/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/10/vue-form-input-bindings-fail/" itemprop="url">Vue Form Input Bindings Fail?</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T20:36:32+00:00">
-                2018-10-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>When I was using form validate in Vue, I found sometimes vue doesn’t render data which was modified by me. I even thought it was a bug. Anyway, let’s take a look.</p>
-<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>Here is a simple demo:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.app</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">"positive-num"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:value.trim</span>=<span class="string">"positiveNum"</span></span></span><br><span class="line"><span class="tag">      @<span class="attr">input</span>=<span class="string">"oldValidate"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:placeholder</span>=<span class="string">"positiveNumTip"</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;positiveNumResTip&#125;&#125;&#123;&#123;positiveNum&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">"#app"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">"please enter a positive num"</span>,</span><br><span class="line">    positiveNum: <span class="string">""</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">"validated and modified result: "</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value;</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span>;</span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value);</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>When I was pressing <em>dddddddddd</em>, what did I got?</p>
-<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181004204524.png" alt="截图20181004204524.png"></p>
-<p>The first letter was replaced to 1 but the others not. And the most important is the result I got is always 1 which means <code>this.positiveNum</code> is 1 while the value in the <code>input</code> is not 1.</p>
-<p>Why?</p>
-<p>I even thought it was a bug until one day I met a similar problem which was solved in SO.</p>
-<p>The key is the Lifecycle. The guide mentions it before but I didn’t understand it until now. Let’s see the picture again:</p>
-<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20181004205221.png" alt="截图20181004205221.png"></p>
-<p>See?</p>
-<p>The first time we change <code>positiveNum</code> to 1 and then we always change <code>positiveNum</code> to 1. So, vue wouldn’t re-render because the data doesn’t change. So, the connection between <code>input</code> and <code>positiveNum</code> was cut off until <code>positiveNum</code> isn’t equal to 1.</p>
-<p>We can add <code>updated</code> to see how many times data has changed:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">"#app"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">"please enter a positive num"</span>,</span><br><span class="line">    positiveNum: <span class="string">""</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">"validated and modified result: "</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value;</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span>;</span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value);</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  updated() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"data updated"</span>); <span class="comment">//only triggered once</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>As explained before, you can only see <code>&#39;data updated&#39;</code> once.</p>
-<p>So, how can we solved this problem?</p>
-<p>The key is still the Lifecycle. Vue wouldn’t re-render because data doesn’t change. So, we can update data after data has been changed and rendered. Understood? See code below:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">"positive-num"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:value.trim</span>=<span class="string">"positiveNum"</span></span></span><br><span class="line"><span class="tag">      @<span class="attr">input</span>=<span class="string">"newValidate"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:placeholder</span>=<span class="string">"positiveNumTip"</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;positiveNumResTip&#125;&#125;&#123;&#123;positiveNum&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">"#app"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    positiveNumTip: <span class="string">"please enter a positive num"</span>,</span><br><span class="line">    positiveNum: <span class="string">""</span>,</span><br><span class="line">    positiveNumResTip: <span class="string">"validated and modified result: "</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    oldValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value;</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span>;</span><br><span class="line">      <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(value);</span><br><span class="line">      <span class="keyword">if</span> (!value.match(reg)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = newVal;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.positiveNum = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.positiveNum = value;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    newValidate(event) &#123;</span><br><span class="line">      <span class="keyword">let</span> value = event.target.value;</span><br><span class="line">      <span class="keyword">let</span> reg = <span class="regexp">/^[\d]+[.]?[\d]*$/</span>;</span><br><span class="line">      <span class="keyword">this</span>.positiveNum = value;</span><br><span class="line">      <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.positiveNum.match(reg)) &#123;</span><br><span class="line">          <span class="keyword">let</span> newVal = <span class="built_in">Number</span>.parseFloat(<span class="keyword">this</span>.positiveNum);</span><br><span class="line">          <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(newVal) || newVal &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.positiveNum = newVal;</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.positiveNum = <span class="string">""</span>; <span class="comment">//for better use I changed the wrong value to ''</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  updated() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"data updated"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>See? I move the origin logic to the <code>this.$nextTick(callback)</code>. Every time you press the wrong button, it will pass the wrong value to <code>positiveNum</code> and will be corrected in <code>this.$nextTick(callback)</code> which will make the logic run correctly. Also, you can see the updated log at the console.</p>
-<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a href="https://stackoverflow.com/questions/49920790/change-child-component-checked-state-from-parent-component-synchronously-fail" target="_blank" rel="noopener">change child-component checked state from parent-component synchronously fail</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -749,7 +736,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

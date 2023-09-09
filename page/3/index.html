@@ -229,6 +229,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/09/arraybuffer-text-blob-transformation-in-ajax/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2019/09/arraybuffer-text-blob-transformation-in-ajax/" itemprop="url">arrayBuffer, text, and Blob Transformation in Ajax</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-04T10:43:12+00:00">
+                2019-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>In some cases, we might need to fetch and handle some unusual data from a server, for example, Excel file, arrayBuffer, etc. If the backend has a united error handler things can be more complicated. In that case, the response got from backend can be a json, arrayBuffer or other types. For example,</p>
+<ul>
+<li>Normally the frontend would get a Excel file</li>
+<li>If some error happens in the backend or formData is not valid or the session expired, the backend would return a json like</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  message: <span class="string">"unknown error!"</span>,</span><br><span class="line">  status: <span class="number">500</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>So, how can we handle the unknown response type in ajax?</p>
+<h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a><code>fetch</code></h3><p>If we are using <code>fetch</code>, the code can be like</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; saveAs &#125; <span class="keyword">from</span> <span class="string">"file-saver"</span>;</span><br><span class="line"></span><br><span class="line">fetch(<span class="string">"http://www.your-api.com/getExcel"</span>, &#123;</span><br><span class="line">  credentials: <span class="string">"include"</span>,</span><br><span class="line">  headers: &#123;</span><br><span class="line">    accept: <span class="string">"application/json, text/plain, */*"</span>,</span><br><span class="line">    <span class="string">"content-type"</span>: <span class="string">"application/json;charset=UTF-8"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  referrer: <span class="string">""</span>,</span><br><span class="line">  referrerPolicy: <span class="string">"no-referrer-when-downgrade"</span>,</span><br><span class="line">  body: <span class="string">"&#123;&#125;"</span>,</span><br><span class="line">  method: <span class="string">"POST"</span>,</span><br><span class="line">  mode: <span class="string">"cors"</span></span><br><span class="line">&#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line">      .clone()</span><br><span class="line">      .json()</span><br><span class="line">      .catch(<span class="function"><span class="params">er</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> response.blob();</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (&#123;&#125;.toString.call(response) !== <span class="string">"[object Blob]"</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> alert(response.message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> saveAs(</span><br><span class="line">      <span class="keyword">new</span> Blob([response], &#123;</span><br><span class="line">        type:</span><br><span class="line">          <span class="string">"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"</span></span><br><span class="line">      &#125;),</span><br><span class="line">      <span class="string">"file.xls"</span></span><br><span class="line">    );</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>The key is the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response" target="_blank" rel="noopener">Response</a> api which can help us transform unknown data to json or blob or other types. However, you might need to take care of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response/clone" target="_blank" rel="noopener"><code>clone</code></a> api if you want to use the <code>Response</code> more than once.</p>
+<h3 id="XMLHttpRequest"><a href="#XMLHttpRequest" class="headerlink" title="XMLHttpRequest"></a><code>XMLHttpRequest</code></h3><p>If you are using <code>xhr</code>(i.e. <code>XMLHttpRequest</code>), you have to set the response type before sending the request. For example,</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">"POST"</span>, <span class="string">"http://www.your-api.com/getExcel"</span>);</span><br><span class="line">xhr.responseType = <span class="string">"blob"</span>;</span><br><span class="line">xhr.withCredentials = <span class="literal">true</span>;</span><br><span class="line">xhr.setRequestHeader(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>);</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(xhr.response);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.send(<span class="string">'&#123;"truck_team_id":[]&#125;'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>And the type of <code>xhr.response</code> is decided by <code>xhr.responseType</code> which means we will get a blob object with <code>xhr.responseType = &quot;blob&quot;</code> even if the server returns json. In this case, we might need to know some ways to transform data between blob, text, arrayBuffer, etc.</p>
+<p>Luckily, the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob#Methods" target="_blank" rel="noopener">Blob</a> api gives us many choices. The transformation between arrayBuffer, blob and text can be</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// arrayBuffer =&gt; text;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Blob([arrayBuffer]).text(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">//text</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// text =&gt; arrayBuffer;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Blob([text]).arrayBuffer(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">// arrayBuffer</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>And if not using <code>Blob</code>, we can still use <code>TextDecoder</code> and <code>TextEncoder</code> to do the transformation job between arrayBuffer and text.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// arrayBuffer to text</span></span><br><span class="line"><span class="keyword">new</span> TextDecoder().decode(arrayBuffer);</span><br><span class="line"><span class="comment">//  text to arrayBuffer</span></span><br><span class="line"><span class="keyword">new</span> TextEncoder().encode(text);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Universality"><a href="#Universality" class="headerlink" title="Universality"></a>Universality</h3><p>Considering the universality, the transformation between arrayBuffer, blob and text can be useful in many scenarios. Worthy of attention!</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/101"><strong>Issue</strong></a></p>
+<p><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/arraybuffer-text-blob-transformation-in-ajax.md"><strong>Source</strong></a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/08/associated-validation-in-vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -549,180 +717,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/08/traps-in-reduce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2019/08/traps-in-reduce/" itemprop="url">Traps in reduce</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-27T10:14:26+00:00">
-                2019-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Optional-initialValue"><a href="#Optional-initialValue" class="headerlink" title="Optional initialValue?"></a>Optional <code>initialValue</code>?</h3><p>Sometimes, we can see code using <code>reduce</code> without <code>initialValue</code>. For example,</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">array.reduce(<span class="function">(<span class="params">re, v</span>) =&gt;</span> re + v);</span><br></pre></td></tr></table></figure>
-
-<p>According to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce#Parameters" target="_blank" rel="noopener">mdn</a>, it is valid and seems simpler. However, is it a good practice?</p>
-<h3 id="Cons-Brought-by-No-initialValue"><a href="#Cons-Brought-by-No-initialValue" class="headerlink" title="Cons Brought by No initialValue"></a>Cons Brought by No <code>initialValue</code></h3><p>In the real world, <code>array</code> could be <code>[]</code>. In this case,</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [];</span><br><span class="line">array.reduce(<span class="function">(<span class="params">re, v</span>) =&gt;</span> re + v);</span><br></pre></td></tr></table></figure>
-
-<p>You will got error in production!</p>
-<blockquote>
-<p>Uncaught TypeError: Reduce of empty array with no initial value</p>
-</blockquote>
-<p>Also, imagine that if you have met this code in your work ? What the hell does this <code>reduce</code> do?</p>
-<ul>
-<li>Join the <code>string</code></li>
-<li>Or cumulative summation</li>
-<li>Or other situations?</li>
-</ul>
-<p>You would never know until you have read the context.</p>
-<p>As you can see, these are the most obvious cons brought by no <code>initialValue</code>.</p>
-<ul>
-<li>Potential Error</li>
-<li>Unclear semantics</li>
-</ul>
-<h3 id="Benefits-Brought-with-initialValue"><a href="#Benefits-Brought-with-initialValue" class="headerlink" title="Benefits Brought with initialValue"></a>Benefits Brought with <code>initialValue</code></h3><p>Instead, if using <code>reduce</code> with <code>initialValue</code>. For example, in the above case, we can write like this</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [];</span><br><span class="line">array.reduce(<span class="function">(<span class="params">re, v</span>) =&gt;</span> re + v, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>We would never meet the error!</li>
-<li>It is obvious that <code>reduce</code> is using to do the cumulative summation job.</li>
-</ul>
-<p><strong>Safer</strong> and <strong>Clearer!</strong></p>
-<p><strong><a href="https://github.com/xianshenglu/blog/issues/97">Issue</a></strong></p>
-<p><strong><a href="https://github.com/xianshenglu/blog/blob/master/source/_posts/traps-in-reduce.md">Source</a></strong></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -773,7 +767,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

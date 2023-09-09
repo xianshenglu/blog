@@ -229,6 +229,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/a-trap-when-using-letter-spacing-to-remove-the-extra-space-in-chrome66.0.3359.139/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/06/a-trap-when-using-letter-spacing-to-remove-the-extra-space-in-chrome66.0.3359.139/" itemprop="url">A Trap When Using letter-spacing to Remove the Extra Space in chrome66.0.3359.139</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-18T15:47:27+00:00">
+                2018-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>As we all know there would be extra space between inline-blocks when using inline-block layout. There are lots of solutions like <code>font-size:0</code>,<code>word-spacing</code>,<code>margin-left</code>,<code>letter-spacing</code> and so on.</p>
+<h2 id="Choice-I-Made"><a href="#Choice-I-Made" class="headerlink" title="Choice I Made"></a>Choice I Made</h2><p>Normally I prefer using <code>letter-spacing</code> because</p>
+<ol>
+<li>it seems ok when we assign a value which is bigger than the width of extra space(e.g. <code>-1em</code>).</li>
+<li>However, it won’t be okay with <code>word-spacing</code> and <code>margin-left</code> when we set bigger value like <code>-1em</code>.</li>
+<li>Using <code>font-size</code> is not convenient when we try to using <code>em</code> as <code>font-size</code> unit.</li>
+</ol>
+<p>So, <code>letter-spacing</code> seems to be the best choice.</p>
+<p>Well, I agree with that though I found a bug in chrome66.0.3359.139 today.</p>
+<h2 id="Bug-I-Found"><a href="#Bug-I-Found" class="headerlink" title="Bug I Found"></a>Bug I Found</h2><p>Please run the code below:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nav__text"</span>&gt;</span>nav3<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  <span class="attribute">color</span>: inherit;</span><br><span class="line">  <span class="attribute">cursor</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">260px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: -<span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav__text</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">90px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>If you are using Chrome(test version 66.0.3359.139) or Opera(test version 53.0.2907.99), what you see might be:</p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180618184625.png"></p>
+<p>If you are using Firefox(60.0.2),IE10 or Edge, what you see might be:</p>
+<p><img src="/blog/images/%E6%88%AA%E5%9B%BE20180618184736.png"></p>
+<p>That’s interesting. So, I checked the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a> and found this:</p>
+<blockquote>
+<length>
+Specifies extra inter-character space in addition to the default space between characters. Values may be negative, but there may be implementation-specific limits. **User agents may not further increase or decrease the inter-character space in order to justify text.**
+</length></blockquote>
+<p>It seems that this is the reason.</p>
+<p>So, I tested and try to find the best value for <code>letter-spacing</code> and <strong>it turns out that <code>0.3em</code> or <code>0.31em</code> is the best value.</strong></p>
+<h2 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h2><p>Anyway, <code>letter-spacing</code> is still the best solution though we have to be more careful.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank" rel="noopener">mdn-letter-spacing</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/layout-on-mobile/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -782,7 +950,7 @@
 <ol start="2">
 <li>Replace example.png with 4*4 and keep the original <code>img</code> with 2*2 css pixels, same explanation as above.</li>
 </ol>
-<p>In this case, we might do this by changing the <code>src</code> attribute in the <code>img</code>. For example, update the <code>src</code> search param <code>?v=2*2</code> with <code>?v=4*4</code> or change from example.png to <a href="mailto:&#101;&#120;&#97;&#109;&#x70;&#x6c;&#101;&#64;&#x32;&#x78;&#46;&#112;&#110;&#x67;" target="_blank" rel="noopener">&#101;&#120;&#97;&#109;&#x70;&#x6c;&#101;&#64;&#x32;&#x78;&#46;&#112;&#110;&#x67;</a>. <a href="https://github.com/strues/retinajs">retinajs</a> will help you do this job.</p>
+<p>In this case, we might do this by changing the <code>src</code> attribute in the <code>img</code>. For example, update the <code>src</code> search param <code>?v=2*2</code> with <code>?v=4*4</code> or change from example.png to <a href="mailto:&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#x40;&#50;&#x78;&#46;&#112;&#110;&#x67;" target="_blank" rel="noopener">&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#x40;&#50;&#x78;&#46;&#112;&#110;&#x67;</a>. <a href="https://github.com/strues/retinajs">retinajs</a> will help you do this job.</p>
 <ol start="3">
 <li><p>Use icon-font instead of raster image.</p>
 </li>
@@ -822,156 +990,6 @@
 <p><a href="https://www.w3cplus.com/mobile/lib-flexible-for-html5-layout.html" target="_blank" rel="noopener">使用 flexible 实现手淘 h5 页面的终端适配</a></p>
 <p><a href="https://www.w3cplus.com/mobile/vw-layout-in-vue.html" target="_blank" rel="noopener">如何在 vue 项目中使用 vw 实现移动端适配</a></p>
 <p><a href="https://www.w3cplus.com/css/vw-for-layout.html" target="_blank" rel="noopener">再聊移动端页面的适配</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2018/06/label-can-t-be-focused-in-firefox-with-element.focus()/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/06/label-can-t-be-focused-in-firefox-with-element.focus()/" itemprop="url">Label Can't Be Focused In Firefox With Element.focus()</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-10T11:13:18+00:00">
-                2018-06-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/html/" itemprop="url" rel="index">
-                    <span itemprop="name">html</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>As the title says, let’s see the demo below:</p>
-<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">id</span>=<span class="string">"cont"</span> <span class="attr">contentEditable</span>&gt;</span></span><br><span class="line">   label should be focused</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"focus"</span>&gt;</span>make label focus<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#cont</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="string">'#focus'</span>)[<span class="number">0</span>].onclick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  $(<span class="string">'#cont'</span>)[<span class="number">0</span>].focus()</span><br><span class="line">&#125;</span><br><span class="line">$(<span class="string">'#cont'</span>)[<span class="number">0</span>].onfocus = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event.type)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(selector))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Suppose that you are using chrome, after loaded please press <code>F12</code> and open the console and then click the button. <code>label#cont</code> should be focused after clicking the button.So, there will be word <code>focus</code> at the console.</p>
-<p>However, firefox wouldn’t do that until you click the label. Anyway, I have posted a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1468049" target="_blank" rel="noopener">bug</a>. Let’s see what will happen.</p>
 
           
         
@@ -1057,7 +1075,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

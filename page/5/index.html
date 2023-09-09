@@ -229,6 +229,232 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/03/web-performance-optimization-summary-in-2019-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xianshenglu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey , you !">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2019/03/web-performance-optimization-summary-in-2019-3/" itemprop="url">Web Performance Optimization Summary in 2019.3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-25T21:02:15+00:00">
+                2019-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/web-performance-optimization/" itemprop="url" rel="index">
+                    <span itemprop="name">Web Performance Optimization</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Where-to-Learn-Web-Performance-Optimization-WPO"><a href="#Where-to-Learn-Web-Performance-Optimization-WPO" class="headerlink" title="Where to Learn Web Performance Optimization(WPO)"></a>Where to Learn Web Performance Optimization(WPO)</h2><p>About one month ago, I started to learn and summarize the knowledge about web performance optimization. However, beyond my expectations, there is too many things need to know. After thinking, I chose <a href="https://developers.google.com/web/fundamentals/performance/why-performance-matters/" target="_blank" rel="noopener">developers.google.com</a> to start to learn. And other resources are listed <a href="https://github.com/xianshenglu/blog/issues/70"><strong>here</strong></a> with this article.</p>
+<p>The reasons that I chose <a href="https://developers.google.com/web/fundamentals/performance/why-performance-matters/" target="_blank" rel="noopener">developers.google.com</a> can be listed below:</p>
+<ul>
+<li>Articles will update when some methods or workarounds is outdated. This is extremely important for me to check it out when I need to update my knowledge about WPO. Also, it lets me know that I am learning something which can be tested and applied right now. For me, a blog is not better than a real-time updated document.</li>
+<li>All the knowledge about WPO was listed systematically which is easy to understand, remember and use.</li>
+</ul>
+<h2 id="Summary-About-WPO"><a href="#Summary-About-WPO" class="headerlink" title="Summary About WPO"></a>Summary About WPO</h2><p>There are too many things for me to remember or test according to the doc. So, I am trying to summarize and abstract to make it simple to deduce and remember. Well, let’s start with the questions.</p>
+<h3 id="What-Is-the-Target-of-WPO"><a href="#What-Is-the-Target-of-WPO" class="headerlink" title="What Is the Target of WPO"></a>What Is the Target of WPO</h3><p>To make the page load as quickly as possible, also in a progressive way if possible.</p>
+<h3 id="How-Can-We-Do-That"><a href="#How-Can-We-Do-That" class="headerlink" title="How Can We Do That"></a>How Can We Do That</h3><p>Generally, we can analyze from the following aspects.</p>
+<!-- #### Loading Performance -->
+
+<ul>
+<li><p>Use as much <strong>cache</strong> as possible.</p>
+<ul>
+<li>For a better control of cache in the front end, we may need to learn something about <code>PWA</code> or <code>Service Worker</code>.</li>
+<li>Or we might need some knowledge about offline storage like <code>Indexed DB</code>, <code>Web SQL</code>, <code>localStorage</code> and so on.</li>
+</ul>
+</li>
+<li><p>For those content that we can’t use the cache, we need to take other measures.</p>
+<ul>
+<li><p>Send <strong>as little content as possible</strong> which</p>
+<ul>
+<li><p>needs <code>code compression</code>, <code>GZIP</code>, <code>code split</code>, <code>tree shake</code>, <code>image compression</code> and remove or replace the bigger resources with smaller ones if possible.</p>
+</li>
+<li><p>refactor component, export, import and file structure with <code>code split</code> or routes.</p>
+<!-- //todo test -->
+  <!-- Don't put data based on routes or splitter in one file which would let final bundles in _app.js_. --></li>
+</ul>
+</li>
+<li><p>Send the content <strong>as closely as possible</strong> which</p>
+<ul>
+<li>needs the help of <code>CDN</code>.</li>
+</ul>
+</li>
+<li><p>Send the content <strong>simultaneously as many as possible</strong> which</p>
+<ul>
+<li>needs the help of <code>http/2.0</code> to breakthrough the 6 parallel TCP connections limit in http&#x2F;1.1 and request the resources simultaneously instead of one by one.</li>
+</ul>
+</li>
+<li><p>Load the resource <strong>in a more efficient way</strong> which</p>
+<ul>
+<li><p>needs to put <code>script</code> at the bottom of <code>body</code></p>
+</li>
+<li><p>use the <code>async</code> or <code>defer</code> according to the situation</p>
+</li>
+<li><p>use <code>prefetch</code>, <code>preconnect</code> or <code>dns-prefetch</code> according to the situation</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- #### Rendering Performance -->
+
+<ul>
+<li><p><strong>Render the page in a more efficient way</strong> which requires more efficient practice in our daily code. For examples,</p>
+<ul>
+<li><p>Use <code>requestAnimationFrame</code> to change the UI instead of <code>setTimeout</code> or <code>setInterval</code>.</p>
+</li>
+<li><p>Implement lazy load with <code>Intersection Observer</code> instead of calculating the position of each target element by <code>getBoundingClientRect</code>.</p>
+</li>
+<li><p>Stick to compositor-only properties like <code>transform</code> and <code>opacity</code> to avoid re-layout and re-paint.</p>
+</li>
+<li><p>Reduce the complexity of selectors.</p>
+</li>
+<li><p>….</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="How-Can-We-Prove-That-Our-Optimization-Is-Work"><a href="#How-Can-We-Prove-That-Our-Optimization-Is-Work" class="headerlink" title="How Can We Prove That Our Optimization Is Work"></a>How Can We Prove That Our Optimization Is Work</h3><p>We need some tools like below to collect the result each time we did an optimization.</p>
+<ul>
+<li><a href="https://developers.google.com/web/tools/lighthouse/" target="_blank" rel="noopener">Lighthouse</a></li>
+<li><a href="https://www.webpagetest.org/easy" target="_blank" rel="noopener">WebPageTest</a></li>
+<li><a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">PageSpeed Insights</a></li>
+<li>……</li>
+</ul>
+<h3 id="Strictly"><a href="#Strictly" class="headerlink" title="Strictly"></a>Strictly</h3><p>Strictly speaking, if we want to do WPO seriously for a long time, we still need to do something like:</p>
+<ul>
+<li>Set a performance budget</li>
+<li>Use <code>performance</code> or google analysis tool to get the performance data in the real scene.</li>
+<li>…</li>
+</ul>
+<h2 id="Last-Words"><a href="#Last-Words" class="headerlink" title="Last Words"></a>Last Words</h2><p>Here is just a summary about WPO. More accurate information is in <a href="https://developers.google.com/web/fundamentals/performance/why-performance-matters/" target="_blank" rel="noopener">developers.google.com</a>.</p>
+<p><a href="https://github.com/xianshenglu/blog/issues/70"><strong>Source</strong></a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/02/notes-for-developing-web-page/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -589,188 +815,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xianshenglu/blog/blog/2019/01/wheelevent-compatibility-and-delta-handler/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xianshenglu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hey , you !">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2019/01/wheelevent-compatibility-and-delta-handler/" itemprop="url">WheelEvent Compatibility and Delta Handler</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-27T19:47:39+00:00">
-                2019-01-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>I have seen many times people talking about the compatibility problems of wheelEvent, something about <code>wheel</code>, <code>DOMMouseScroll</code>, <code>mousewheel</code> etc. But now, it seems we don’t need to care about those compatibility problems anymore.</p>
-<p>As <a href="https://developer.mozilla.org/en-US/docs/Web/Events/wheel#Browser_compatibility" target="_blank" rel="noopener">mdn</a> shows, <strong>IE9 support <code>wheel</code> event in <code>addEventListener</code> and <code>DOMMouseScroll</code> is only needed for Firefox 17-</strong>. And for other major browsers, they all support <code>wheel</code> event.</p>
-<p>But, there are other problems still need to take care.</p>
-<h3 id="delta"><a href="#delta" class="headerlink" title="delta"></a><code>delta</code></h3><p><code>event.delta</code> returns different numbers in the major browsers. For instance, if you run the code below at your console in some page,</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'wheel'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event.deltaY)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>then moving your mouse wheel, you will see the <code>deltaY</code> numbers.</p>
-<table>
-<thead>
-<tr>
-<th>browsers&#x2F;win7</th>
-<th>deltaY</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Chrome 70</td>
-<td>100</td>
-</tr>
-<tr>
-<td>Firefox 64</td>
-<td>3</td>
-</tr>
-<tr>
-<td>IE 11</td>
-<td>88.19</td>
-</tr>
-</tbody></table>
-<p>Well, you can find a solution to unify the <code>deltaY</code>. But I think the easier way is to give up unifying and only do the accumulation job. For example, try the code below:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> wheelSize = <span class="number">0</span></span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'wheel'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  wheelSize += event.deltaY &gt; <span class="number">0</span> ? <span class="number">0.025</span> : <span class="number">-0.025</span></span><br><span class="line">  <span class="built_in">console</span>.log(wheelSize, event.deltaY)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>In this way, we will get the unified <code>wheelSize</code>.</p>
-<h3 id="More-Situations-Need-to-Watch-Out"><a href="#More-Situations-Need-to-Watch-Out" class="headerlink" title="More Situations Need to Watch Out"></a>More Situations Need to Watch Out</h3><p>When used in projects, there are more things we need to watch out. For example,</p>
-<ul>
-<li>We might have <code>wheelSize</code> limit.</li>
-<li>We might want to prevent calculating <code>wheelSize</code> when the page has been scrolled to the top or the bottom.</li>
-<li>…</li>
-</ul>
-<p>And the code would become more complicated. For instance,</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> targetNode = <span class="built_in">document</span>.body</span><br><span class="line"><span class="keyword">let</span> curWheelSize = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> minWheelSize = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> maxWheelSize = <span class="number">10</span></span><br><span class="line"><span class="keyword">let</span> minScrollTop = <span class="number">0</span></span><br><span class="line"><span class="keyword">let</span> maxScrollTop =</span><br><span class="line">  targetNode.parentNode.scrollHeight - targetNode.parentNode.offsetHeight</span><br><span class="line">targetNode.addEventListener(<span class="string">'wheel'</span>, wheelCb)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wheelCb</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> isDeltaYPositive = event.deltaY &gt; <span class="number">0</span></span><br><span class="line">  <span class="keyword">let</span> scrollTop = targetNode.parentNode.scrollTop</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    (scrollTop &lt;= minScrollTop &amp;&amp; !isDeltaYPositive) ||</span><br><span class="line">    (scrollTop &gt;= maxScrollTop &amp;&amp; isDeltaYPositive)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> stepSize = isDeltaYPositive ? <span class="number">0.025</span> : <span class="number">-0.025</span></span><br><span class="line">  <span class="keyword">let</span> targetWheelSize = curWheelSize + stepSize</span><br><span class="line">  targetWheelSize = <span class="built_in">Math</span>.max(targetWheelSize, minWheelSize)</span><br><span class="line">  targetWheelSize = <span class="built_in">Math</span>.min(targetWheelSize, maxWheelSize)</span><br><span class="line">  curWheelSize = targetWheelSize</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><a href="https://github.com/xianshenglu/blog/issues/58"><strong>Original Post</strong></a></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -821,7 +865,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
