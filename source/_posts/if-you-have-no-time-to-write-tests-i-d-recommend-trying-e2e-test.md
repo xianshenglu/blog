@@ -12,11 +12,11 @@ In real-world apps, unit tests take lots of time so many teams give it up. Since
 
 Actually, investing time in e2e(end-to-end) tests can be a cost-effective choice, especially for web apps. The least time can help you solve the biggest problem. For example,
 
-- I want to avoid the blank page appearing in my website(Fatal bugs but only need the least time to avoid).
-- I want to reduce the high/critical bugs in the testing phase or production environment(Important for the DEV/QA team but only need a little time)
-- I want to keep the core functions available in any case(Depends on how many core functions you want to cover)
+- I want to avoid displaying blank page in my website after new release(Fatal bugs but only need the least time to avoid).
+- I want to reduce the high/critical bugs in the testing phase or production environment(Important for the DEV/QA team's performance but only need a little time)
+- I want to keep the core functions available in any case(Depends on how many core functions you want to cover you may need some time)
 
-Now, I'll show the demo.
+Now, I'll demo how to spend the least time to write an end-to-end test to solve above problems.
 
 ### Choose an e2e test frameworks
 
@@ -54,18 +54,18 @@ You can also see the test results in many places.
 
 - Also, in the example test, **we only need 3 lines to verify that the target websites is available** and not displaying a blank page to users. If we deploy the tests to the CI QA and end users will have much lower chances of meeting a blank page.
 
-You can also see the generated test reports
+You can also see the generated test reports. Please notice, we haven't configured anything until now.
 
 ![Alt text](../images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-6.png)
 ![Alt text](../images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-7.png)
 
 ### One step further
 
-If [playwright homepage](https://playwright.dev/) is our own product, then we can summarize the core functions or test cases
+If [playwright homepage](https://playwright.dev/) is our own product, then we can summarize the core functions or smoke use cases
 
-1. The homepage should be available
+1. The homepage should be available, not displaying a blank page.
 2. click the `Docs` should go to the document page
-3. The document page should display the correct documents
+3. The document page should display the correct document.
 
 Actually, there're many remaining functions in the homepage, but the core functions are not too many. Since it's a document website, the core function is that it is available and provides correct content. 
 
@@ -73,7 +73,7 @@ If other functions are broken, it's not that important. Even if found in the pro
 
 **That's the truth in reality, not everything has the same importance.**
 
-If you do have enough time, of course, you can cover more cases. In that case, I guess you're also required to write unit tests.
+**If you do have enough time, of course, you can cover more cases. In that case, I guess you're also required to write unit tests.**
 
 Anyway, based on my time budget and assumption, I'll demo how to cover the remaining test cases.
 
@@ -97,8 +97,10 @@ to make writing e2e tests even easier.
 
 The only thing left now is to deploy the e2e test to your CI environment(Jenkins, Github Actions...). You can find the documents [here](https://playwright.dev/docs/ci).
 
-### One more thing
+### Last words
+
+If we deploy the e2e tests to our CI, according to this case **only 30 lines code can ensure that each push ad merge will not break the core functions**. The risk of breaking the core functions by code will be much lower.
 
 Writing e2e tests can also help you write automation scripts to **solve life problems**, not just good for development works. 
 
-So, are you planning to write some e2e tests for your project now?
+So, do you want to write some e2e tests now?
