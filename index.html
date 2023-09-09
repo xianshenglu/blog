@@ -326,11 +326,11 @@
 <p>In real-world apps, unit tests take lots of time so many teams give it up. Since they have given up the foundation of the test suit(unit test), they will also give up other tests. emmm……</p>
 <p>Actually, investing time in e2e(end-to-end) tests can be a cost-effective choice, especially for web apps. The least time can help you solve the biggest problem. For example,</p>
 <ul>
-<li>I want to avoid the blank page appearing in my website(Fatal bugs but only need the least time to avoid).</li>
-<li>I want to reduce the high&#x2F;critical bugs in the testing phase or production environment(Important for the DEV&#x2F;QA team but only need a little time)</li>
-<li>I want to keep the core functions available in any case(Depends on how many core functions you want to cover)</li>
+<li>I want to avoid displaying blank page in my website after new release(Fatal bugs but only need the least time to avoid).</li>
+<li>I want to reduce the high&#x2F;critical bugs in the testing phase or production environment(Important for the DEV&#x2F;QA team’s performance but only need a little time)</li>
+<li>I want to keep the core functions available in any case(Depends on how many core functions you want to cover you may need some time)</li>
 </ul>
-<p>Now, I’ll show the demo.</p>
+<p>Now, I’ll demo how to spend the least time to write an end-to-end test to solve above problems.</p>
 <h3 id="Choose-an-e2e-test-frameworks"><a href="#Choose-an-e2e-test-frameworks" class="headerlink" title="Choose an e2e test frameworks"></a>Choose an e2e test frameworks</h3><p>There’re many e2e test frameworks. I’ll compare them in another article, you can see a short comparison  via this graph. </p>
 <p><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-1.png" alt="Alt text"></p>
 <p><em><a href="https://npmtrends.com/cypress-vs-playwright-vs-selenium-webdriver-vs-webdriverio" target="_blank" rel="noopener">source</a></em></p>
@@ -349,18 +349,18 @@
 <li><p>Also, in the example test, <strong>we only need 3 lines to verify that the target websites is available</strong> and not displaying a blank page to users. If we deploy the tests to the CI QA and end users will have much lower chances of meeting a blank page.</p>
 </li>
 </ul>
-<p>You can also see the generated test reports</p>
+<p>You can also see the generated test reports. Please notice, we haven’t configured anything until now.</p>
 <p><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-6.png" alt="Alt text"><br><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-7.png" alt="Alt text"></p>
-<h3 id="One-step-further"><a href="#One-step-further" class="headerlink" title="One step further"></a>One step further</h3><p>If <a href="https://playwright.dev/" target="_blank" rel="noopener">playwright homepage</a> is our own product, then we can summarize the core functions or test cases</p>
+<h3 id="One-step-further"><a href="#One-step-further" class="headerlink" title="One step further"></a>One step further</h3><p>If <a href="https://playwright.dev/" target="_blank" rel="noopener">playwright homepage</a> is our own product, then we can summarize the core functions or smoke use cases</p>
 <ol>
-<li>The homepage should be available</li>
+<li>The homepage should be available, not displaying a blank page.</li>
 <li>click the <code>Docs</code> should go to the document page</li>
-<li>The document page should display the correct documents</li>
+<li>The document page should display the correct document.</li>
 </ol>
 <p>Actually, there’re many remaining functions in the homepage, but the core functions are not too many. Since it’s a document website, the core function is that it is available and provides correct content. </p>
 <p>If other functions are broken, it’s not that important. Even if found in the production environment, you may not be required to fix it urgently like in 1 hour.</p>
 <p><strong>That’s the truth in reality, not everything has the same importance.</strong></p>
-<p>If you do have enough time, of course, you can cover more cases. In that case, I guess you’re also required to write unit tests.</p>
+<p><strong>If you do have enough time, of course, you can cover more cases. In that case, I guess you’re also required to write unit tests.</strong></p>
 <p>Anyway, based on my time budget and assumption, I’ll demo how to cover the remaining test cases.</p>
 <p>Here’s all the code for the above cases, less than 30 lines(including empty lines).</p>
 <p><img src="/blog/images/if-you-have-no-time-to-write-tests-i-d-recommend-trying-e2e-test-image-8.png" alt="Alt text"></p>
@@ -372,8 +372,9 @@
 
 <p>to make writing e2e tests even easier.</p>
 <p>The only thing left now is to deploy the e2e test to your CI environment(Jenkins, Github Actions…). You can find the documents <a href="https://playwright.dev/docs/ci" target="_blank" rel="noopener">here</a>.</p>
-<h3 id="One-more-thing"><a href="#One-more-thing" class="headerlink" title="One more thing"></a>One more thing</h3><p>Writing e2e tests can also help you write automation scripts to <strong>solve life problems</strong>, not just good for development works. </p>
-<p>So, are you planning to write some e2e tests for your project now?</p>
+<h3 id="Last-words"><a href="#Last-words" class="headerlink" title="Last words"></a>Last words</h3><p>If we deploy the e2e tests to our CI, according to this case <strong>only 30 lines code can ensure that each push ad merge will not break the core functions</strong>. The risk of breaking the core functions by code will be much lower.</p>
+<p>Writing e2e tests can also help you write automation scripts to <strong>solve life problems</strong>, not just good for development works. </p>
+<p>So, do you want to write some e2e tests now?</p>
 
           
         
