@@ -35,9 +35,9 @@ According to the [chromium](https://opensource.google/projects/chromium) documen
 
 > Chromium is the web browser that Google Chrome is built on.
 
-Normally you can reproduce the issues you met using the corresponding chromium version. 
+Normally we can reproduce the issues you met using the corresponding chromium version if we can't find the Chrome version. 
 
-Chromium provides a way to download old builds. You can follow the steps listed in the [document](https://www.chromium.org/getting-involved/download-chromium/#downloading-old-builds-of-chrome-chromium).
+Chromium provides a way to download old builds. You can follow the steps listed in the [document](https://www.chromium.org/getting-involved/download-chromium/#downloading-old-builds-of-chrome-chromium). To be honest, it's kind of troublesome.
 
 Another way is using [chromium-history-page](https://mrseawave.github.io/chromium-history-page/). **It's not an official page, but it'll redirect you to the official builds download page.**
 
